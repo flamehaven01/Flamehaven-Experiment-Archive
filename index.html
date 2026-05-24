@@ -859,49 +859,99 @@ body {
 
 /* ── PORTAL INTRO ───────────────────────────────────────────────────────── */
 .portal-intro {
-  background: var(--glass-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  padding: 32px;
+  background: transparent;
+  border: none;
+  padding: 0;
   margin-top: 8px;
-  margin-bottom: 32px;
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
+  margin-bottom: 40px;
 }
 .portal-intro-header {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  text-align: left;
 }
 .portal-intro-eyebrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .08em;
-  color: var(--t4); margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--t1); margin-bottom: 6px;
 }
 .portal-intro-title {
-  font-size: 20px; font-weight: 700; color: var(--tp);
-  letter-spacing: -.02em;
+  font-size: 22px; font-weight: 700; color: var(--tp);
+  letter-spacing: -.025em;
 }
 .portal-intro-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 .portal-intro-card {
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  transition: all .25s cubic-bezier(.25, .8, .25, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.portal-intro-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-h), transparent);
+  opacity: 0; transition: opacity .25s;
+}
+.portal-intro-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-h);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+.portal-intro-card:hover::before {
+  opacity: 1;
 }
 .portal-intro-card-title {
-  font-size: 13px; font-weight: 600; color: var(--tp);
-  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--tp);
+  display: flex; align-items: center; gap: 10px;
 }
 .portal-intro-card-icon {
-  width: 16px; height: 16px; color: var(--t3); flex-shrink: 0;
+  width: 18px; height: 18px; color: var(--t1); flex-shrink: 0;
 }
 .portal-intro-card-desc {
-  font-size: 12px; color: var(--t3); line-height: 1.6;
+  font-size: 12px; color: var(--ts); line-height: 1.6;
+  opacity: 0.85; margin-bottom: 8px;
 }
-.portal-intro-card-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--t5); margin-top: auto;
+.portal-intro-card-status {
+  margin-top: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+  width: fit-content;
+}
+.portal-intro-card-status.upcoming {
+  background: rgba(113, 113, 122, 0.08);
+  border: 1px solid rgba(113, 113, 122, 0.15);
+  color: var(--t4);
+}
+.portal-intro-card-status.active {
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: var(--t3c);
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.portal-intro-card-status.upcoming .status-dot {
+  background: var(--t4);
+}
+.portal-intro-card-status.active .status-dot {
+  background: var(--t3c);
+  box-shadow: 0 0 8px var(--t3c);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.5; }
 }
 
 /* ── PROJECT DASHBOARDS ─────────────────────────────────────────────────── */
@@ -1255,45 +1305,57 @@ body {
       <h2 class="portal-intro-title">Portal Overview &amp; Verification Engines</h2>
     </div>
     <div class="portal-intro-grid">
-      <div class="portal-intro-card">
+      <!-- Card 1: TOE -->
+      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'toe\']').click()">
         <div class="portal-intro-card-title">
-          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="8" cy="8" r="6"/>
             <path d="M8 5v6M5 8h6" stroke-linecap="round"/>
           </svg>
           TOE Physics Verification
         </div>
         <p class="portal-intro-card-desc">
-          Autonomous physics verification engine designed to validate mathematical models and algebraic geometry hypotheses. Powered by a CPU-first NumPy reference verifying simulations against the rigorous 3-3-4 VVR matrix (3 PASS, 3 FAIL, 4 Adversarial edge cases) and audited via the SPAR adversarial pipeline.
+          Physics simulation verification engine for theoretical research. Evaluates algebraic geometry models against the 3-3-4 VVR matrix and SPAR adversarial pipeline.
         </p>
-        <div class="portal-intro-card-meta">Status: 53 Runs (Upcoming)</div>
+        <div class="portal-intro-card-status upcoming">
+          <span class="status-dot"></span>
+          <span>53 Runs (Upcoming)</span>
+        </div>
       </div>
       
-      <div class="portal-intro-card">
+      <!-- Card 2: STEM-BIO-AI -->
+      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click()">
         <div class="portal-intro-card-title">
-          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <rect x="2" y="2" width="12" height="12" rx="1.5"/>
             <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
           </svg>
           STEM-BIO-AI Scanner
         </div>
         <p class="portal-intro-card-desc">
-          Local, deterministic static scanner that maps bioscience and medical AI repository surfaces to structured evidence-readiness tiers (T0 Quarantine to T3 Clear). Operates strictly without LLMs, network connectivity, or runtime hazards to audit clinical disclaimers, bias disclosures, and dependency risks.
+          Deterministic static scanner auditing bioscience and medical AI repository surfaces. Evaluates clinical boundaries and dependency risks without runtime hazards.
         </p>
-        <div class="portal-intro-card-meta">Status: 2 Reports Active (Authoritative)</div>
+        <div class="portal-intro-card-status active">
+          <span class="status-dot"></span>
+          <span>2 Reports Active (Authoritative)</span>
+        </div>
       </div>
 
-      <div class="portal-intro-card">
+      <!-- Card 3: REXSYN -->
+      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click()">
         <div class="portal-intro-card-title">
-          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M8 1.5L2 4.5v4.25c0 3.75 6 5.75 6 5.75s6-2 6-5.75V4.5l-6-3z" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           REXSYN Structure Validator
         </div>
         <p class="portal-intro-card-desc">
-          Sovereign biological validator that monitors fine-tuned biomedical models. Combines advanced multi-model 3D structure predictions (Trinity Core: AF3, AF2, Boltz-2, Chai-1) and LOGOS reasoning modules to evaluate alignment and output resonance integrity.
+          Sovereign biological validator monitoring biomedical models. Employs Trinity Core multi-model 3D structure consensus and LOGOS reasoning checks.
         </p>
-        <div class="portal-intro-card-meta">Status: 5 Runs (Upcoming)</div>
+        <div class="portal-intro-card-status upcoming">
+          <span class="status-dot"></span>
+          <span>5 Runs (Upcoming)</span>
+        </div>
       </div>
     </div>
   </div>
