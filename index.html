@@ -954,6 +954,33 @@ body {
   100% { transform: scale(0.95); opacity: 0.5; }
 }
 
+/* ── ARCHIVE MISSION CARD ─────────────────────────────────────────────────── */
+.archive-mission-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  margin-bottom: 28px;
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  animation: cardFadeIn .3s ease both;
+}
+.mission-header {
+  font-size: 15px; font-weight: 700; color: var(--tp);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.mission-icon {
+  width: 18px; height: 18px; color: var(--t1); flex-shrink: 0;
+}
+.mission-text {
+  font-size: 12.5px; color: var(--ts); line-height: 1.7;
+  opacity: 0.9; margin-bottom: 12px;
+}
+.mission-text:last-child {
+  margin-bottom: 0;
+}
+
 /* ── PROJECT DASHBOARDS ─────────────────────────────────────────────────── */
 .project-dashboard {
   display: none;
@@ -1297,6 +1324,22 @@ body {
       </div>
     </div>
   </div><!-- /hero -->
+
+  <!-- ARCHIVE DESCRIPTION & TRUST MISSION -->
+  <div class="archive-mission-card">
+    <div class="mission-header">
+      <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      What is the Flamehaven Experiment Archive?
+    </div>
+    <p class="mission-text">
+      The <strong>Flamehaven Experiment Archive</strong> is a transparent, decentralized public ledger of all capability evaluations, mathematical physics verification runs, and sovereign biological intelligence safety audits executed by Flamehaven Labs. 
+    </p>
+    <p class="mission-text">
+      Every log and audit report published here is fully local, deterministic, and verifiable—established strictly without runtime hazards, network dependencies, or external LLM layers to guarantee absolute auditing integrity and reproducibility.
+    </p>
+  </div>
 
   <!-- PORTAL INTRO -->
   <div class="portal-intro">
@@ -2112,11 +2155,22 @@ function applyFilters() {
   if (dbRexsyn) dbRexsyn.classList.toggle('active', activeColl === 'rexsyn');
 
   const showMain = (activeColl !== 'toe' && activeColl !== 'rexsyn');
-  if (portalIntro) portalIntro.style.display = showMain ? '' : 'none';
+  if (portalIntro) portalIntro.style.display = (activeColl === 'all') ? '' : 'none';
   if (collStem) collStem.style.display = (activeColl === 'all' || activeColl === 'stem-bio-ai') ? '' : 'none';
   if (sectionExtras) sectionExtras.style.display = (activeColl === 'all' || activeColl === 'extra') ? '' : 'none';
   if (toolbar) toolbar.style.display = showMain ? '' : 'none';
   if (resMeta) resMeta.style.display = showMain ? '' : 'none';
+
+  // Toggle mission card (only on Home/All view)
+  const missionCard = document.querySelector('.archive-mission-card');
+  if (missionCard) missionCard.style.display = (activeColl === 'all') ? '' : 'none';
+
+  // Toggle stats row and score guide (only on Home/All and STEM-BIO-AI views)
+  const statsRow = document.querySelector('.stats-row');
+  const scoreGuide = document.querySelector('.score-guide');
+  const showStatsAndGuide = (activeColl === 'all' || activeColl === 'stem-bio-ai');
+  if (statsRow) statsRow.style.display = showStatsAndGuide ? '' : 'none';
+  if (scoreGuide) scoreGuide.style.display = showStatsAndGuide ? '' : 'none';
 
   // Highlight corresponding coll pill
   document.querySelectorAll('.coll-pill').forEach(p => {
