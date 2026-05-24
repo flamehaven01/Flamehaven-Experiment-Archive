@@ -240,6 +240,104 @@ section{margin-bottom:34px;scroll-margin-top:72px}
 .filter-chip.active{background:#0D1F3C;color:#fff;border-color:#0D1F3C}
 .filter-chip:hover:not(.active){background:#F8FAFC}
 .footer{font-size:11px;color:#5A6B80;text-align:center;padding:24px 0;border-top:1px solid rgba(13,31,60,.08);margin-top:40px}
+
+/* 2-Column Layout for Reports */
+.report-layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  padding: 34px 24px 54px;
+}
+.report-sidebar {
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.report-sidebar::-webkit-scrollbar { display: none; }
+.report-content {
+  min-width: 0;
+}
+
+/* Book TOC Sidebar Styles */
+.toc-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin-bottom: 16px;
+  padding-left: 10px;
+}
+.toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .2s ease;
+}
+.toc-item:hover {
+  background: rgba(13,31,60,.04);
+  color: var(--navy);
+}
+.toc-item.active {
+  background: var(--navy);
+  color: #fff;
+}
+.toc-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 800;
+  border: 1.5px solid #E4EBF5;
+  background: #fff;
+  color: var(--muted);
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.toc-item.active .toc-number {
+  border-color: #fff;
+  background: #fff;
+  color: var(--navy);
+}
+.toc-item:hover .toc-number {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.toc-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media(max-width:1024px){
+  .report-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 24px 16px 42px;
+  }
+  .report-sidebar {
+    display: none;
+  }
+}
 @media(max-width:1000px){
   .metric-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .stage-deck{grid-template-columns:1fr}
@@ -263,9 +361,163 @@ section{margin-bottom:34px;scroll-margin-top:72px}
 </style>
 </head>
 <body>
+<!-- ── FLAMEHAVEN BRAND BAR ──────────────────────────────────────── -->
+<style>
+.fh-brand-bar {
+  background: #000;
+  border-bottom: 1px solid #27272a;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 44px; font-family: 'Segoe UI', sans-serif;
+  position: relative; z-index: 70;
+}
+.fh-back-link {
+  display: flex; align-items: center; gap: 7px;
+  color: #a1a1aa; font-size: 12px; text-decoration: none;
+  transition: color .15s;
+}
+.fh-back-link:hover { color: #fff; }
+.fh-back-link svg { width: 13px; height: 13px; }
+.fh-brand-center {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 7px;
+  color: #71717a; font-size: 11px; font-weight: 500;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.fh-brand-dot { width: 4px; height: 4px; border-radius: 50%; background: #3f3f46; }
+.fh-dl-row {
+  display: flex; align-items: center; gap: 5px;
+}
+.fh-dl-link {
+  font-family: 'Consolas', monospace; font-size: 10px; font-weight: 600;
+  padding: 4px 9px; border-radius: 5px;
+  border: 1px solid #27272a; background: #09090b;
+  color: #a1a1aa; text-decoration: none;
+  transition: border-color .12s, color .12s;
+  display: flex; align-items: center; gap: 4px;
+}
+.fh-dl-link:hover { border-color: #3f3f46; color: #fff; }
+.fh-dl-link.fh-primary {
+  background: #fff; color: #000; border-color: #fff;
+}
+.fh-dl-link.fh-primary:hover { background: #d4d4d8; border-color: #d4d4d8; }
+/* scroll bar */
+#fh-scroll-bar {
+  position: fixed; top: 44px; left: 0; z-index: 200;
+  height: 2px; width: 0%; background: linear-gradient(90deg,#fff 0%,#a1a1aa 100%);
+  transition: width .1s linear;
+  pointer-events: none;
+}
+/* toast */
+#fh-toast {
+  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+  background: #18181b; border: 1px solid #3f3f46;
+  color: #fff; font-family:'Consolas',monospace; font-size:12px;
+  padding: 9px 15px; border-radius: 7px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.5);
+  opacity:0; transform:translateY(6px); transition: opacity .18s, transform .18s;
+  pointer-events:none;
+}
+#fh-toast.on { opacity:1; transform:translateY(0); }
+@media(max-width:640px) {
+  .fh-brand-center { display: none; }
+  .fh-dl-link span { display: none; }
+}
+</style>
+<div class="fh-brand-bar">
+  <a href="../../../index.html" class="fh-back-link">
+    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 2L3 6.5 8 11" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Archive</span>
+  </a>
+  <div class="fh-brand-center" style="display:flex;align-items:center;gap:6px;">
+    <img src="../../../logo.png" alt="Flamehaven Labs Logo" style="height:18px;width:auto;display:block;">
+    <span>Flamehaven</span><span class="fh-brand-dot"></span><span>Experiment Archive</span>
+  </div>
+  <div class="fh-dl-row">
+    <a class="fh-dl-link fh-primary" href="report.html">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="8" height="8" rx="1"/><path d="M3 5h4" stroke-linecap="round"/></svg>
+      <span>HTML</span>
+    </a>
+    <a class="fh-dl-link" href="report.md" download>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>MD</span>
+    </a>
+    <a class="fh-dl-link" href="report.json" download>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>JSON</span>
+    </a>
+    <a class="fh-dl-link" href="report.pdf" download>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>PDF</span>
+    </a>
+    <button class="fh-dl-link" onclick="fhCopy()" style="cursor:pointer;background:none;border:1px solid #27272a;">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/></svg>
+      <span>Copy</span>
+    </button>
+  </div>
+</div>
+<div id="fh-scroll-bar"></div>
+<div id="fh-toast">Link copied ✓</div>
+<script>
+// scroll progress
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
+  document.getElementById('fh-scroll-bar').style.width = pct + '%';
+});
+function fhCopy() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    const t = document.getElementById('fh-toast');
+    t.classList.add('on');
+    setTimeout(() => t.classList.remove('on'), 2000);
+  });
+}
+<\/script>
 <nav class="nav" aria-label="Report sections"><div class="nav-links"><a href="#s1" class="nav-link">1. Summary</a><a href="#s2" class="nav-link">2. Decision Path</a><a href="#s3" class="nav-link">3. Code Integrity</a><a href="#s4" class="nav-link">4. AIRI Coverage</a><a href="#s5" class="nav-link">5. Evidence</a></div><div class="nav-brand"><strong>STEM-BIO-AI</strong><span>STEM BIO-AI Local CLI Scan &nbsp;|&nbsp; 1.7.8</span></div></nav>
 <header class="hero"><div class="hero-left"><div class="hero-gauge-card"><svg width="160" height="108" viewBox="0 0 160 108" aria-label="Score gauge: 48/100"><path d="M 16,80 A 64,64 0 0,1 144,80" fill="none" stroke="#E4EBF5" stroke-width="14" stroke-linecap="round"/><path d="M 16,80 A 64,64 0 0,1 75.98,16.13" fill="none" stroke="#D65D6D" stroke-width="14" stroke-linecap="round"/><text x="80" y="90" text-anchor="middle" font-size="32" font-weight="700" fill="#D65D6D">48</text><text x="80" y="108" text-anchor="middle" font-size="11" fill="#5A6B80">/ 100</text></svg></div></div><div class="hero-right"><div class="eyebrow">STEM BIO-AI Local Audit &nbsp;|&nbsp; 2026-05-18</div><h1><a href="https://github.com/yorkeccak/bio" class="hero-link" target="_blank" rel="noopener noreferrer">yorkeccak/bio</a></h1><div class="hero-meta"><span class="tier">T1 Quarantine</span><span class="hero-chip">Deterministic local scan</span><span class="hero-chip">No LLM / no network / no runtime execution</span></div><p class="lede">Exploratory review only; no patient-adjacent use.</p></div></header>
-<div class="content">
+<!-- ── REPORT LAYOUT ────────────────────────────────────────────────── -->
+<div class="report-layout">
+
+  <!-- ── BOOK TOC SIDEBAR ───────────────────────────────────────────── -->
+  <aside class="report-sidebar">
+    <div class="toc-title">On This Page</div>
+    <ol class="toc-list">
+      <li>
+        <a href="#s1" class="toc-item active" id="toc-link-s1">
+          <span class="toc-number">1</span>
+          <span class="toc-text">Executive Summary</span>
+        </a>
+      </li>
+      <li>
+        <a href="#s2" class="toc-item" id="toc-link-s2">
+          <span class="toc-number">2</span>
+          <span class="toc-text">Decision Path</span>
+        </a>
+      </li>
+      <li>
+        <a href="#s3" class="toc-item" id="toc-link-s3">
+          <span class="toc-number">3</span>
+          <span class="toc-text">Code Integrity</span>
+        </a>
+      </li>
+      <li>
+        <a href="#s4" class="toc-item" id="toc-link-s4">
+          <span class="toc-number">4</span>
+          <span class="toc-text">AIRI Coverage</span>
+        </a>
+      </li>
+      <li>
+        <a href="#s5" class="toc-item" id="toc-link-s5">
+          <span class="toc-number">5</span>
+          <span class="toc-text">Evidence Detail</span>
+        </a>
+      </li>
+    </ol>
+  </aside>
+
+  <!-- ── MAIN REPORT CONTENT ────────────────────────────────────────── -->
+  <div class="report-content">
 <section id="s1"><h2 class="s-title">Executive Summary</h2><div class="metric-grid"><div class="metric-card"><div class="metric-value" style="color:#9B2335">48</div><div class="metric-label">Final Score</div></div><div class="metric-card"><div class="metric-value" style="color:#1A6FA8">75</div><div class="metric-label">S1 Intent</div></div><div class="metric-card"><div class="metric-value" style="color:#5B3D8A">40</div><div class="metric-label">S2 Repo</div></div><div class="metric-card"><div class="metric-value" style="color:#2D4A6E">25</div><div class="metric-label">S3 Code/Bio</div></div><div class="metric-card"><div class="metric-value" style="color:#1A7A47">30</div><div class="metric-label">S4 Replication</div></div></div><div class="memo-grid"><article class="memo-card memo-primary"><div class="eyebrow">TL;DR</div><h3>Decision memo</h3><p class="memo-text">This repository lands at <strong>T1 Quarantine</strong> with a final score of <strong>48/100</strong>. The result is driven more by boundary, workflow-support, and governance weaknesses than by classic code-pattern failures.</p><div class="pill-row"><span class="pill">Policy: default</span><span class="pill">Status: authoritative_release</span><span class="pill">Mode: mirror_only</span></div></article><article class="memo-card"><div class="eyebrow">Primary Risks</div><h3>What pushed the review down</h3><ul class="memo-list"><li>Clinical-adjacent surfaces exist without an explicit non-diagnostic/non-clinical boundary.</li><li>Self-asserted compliance or privacy-governance claim requires independent verification.</li><li>Legal, privacy, or compliance claim appears without supporting governance or security-grounding evidence in reviewed repository sources.</li><li>Core workflow appears materially dependent on named external service providers; local or self-host claims may overstate operational independence.</li><li>C2_dependency_pinning: WARN</li></ul></article><article class="memo-card"><div class="eyebrow">Positive Evidence</div><h3>What still supports reviewability</h3><ul class="memo-list"><li>Package metadata was available for repo-local consistency checks.</li></ul></article><article class="memo-card"><div class="eyebrow">Freshness</div><h3>When to re-check</h3><p class="memo-text">Review after <strong>45</strong> days. Expires on <strong>2026-07-02</strong>.</p><p class="memo-note">Change-triggered re-audit now: False</p></article></div><div class="memo-grid" style="margin-top:18px"><article class="memo-card"><div class="eyebrow">Stage 2R Focus</div><h3>Repo-local contradictions</h3><ul class="focus-list"><li class="focus-line"><div class="focus-top"><span class="focus-key">R2R_D2_missing_clinical_use_boundary</span><span class="focus-score">-20</span></div><div class="focus-detail"><span class="focus-detector">R2R_D2_missing_clinical_use_boundary</span>clinical_adjacent=True and explicit non-clinical boundary was not detected</div></li><li class="focus-line"><div class="focus-top"><span class="focus-key">R2R_D4_unsupported_workflow_claim</span><span class="focus-score">-15</span></div><div class="focus-detail"><span class="focus-detector">R2R_D4_unsupported_workflow_claim</span>workflow/demo/CLI claims detected while workflow, tests, or local support entrypoints are absent</div></li><li class="focus-line"><div class="focus-top"><span class="focus-key">R2R_1_readme_package_code_alignment</span><span class="focus-score">+15</span></div><div class="focus-detail"><span class="focus-detector">R2R_1_readme_package_code_alignment</span>shared bio-domain terms detected across README and package metadata</div></li></ul></article><article class="memo-card"><div class="eyebrow">Stage 3 Focus</div><h3>Accountability surfaces</h3><ul class="focus-list"><li class="focus-line"><div class="focus-top"><span class="focus-key">B1_data_provenance_controls</span><span class="focus-score">+15</span></div><div class="focus-detail"><span class="focus-detector">S3_B1_dependency_manifest</span>dependency or lock manifest presence plus data-source, dataset, or IRB language review</div></li><li class="focus-line"><div class="focus-top"><span class="focus-key">B3_coi_funding</span><span class="focus-score">+5</span></div><div class="focus-detail"><span class="focus-detector">S3_B3_coi_funding</span>COI/funding/sponsor language review across README, docs, FUNDING, CITATION, and AUTHORS surfaces</div></li></ul></article><article class="memo-card"><div class="eyebrow">Policy Boundary</div><h3>How to read this artifact</h3><p class="memo-text">Mirror-only policy surface: selected profile metadata is shown in this report, but authoritative scan scoring still follows deterministic runtime constants. Preview-only posture changes, including Stage 4 replication emphasis, do not change the formal score until a future read-through phase.</p></article></div></section>
 <section id="s2"><h2 class="s-title">Decision Path <span class="tip-icon" data-tooltip="This section explains where the score came from, with rubric-level movement and detector-linked rationale where available." tabindex="0">?</span></h2><div class="panel decision-panel"><div class="formula-banner">Final = 0.4 × S1 + 0.2 × S2R + 0.4 × S3 − C1_penalty &nbsp;|&nbsp; Stage 4 remains a separate replication lane.</div><div class="config-pattern"><div class="config-copy"><div class="eyebrow">Configured, Not Rewritten</div><h3 class="subhead">Changing review posture does not require touching the score core</h3><p class="memo-text">Use <code>stem policy simulate</code> with a governed profile file when you want to preview a different review posture. The authoritative score path stays deterministic; the profile is surfaced as metadata and preview-only interpretation.</p><p class="memo-note">If you only need the default posture, you do not need a profile file at all.</p></div><div class="config-grid"><article class="config-card"><div class="config-label">profile.json</div><pre class="config-code">{
   "profile_name": "strict_clinical_adjacency",
@@ -356,6 +608,9 @@ function updateNav() {
   });
   document.querySelectorAll('.nav-link').forEach(function(l) {
     l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+  });
+  document.querySelectorAll('.toc-item').forEach(function(ti) {
+    ti.classList.toggle('active', ti.getAttribute('href') === '#' + cur);
   });
 }
 

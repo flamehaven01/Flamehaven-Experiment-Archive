@@ -1,0 +1,61 @@
+STEM BIO-AI Explain Report
+Target  : Runchuan-BU/BioClaw
+Policy  : default [ca-policy-1.0; mirror_only; authoritative_release]
+Policy Mode: mirror-only in 1.7.8 — selected profile metadata is surfaced in artifacts, but authoritative scan scoring still follows deterministic runtime constants.
+Score   : 60 / 100  (T2 Caution)
+Replic  : 35 / 100  (R1)
+========================================================================
+
+S1_readme_bio_terms  [DETECTED]
+  [001]  README.md
+         reason  : README exposes bio/medical vocabulary.
+         match   : bioinformatics, genomic, clinical
+
+S1_clinical_boundary  [NOT_DETECTED]
+  [001]  (repository)
+         reason  : No evidence detected for S1_clinical_boundary. (Missing "Not for clinical use")
+
+S1_R2_unsupported_legal_or_compliance_claim  [NOT_DETECTED]
+  [001]  (repository)
+         reason  : No explicit unsupported HIPAA claims detected.
+
+S3_T1_workflow_files  [DETECTED]
+  [001]  .github/workflows
+         reason  : Workflow files present.
+
+S3_T2_domain_tests  [NOT_DETECTED]
+  [001]  (repository)
+         reason  : No tests surface detected with clear bio-domain specificity.
+
+S3_T3_changelog_release_hygiene  [NOT_DETECTED]
+  [001]  (repository)
+         reason  : No changelog or release-history file exists.
+
+C5_compliance_boundary_integrity  [DETECTED]
+  [001]  README.md
+         reason  : Clinical-adjacent surfaces exist without an explicit non-diagnostic/non-clinical boundary.
+         status  : WARN
+
+========================================================================
+Bio Deterministic Diagnostics
+
+  SMILES Surface Integrity           not_detected=1
+  SMILES RDKit Validation            not_detected=1
+  Silent Mock Fallback               not_detected=1
+  Traceability Manifest Surface      not_detected=1
+
+========================================================================
+AIRI Coverage
+
+  covered_count                  2
+  detector_scope_total           32
+  coverage_rate                  0.062
+  bundle_scope                   curated_medical_clinical_subset
+
+  covered examples:
+    - 24.01.03 | Safe exploration problem with widely deployed AI assistants | covered_by=C5_compliance_boundary_integrity
+    - 69.01.00 | False information | covered_by=C5_compliance_boundary_integrity
+
+========================================================================
+DISCLAIMER: Evidence-surface pre-screen only.
+Not clinical certification, regulatory clearance, or medical advice.
