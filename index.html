@@ -1160,6 +1160,36 @@ body {
         </div>
       </div>
 
+      <!-- REXSYN Folder -->
+      <div class="sb-folder">
+        <div class="sb-folder-header">
+          <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="rexsyn">
+            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
+            </svg>
+            <span class="sb-folder-name">REXSYN</span>
+            <span class="sb-folder-badge">0</span>
+            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="sb-info-btn">?
+            <span class="sb-tooltip">
+              <strong>REXSYN</strong><br>
+              Sovereign Biomedical Intelligence and Architecture Validator. Combines multi-model structure validation (Trinity Core: AF3, AF2, Boltz-2, Chai-1), LOGOS reasoning, and NNSL resonance integrity scoring.
+            </span>
+          </div>
+        </div>
+        <div class="sb-children" id="child-rexsyn">
+          <div class="sb-files" style="padding-left: 8px;">
+            <div class="sb-file" style="cursor:default;pointer-events:none;color:var(--t5);border-left-color:transparent;margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:var(--t5)"></span>
+              <span class="sb-file-name" style="font-style:italic;">Upcoming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- STEM-BIO-AI Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
@@ -1202,36 +1232,6 @@ body {
                 <span class="sb-file-name" title="Runchuan-BU/BioClaw">Runchuan-BU/BioClaw</span>
                 <span class="sb-file-tier" style="color:var(--t2);border-color:var(--t2-bd)">T2</span>
               </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- REXSYN Folder -->
-      <div class="sb-folder">
-        <div class="sb-folder-header">
-          <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="rexsyn">
-            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
-              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
-            </svg>
-            <span class="sb-folder-name">REXSYN</span>
-            <span class="sb-folder-badge">0</span>
-            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="sb-info-btn">?
-            <span class="sb-tooltip">
-              <strong>REXSYN</strong><br>
-              Sovereign Biomedical Intelligence and Architecture Validator. Combines multi-model structure validation (Trinity Core: AF3, AF2, Boltz-2, Chai-1), LOGOS reasoning, and NNSL resonance integrity scoring.
-            </span>
-          </div>
-        </div>
-        <div class="sb-children" id="child-rexsyn">
-          <div class="sb-files" style="padding-left: 8px;">
-            <div class="sb-file" style="cursor:default;pointer-events:none;color:var(--t5);border-left-color:transparent;margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:var(--t5)"></span>
-              <span class="sb-file-name" style="font-style:italic;">Upcoming</span>
             </div>
           </div>
         </div>
@@ -1388,8 +1388,25 @@ body {
           <span>53 Runs (Upcoming)</span>
         </div>
       </div>
+
+      <!-- Card 2: REXSYN -->
+      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click()">
+        <div class="portal-intro-card-title">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 1.5L2 4.5v4.25c0 3.75 6 5.75 6 5.75s6-2 6-5.75V4.5l-6-3z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          REXSYN Structure Validator
+        </div>
+        <p class="portal-intro-card-desc">
+          Sovereign biological validator monitoring biomedical models. Employs Trinity Core multi-model 3D structure consensus and LOGOS reasoning checks.
+        </p>
+        <div class="portal-intro-card-status upcoming">
+          <span class="status-dot"></span>
+          <span>5 Runs (Upcoming)</span>
+        </div>
+      </div>
       
-      <!-- Card 2: STEM-BIO-AI -->
+      <!-- Card 3: STEM-BIO-AI -->
       <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click()">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1404,23 +1421,6 @@ body {
         <div class="portal-intro-card-status active">
           <span class="status-dot"></span>
           <span>2 Reports Active (Authoritative)</span>
-        </div>
-      </div>
-
-      <!-- Card 3: REXSYN -->
-      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click()">
-        <div class="portal-intro-card-title">
-          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M8 1.5L2 4.5v4.25c0 3.75 6 5.75 6 5.75s6-2 6-5.75V4.5l-6-3z" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          REXSYN Structure Validator
-        </div>
-        <p class="portal-intro-card-desc">
-          Sovereign biological validator monitoring biomedical models. Employs Trinity Core multi-model 3D structure consensus and LOGOS reasoning checks.
-        </p>
-        <div class="portal-intro-card-status upcoming">
-          <span class="status-dot"></span>
-          <span>5 Runs (Upcoming)</span>
         </div>
       </div>
     </div>
@@ -1626,11 +1626,11 @@ body {
     <a class="coll-pill" href="#" onclick="filterColl('toe',this)">
       TOE <span class="pill-count">Upcoming</span>
     </a>
-    <a class="coll-pill" href="#" onclick="filterColl('stem-bio-ai',this)">
-      STEM-BIO-AI <span class="pill-count">2</span>
-    </a>
     <a class="coll-pill" href="#" onclick="filterColl('rexsyn',this)">
       REXSYN <span class="pill-count">Upcoming</span>
+    </a>
+    <a class="coll-pill" href="#" onclick="filterColl('stem-bio-ai',this)">
+      STEM-BIO-AI <span class="pill-count">2</span>
     </a>
     <a class="coll-pill" href="#" onclick="filterColl('extra',this)">
       Extra Artifacts <span class="pill-count">1</span>
