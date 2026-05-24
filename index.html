@@ -2154,12 +2154,12 @@ function applyFilters() {
   if (dbToe) dbToe.classList.toggle('active', activeColl === 'toe');
   if (dbRexsyn) dbRexsyn.classList.toggle('active', activeColl === 'rexsyn');
 
-  const showMain = (activeColl !== 'toe' && activeColl !== 'rexsyn');
+  // Toggle views dynamically
   if (portalIntro) portalIntro.style.display = (activeColl === 'all') ? '' : 'none';
-  if (collStem) collStem.style.display = (activeColl === 'all' || activeColl === 'stem-bio-ai') ? '' : 'none';
-  if (sectionExtras) sectionExtras.style.display = (activeColl === 'all' || activeColl === 'extra') ? '' : 'none';
-  if (toolbar) toolbar.style.display = showMain ? '' : 'none';
-  if (resMeta) resMeta.style.display = showMain ? '' : 'none';
+  if (collStem) collStem.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
+  if (sectionExtras) sectionExtras.style.display = (activeColl === 'extra') ? '' : 'none';
+  if (toolbar) toolbar.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
+  if (resMeta) resMeta.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
 
   // Toggle mission card (only on Home/All view)
   const missionCard = document.querySelector('.archive-mission-card');
@@ -2178,11 +2178,13 @@ function applyFilters() {
     p.classList.toggle('active', onclickText.includes(`'${activeColl}'`));
   });
 
-  if (!showMain) {
+  // If we are not on stem-bio-ai, hide the empty state and stop filtering reports
+  if (activeColl !== 'stem-bio-ai') {
     document.getElementById('empty-state').style.display = 'none';
     return;
   }
 
+  // Filter STEM-BIO-AI reports
   cards.forEach(card => {
     const tier   = card.dataset.tier;
     const coll   = card.dataset.coll;
@@ -2190,7 +2192,7 @@ function applyFilters() {
     const verdict = card.querySelector('.card-verdict')?.textContent.toLowerCase() || '';
 
     const tierOk  = activeTier === 'all' || tier === activeTier;
-    const collOk  = activeColl === 'all' || activeColl === 'extra' || coll === activeColl;
+    const collOk  = activeColl === 'all' || coll === activeColl;
     const queryOk = !activeQuery || title.includes(activeQuery) || verdict.includes(activeQuery);
 
     if (tierOk && collOk && queryOk) {
