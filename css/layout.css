@@ -46,6 +46,48 @@
 }
 .wrap { padding: 0 32px 80px; min-width: 0; }
 
+/* ── B2B SERVICE BANNER ──────────────────────────────────────────────────── */
+.b2b-notice-banner {
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--r-xl);
+  padding: 14px 20px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  animation: cardFadeIn .3s ease both;
+}
+.b2b-notice-icon {
+  width: 16px;
+  height: 16px;
+  color: #3b82f6;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.b2b-notice-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.b2b-notice-content {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ts);
+}
+.b2b-notice-content a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s;
+}
+.b2b-notice-content a:hover {
+  border-bottom-color: #3b82f6;
+}
+
 /* ── FOOTER ──────────────────────────────────────────────────────────────── */
 .footer {
   margin-top: 80px; padding: 48px 0 40px;

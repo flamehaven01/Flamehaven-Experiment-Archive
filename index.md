@@ -1,6 +1,6 @@
-# 🧪 Flamehaven Experiment Directory
+# 🛡️ Flamehaven Verification Directory
 
-Public directory of all system evaluation logs, mathematical physics verification runs, biomedical fine-tuning structure audits, and independent auditor dashboards from **Flamehaven Labs**.
+Public directory of all system evaluation logs, mathematical physics verification runs, biomedical fine-tuning structure audits, and independent auditor dashboards from **Flamehaven**.
 
 *Looking for the premium interactive UI? Run `python -m http.server 7777` locally and open [http://localhost:7777](http://localhost:7777).*
 
@@ -32,21 +32,21 @@ Public directory of all system evaluation logs, mathematical physics verificatio
 
 ---
 
-## 🛠️ Extra Artifacts & Templates
+## 🛠️ Review Methodology & Frameworks
 
-### 🟢 Templates
+### 🟢 Active blue prints & dashboards
 - **Agent Review Dashboard (PR Action Plan 2.0)**: Review dashboard and independent verification workflow template.
 - [Interactive HTML Dashboard](./extra/pr_action_plan_v3.html)
 
 ---
 
-## ⏳ Upcoming Collections (Scheduled)
+## ⏳ Verification Queue & Pre-release Review
 
-### ⚪ TOE (Theory of Everything) Physics Runs
-- **Scope**: 53 test folders containing mathematical physics verification runs against the 3-3-4 VVR Matrix under SPAR adversarial review pipeline.
+### ⚪ TOE Physics Runs
+- **Scope**: Calibration and algebraic-geometric baseline verification run (TOE-TEST-0001) is currently in preparation.
 
-### ⚪ REXSYN Biomedical Structure Experiments
-- **Scope**: 5 biomedical validation experiments monitoring structural alignment and LOGOS reasoning outputs for advanced finetunes.
+### ⚪ REXSYN Biomedical Structure Review
+- **Scope**: Integrated telemetry and conformational consensus briefings (REXSYN-31-32) are currently under pre-release review.
 
 ---
 

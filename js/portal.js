@@ -387,10 +387,10 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   const base = getBaseUrl();
   const absHtmlPath = htmlPath.startsWith('http') ? htmlPath : base + htmlPath.replace(/^\.\//, '');
 
-  // Set the iframe source and headers
+  // Set the iframe source and headers (with cache-busting parameter to bypass cached crashed versions)
   const iframe = document.getElementById('report-iframe');
   if (iframe) {
-    iframe.src = absHtmlPath;
+    iframe.src = absHtmlPath + '?t=' + new Date().getTime();
   }
   
   const titleNode = document.getElementById('viewer-title');
