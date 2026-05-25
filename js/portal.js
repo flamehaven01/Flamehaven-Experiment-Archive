@@ -340,8 +340,21 @@ function applyFilters() {
 }
 
 // ── COPY URL ──────────────────────────────────────────────────────────────────
+// Helper to get robust base URL for same-directory resolution
+function getBaseUrl() {
+  const loc = window.location;
+  let path = loc.pathname;
+  if (!path.endsWith('/') && !path.split('/').pop().includes('.')) {
+    path += '/';
+  } else {
+    path = path.replace(/\/[^/]*$/, '/');
+  }
+  return loc.origin + path;
+}
+
+// ── COPY URL ──────────────────────────────────────────────────────────────────
 function copyURL(path) {
-  const base = location.origin + location.pathname.replace(/\/[^/]*$/, '/');
+  const base = getBaseUrl();
   const full = path.startsWith('http') ? path : base + path.replace(/^\.\//, '');
   navigator.clipboard.writeText(full).then(() => {
     const t = document.getElementById('toast');
@@ -370,10 +383,14 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   // Update browser hash state without page refresh
   history.replaceState(null, null, '#' + reportId);
 
+  // Resolve absolute paths for maximum robustness in subfolder hostings
+  const base = getBaseUrl();
+  const absHtmlPath = htmlPath.startsWith('http') ? htmlPath : base + htmlPath.replace(/^\.\//, '');
+
   // Set the iframe source and headers
   const iframe = document.getElementById('report-iframe');
   if (iframe) {
-    iframe.src = htmlPath;
+    iframe.src = absHtmlPath;
   }
   
   const titleNode = document.getElementById('viewer-title');
@@ -384,13 +401,13 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
 
   // Setup connection link buttons
   const viewTabBtn = document.getElementById('btn-view-tab');
-  if (viewTabBtn) viewTabBtn.href = htmlPath;
+  if (viewTabBtn) viewTabBtn.href = absHtmlPath;
   
   const mdBtn = document.getElementById('btn-dl-md');
   if (mdBtn) {
     if (mdPath) {
       mdBtn.style.display = '';
-      mdBtn.href = mdPath;
+      mdBtn.href = mdPath.startsWith('http') ? mdPath : base + mdPath.replace(/^\.\//, '');
     } else {
       mdBtn.style.display = 'none';
     }
@@ -400,7 +417,7 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   if (jsonBtn) {
     if (jsonPath) {
       jsonBtn.style.display = '';
-      jsonBtn.href = jsonPath;
+      jsonBtn.href = jsonPath.startsWith('http') ? jsonPath : base + jsonPath.replace(/^\.\//, '');
     } else {
       jsonBtn.style.display = 'none';
     }
@@ -410,7 +427,7 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   if (pdfBtn) {
     if (pdfPath) {
       pdfBtn.style.display = '';
-      pdfBtn.href = pdfPath;
+      pdfBtn.href = pdfPath.startsWith('http') ? pdfPath : base + pdfPath.replace(/^\.\//, '');
     } else {
       pdfBtn.style.display = 'none';
     }
@@ -420,7 +437,7 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   const copyBtn = document.getElementById('btn-copy-link');
   if (copyBtn) {
     copyBtn.onclick = function() {
-      copyURL(htmlPath);
+      copyURL(absHtmlPath);
     };
   }
 
