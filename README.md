@@ -7,6 +7,16 @@
 
 This repository serves as the official public ledger of all experimental verification runs, capability evaluations, and static safety scans executed by Flamehaven core systems. All artifacts contained here represent static, offline, deterministic results.
 
+## Snapshot summary
+
+This repository is also the single source for the lightweight `ledger-summary.json` snapshot consumed by `flamehaven.space`.
+
+- build command: `node scripts/build-ledger-summary.mjs`
+- Windows helper: `build-ledger-summary.bat`
+- output: `ledger-summary.json`
+
+The summary file is intentionally narrow. It exists only to route users into the public archive without duplicating the underlying evidence record.
+
 ---
 
 ## 🎯 Core Verification & Audit Lanes

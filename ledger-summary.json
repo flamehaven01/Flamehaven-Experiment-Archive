@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "flamehaven-ledger-summary-v1",
+  "generatedAt": "2026-05-25T10:51:48.980Z",
+  "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
+  "sourceRepo": "flamehaven-audit-reports",
+  "reportsActive": 2,
+  "lanes": [
+    {
+      "key": "stem-bio-ai",
+      "title": "STEM-BIO-AI",
+      "status": "active",
+      "summary": "Deterministic repository evidence-surface audits for biomedical and medical-adjacent AI systems.",
+      "recordCount": 2,
+      "latestAuditDate": "2026-05-21"
+    },
+    {
+      "key": "toe",
+      "title": "TOE",
+      "status": "in_preparation",
+      "summary": "Calibration and algebraic-geometric verification runs are in preparation.",
+      "recordCount": 0,
+      "latestAuditDate": ""
+    },
+    {
+      "key": "rexsyn",
+      "title": "REXSYN",
+      "status": "in_preparation",
+      "summary": "Integrated telemetry and conformational consensus briefings remain under pre-release review.",
+      "recordCount": 0,
+      "latestAuditDate": ""
+    }
+  ],
+  "methodology": [
+    {
+      "title": "Agent Review Dashboard (PR Action Plan 2.0)",
+      "url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/extra/pr_action_plan_v3.html"
+    }
+  ],
+  "records": [
+    {
+      "id": "stem-bio-ai-bioclaw-2026-5-21",
+      "laneKey": "stem-bio-ai",
+      "laneTitle": "STEM-BIO-AI",
+      "title": "STEM-BIO-AI: Runchuan-BU/BioClaw",
+      "repoName": "Runchuan-BU/BioClaw",
+      "targetSlug": "bioclaw",
+      "auditDate": "2026-05-21",
+      "score": 60,
+      "tier": "T2 Caution",
+      "summary": "BioClaw delivers a highly capable and functionally impressive biomedical AI assistant. However, it exhibits a catastrophic gap between its narrative claims (\"Enterprise-grade\", \"HIPAA-compliant\") and its structural technical reality. The repository lacks mandatory clinical boundaries (C5 WARN), entirely omits biological domain tests (T2=0), and utilizes a WhatsApp data pipeline that introduces immediate institutional breach risks. **Deployment in any clinical-adjacent or patient-data context is strongly discouraged until severe architectural remediation (보완) is completed.**",
+      "useScope": "Research reference and supervised non-clinical technical review only.",
+      "sourceCommit": "faae6a2778e992b1cc6a4b1639e530a147d8b463",
+      "repoUrl": "https://github.com/Runchuan-BU/BioClaw",
+      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21",
+      "urls": {
+        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21",
+        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html",
+        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md",
+        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json",
+        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf",
+        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/audit-analysis.md",
+        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/explain.txt"
+      }
+    },
+    {
+      "id": "stem-bio-ai-yorkeccak-bio-2026-05-15",
+      "laneKey": "stem-bio-ai",
+      "laneTitle": "STEM-BIO-AI",
+      "title": "STEM-BIO-AI: yorkeccak/bio",
+      "repoName": "yorkeccak/bio",
+      "targetSlug": "yorkeccak-bio",
+      "auditDate": "2026-05-16",
+      "score": 48,
+      "tier": "T1 Quarantine",
+      "summary": "The `T1 Quarantine` result is justified. The repository presents a strong bio-facing README and a recognizable data-source story, but it still lacks the engineering, governance, and deployment-boundary evidence needed for patient-adjacent or regulated use. The most important shift in the current `1.7.7` output is not the final score itself. It is that the report now surfaces external-service dependency and unsupported legal/compliance claims more explicitly, and no longer presents `Code Integrity` or `AIRI` in a way that looks artificially clean.",
+      "useScope": "Exploratory review only; no patient-adjacent use.",
+      "sourceCommit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99",
+      "repoUrl": "https://github.com/yorkeccak/bio.git",
+      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15",
+      "urls": {
+        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15",
+        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.html",
+        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.md",
+        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.json",
+        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf",
+        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md",
+        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/explain.txt"
+      }
+    }
+  ]
+}
