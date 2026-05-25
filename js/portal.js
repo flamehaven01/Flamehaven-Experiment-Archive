@@ -85,6 +85,58 @@ function goHome(e) {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+// ── CLOSE REPORT VIEWER (SMART NAV) ──────────────────────────────────────────
+function closeReport(e) {
+  if (e) e.preventDefault();
+  
+  // Determine which collection to return to based on the current hash/state before closing
+  let targetColl = 'stem-bio-ai'; // Default to stem-bio-ai
+  const hash = window.location.hash.substring(1);
+  if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
+    targetColl = 'extra';
+  }
+  
+  // Clear the iframe src to prevent background runs
+  const iframe = document.getElementById('report-iframe');
+  if (iframe) iframe.src = 'about:blank';
+  
+  // Clean URL hash state cleanly
+  history.replaceState(null, null, window.location.pathname);
+  
+  // Reset explorer active file highlights
+  document.querySelectorAll('.sb-file').forEach(f => f.classList.remove('sb-active'));
+  
+  // Update state
+  activeColl = targetColl;
+  
+  // Highlight and expand the folder in the sidebar tree
+  const folderBtn = document.querySelector(`.sb-folder-btn[data-id="${targetColl}"]`);
+  if (folderBtn) {
+    document.querySelectorAll('.sb-folder-btn').forEach(b => b.classList.remove('active'));
+    folderBtn.classList.add('active');
+    
+    // Ensure the folder is expanded
+    if (!folderBtn.classList.contains('open')) {
+      const children = document.getElementById(`child-${targetColl}`);
+      folderBtn.classList.add('open');
+      if (children) {
+        children.classList.add('open');
+      }
+    }
+  }
+  
+  // Apply filtering
+  applyFilters();
+  
+  // Smooth scroll back to the collection section
+  const targetSec = document.getElementById(targetColl === 'extra' ? 'extras' : 'coll-stem-bio-ai');
+  if (targetSec) {
+    targetSec.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+}
+
 // ── EXPLORER INTERACTIVE JS ──────────────────────────────────────────────────
 function toggleFolder(btn) {
   const folderId = btn.dataset.id;
