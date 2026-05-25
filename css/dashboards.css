@@ -179,6 +179,7 @@
   border: 1px solid var(--border);
   border-radius: var(--r-xl);
   padding: 28px;
+  margin-top: 32px;
   margin-bottom: 28px;
   backdrop-filter: blur(var(--blur));
   -webkit-backdrop-filter: blur(var(--blur));
