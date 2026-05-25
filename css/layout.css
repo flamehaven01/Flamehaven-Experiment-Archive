@@ -1,0 +1,130 @@
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 56px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--tp);
+}
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+}
+.nav-brand { font-size: 13px; font-weight: 600; }
+.nav-sub {
+  font-size: 11px; font-weight: 500;
+  color: var(--t4);
+  background: var(--s2);
+  border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 4px;
+  letter-spacing: .04em;
+}
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-link {
+  font-size: 12px; color: var(--t4); text-decoration: none;
+  transition: color .15s;
+  display: flex; align-items: center; gap: 5px;
+}
+.nav-link:hover { color: var(--tp); }
+.nav-link svg { width: 12px; height: 12px; }
+
+/* ── LAYOUT: 2-COLUMN ────────────────────────────────────────────────────── */
+.page-layout {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  min-height: calc(100vh - 56px);
+}
+.wrap { padding: 0 32px 80px; min-width: 0; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 80px; padding: 48px 0 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 32px; margin-bottom: 40px;
+}
+.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  color: var(--t4); letter-spacing: .08em;
+}
+.footer-desc {
+  font-size: 12px; color: var(--t3); line-height: 1.6; max-width: 320px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a {
+  font-size: 11.5px; color: var(--t4); text-decoration: none;
+  transition: color .15s;
+}
+.footer-links a:hover { color: var(--tp); }
+.footer-bottom {
+  border-top: 1px solid rgba(39,39,42,.3); padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--t5); line-height: 1.6;
+}
+.footer-note a { color: var(--t4); text-decoration: none; }
+.footer-note a:hover { color: var(--t3); }
+.footer-actions { display: flex; gap: 8px; }
+
+/* ── TOAST ───────────────────────────────────────────────────────────────── */
+#toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: var(--s2); border: 1px solid var(--border-h);
+  color: var(--tp); font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; padding: 10px 16px; border-radius: var(--r-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .page-layout { grid-template-columns: 220px 1fr; }
+  .sidebar { width: 220px; }
+  .wrap { padding: 0 20px 80px; }
+}
+@media (max-width: 768px) {
+  .page-layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; left: -260px; top: 56px; z-index: 150;
+    width: 260px; height: calc(100vh - 56px);
+    background: var(--s0); border-right: 1px solid var(--border);
+    transition: left .25s cubic-bezier(.22,1,.36,1);
+  }
+  .sidebar.mobile-open { left: 0; }
+  .sb-toggle { display: flex; }
+  .nav { padding: 0 16px; }
+  .wrap { padding: 0 16px 60px; }
+  .hero { padding: 40px 0 32px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .stats-row { flex-wrap: wrap; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .search-wrap { max-width: none; }
+  .sort-select { margin-left: 0; }
+  .footer { flex-direction: column; }
+  .nav-sub { display: none; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 24px; }
+  .stat-cell { padding: 12px 16px; }
+}
