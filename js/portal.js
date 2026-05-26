@@ -321,7 +321,7 @@ function applyFilters() {
 
   // Get view wrappers
   const dbToe = document.getElementById('dashboard-toe');
-  const dbRexsyn = document.getElementById('dashboard-rexsyn');
+  const dbBav = document.getElementById('dashboard-bav');
   const portalIntro = document.querySelector('.portal-intro');
   const collStem = document.getElementById('coll-stem-bio-ai');
   const sectionExtras = document.getElementById('extras');
@@ -331,7 +331,7 @@ function applyFilters() {
 
   // Toggle project-specific dashboards
   if (dbToe) dbToe.classList.toggle('active', activeColl === 'toe');
-  if (dbRexsyn) dbRexsyn.classList.toggle('active', activeColl === 'rexsyn');
+  if (dbBav) dbBav.classList.toggle('active', activeColl === 'rexsyn');
   if (reportViewer) reportViewer.style.display = (activeColl === 'viewer') ? 'block' : 'none';
 
   // Toggle views dynamically
@@ -601,7 +601,7 @@ document.head.appendChild(styleNode);
 // ── EQA LEDGER FILTERING ───────────────────────────────────────────────────
 function filterEqLedger(status, btn) {
   // Update active pill styling
-  document.querySelectorAll('.eq-filter-pill').forEach(p => {
+  document.querySelectorAll('#dashboard-toe .eq-filter-pill').forEach(p => {
     p.classList.remove('active');
     p.style.color = 'var(--t4)';
   });
@@ -629,6 +629,37 @@ function filterEqLedger(status, btn) {
   closeJsonInspector();
 }
 
+// ── BAV LEDGER FILTERING ───────────────────────────────────────────────────
+function filterBavLedger(status, btn) {
+  // Update active pill styling
+  document.querySelectorAll('#dashboard-bav .eq-filter-pill').forEach(p => {
+    p.classList.remove('active');
+    p.style.color = 'var(--t4)';
+  });
+  if (btn) {
+    btn.classList.add('active');
+  }
+  
+  // Filter cards
+  const bavCards = document.querySelectorAll('.bav-card');
+  bavCards.forEach(card => {
+    const cardStatus = card.dataset.status;
+    const match = (status === 'all') || (cardStatus === status);
+    
+    if (match) {
+      card.style.display = 'flex';
+      card.style.animation = 'none';
+      card.offsetHeight; // reflow
+      card.style.animation = 'cardFadeIn 0.25s ease both';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // Close inspector when filter changes to prevent interface mismatch
+  closeJsonInspector();
+}
+
 // ── INTERACTIVE JSON INSIGHT INSPECTOR ───────────────────────────────────────
 async function openJsonInspector(runId, type = 'json') {
   const inspector = document.getElementById('eq-json-inspector');
@@ -637,7 +668,13 @@ async function openJsonInspector(runId, type = 'json') {
   inspector.dataset.activeRunId = runId;
   
   const titleNode = document.getElementById('inspector-run-id');
-  if (titleNode) titleNode.textContent = runId.toUpperCase();
+  if (titleNode) {
+    if (runId === 'rexsyn-31-32') {
+      titleNode.textContent = 'BAV-31-32';
+    } else {
+      titleNode.textContent = runId.toUpperCase();
+    }
+  }
   
   // Switch to the correct tab initially
   const initialTab = (type === 'report') ? 'raw' : 'insights';
@@ -991,7 +1028,7 @@ function renderInspectorData(runId, data, reportText = '') {
           <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Epigenomic variant impact: OK</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">NNSL Safety logic</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Compliance Safety Logic</div>
           <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">94 / 100</div>
           <div style="font-size: 12px; color: #10b981; margin-top: 2px;">Gating logic: PASS</div>
         </div>

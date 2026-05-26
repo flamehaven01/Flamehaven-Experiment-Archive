@@ -68,7 +68,7 @@
             <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
             </svg>
-            <span class="sb-folder-name">Equation-to-Artifact</span>
+            <span class="sb-folder-name">Equation-to-Artifact (EQA)</span>
             <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">1 Paper</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -99,14 +99,14 @@
         </div>
       </div>
 
-      <!-- REXSYN Folder -->
+      <!-- BAV Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
           <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="rexsyn">
             <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
             </svg>
-            <span class="sb-folder-name">Biomolecular Validation</span>
+            <span class="sb-folder-name">Biomolecular AI Validation (BAV)</span>
             <span class="sb-folder-badge" style="color:var(--t4);border-color:var(--border);">Case Notes</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -114,8 +114,8 @@
           </button>
           <div class="sb-info-btn">?
             <span class="sb-tooltip">
-              <strong>Biomolecular AI Validation (RExSyn)</strong><br>
-              Biomedical pipeline validation analyzing structural folding consensus (AF3, AF2, Boltz-2, Chai-1) and reasoning integrity checks.
+              <strong>Biomolecular AI Validation (BAV)</strong><br>
+              Biomedical pipeline validation analyzing structural folding consensus (AF3, AF2, Boltz-2, Chai-1) and compliance alignment.
             </span>
           </div>
         </div>
@@ -129,14 +129,14 @@
         </div>
       </div>
 
-      <!-- STEM-BIO-AI Folder -->
+      <!-- STEM-BIO-AI (BSC) Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
           <button class="sb-folder-btn open" onclick="toggleFolder(this)" data-id="stem-bio-ai">
             <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
             </svg>
-            <span class="sb-folder-name">Bioscience Compliance</span>
+            <span class="sb-folder-name">Bioscience Compliance (BSC)</span>
             <span class="sb-folder-badge">2</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -144,8 +144,8 @@
           </button>
           <div class="sb-info-btn">?
             <span class="sb-tooltip">
-              <strong>Bioscience Repository Compliance (BRC)</strong><br>
-              Deterministic static scanning auditing repository surfaces, checking clinical boundaries, safety limitations, and license compliance.
+              <strong>Bioscience Compliance (BSC)</strong><br>
+              Deterministic static scanning auditing bioscience AI surfaces, checking clinical boundaries, safety limitations, and license compliance.
             </span>
           </div>
         </div>
@@ -221,60 +221,7 @@
       Public verification record for Flamehaven's governance reviews, physics verification runs, and biomedical audit scans. Every result is deterministic, locally executed, and fully inspectable.
     </p>
 
-    <!-- STATS -->
-    <div class="stats-row" style="display: none;">
-      <div class="stat-cell">
-        <div class="stat-num" id="stat-total">2</div>
-        <div class="stat-label">Reports</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">1</div>
-        <div class="stat-label">Collections</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">1 T1</div>
-        <div class="stat-label">Quarantine</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">1 T2</div>
-        <div class="stat-label">Caution</div>
-      </div>
-    </div>
-
-    <!-- SCORE GUIDE -->
-    <div class="score-guide" style="display: none;">
-      <div class="score-guide-header" onclick="toggleGuide()">
-        <div class="score-guide-title">
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="7" cy="7" r="5.5"/>
-            <path d="M7 4.5v3M7 9.5v.5" stroke-linecap="round"/>
-          </svg>
-          How to read scores &amp; tiers
-        </div>
-        <button class="guide-toggle-btn" id="guide-btn">▲ collapse</button>
-      </div>
-      <div class="score-guide-body" id="guide-body">
-        <div class="score-range-bar"></div>
-        <div class="score-labels">
-          <span>0 — Critical Risk</span>
-          <span>30</span>
-          <span>50</span>
-          <span>70</span>
-          <span>100 — Clear</span>
-        </div>
-        <div class="tier-legend">
-          <span class="tier-badge tb-t0"><span class="tier-dot"></span>T0 Quarantine</span>
-          <span class="tier-badge tb-t1"><span class="tier-dot"></span>T1 Review Required</span>
-          <span class="tier-badge tb-t2"><span class="tier-dot"></span>T2 Conditional</span>
-          <span class="tier-badge tb-t3"><span class="tier-dot"></span>T3 Clear</span>
-        </div>
-        <p class="tier-legend-desc">
-          <strong style="color:var(--t3)">Score</strong> = weighted sum of Stage 1 (README Intent) + Stage 2R (Repo Consistency) + Stage 3 (Code/Bio Responsibility) − penalty.&nbsp;
-          <strong style="color:var(--t3)">Tier</strong> is the deployment-readiness verdict derived from score thresholds and key risk signals.&nbsp;
-          Stage 4 (Replication) is a separate lane and does not alter the formal tier.
-        </p>
-      </div>
-    </div>
+    <!-- Unified Ledger Views (Dashboard Guides nested inside individual lanes) -->
   </div><!-- /hero -->
 
   <!-- ARCHIVE DESCRIPTION & TRUST MISSION -->
@@ -318,31 +265,31 @@
         </div>
       </div>
 
-      <!-- Card 2: REXSYN -->
+      <!-- Card 2: BAV -->
       <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click()">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M8 1.5L2 4.5v4.25c0 3.75 6 5.75 6 5.75s6-2 6-5.75V4.5l-6-3z" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Biomolecular AI Validation
+          Biomolecular AI Validation (BAV)
         </div>
         <p class="portal-intro-card-desc">
-          Governs biomedical AI pipelines. Enforces structural folding consensus audits and logical reasoning checks.
+          Governs biomedical AI pipelines. Enforces 3D structural folding consensus predictions, AlphaGenome impact calibrations, and compliance boundaries.
         </p>
-        <a href="https://flamehaven.space" target="_blank" rel="noopener" class="portal-intro-card-status active" style="text-decoration: none; cursor: pointer; transition: background .15s;" onclick="event.stopPropagation();">
+        <div class="portal-intro-card-status active">
           <span class="status-dot"></span>
-          <span>Authorized Case Notes Linked ↗</span>
-        </a>
+          <span>1 Run Active (Telemetry Case Notes)</span>
+        </div>
       </div>
       
-      <!-- Card 3: STEM-BIO-AI -->
+      <!-- Card 3: BSC -->
       <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click()">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <rect x="2" y="2" width="12" height="12" rx="1.5"/>
             <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
           </svg>
-          Bioscience Repository Compliance
+          Bioscience Compliance (BSC)
         </div>
         <p class="portal-intro-card-desc">
           Deterministic static scanning auditing bioscience AI surfaces. Evaluates clinical boundaries and dependency risks without runtime hazards.
@@ -614,74 +561,101 @@
     </div><!-- /eq-ledger-list -->
   </div>
 
-  <!-- REXSYN PROJECT DASHBOARD -->
-  <div class="project-dashboard" id="dashboard-rexsyn">
+  <!-- BAV PROJECT DASHBOARD -->
+  <div class="project-dashboard" id="dashboard-bav">
     <div class="project-dashboard-header">
-      <div class="project-dashboard-eyebrow">Biomedical Pipeline Governance</div>
-      <h2 class="project-dashboard-title">Biomolecular AI Validation</h2>
+      <div class="project-dashboard-eyebrow">Biomolecular AI Validation (BAV)</div>
+      <h2 class="project-dashboard-title">Biomedical Pipeline Governance</h2>
       <p class="project-dashboard-desc">
-        Governs structural and logical conformance of biomedical AI pipelines. Enforces 3D biomolecular coordinate integrity checks and automated compliance boundaries.
+        Governs structural and logical conformance of biomedical AI pipelines. Enforces 3D biomolecular coordinate integrity checks, multi-model consensus predictions, and automated compliance boundaries.
       </p>
     </div>
     
     <div class="dashboard-grid">
+      <!-- BAV Protocol -->
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="3" y="3" width="10" height="10" rx="1.5"/>
             <circle cx="8" cy="8" r="2.5"/>
           </svg>
-          Trinity Core Validation
+          BAV Protocol
         </div>
         <p class="dashboard-card-desc">
           High-performance multi-model 3D structure predictions and cross-database validation tracking:
         </p>
         <ul class="dashboard-list">
-          <li><strong>AlphaFold 3 / 2 Consensus</strong>: Cross-referenced with the official <strong>AlphaFold Protein Structure Database</strong> for coordinate-level structural integrity.</li>
-          <li><strong>AlphaGenome (알파게놈) Integration</strong>: In-silico epigenomic &amp; transcription-factor variant impact modeling to flag functional deviations.</li>
+          <li><strong>AlphaFold 3 / 2 Consensus</strong>: Cross-referenced with the official <code>AlphaFold Protein Structure Database</code> for coordinate-level structural integrity.</li>
+          <li><strong>AlphaGenome Integration</strong>: In-silico epigenomic &amp; transcription-factor variant impact modeling to flag functional deviations.</li>
           <li><strong>Boltz-2 / Chai-1 Co-calibration</strong>: Dynamic conformational consensus, binding-affinity simulations, and structural boundary compliance checks.</li>
         </ul>
       </div>
 
+      <!-- Biomedical Archival Alignment -->
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2zM6 6h4M6 10h4" stroke-linecap="round"/>
+            <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
+            <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
           </svg>
-          LOGOS Reasoning &amp; NNSL
+          Biomedical Archival Alignment
         </div>
         <p class="dashboard-card-desc">
-          Integrity and compliance alignment validation checks:
+          Ensuring verified biomedical software and predictions are fit for peer-reviewed citation:
         </p>
         <ul class="dashboard-list">
-          <li><strong>LOGOS Reasoning</strong>: AST checks for clinical boundaries and bias documentation.</li>
-          <li><strong>NNSL Integrity</strong>: Evaluation of output resonance and logical consistency under OOD stressors.</li>
+          <li><strong>Citable Metadata</strong>: Enforcing standardized <code>CITATION.cff</code> and Zenodo integrations to issue immutable DOIs.</li>
+          <li><strong>Provenance Manifests</strong>: Freezing SHA-256 cryptographic signatures of code files and predictions to verify execution immutability.</li>
+          <li><strong>Audit Disclosures</strong>: Exposing explicit LaTeX paper sources alongside codebases to document deviations from literature.</li>
         </ul>
       </div>
     </div>
 
-    <div style="margin-top: 32px; padding: 24px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: var(--r-xl); text-align: center;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 24px; height: 24px; color: var(--t4); margin: 0 auto 12px; display: block;">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--t4); margin-bottom: 6px;">REXSYN Case Notes &amp; Reviews</div>
-      <p style="font-size: 13px; color: var(--ts); line-height: 1.6; max-width: 600px; margin: 0 auto; margin-bottom: 12px;">
-        Integrated telemetry reports and cross-validation consensus briefings (<strong>REXSYN-31-32</strong>) are currently under pre-release review. For detailed case notes, structural alignments, and methodology reviews, contact the Flamehaven governance board.
-      </p>
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px;">
-        <button onclick="openJsonInspector('rexsyn-31-32'); return false;" style="display: inline-flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 6px; border: 1px solid rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.08); color: #a78bfa; transition: border-color .15s, background .15s; cursor: pointer;">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
-          </svg>
-          [Inspect Telemetry JSON]
-        </button>
-        <a href="https://flamehaven.space" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--s2); color: var(--tp); text-decoration: none; transition: border-color .15s, background .15s; cursor: pointer;">
-          Read Case Notes on flamehaven.space ↗
-        </a>
-      </div>
+    <!-- BAV Filter Pill Bar -->
+    <div class="bav-filter-bar" style="display: flex; gap: 8px; margin-top: 40px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--t4); margin-right: 16px;">Filter Ledger:</span>
+      <button class="eq-filter-pill active" onclick="filterBavLedger('all', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t3); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">All</button>
+      <button class="eq-filter-pill" onclick="filterBavLedger('published', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Published</button>
+      <button class="eq-filter-pill" onclick="filterBavLedger('verified', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Verified</button>
+      <button class="eq-filter-pill" onclick="filterBavLedger('archived', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Archived</button>
     </div>
-  </div>
+
+    <!-- Vertical Stack for BAV Cards -->
+    <div class="bav-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+      
+      <!-- CARD 1: BAV-RUN-31-32 (Consensus Calibration) -->
+      <article class="bav-card" id="bav-card-0031" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">BAV-RUN-31-32</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-05-26</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#10b981"></span>
+            Published
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          AlphaFold Consensus &amp; Boltz-2 Multi-Model 3D Structure Predictions (Consensus Gating Calibration)
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
+          Integrated telemetry reports and cross-validation consensus briefings (<strong>BAV-31-32</strong>) are currently under pre-release review. We evaluated conformational consensus, binding-affinity simulations, and structural boundary compliance checks for clinical boundaries and epigenomic impacts.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Mapped alignment deviations, verified structural boundary parameters, and established perfect WebGL 3D consensus calibration.</strong>
+        </p>
+        
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <button class="eq-slot-btn" onclick="openJsonInspector('rexsyn-31-32'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+            </svg>
+            [Inspect Telemetry JSON]
+          </button>
+          <a class="eq-slot-btn" href="https://flamehaven.space" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            Read Case Notes on flamehaven.space ↗
+          </a>
+        </div>
+      </article>
+    </div>
 
   <!-- REPORT VIEWER SECTION -->
   <div class="project-dashboard" id="report-viewer" style="display: none;">
@@ -754,39 +728,142 @@
 
 
 
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <div class="search-wrap">
-      <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="5.5" cy="5.5" r="4"/>
-        <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
-      </svg>
-      <input type="text" id="search-input" placeholder="Search reports…" oninput="handleSearch()" autocomplete="off">
-    </div>
-    <div class="filter-group" id="tier-filters">
-      <button class="filter-btn active" onclick="filterTier('all',this)">All Tiers</button>
-      <button class="filter-btn" onclick="filterTier('T0',this)">T0</button>
-      <button class="filter-btn" onclick="filterTier('T1',this)">T1</button>
-      <button class="filter-btn" onclick="filterTier('T2',this)">T2</button>
-      <button class="filter-btn" onclick="filterTier('T3',this)">T3</button>
-    </div>
-    <select class="sort-select" id="sort-select" onchange="handleSort()">
-      <option value="date-desc">Latest first</option>
-      <option value="date-asc">Oldest first</option>
-      <option value="score-desc">Score ↓</option>
-      <option value="score-asc">Score ↑</option>
-    </select>
-  </div>
-
-  <div class="result-meta" id="result-meta">Showing <span id="result-count">2</span> reports</div>
-
   <!-- ── STEM-BIO-AI COLLECTION ──────────────────────────────────────────── -->
   <section class="collection-section" id="coll-stem-bio-ai" data-coll="stem-bio-ai">
-    <div class="coll-header">
-      <div class="coll-title">Bioscience Repository Compliance</div>
-      <div class="coll-count">2 reports</div>
-      <div class="coll-desc">Deterministic compliance scans of biological and medical AI repository surfaces</div>
+    
+    <!-- BSC PROJECT DASHBOARD -->
+    <div class="project-dashboard" id="dashboard-bsc" style="display: block; margin-bottom: 32px;">
+      <div class="project-dashboard-header">
+        <div class="project-dashboard-eyebrow">Bioscience Compliance (BSC)</div>
+        <h2 class="project-dashboard-title">Bioscience Repository Compliance Ledger</h2>
+        <p class="project-dashboard-desc">
+          Deterministic static scanning auditing bioscience AI surfaces. Evaluates clinical boundaries, safety limitations, and license compliance to enforce safe, transparent distribution.
+        </p>
+      </div>
+      
+      <div class="dashboard-grid">
+        <!-- BSC Protocol -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+              <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+            </svg>
+            BSC Protocol
+          </div>
+          <p class="dashboard-card-desc">
+            Multi-stage compliance scanning auditing repository surfaces without runtime hazards:
+          </p>
+          <ul class="dashboard-list">
+            <li><strong>Stage 1: Intent Audit</strong>: Evaluating repository readme documentation to verify transparency and diagnostic intents.</li>
+            <li><strong>Stage 2R: Repo Consistency</strong>: Static dependency pinning audits and repository surface structure checks.</li>
+            <li><strong>Stage 3: Responsibility Integrity</strong>: Safety checks auditing clinical boundaries and clinical-use restriction compliance.</li>
+          </ul>
+        </div>
+
+        <!-- Compliance Archival Alignment -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
+              <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
+            </svg>
+            Compliance Archival Alignment
+          </div>
+          <p class="dashboard-card-desc">
+            Ensuring verified compliance audits are fully documented and citable:
+          </p>
+          <ul class="dashboard-list">
+            <li><strong>Citable Metadata</strong>: Providing standardized, inspectable audit report metadata schemas.</li>
+            <li><strong>Provenance Manifests</strong>: Freezing SHA-256 cryptographic signatures of code files and audited snapshots.</li>
+            <li><strong>Audit Disclosures</strong>: Exposing complete static analysis findings, warnings, and failure points transparently.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Collapsible Score Guide inside Dashboard -->
+      <div class="score-guide" style="margin-top: 32px; border: 1px solid var(--border); border-radius: var(--r-xl); background: rgba(255, 255, 255, 0.01); display: block;">
+        <div class="score-guide-header" onclick="toggleGuide()" style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid var(--border);">
+          <div class="score-guide-title" style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--ts);">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 14px; height: 14px;">
+              <circle cx="7" cy="7" r="5.5"/>
+              <path d="M7 4.5v3M7 9.5v.5" stroke-linecap="round"/>
+            </svg>
+            How to read scores &amp; tiers
+          </div>
+          <button class="guide-toggle-btn" id="guide-btn" style="background: none; border: none; color: var(--t4); font-family: 'JetBrains Mono', monospace; font-size: 11px; cursor: pointer;">▲ collapse</button>
+        </div>
+        <div class="score-guide-body" id="guide-body" style="padding: 20px;">
+          <div class="score-range-bar"></div>
+          <div class="score-labels" style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--t4); margin-top: 8px; margin-bottom: 16px;">
+            <span>0 — Critical Risk</span>
+            <span>30</span>
+            <span>50</span>
+            <span>70</span>
+            <span>100 — Clear</span>
+          </div>
+          <div class="tier-legend" style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+            <span class="tier-badge tb-t0"><span class="tier-dot"></span>T0 Quarantine</span>
+            <span class="tier-badge tb-t1"><span class="tier-dot"></span>T1 Review Required</span>
+            <span class="tier-badge tb-t2"><span class="tier-dot"></span>T2 Conditional</span>
+            <span class="tier-badge tb-t3"><span class="tier-dot"></span>T3 Clear</span>
+          </div>
+          <p class="tier-legend-desc" style="margin: 0; font-size: 11.5px; color: var(--t4); line-height: 1.5;">
+            <strong style="color:var(--t3)">Score</strong> = weighted sum of Stage 1 (README Intent) + Stage 2R (Repo Consistency) + Stage 3 (Code/Bio Responsibility) − penalty.&nbsp;
+            <strong style="color:var(--t3)">Tier</strong> is the deployment-readiness verdict derived from score thresholds and key risk signals.&nbsp;
+            Stage 4 (Replication) is a separate lane and does not alter the formal tier.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Stats row embedded in Dashboard -->
+      <div class="stats-row" style="margin-top: 24px; border: 1px solid var(--border); border-radius: var(--r-xl); background: rgba(255, 255, 255, 0.01); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 20px;">
+        <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
+          <div class="stat-num" id="stat-total" style="font-size: 24px; font-weight: 700; color: var(--ts);">2</div>
+          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Reports</div>
+        </div>
+        <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
+          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: var(--ts);">1</div>
+          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Collections</div>
+        </div>
+        <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
+          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: #f97316;">1 T1</div>
+          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Quarantine</div>
+        </div>
+        <div class="stat-cell" style="padding-right: 16px; display: block; text-align: left;">
+          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: #eab308;">1 T2</div>
+          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Caution</div>
+        </div>
+      </div>
+      
     </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar" style="margin-top: 24px;">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5.5" cy="5.5" r="4"/>
+          <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search reports…" oninput="handleSearch()" autocomplete="off">
+      </div>
+      <div class="filter-group" id="tier-filters" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--t4); margin-right: 8px;">Filter Tiers:</span>
+        <button class="eq-filter-pill active" onclick="filterTier('all', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t3); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">All Tiers</button>
+        <button class="eq-filter-pill" onclick="filterTier('T0', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">T0 Quarantine</button>
+        <button class="eq-filter-pill" onclick="filterTier('T1', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">T1 Review</button>
+        <button class="eq-filter-pill" onclick="filterTier('T2', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">T2 Caution</button>
+        <button class="eq-filter-pill" onclick="filterTier('T3', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">T3 Clear</button>
+      </div>
+      <select class="sort-select" id="sort-select" onchange="handleSort()">
+        <option value="date-desc">Latest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="score-desc">Score ↓</option>
+        <option value="score-asc">Score ↑</option>
+      </select>
+    </div>
+
+    <div class="result-meta" id="result-meta" style="margin-top: 16px;">Showing <span id="result-count">2</span> reports</div>
 
     <div class="cards-grid" id="cards-grid">
 
@@ -1155,8 +1232,8 @@
         <div class="footer-col-title">Verification Lanes</div>
         <ul class="footer-links">
           <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'toe\']').click(); return false;">Equation-to-Artifact Ledger</a></li>
-          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click(); return false;">Bioscience Repository Compliance Scanner</a></li>
-          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click(); return false;">Biomolecular AI Structure Validator</a></li>
+          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click(); return false;">Bioscience Compliance Scanner</a></li>
+          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click(); return false;">Biomolecular AI Validation Ledger</a></li>
         </ul>
       </div>
       <div class="footer-col">
