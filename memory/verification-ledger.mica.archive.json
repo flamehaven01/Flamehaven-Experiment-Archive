@@ -68,12 +68,21 @@
       "binding": {
         "origin_episode": "EXP-035: Inconsistent template headers in early reports weakened brand continuity for external auditors."
       }
+    },
+    {
+      "id": "DI-SDK-001",
+      "label": "unified-visual-sdk-tokens",
+      "statement": "Any new visualization, comparative data sandbox, 3D structure scene, or telemetry parsing pane added to the ledger must strictly utilize the visual tokens (HSL color system), comparative steering split-panels, or Three.js/Plotly configurations defined in the Flamehaven Verification UI/UX SDK.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-056: Standardized the EQA precision steer layout, BIV rotating WebGL helix lattice, and BRC compliance steer sandbox using a unified, reusable UI/UX Toolkit SDK."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 1,
+    "update_count": 2,
     "last_updated": "2026-05-26",
     "session_count": 1,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
