@@ -612,39 +612,6 @@
       </article>
       
     </div><!-- /eq-ledger-list -->
-
-    <!-- Interactive JSON Insight Inspector -->
-    <div id="eq-json-inspector" style="display: none; margin-top: 32px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; animation: cardFadeIn 0.3s ease both;">
-      <!-- Header with run ID and close button -->
-      <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px 24px; border-bottom: 1px solid var(--border);">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 16px; height: 16px; color: #a78bfa;">
-            <rect x="2" y="2" width="12" height="12" rx="1.5"/>
-            <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
-          </svg>
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ts);">Ledger Inspector: <span id="inspector-run-id">openai-erdos-eq22</span></span>
-        </div>
-        <button onclick="closeJsonInspector()" style="background: transparent; border: none; color: var(--t4); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: var(--r-xs); transition: all 0.15s;" onmouseover="this.style.color='var(--ts)'" onmouseout="this.style.color='var(--t4)'">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M2.5 2.5l9 9M11.5 2.5l-9 9" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Tab selection bar -->
-      <div style="display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.1); flex-wrap: wrap;">
-        <button class="inspector-tab active" onclick="switchInspectorTab('insights', this)" style="background: transparent; border: none; border-bottom: 2px solid #3b82f6; color: var(--ts); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📊 Insights</button>
-        <button class="inspector-tab" onclick="switchInspectorTab('integrity', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">🛡️ Integrity</button>
-        <button class="inspector-tab" onclick="switchInspectorTab('checks', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">✅ Verified Rules</button>
-        <button class="inspector-tab" onclick="switchInspectorTab('raw', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📄 Raw JSON</button>
-      </div>
-
-      <!-- Panel contents -->
-      <div class="inspector-panel" id="ins-insights" style="padding: 24px;"></div>
-      <div class="inspector-panel" id="ins-integrity" style="padding: 24px; display: none;"></div>
-      <div class="inspector-panel" id="ins-checks" style="padding: 24px; display: none;"></div>
-      <div class="inspector-panel" id="ins-raw" style="padding: 24px; display: none;"></div>
-    </div>
   </div>
 
   <!-- REXSYN PROJECT DASHBOARD -->
@@ -702,9 +669,17 @@
       <p style="font-size: 13px; color: var(--ts); line-height: 1.6; max-width: 600px; margin: 0 auto; margin-bottom: 12px;">
         Integrated telemetry reports and cross-validation consensus briefings (<strong>REXSYN-31-32</strong>) are currently under pre-release review. For detailed case notes, structural alignments, and methodology reviews, contact the Flamehaven governance board.
       </p>
-      <a href="https://flamehaven.space" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--s2); color: var(--tp); text-decoration: none; transition: border-color .15s, background .15s; margin-top: 8px; cursor: pointer;">
-        Read RExSyn-Nexus Case Notes on flamehaven.space ↗
-      </a>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px;">
+        <button onclick="openJsonInspector('rexsyn-31-32'); return false;" style="display: inline-flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 6px; border: 1px solid rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.08); color: #a78bfa; transition: border-color .15s, background .15s; cursor: pointer;">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+          </svg>
+          [Inspect Telemetry JSON]
+        </button>
+        <a href="https://flamehaven.space" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; justify-content: center; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--s2); color: var(--tp); text-decoration: none; transition: border-color .15s, background .15s; cursor: pointer;">
+          Read Case Notes on flamehaven.space ↗
+        </a>
+      </div>
     </div>
   </div>
 
@@ -923,6 +898,12 @@
             </svg>
             Open Report
           </a>
+          <button class="dl-btn" onclick="openJsonInspector('yorkeccak-bio'); return false;" style="cursor: pointer; color: #a78bfa; border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); font-weight: 500;">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+            </svg>
+            JSON
+          </button>
           <a class="dl-btn" href="./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1061,6 +1042,12 @@
             </svg>
             Open Report
           </a>
+          <button class="dl-btn" onclick="openJsonInspector('bioclaw'); return false;" style="cursor: pointer; color: #a78bfa; border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); font-weight: 500;">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+            </svg>
+            JSON
+          </button>
           <a class="dl-btn" href="./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1122,6 +1109,39 @@
     </div>
   </section>
 
+  <!-- Interactive JSON Insight Inspector -->
+  <div id="eq-json-inspector" class="wrap" style="display: none; margin-top: 32px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; animation: cardFadeIn 0.3s ease both; max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <!-- Header with run ID and close button -->
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px 24px; border-bottom: 1px solid var(--border);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 16px; height: 16px; color: #a78bfa;">
+          <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+          <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+        </svg>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ts);">Ledger Inspector: <span id="inspector-run-id">openai-erdos-eq22</span></span>
+      </div>
+      <button onclick="closeJsonInspector()" style="background: transparent; border: none; color: var(--t4); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: var(--r-xs); transition: all 0.15s;" onmouseover="this.style.color='var(--ts)'" onmouseout="this.style.color='var(--t4)'">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M2.5 2.5l9 9M11.5 2.5l-9 9" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Tab selection bar -->
+    <div style="display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.1); flex-wrap: wrap;">
+      <button class="inspector-tab active" onclick="switchInspectorTab('insights', this)" style="background: transparent; border: none; border-bottom: 2px solid #3b82f6; color: var(--ts); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📊 Insights</button>
+      <button class="inspector-tab" onclick="switchInspectorTab('integrity', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">🛡️ Integrity</button>
+      <button class="inspector-tab" onclick="switchInspectorTab('checks', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">✅ Verified Rules</button>
+      <button class="inspector-tab" onclick="switchInspectorTab('raw', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📄 Raw JSON</button>
+    </div>
+
+    <!-- Panel contents -->
+    <div class="inspector-panel" id="ins-insights" style="padding: 24px;"></div>
+    <div class="inspector-panel" id="ins-integrity" style="padding: 24px; display: none;"></div>
+    <div class="inspector-panel" id="ins-checks" style="padding: 24px; display: none;"></div>
+    <div class="inspector-panel" id="ins-raw" style="padding: 24px; display: none;"></div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-grid">
@@ -1182,6 +1202,8 @@
 <!-- TOAST -->
 <div id="toast">Link copied ✓</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 <script src="./js/portal.js" defer></script>
 </body>
 </html>
