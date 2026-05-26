@@ -1,0 +1,278 @@
+{
+  "schema_id": "flamehaven_toe_test_algebraic_number_theory.v1",
+  "generated_at": "2026-05-24T07:49:47.797859+00:00",
+  "test_root": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
+  "repo_root": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+  "verdict": "PASS",
+  "checks": {
+    "square_unit_pairs_is_4": true,
+    "source_delta_metadata_only": true,
+    "density_claim_tier_research_only": true,
+    "compact_delta_not_forced_0045": true,
+    "landscape_algebraic_non_gating": true,
+    "registry_model_research_only": true,
+    "registry_gap_ANT1": true,
+    "registry_C9_not_hijacked": true,
+    "golod_shafarevich_proxy_boundary": true,
+    "rename_alias_preserved": true,
+    "source_registry_openai_initial_0014": true,
+    "source_registry_sawin_refinement_00318": true,
+    "source_registry_sawin_delta_not_equal_legacy_label": true,
+    "source_claims_three_field_provenance_marked_correctly": true,
+    "sawin_rigorous_lower_bound_present_624e_minus_38": true,
+    "proof_delta_formula_positive_for_reasonable_params": true,
+    "phase1_gaussian_7x7_grid_has_expected_84_pairs": true,
+    "phase1_eisenstein_exceeds_gaussian_at_same_bound": true,
+    "phase1_claims_h1_degenerate_tier": true,
+    "phase2_h2_genus_theory_hcf_is_Q_i_sqrt5": true,
+    "phase2_lemma22_pigeonhole_lower_bound_is_2": true,
+    "phase3_101_splits_in_L_T_compositum": true,
+    "phase3_golod_shafarevich_admissible": true,
+    "phase3_matches_remarks_pdf_eq_2_2_624e_minus_38": true,
+    "phase3_external_verification_pdf_registered": true,
+    "api_endpoint_passed": true,
+    "targeted_pytest_passed": true
+  },
+  "observations": {
+    "field_degree": 2,
+    "square_near_unit_pairs": 4,
+    "square_exponent": 1.0,
+    "square_delta": 0.0,
+    "source_refined_delta": 0.014,
+    "density_metrics": {
+      "num_points": 12,
+      "near_unit_pairs": 0,
+      "observed_exponent": 0.0,
+      "observed_delta": 0.0,
+      "claim_tier": "research_only_proxy",
+      "source_claim_delta": 0.014,
+      "source_url": "https://openai.com/index/model-disproves-discrete-geometry-conjecture/",
+      "source_claims": [
+        {
+          "label": "openai_index_reported",
+          "delta": 0.014,
+          "announced_date": "2026-05-20",
+          "attribution": "OpenAI reasoning model (as reported on OpenAI index page)",
+          "primary_source_url": "https://openai.com/index/model-disproves-discrete-geometry-conjecture/",
+          "formal_proof_pdf_url": "https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-proof.pdf",
+          "verified_numerical_in_formal_pdf": false,
+          "note": "Reported value delta ~ 0.014 (n^1.014) on the OpenAI index page. The formal proof PDF proves only 'there exists delta > 0' (Theorem 1.1); the literal 0.014 does not appear in the PDF."
+        },
+        {
+          "label": "sawin_rigorous_lower_bound",
+          "delta": 6.24e-38,
+          "announced_date": "2026-05-21",
+          "attribution": "Will Sawin et al. (remarks PDF, simplified construction)",
+          "primary_source_url": "https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-remarks.pdf",
+          "formal_proof_pdf_url": "https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-remarks.pdf",
+          "verified_numerical_in_formal_pdf": true,
+          "note": "Rigorous lower bound from remarks PDF eq (2.2): the exponent 1 + log(u*pi/(36*v)) / log(36/delta^2) evaluates to approximately 1 + 6.24e-38 for T = {3,5,7,11,13,17}, S = {101, inf}, k = ceil(18 r^3 / pi) - 1. This is the only numerical lower bound that appears verbatim in either formal PDF."
+        },
+        {
+          "label": "sawin_refinement_reported",
+          "delta": 0.0318,
+          "announced_date": "2026-05-21",
+          "attribution": "Will Sawin (refined exponent, secondary reporting)",
+          "primary_source_url": "https://gilkalai.wordpress.com/2026/05/21/amazing-erdos-unit-distance-problem-was-disproved-it-was-achieved-by-ai/",
+          "formal_proof_pdf_url": "https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-remarks.pdf",
+          "verified_numerical_in_formal_pdf": false,
+          "note": "Refinement n^1.0318 reported in Gil Kalai's blog. The remarks PDF describes Sawin's simplification (single split rational prime; pro-2 tower over multi-quadratic L_T) but does not contain the literal value 0.0318."
+        }
+      ],
+      "not_claimed": [
+        "Does not reproduce the OpenAI proof.",
+        "Does not prove existence of infinite class field towers.",
+        "Does not establish a string-theory vacuum or core physics PASS."
+      ]
+    },
+    "compact_hdvc_density_exponent": 0.0,
+    "landscape_point": {
+      "algebraic_claim_tier": "research_only_proxy",
+      "swampland_algebraic_ok": false,
+      "all_swampland_ok": true,
+      "gs_stability_score": 0.0
+    },
+    "registry": {
+      "model_id": "algebraic_unit_distance_proxy",
+      "model_group": "research_only_heuristics",
+      "gap_id": "ANT1",
+      "c9_gap_present": false
+    },
+    "phase1_lattice": {
+      "gaussian": {
+        "field": "Q(i)",
+        "discriminant_d": 1,
+        "class_number_h": 1,
+        "coefficient_bound": 3,
+        "num_points": 49,
+        "unit_distance_pairs": 84,
+        "observed_exponent": 1.138494704134812,
+        "observed_delta": 0.1384947041348119,
+        "claim_tier": "faithful_h1_degenerate_case",
+        "not_claimed": [
+          "Does not reproduce Theorem 1.1 polynomial improvement.",
+          "Does not construct an infinite Golod-Shafarevich tower.",
+          "[K : Q] = 2 only; the asymptotic result requires [K : Q] -> infinity."
+        ],
+        "paper_reference": "Proposition 2.2 with h(K) = 1 (degenerate case)",
+        "result_tags": {
+          "tier": "validated_numeric_proxy",
+          "evidence_level": "exact_finite_enumeration",
+          "model_kind": "ring_of_integers_O_K",
+          "exactness": "exact",
+          "registry_state": "research_only",
+          "charter_phase": "Phase 1: Discovery Engine"
+        }
+      },
+      "eisenstein": {
+        "field": "Q(sqrt(-3))",
+        "discriminant_d": 3,
+        "class_number_h": 1,
+        "coefficient_bound": 3,
+        "num_points": 49,
+        "unit_distance_pairs": 120,
+        "observed_exponent": 1.2301420353622812,
+        "observed_delta": 0.23014203536228117,
+        "claim_tier": "faithful_h1_degenerate_case",
+        "not_claimed": [
+          "Does not reproduce Theorem 1.1 polynomial improvement.",
+          "Does not construct an infinite Golod-Shafarevich tower.",
+          "[K : Q] = 2 only; the asymptotic result requires [K : Q] -> infinity."
+        ],
+        "paper_reference": "Proposition 2.2 with h(K) = 1 (degenerate case)",
+        "result_tags": {
+          "tier": "validated_numeric_proxy",
+          "evidence_level": "exact_finite_enumeration",
+          "model_kind": "ring_of_integers_O_K",
+          "exactness": "exact",
+          "registry_state": "research_only",
+          "charter_phase": "Phase 1: Discovery Engine"
+        }
+      },
+      "proof_delta_formula_sample": 0.8249891378759407
+    },
+    "phase2_genus_class_field": {
+      "field": "Q(sqrt(-5))",
+      "discriminant_K": -20,
+      "class_number_h": 2,
+      "split_primes_used": [
+        29,
+        41
+      ],
+      "candidate_ideal_count": 4,
+      "principal_class_fiber_size": 4,
+      "non_principal_class_fiber_size": 0,
+      "norm_one_elements_found": 3,
+      "lemma_22_predicted_lower_bound": 2,
+      "hilbert_class_field": {
+        "base_field": "Q(sqrt(-5))",
+        "class_number": "2",
+        "hilbert_class_field": "Q(i, sqrt(5))",
+        "construction": "genus field: adjoin sqrt(d*) for each prime discriminant d* dividing disc(K) = -20. Here d* in {-4, +5}, giving K(i, sqrt(5)) = Q(i, sqrt(5)).",
+        "reference": "Cox, Primes of the form x^2 + n*y^2, Theorem 6.1"
+      },
+      "claim_tier": "faithful_h2_genus_theory",
+      "not_claimed": [
+        "Does not reach an infinite class field tower (Phase 3).",
+        "Does not improve the asymptotic Erdos exponent.",
+        "K = Q(sqrt(-5)) is fixed; [K : Q] = 2 stays bounded."
+      ],
+      "paper_reference": "Proposition 2.2 of unit-distance-proof.pdf in the h(K) > 1 case, with genus theory supplying the explicit Hilbert class field of Q(sqrt(-5)).",
+      "result_tags": {
+        "tier": "validated_numeric_proxy",
+        "evidence_level": "exact_finite_pigeonhole",
+        "model_kind": "imaginary_quadratic_h_eq_2",
+        "exactness": "exact",
+        "registry_state": "research_only",
+        "charter_phase": "Phase 1: Discovery Engine"
+      }
+    },
+    "phase3_sawin_multiquadratic": {
+      "construction": "Sawin multi-quadratic (remarks PDF section 2.1)",
+      "T": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17
+      ],
+      "S_split": [
+        101
+      ],
+      "L_T_generators_sqrt_of": [
+        5,
+        13,
+        17,
+        21,
+        33
+      ],
+      "L_T_degree_over_Q": 32,
+      "101_splits_in_L_T": true,
+      "galois_rank": {
+        "d_G_infty": 5,
+        "r_G_S_bound": 6,
+        "golod_shafarevich_threshold": 6.25,
+        "admissible": true
+      },
+      "sawin_exponent_bound": {
+        "r_product": 510510,
+        "k": 762316628416213961,
+        "delta_minus_1": 6.239109643151817e-38,
+        "exponent_excess_above_1": 6.239109643151817e-38,
+        "matches_remarks_eq_2_2": true
+      },
+      "claim_tier": "faithful_finite_part_of_sawin_construction",
+      "not_claimed": [
+        "Does not construct the infinite pro-2 tower itself.",
+        "Does not exhibit explicit fields F_j with [F_j:Q] -> infinity.",
+        "Only the finite, checkable parts of remarks PDF section 2.1 are verified here; the existence of the tower is a Hajir-Maire theorem (remarks PDF Proposition 2.3)."
+      ],
+      "paper_reference": "Will Sawin et al., 'Remarks on the Disproof of the Unit Distance Conjecture', section 2.1 (Proof of Theorem 1.1), equations following Lemma 2.1 and eq (2.2).",
+      "external_verification_pdf_url": "https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-remarks.pdf",
+      "result_tags": {
+        "tier": "validated_numeric_proxy",
+        "evidence_level": "exact_arithmetic_verification_of_published_construction",
+        "model_kind": "multi_quadratic_pro_2_tower_finite_part",
+        "exactness": "exact",
+        "registry_state": "research_only",
+        "charter_phase": "Phase 1: Discovery Engine",
+        "ground_truth_document": "unit-distance-remarks.pdf section 2.1"
+      }
+    },
+    "source_claims_registry": [
+      {
+        "label": "openai_index_reported",
+        "delta": 0.014,
+        "announced_date": "2026-05-20",
+        "attribution": "OpenAI reasoning model (as reported on OpenAI index page)"
+      },
+      {
+        "label": "sawin_rigorous_lower_bound",
+        "delta": 6.24e-38,
+        "announced_date": "2026-05-21",
+        "attribution": "Will Sawin et al. (remarks PDF, simplified construction)"
+      },
+      {
+        "label": "sawin_refinement_reported",
+        "delta": 0.0318,
+        "announced_date": "2026-05-21",
+        "attribution": "Will Sawin (refined exponent, secondary reporting)"
+      }
+    ],
+    "api_endpoint": {
+      "status_code": 200,
+      "schema_id": "flamehaven-toe.algebraic-number-theory-proxy",
+      "status": "pass",
+      "gap_id": "ANT1",
+      "legacy_c9_hijacked": false
+    }
+  },
+  "pytest": {
+    "command": "D:\\Sanctum\\venv\\Scripts\\python.exe -m pytest tests/unit/test_algebraic_geometry.py tests/unit/test_model_registry_extended.py tests/unit/test_landscape_scanner.py -q",
+    "returncode": 0,
+    "stdout": "......................................                                   [100%]\n38 passed, 46 deselected in 0.47s",
+    "stderr": "",
+    "passed": true
+  }
+}

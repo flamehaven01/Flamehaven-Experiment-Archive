@@ -1,0 +1,191 @@
+{
+  "test_id": "TOE-TEST-0053",
+  "created_at": "2026-05-24T09:56:27+00:00",
+  "question": "Can Flamehaven-LOGOS safely act as an offline TOE candidate sidecar?",
+  "baseline_comparison": [
+    {
+      "name": "TOE-TEST-0051",
+      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0051",
+      "exists": true,
+      "file_count": 1,
+      "suffix_counts": {
+        ".md": 1
+      },
+      "has_python_script": false,
+      "has_manifest": false,
+      "has_pdf": false,
+      "method": "governance scaffolding",
+      "key_files": [
+        "TOE_TEST_0051_LITERATURE_ADAPTER_SCAFFOLDING.md"
+      ]
+    },
+    {
+      "name": "TOE-TEST-0052",
+      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0052",
+      "exists": true,
+      "file_count": 9,
+      "suffix_counts": {
+        ".jpg": 1,
+        ".md": 5,
+        ".py": 1,
+        ".json": 1,
+        ".pdf": 1
+      },
+      "has_python_script": true,
+      "has_manifest": false,
+      "has_pdf": true,
+      "method": "executable analysis plus SPAR review",
+      "key_files": [
+        "1778170167614.jpg",
+        "analysis_report.md",
+        "analysis_script.py",
+        "EXTERNAL_SUMMARY.md",
+        "GTE_Pedagogical_Review.md",
+        "internal_data.json",
+        "On the generalised Transport Equation as a Pedagogical Foundation.pdf",
+        "QUESTION.md",
+        "toe_spar_analysis.md"
+      ]
+    },
+    {
+      "name": "TOE-TEST-AEFSO",
+      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-AEFSO",
+      "exists": true,
+      "file_count": 28,
+      "suffix_counts": {
+        ".md": 26,
+        ".json": 1,
+        ".txt": 1
+      },
+      "has_python_script": false,
+      "has_manifest": true,
+      "has_pdf": false,
+      "method": "staged artifact-first experiment",
+      "key_files": [
+        "AEFSO_DOGFOOD_MATRIX.md",
+        "AEFSO_DOGFOOD_RESULTS_v1.md",
+        "AEFSO_DOGFOOD_RESULTS_v2.md",
+        "AEFSO_DOGFOOD_RESULTS_v3.md",
+        "AEFSO_DOGFOOD_RESULTS_v4.md",
+        "AEFSO_DOGFOOD_RUN2_v1.md",
+        "AEFSO_DOGFOOD_RUN4_v1.md",
+        "AEFSO_DOGFOOD_RUN_v1.md",
+        "AEFSO_EXPERIMENT_PLAN.md",
+        "AEFSO_FHVAL_VALIDATION_CHECKLIST.md",
+        "AEFSO_FHVAL_VALIDATION_v1.md",
+        "AEFSO_INTERIM_DECISION.md",
+        "AEFSO_IR_REQUIREMENTS_v1.md",
+        "AEFSO_MANIFEST.json",
+        "AEFSO_MISSING_LINK_SYNTHESIS.md",
+        "AEFSO_RUN5_IR_DISCOVERY_v1.md",
+        "AEFSO_RUN5_RESULTS_v1.md",
+        "AEFSO_SPAR_REVIEW_TEMPLATE.md",
+        "AEFSO_SPAR_REVIEW_v1.md",
+        "README.md",
+        "review.txt",
+        "TOE_ARCHITECTURE_UPDATE_PLAN.md",
+        "TOE_CHANGELOG_DRAFT_FOR_IR_UPDATE.md",
+        "TOE_DOC_INTEGRATION_MAP.md",
+        "TOE_GUARD_CARRYING_REPRESENTATION_SPEC_v1.md",
+        "TOE_HYBRID_IR_DRAFT_v1.md",
+        "TOE_NORMALIZATION_BOUNDARY_POLICY_v1.md",
+        "TOE_UPDATE_DIAGNOSTIC_v1.md"
+      ]
+    }
+  ],
+  "logos_source_compile": [
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\runner.py",
+      "exists": true,
+      "status": "pass"
+    },
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\evidence.py",
+      "exists": true,
+      "status": "pass"
+    },
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\pipeline.py",
+      "exists": true,
+      "status": "pass"
+    },
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\symbolic_verifier.py",
+      "exists": true,
+      "status": "pass"
+    },
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\psi_field.py",
+      "exists": true,
+      "status": "pass"
+    },
+    {
+      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\bridge\\manifold_bridge.py",
+      "exists": true,
+      "status": "pass"
+    }
+  ],
+  "logos_runtime_probe": {
+    "package_name_resolution": {
+      "args": [
+        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "-c",
+        "import importlib.util; spec=importlib.util.find_spec('logos'); print(None if spec is None else spec.origin)"
+      ],
+      "cwd": "D:\\Sanctum",
+      "timeout_s": 15,
+      "duration_s": 0.105,
+      "returncode": 0,
+      "status": "pass",
+      "stdout": "D:\\Sanctum\\RExSyn-Nexus-main\\src\\logos\\__init__.py\n",
+      "stderr": ""
+    },
+    "direct_import": {
+      "args": [
+        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "-c",
+        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
+      ],
+      "cwd": "D:\\Sanctum",
+      "timeout_s": 20,
+      "duration_s": 20.017,
+      "returncode": null,
+      "status": "timeout",
+      "stdout": "",
+      "stderr": ""
+    },
+    "aats_smoke": {
+      "args": [
+        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "-c",
+        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
+      ],
+      "cwd": "D:\\Sanctum",
+      "timeout_s": 20,
+      "duration_s": 20.028,
+      "returncode": null,
+      "status": "timeout",
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "toe_contract_probe": {
+    "args": [
+      "D:\\Sanctum\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/unit/test_logos_sidecar_contract.py",
+      "tests/unit/test_research_run_export_contract.py",
+      "-q"
+    ],
+    "cwd": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+    "timeout_s": 60,
+    "duration_s": 2.317,
+    "returncode": 0,
+    "status": "pass",
+    "stdout": "......                                                                   [100%]\n6 passed in 0.10s\n",
+    "stderr": ""
+  },
+  "schema_id": "flamehaven_toe.logos_candidate_packet.v1",
+  "verdict": "DEGRADED_SIDECAR_ONLY"
+}

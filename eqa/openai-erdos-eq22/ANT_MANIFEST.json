@@ -1,0 +1,27 @@
+{
+  "experiment_id": "TOE_TEST_ANT_OPENAI_ERDOS",
+  "title": "Integrating Algebraic Number Theory Breakthroughs (Erdos-OpenAI)",
+  "status": "executable_research_only_proxy_verified",
+  "location": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
+  "main_repo": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+  "validation_stack": [
+    "live TOE Python imports",
+    "finite unit-distance density probe",
+    "CompactGeometry metadata check",
+    "LandscapeScanner non-gating check",
+    "SPAR model registry check",
+    "FastAPI endpoint check",
+    "targeted pytest contract",
+    "dashboard production build"
+  ],
+  "working_hypothesis": "The OpenAI/Erdos algebraic number theory result is useful as a TOE representation-layer research proxy, not as a direct core physics gate.",
+  "expected_outputs": [
+    "analysis_result.json",
+    "analysis_report.md"
+  ],
+  "api_endpoint": "/api/algebraic_number_theory",
+  "authoritative_gap_id": "ANT1",
+  "legacy_gap_ids_not_owned": [
+    "C9"
+  ]
+}

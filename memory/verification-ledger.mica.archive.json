@@ -1,0 +1,81 @@
+{
+  "mica_spec": "0.2.6",
+  "mica_schema_version": "0.2.6",
+  "project": {
+    "name": "flamehaven-verification-ledger",
+    "full_name": "Flamehaven Verification Ledger",
+    "version": "1.0.0",
+    "status": "active",
+    "primary_language": "Multi-Environment",
+    "repo_path": ".",
+    "canonical_statement": "Master verification ledger orchestrating and archiving high-stakes theoretical equation reproductions (TOE/EQA), bio-AI pipeline governance reviews (RExSyn), and static biological model audits (STEM-BIO-AI)."
+  },
+  "scope": {
+    "include": ["index.html", "js/", "css/", "eqa/", "stem-bio-ai/", "README.md"],
+    "exclude": ["__pycache__/", "*.pyc", ".git/", "node_modules/"]
+  },
+  "design_invariants": [
+    {
+      "id": "DI-EQA-001",
+      "label": "mpmath-precision-lock",
+      "statement": "Standard float64 is strictly banned for Equation (2.2) and similar high-stakes EQA evaluations. Must use arbitrary-precision libraries (e.g., mpmath at >= 200-bit) to prevent catastrophic underflow cancellation.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-052: Standard double-precision floats underflowed to absolute zero in multi-quadratic class field calculations."
+      }
+    },
+    {
+      "id": "DI-EQA-002",
+      "label": "unmodified-run-provenance",
+      "statement": "Verification run JSON data and file lists (e.g., analysis_result.json) must remain completely unedited to preserve audit integrity and scientific reproducibility.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-053: Discovered during EQA conversion that editing local execution outputs invalidates public verification signatures."
+      }
+    },
+    {
+      "id": "DI-REX-001",
+      "label": "multimodel-structure-consensus",
+      "statement": "RExSyn structural checks must employ multi-model consensus validation (Trinity Core: AF3, AF2, Boltz-2, Chai-1) before promoting any biomedical model candidates.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-041: Single-model structural check failed to identify folding anomalies, causing downstream degradation in binding affinity predictions."
+      }
+    },
+    {
+      "id": "DI-REX-002",
+      "label": "logos-reasoning-alignment",
+      "statement": "RExSyn logic checks must utilize explicit HTTP client sidecar routes to prevent namespace conflicts and import-latency drifts during FastAPI app execution.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-053: Standalone reasoning package import-time latency degraded request-path performance."
+      }
+    },
+    {
+      "id": "DI-BIO-001",
+      "label": "clinical-boundary-mapping",
+      "statement": "STEM-BIO-AI audits must explicitly map model capabilities and code surfaces against the MIT AI Risk Repository (AIRI) to isolate high-risk biological surfaces.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-034: Ambiguity in bioclaw classification permitted unchecked deployment of synthetic biological sequence generators."
+      }
+    },
+    {
+      "id": "DI-BIO-002",
+      "label": "isolated-scan-verification",
+      "statement": "All STEM-BIO-AI scan reports must be compiled as deterministic standalone HTML/MD files served with the standard Verification Ledger header.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-035: Inconsistent template headers in early reports weakened brand continuity for external auditors."
+      }
+    }
+  ],
+  "operation_meta": {
+    "mica_schema_version": "0.2.6",
+    "archive_id": "VERIFICATION-LEDGER-MICA-001",
+    "update_count": 1,
+    "last_updated": "2026-05-26",
+    "session_count": 1,
+    "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, RExSyn, and STEM-BIO-AI lanes."
+  }
+}

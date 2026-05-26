@@ -1,0 +1,189 @@
+{
+  "contract_inspection_schema_id": "flamehaven_toe.logos_toe_contract_inspection.v1",
+  "pipeline_contract_score": 0.625,
+  "dangerous_pass_risk": 1.0,
+  "gate_recommendation": "BLOCK",
+  "overall_ok": false,
+  "connections": {
+    "c1_evidence_to_logos": {
+      "contract_score": 0.75,
+      "discord_score": 0.25,
+      "dangerous_pass_risk": 0.0,
+      "checks": [
+        {
+          "check_id": "c1_spans_present",
+          "passed": true,
+          "note": "evidence spans exist",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c1_span_text_present",
+          "passed": true,
+          "note": "span text exists",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c1_logos_results_present",
+          "passed": true,
+          "note": "LOGOS raw results captured",
+          "weight": 1.0
+        },
+        {
+          "check_id": "c1_logos_results_nonempty",
+          "passed": false,
+          "note": "LOGOS produced at least one candidate result",
+          "weight": 2.0
+        },
+        {
+          "check_id": "c1_runtime_completed",
+          "passed": true,
+          "note": "LOGOS runtime completed without degraded timeout/failure status",
+          "weight": 2.0
+        }
+      ],
+      "issues": [
+        "LOGOS produced at least one candidate result"
+      ]
+    },
+    "c2_logos_to_toe_candidate": {
+      "contract_score": 0.625,
+      "discord_score": 0.375,
+      "dangerous_pass_risk": 0.0833,
+      "checks": [
+        {
+          "check_id": "c2_hypothesis_present",
+          "passed": false,
+          "note": "generated candidate hypothesis exists",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c2_status_non_pass",
+          "passed": true,
+          "note": "candidate is not a TOE PASS",
+          "weight": 1.0
+        },
+        {
+          "check_id": "c2_not_claimed_complete",
+          "passed": true,
+          "note": "non-claims preserved",
+          "weight": 1.5
+        }
+      ],
+      "issues": [
+        "generated candidate hypothesis exists"
+      ]
+    },
+    "c3_candidate_to_toe_test": {
+      "contract_score": 1.0,
+      "discord_score": 0.0,
+      "dangerous_pass_risk": 0.0,
+      "checks": [
+        {
+          "check_id": "c3_toe_test_id_present",
+          "passed": true,
+          "note": "TOE-TEST id exists",
+          "weight": 1.0
+        },
+        {
+          "check_id": "c3_required_checks_present",
+          "passed": true,
+          "note": "required checks exist",
+          "weight": 1.0
+        },
+        {
+          "check_id": "c3_no_runtime_promotion",
+          "passed": true,
+          "note": "promotion policy blocks runtime promotion",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c3_trust_boundary_complete",
+          "passed": true,
+          "note": "trust boundary flags are true",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c3_spar_review_required",
+          "passed": true,
+          "note": "existing SPAR run_spar review is required",
+          "weight": 1.5
+        },
+        {
+          "check_id": "c3_spar_blocks_promotion",
+          "passed": true,
+          "note": "SPAR blocks registry and maturity promotion",
+          "weight": 1.5
+        }
+      ],
+      "issues": []
+    }
+  },
+  "lawbinder_governance": {
+    "decision": "INHIBIT",
+    "score": 0.8,
+    "constraint_results": [
+      {
+        "name": "logos_is_not_toe_verifier",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "no_forbidden_promotion_labels",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "spar_required_before_promotion",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "pre_spar_status_restricted",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "non_claims_complete",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "logos_runtime_completed",
+        "passed": true,
+        "violation_score": 0.0,
+        "message": ""
+      },
+      {
+        "name": "logos_candidate_generated",
+        "passed": false,
+        "violation_score": 1.0,
+        "message": "Constraint 'logos_candidate_generated' violated"
+      },
+      {
+        "name": "contract_score_usable",
+        "passed": false,
+        "violation_score": 1.0,
+        "message": "Constraint 'contract_score_usable' violated"
+      }
+    ],
+    "hard_violations": 1,
+    "soft_violations": 1,
+    "rationale": "INHIBIT: 1 hard constraint(s) violated. Execution blocked until resolved.",
+    "mandates": [
+      "[HARD] logos_candidate_generated: Constraint 'logos_candidate_generated' violated",
+      "[SOFT] contract_score_usable: Constraint 'contract_score_usable' violated"
+    ],
+    "can_proceed": false,
+    "timestamp": 1779630402.0584204,
+    "audit_hash": "25433b96c5253e20",
+    "enabled": true,
+    "available": true,
+    "lawbinder_root": "D:\\Sanctum\\Flamehaven-LawBinder",
+    "role": "governance_arbitrator_not_verifier"
+  }
+}

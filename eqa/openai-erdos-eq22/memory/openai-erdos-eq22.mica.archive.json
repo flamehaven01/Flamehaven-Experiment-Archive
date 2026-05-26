@@ -1,0 +1,45 @@
+{
+  "mica_spec": "0.2.6",
+  "mica_schema_version": "0.2.6",
+  "project": {
+    "name": "openai-erdos-eq22-reproduction",
+    "full_name": "OpenAI Erdős Unit-Distance Disproof: Eq. (2.2) Executable Reproduction",
+    "version": "0.2.6",
+    "status": "active",
+    "primary_language": "Python",
+    "repo_path": "eqa/openai-erdos-eq22",
+    "canonical_statement": "Independent Python reproduction for the 2026 OpenAI/Sawin disproof of the Erdős unit-distance conjecture: mpmath-200-bit check of remarks PDF equation (2.2), matching the published value at 0.014% relative error."
+  },
+  "scope": {
+    "include": ["src/", "tests/", "README.md", "pyproject.toml"],
+    "exclude": ["__pycache__/", "*.pyc", ".git/", "docs/"]
+  },
+  "design_invariants": [
+    {
+      "id": "DI-001",
+      "label": "mpmath-precision-lock",
+      "statement": "Catastrophic cancellation occurs when evaluating equation (2.2) in standard float64. Must use mpmath with at least 200-bit precision.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-052: Initial float64 evaluation collapsed to zero due to underflow in multi-quadratic exponent calculations."
+      }
+    },
+    {
+      "id": "DI-002",
+      "label": "no-tampering-unmodified-json",
+      "statement": "Raw analysis JSON data from the verification run must remain unedited to preserve third-party auditable provenance.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-053: Discovered during EQA conversion that any modification to raw values breaks external verification trust boundaries."
+      }
+    }
+  ],
+  "operation_meta": {
+    "mica_schema_version": "0.2.6",
+    "archive_id": "OPENAI-ERDOS-EQ22-MICA-001",
+    "update_count": 1,
+    "last_updated": "2026-05-26",
+    "session_count": 1,
+    "bootstrap_note": "MICA package established to enforce numerical precision and provenance integrity of the Erdős disproof reproduction."
+  }
+}
