@@ -8,7 +8,7 @@ Public directory of all system evaluation logs, mathematical physics verificatio
 
 ## 📊 Active Collections
 
-### 🟢 STEM-BIO-AI (Bioscience AI Repository Audits)
+### 🟢 Bioscience Compliance (Repository Audits)
 
 #### 1. [yorkeccak/bio](https://github.com/yorkeccak/bio) — Audit Date: 2026-05-18
 - **Verdict**: `T1 Quarantine` (Score: `48/100`)
@@ -42,11 +42,11 @@ Public directory of all system evaluation logs, mathematical physics verificatio
 
 ## ⏳ Verification Queue & Pre-release Review
 
-### ⚪ TOE Physics Runs
-- **Scope**: Calibration and algebraic-geometric baseline verification run (TOE-TEST-0001) is currently in preparation.
+### ⚪ Equation-to-Artifact (EQA) Runs
+- **Scope**: Verification run ledger and numerical reproductions are actively logged.
 
-### ⚪ REXSYN Biomedical Structure Review
-- **Scope**: Integrated telemetry and conformational consensus briefings (REXSYN-31-32) are currently under pre-release review.
+### ⚪ Biomolecular AI Validation Reviews
+- **Scope**: Conformational consensus briefings and dynamic pipeline telemetry audits are currently under pre-release review.
 
 ---
 

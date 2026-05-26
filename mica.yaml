@@ -1,7 +1,7 @@
 mica_spec: "0.2.6"
 name: flamehaven-verification-ledger
 mode: memory_injection
-description: "Master MICA Package governing all validation lanes: Equation-to-Artifact (EQA), RExSyn Pipeline Governance, and STEM-BIO-AI Code Audits."
+description: "Master MICA Package governing all validation lanes: Equation-to-Artifact (EQA), Biomolecular AI Validation, and Bioscience Compliance."
 
 layers:
   - name: archive

@@ -1,6 +1,6 @@
 # 🛡️ Flamehaven Verification Ledger
 
-> Public, transparent, and authoritative public ledger of AI safety audits, mathematical physics verification runs, sovereign biomedical intelligence audits, and independent auditor review templates from **Flamehaven**.
+> Public, transparent, and authoritative public ledger of AI safety audits, mathematical and physical verification runs, bioscience repository compliance audits, and independent auditor review templates from **Flamehaven**.
 
 [![Flamehaven Space](https://img.shields.io/badge/Flamehaven-space-000000?style=flat&logo=target&logoColor=white)](https://flamehaven.space/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Flamehaven--Verification--Ledger-181717?style=flat&logo=github)](https://github.com/flamehaven01/Flamehaven-Verification-Ledger)
@@ -21,20 +21,20 @@ The summary file is intentionally narrow. It exists only to route users into the
 
 ## 🎯 Core Verification & Audit Lanes
 
-### 1. TOE (Theory of Everything) Physics Engine
-- **Focus**: Validating mathematical simulation models and algebraic geometry hypotheses.
-- **Methodology**: Driven by the rigorous **3-3-4 VVR Matrix** (3 Pass, 3 Fail, 4 Adversarial cases designed to expose geometry vs. narrative divergence) and evaluated under the **SPAR adversarial review pipeline**.
-- **Scope**: Baseline calibration and algebraic-geometric verification runs (In Prep).
+### 1. Equation-to-Artifact (EQA) Verification
+- **Focus**: Translating high-stakes mathematical and physical proofs (such as discrete geometry conjectures) into runnable, CI-tested software artifacts.
+- **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, mathematical rules, and absolute consensus boundaries.
+- **Scope**: Active verification ledger featuring the May 2026 OpenAI Erdős unit-distance disproof reproduction.
 
-### 2. STEM-BIO-AI Deterministic Scanner
-- **Focus**: Local, zero-execution repository evidence-surface audits for advanced bio and medical AI systems.
+### 2. Bioscience Repository Compliance Scanner
+- **Focus**: Local, zero-execution repository safety and compliance audits for advanced bioscience systems.
 - **Methodology**: Maps observables (README intent, dependency safety, exception handling, data-provenance, clinical disclaimers) directly to structured evidence-readiness tiers (T0 Quarantine to T3 Clear), mapped to the **MIT AI Risk Repository (AIRI)**.
 - **Scope**: 2 authoritatively active repository audit reports.
 
-### 3. REXSYN Structure Validator
-- **Focus**: Monitoring structural alignment and output resonance integrity for biomedical model fine-tunes.
-- **Methodology**: Integrates multi-model 3D structure predictions (**Trinity Core**: AF3, AF2, Boltz-2, Chai-1) combined with **LOGOS reasoning modules** and NNSL resonance integrity scoring.
-- **Scope**: Multi-model 3D structure prediction cross-validation consensus briefings and biomedical governance case notes.
+### 3. Biomolecular AI Validation
+- **Focus**: Governing structural alignment and structural consensus integrity for biomedical model fine-tunes.
+- **Methodology**: Integrates multi-model 3D structure prediction consensus validation (AF3, AF2, Boltz-2, Chai-1) combined with strict reasoning and governance layers.
+- **Scope**: Consensus briefings and structural prediction validation records (pre-release review).
 
 ---
 
@@ -46,7 +46,7 @@ All experiment results and compliance logs follow a unified hierarchical layout:
 flamehaven-verification-ledger/
 ├── index.html                           # Premium Portal Homepage
 ├── index.md                             # Markdown Archive Directory
-├── stem-bio-ai/                         # STEM-BIO-AI Local Scanner Audits
+├── stem-bio-ai/                         # Bioscience Compliance Audits
 ├── css/                                 # Styling System
 ├── js/                                  # Interaction Logic
 │   ├── yorkeccak-bio/
@@ -73,9 +73,9 @@ To interactively browse this repository, run the local dev server and open the p
 2. Open `http://localhost:7777` in your browser.
 
 ### Active Audits:
-- **[STEM-BIO-AI] yorkeccak/bio (T1 Quarantine · Score 48)**
+- **[Bioscience Compliance] yorkeccak/bio (T1 Quarantine · Score 48)**
   - [Interactive Report](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.html) | [Analyst Write-up](./stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md) | [Markdown](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md)
-- **[STEM-BIO-AI] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
+- **[Bioscience Compliance] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
   - [Interactive Report](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html) | [Markdown](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md)
 - **[Methodology] Agent Review Dashboard (PR Action Plan 2.0)**
   - [Interactive Dashboard](./extra/pr_action_plan_v3.html)
@@ -84,7 +84,7 @@ To interactively browse this repository, run the local dev server and open the p
 
 ## 🔒 Security & Reproducibility Ground Rules
 
-- **Zero LLM & Zero Network Runtime**: All STEM-BIO-AI scans execute locally with no external APIs or network requests.
+- **Zero LLM & Zero Network Runtime**: All Bioscience Compliance scans execute locally with no external APIs or network requests.
 - **Deterministic Constants**: Audit results are fully reproducible from repository state inputs.
 - **Read-Only Safety**: The scanner has no permission to alter source code files, ensuring 100% read-only integrity.
 
