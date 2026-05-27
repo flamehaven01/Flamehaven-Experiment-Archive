@@ -685,7 +685,7 @@ async function openJsonInspector(runId, type = 'json') {
   }
   
   // Switch to the correct tab initially
-  const initialTab = (type === 'report' || runId.startsWith('eqa-calib-')) ? 'raw' : 'insights';
+  const initialTab = type === 'report' ? 'raw' : 'insights';
   const tabBtn = Array.from(document.querySelectorAll('.inspector-tab')).find(b => {
     const text = b.textContent.toLowerCase();
     return initialTab === 'raw' ? (text.includes('raw') || text.includes('json') || text.includes('proof') || text.includes('report')) : text.includes('insight');
