@@ -86,6 +86,12 @@
 .sb-folder-header:hover .sb-folder-icon,
 .sb-folder-btn.active .sb-folder-icon { color: var(--t3); }
 
+/* Open-folder shape: tab angled up-right to suggest flap raised */
+.sb-folder-btn.open .sb-folder-icon path {
+  d: path("M1.5 4.5a1 1 0 011-1h3l2-2h5.5a1 1 0 011 1v8.5a1 1 0 01-1 1h-10a1 1 0 01-1-1v-6.5z");
+  fill: rgba(161,161,170,0.15);
+}
+
 /* Chevron */
 .sb-chevron {
   width: 10px; height: 10px; flex-shrink: 0;
