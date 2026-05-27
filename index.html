@@ -107,7 +107,7 @@
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
             </svg>
             <span class="sb-folder-name">Biomolecular AI Validation (BAV)</span>
-            <span class="sb-folder-badge" style="color:var(--t4);border-color:var(--border);">Case Notes</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">1 Run</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -121,9 +121,9 @@
         </div>
         <div class="sb-children" id="child-rexsyn">
           <div class="sb-files" style="padding-left: 8px;">
-            <div class="sb-file" style="cursor:default;pointer-events:none;color:var(--t5);border-left-color:transparent;margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:var(--t5)"></span>
-              <span class="sb-file-name" style="font-style:italic;">Upcoming</span>
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0031').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#10b981"></span>
+              <span class="sb-file-name">bav-run-31-32</span>
             </div>
           </div>
         </div>
@@ -247,8 +247,8 @@
       <h2 class="portal-intro-title">Portal Overview &amp; Verification Engines</h2>
     </div>
     <div class="portal-intro-grid">
-      <!-- Card 1: TOE -->
-      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'toe\']').click()">
+      <!-- Card 1: EQA -->
+      <div class="portal-intro-card" onclick="openCollection('toe')">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="8" cy="8" r="6"/>
@@ -266,7 +266,7 @@
       </div>
 
       <!-- Card 2: BAV -->
-      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click()">
+      <div class="portal-intro-card" onclick="openCollection('rexsyn')">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M8 1.5L2 4.5v4.25c0 3.75 6 5.75 6 5.75s6-2 6-5.75V4.5l-6-3z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -283,7 +283,7 @@
       </div>
       
       <!-- Card 3: BSC -->
-      <div class="portal-intro-card" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click()">
+      <div class="portal-intro-card" onclick="openCollection('stem-bio-ai')">
         <div class="portal-intro-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
             <rect x="2" y="2" width="12" height="12" rx="1.5"/>
@@ -316,8 +316,8 @@
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="2" y1="2" x2="14" y2="14" stroke-linecap="round"/>
-            <line x1="14" y1="2" x2="2" y2="14" stroke-linecap="round"/>
+            <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+            <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
           </svg>
           EQA Protocol
         </div>
@@ -565,7 +565,7 @@
   <div class="project-dashboard" id="dashboard-bav">
     <div class="project-dashboard-header">
       <div class="project-dashboard-eyebrow">Biomolecular AI Validation (BAV)</div>
-      <h2 class="project-dashboard-title">Biomedical Pipeline Governance</h2>
+      <h2 class="project-dashboard-title">Biomolecular AI Validation Ledger</h2>
       <p class="project-dashboard-desc">
         Governs structural and logical conformance of biomedical AI pipelines. Enforces 3D biomolecular coordinate integrity checks, multi-model consensus predictions, and automated compliance boundaries.
       </p>
@@ -576,8 +576,8 @@
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="10" height="10" rx="1.5"/>
-            <circle cx="8" cy="8" r="2.5"/>
+            <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+            <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
           </svg>
           BAV Protocol
         </div>
@@ -648,11 +648,27 @@
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
             </svg>
-            [Inspect Telemetry JSON]
+            [JSON]
           </button>
           <a class="eq-slot-btn" href="https://flamehaven.space" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
-            Read Case Notes on flamehaven.space ↗
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="8" height="8" rx="1"/>
+              <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
+            </svg>
+            [Report ↗]
           </a>
+          <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/>
+            </svg>
+            [Repo]
+          </span>
+          <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
+            </svg>
+            [Paper]
+          </span>
         </div>
       </article>
     </div>
@@ -1231,9 +1247,9 @@
       <div class="footer-col">
         <div class="footer-col-title">Verification Lanes</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'toe\']').click(); return false;">Equation-to-Artifact Ledger</a></li>
-          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'stem-bio-ai\']').click(); return false;">Bioscience Compliance Scanner</a></li>
-          <li><a href="#" onclick="document.querySelector('.sb-folder-btn[data-id=\'rexsyn\']').click(); return false;">Biomolecular AI Validation Ledger</a></li>
+          <li><a href="#" onclick="openCollection('toe'); return false;">Equation-to-Artifact Ledger</a></li>
+          <li><a href="#" onclick="openCollection('stem-bio-ai'); return false;">Bioscience Compliance Scanner</a></li>
+          <li><a href="#" onclick="openCollection('rexsyn'); return false;">Biomolecular AI Validation Ledger</a></li>
         </ul>
       </div>
       <div class="footer-col">

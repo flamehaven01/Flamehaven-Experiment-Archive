@@ -185,6 +185,32 @@ function toggleFolder(btn) {
   }
 }
 
+window.openCollection = function(folderId) {
+  const folderBtn = document.querySelector(`.sb-folder-btn[data-id="${folderId}"]`);
+  if (folderBtn) {
+    document.querySelectorAll('.sb-folder-btn').forEach(b => b.classList.remove('active'));
+    folderBtn.classList.add('active');
+    
+    // Ensure the folder is expanded
+    if (!folderBtn.classList.contains('open')) {
+      folderBtn.classList.add('open');
+      const children = document.getElementById(`child-${folderId}`);
+      if (children) children.classList.add('open');
+    }
+    
+    if (folderId === 'stem-bio-ai') {
+      filterColl('stem-bio-ai', null);
+    } else if (folderId === 'extra') {
+      filterColl('extra', null);
+    } else {
+      filterColl(folderId, null);
+    }
+    
+    // Smooth scroll back to top of new dashboard view
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+};
+
 function toggleSeries(btn) {
   const isOpen = btn.classList.toggle('open');
   const files = btn.nextElementSibling;
