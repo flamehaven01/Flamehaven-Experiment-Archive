@@ -1621,7 +1621,7 @@ function buildCalibCharts(data) {
         { label: 'Pass', value: passCount, color: '#10b981' },
         ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : []),
       ],
-      options: { centerText: String(passCount), centerSub: `of ${vals.length} passed` },
+      options: { centerText: String(passCount), centerSub: `of ${vals.length} checks passed` },
     });
   }
 
@@ -2261,8 +2261,8 @@ window.renderHistoricalRuns = function() {
   statsBanner.style.cssText = 'display:flex;gap:20px;padding:7px 16px;background:rgba(167,139,250,0.04);border-bottom:1px solid rgba(167,139,250,0.12);flex-wrap:wrap;align-items:center;';
   statsBanner.innerHTML = `
     <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">51 runs</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; 25 full-pass (5/5)</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#f59e0b;">&#9651; 26 partial (4/5)</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; 25 — all 5 checks passed</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#f59e0b;">&#9651; 26 — 4 of 5 checks passed</span>
     <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">16 topics</span>
     <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">err &le; 2.71e&#8722;4%</span>
     <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t5);margin-left:auto;">[synthetic]</span>
