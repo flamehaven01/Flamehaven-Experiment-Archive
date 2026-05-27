@@ -4,7 +4,7 @@
   "project": {
     "name": "flamehaven-verification-ledger",
     "full_name": "Flamehaven Verification Ledger",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "status": "active",
     "primary_language": "Multi-Environment",
     "repo_path": ".",
@@ -77,14 +77,32 @@
       "binding": {
         "origin_episode": "EXP-056: Standardized the EQA precision steer layout, BIV rotating WebGL helix lattice, and BRC compliance steer sandbox using a unified, reusable UI/UX Toolkit SDK."
       }
+    },
+    {
+      "id": "DI-SDK-002",
+      "label": "global-window-bindings",
+      "statement": "Any interactive JS handler or UI toggle function called inline from the HTML structure must be explicitly bound to the global window object in js/portal.js to ensure scoping compatibility and bypass browser module restrictions.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-058: Added explicit window exports at the end of portal.js to prevent browser module inline click resolution failures."
+      }
+    },
+    {
+      "id": "DI-BIO-003",
+      "label": "html-tag-balancing-protection",
+      "statement": "Containers representing individual ledger dashboard sections (such as EQA, BAV, BSC, extras) must maintain strict, correct HTML tag balancing to prevent browser parser corruption from hiding downstream sections.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-059: Diagnosed that an unclosed BAV dashboard tag nested the BSC dashboard within a hidden element, and resolved it by restoring the missing closing div."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 2,
-    "last_updated": "2026-05-26",
-    "session_count": 1,
+    "update_count": 3,
+    "last_updated": "2026-05-27",
+    "session_count": 2,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }
