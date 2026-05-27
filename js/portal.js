@@ -755,6 +755,11 @@ async function openJsonInspector(runId, type = 'json') {
     } catch (e) {
       reportText = getFallbackReportText(runId);
     }
+  } else if (type === 'report' && runId === 'toe-test-0053') {
+    try {
+      const res = await fetch('./eqa/toe-test-0053/analysis_report.md?t=' + new Date().getTime());
+      if (res.ok) reportText = await res.text();
+    } catch (e) {}
   }
   inspector.reportText = reportText;
   
@@ -1434,10 +1439,13 @@ function renderInspectorData(runId, data, reportText = '') {
         </div>
       </div>
     `;
-  } else if (reportText && runId === 'toe-test-0054') {
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053')) {
+    const reportTitle = runId === 'toe-test-0054'
+      ? '📄 Governance Gate Report (TOE-TEST-0054)'
+      : '📄 Namespace Audit Report (TOE-TEST-0053)';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">📄 Governance Gate Report (TOE-TEST-0054)</span>
+        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>
         <button id="${copyButtonId}" class="eq-slot-btn" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:var(--r-xs);">Copy Markdown</button>
       </div>
       <div style="max-height: 480px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; text-align: left;">
