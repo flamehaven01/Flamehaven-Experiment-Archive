@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EQA Research Station — Flamehaven</title>
+<meta name="description" content="Equation-to-Artifact Research Station: deterministic reproduction of mathematical physics breakthroughs as runnable, citable computational software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/sidebar.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/dashboards.css">
+<link rel="stylesheet" href="./css/viewer.css">
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="./index.html" class="nav-logo">
+    <img src="./logo.png" alt="Flamehaven Labs Logo" class="nav-logo-img">
+    <span class="nav-brand">Flamehaven</span>
+    <span class="nav-sub">EQA Research Station</span>
+  </a>
+  <div class="nav-right">
+    <a href="./index.html" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--t3);">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Verification Ledger
+    </a>
+    <a href="https://github.com/flamehaven01" class="nav-link" target="_blank" rel="noopener">
+      <svg viewBox="0 0 12 12" fill="currentColor" width="12" height="12">
+        <path d="M6 .3a6 6 0 00-1.9 11.7c.3.05.4-.13.4-.3v-1.1c-1.67.36-2.02-.8-2.02-.8-.27-.7-.67-.88-.67-.88-.55-.37.04-.36.04-.36.6.04.92.62.92.62.54.92 1.42.66 1.76.5.06-.39.21-.66.38-.81-1.34-.15-2.74-.67-2.74-2.97 0-.66.24-1.2.62-1.62-.06-.15-.27-.77.06-1.6 0 0 .5-.16 1.65.62A5.75 5.75 0 016 4.32c.51 0 1.02.07 1.5.2 1.15-.78 1.65-.62 1.65-.62.33.83.12 1.45.06 1.6.39.42.62.96.62 1.62 0 2.31-1.41 2.82-2.75 2.97.22.19.41.55.41 1.11v1.65c0 .17.1.36.4.3A6 6 0 006 .3z"/>
+      </svg>
+      GitHub
+    </a>
+  </div>
+</nav>
+
+<!-- ── PAGE LAYOUT ──────────────────────────────────────────────────────── -->
+<div class="page-layout">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sb-header">
+      <div class="sb-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px;color:var(--t4);">
+          <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+          <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+        </svg>
+        EQA Research Station
+      </div>
+      <div class="sb-search">
+        <svg class="sb-search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5.5" cy="5.5" r="4"/><path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="sb-search-input" placeholder="Search files (/) ..." autocomplete="off" oninput="handleSidebarSearch()">
+      </div>
+    </div>
+
+    <div class="sb-tree">
+      <!-- EQA Folder (active / expanded by default) -->
+      <div class="sb-folder">
+        <div class="sb-folder-header">
+          <button class="sb-folder-btn open active" onclick="toggleFolder(this)" data-id="toe">
+            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161,161,170,0.1)"/>
+            </svg>
+            <span class="sb-folder-name">Equation-to-Artifact (EQA)</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16,185,129,0.2);">1 Paper</span>
+            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="sb-tooltip">
+            <strong>Equation-to-Artifact Verification (EQA)</strong><br>
+            Deterministic verification reproducing theoretical physics and mathematical breakthroughs as runnable, citable CI-tested software.
+          </span>
+        </div>
+        <div class="sb-children open" id="child-toe">
+          <div class="sb-files open" style="padding-left:8px;">
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#10b981"></span>
+              <span class="sb-file-name">openai-erdos-eq22</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0054').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#3b82f6"></span>
+              <span class="sb-file-name">eqa-test-0054</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0053').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#3b82f6"></span>
+              <span class="sb-file-name">eqa-test-0053</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAV Folder (link to main ledger) -->
+      <div class="sb-folder">
+        <div class="sb-folder-header">
+          <a class="sb-folder-btn" href="./index.html" style="text-decoration:none;">
+            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161,161,170,0.1)"/>
+            </svg>
+            <span class="sb-folder-name">Biomolecular AI Validation (BAV)</span>
+            <span class="sb-folder-badge">↗ Main</span>
+            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <span class="sb-tooltip">
+            <strong>Biomolecular AI Validation (BAV)</strong><br>
+            View BAV data on the main Verification Ledger.
+          </span>
+        </div>
+      </div>
+
+      <!-- BSC Folder (link to main ledger) -->
+      <div class="sb-folder">
+        <div class="sb-folder-header">
+          <a class="sb-folder-btn" href="./index.html" style="text-decoration:none;">
+            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161,161,170,0.1)"/>
+            </svg>
+            <span class="sb-folder-name">Bioscience Compliance (BSC)</span>
+            <span class="sb-folder-badge">↗ Main</span>
+            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <span class="sb-tooltip">
+            <strong>Bioscience Compliance (BSC)</strong><br>
+            View BSC audit reports on the main Verification Ledger.
+          </span>
+        </div>
+      </div>
+
+      <!-- M&F Folder -->
+      <div class="sb-folder">
+        <div class="sb-folder-header">
+          <a class="sb-folder-btn" href="./extra/pr_action_plan_v3.html" target="_blank" rel="noopener" style="text-decoration:none;">
+            <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161,161,170,0.1)"/>
+            </svg>
+            <span class="sb-folder-name">Methodology &amp; Frameworks</span>
+            <span class="sb-folder-badge">1</span>
+            <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <span class="sb-tooltip">
+            <strong>Methodology &amp; Frameworks</strong><br>
+            Agent Review Dashboard (PR Action Plan v3).
+          </span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────────────────── -->
+  <div class="wrap">
+
+    <!-- B2B Service Banner -->
+    <div class="b2b-notice-banner">
+      <div class="b2b-notice-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="b2b-notice-content">
+        This is the public verification record of Flamehaven's governance review work. For commercial services, blueprints, and methodologies, visit <a href="https://flamehaven.space" target="_blank" rel="noopener">flamehaven.space</a>.
+      </div>
+    </div>
+
+    <!-- EQA DASHBOARD (always active on this page) -->
+    <div class="project-dashboard active" id="dashboard-toe">
+      <div class="project-dashboard-header">
+        <div class="project-dashboard-eyebrow">Equation-to-Artifact (EQA)</div>
+        <h2 class="project-dashboard-title">Mathematical &amp; Physical Verification Ledger</h2>
+        <p class="project-dashboard-desc">
+          Independent, deterministic reproduction of mathematical proofs, physics models, and discrete geometry equations. Rather than generating ungrounded hypotheses, this ledger validates theoretical claims by turning abstract formulas into executable, citable, and testable scientific software.
+        </p>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+              <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+            </svg>
+            EQA Protocol
+          </div>
+          <p class="dashboard-card-desc">Structured conversion of abstract mathematical equations to verified digital software:</p>
+          <ul class="dashboard-list">
+            <li><strong>Step 1: Precision Lock</strong>: Re-deriving equations using arbitrary-precision libraries (e.g. <code>mpmath</code>) to prevent standard underflow/catastrophic cancellation.</li>
+            <li><strong>Step 2: Constraint Verification</strong>: Checking local constraints, bounds, and algebraic-geometric admissibility programmatically.</li>
+            <li><strong>Step 3: CI/CD Proof-of-Work</strong>: Regression testing codebases across multiple OS platforms and environments.</li>
+          </ul>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
+              <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
+            </svg>
+            Scholarly Archival Alignment
+          </div>
+          <p class="dashboard-card-desc">Ensuring verified math software is fit for peer-reviewed citation:</p>
+          <ul class="dashboard-list">
+            <li><strong>Citable Metadata</strong>: Enforcing standardized <code>CITATION.cff</code> and Zenodo integrations to issue immutable DOIs.</li>
+            <li><strong>Provenance Manifests</strong>: Freezing SHA-256 cryptographic signatures of code files to verify execution immutability.</li>
+            <li><strong>Audit Disclosures</strong>: Exposing explicit LaTeX paper sources alongside codebases to document deviations from literature.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EQA Filter Pill Bar -->
+      <div class="eq-filter-bar" style="display:flex;gap:8px;margin-top:40px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:12px;align-items:center;justify-content:flex-start;flex-wrap:wrap;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;color:var(--t4);margin-right:16px;">Filter Ledger:</span>
+        <button class="eq-filter-pill active" onclick="filterEqLedger('all', this)" style="background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--t3);padding:4px 12px;border-radius:var(--r-md);cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;">All</button>
+        <button class="eq-filter-pill" onclick="filterEqLedger('published', this)" style="background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--t4);padding:4px 12px;border-radius:var(--r-md);cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;">Published</button>
+        <button class="eq-filter-pill" onclick="filterEqLedger('verified', this)" style="background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--t4);padding:4px 12px;border-radius:var(--r-md);cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;">Verified</button>
+        <button class="eq-filter-pill" onclick="filterEqLedger('archived', this)" style="background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--t4);padding:4px 12px;border-radius:var(--r-md);cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;">Archived</button>
+        <div class="local-search-wrap" style="margin-left:auto;position:relative;display:flex;align-items:center;min-width:200px;">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="position:absolute;left:8px;width:11px;height:11px;color:var(--t5);pointer-events:none;">
+            <circle cx="5.5" cy="5.5" r="4"/><path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" id="eq-local-search" placeholder="Search math runs..." oninput="handleLocalSearch('toe')" autocomplete="off" style="width:100%;padding:5px 8px 5px 26px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:var(--r-md);color:var(--tp);font-family:'Inter',sans-serif;font-size:11px;outline:none;transition:border-color 0.15s;">
+        </div>
+      </div>
+
+      <!-- EQA Cards -->
+      <div class="eq-ledger-list" style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
+
+        <!-- CARD 1: EQA-TEST-0055 -->
+        <article class="eq-card" id="eqa-card-0055" data-status="published" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#10b981;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0055</span>
+              <span style="font-size:12px;color:var(--t4);">2026-05-25</span>
+            </div>
+            <span class="tier-chip tb-t2" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+              <span class="tier-dot" style="background:#10b981"></span>Published
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">OpenAI Erdős Conjecture Disproof: Equation (2.2) Executable Reproduction</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            In May 2026, an OpenAI reasoning model proved that Erdős' discrete geometry conjecture is false, publishing a crucial exponent excess equation (2.2). Naive computer floats collapse this value to zero due to catastrophic cancellation. This project builds an independent Python artifact using arbitrary-precision math to successfully reproduce and verify the published numerical results.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: The computation is fully reproduced to 0.014% relative error, locally CI-verified, and published on Zenodo.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('openai-erdos-eq22'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <a class="eq-slot-btn" href="https://flamehaven.space/writing/making-equation-22-of-the-openai-erds-result-executable/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </a>
+            <a class="eq-slot-btn" href="https://github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </a>
+            <a class="eq-slot-btn" href="https://zenodo.org/records/20383217" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 2: EQA-TEST-0054 -->
+        <article class="eq-card" id="eqa-card-0054" data-status="verified" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0054</span>
+              <span style="font-size:12px;color:var(--t4);">2026-05-24</span>
+            </div>
+            <span class="tier-chip tb-t1" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;border-color:rgba(239,68,68,0.2);color:#f87171;">
+              <span class="tier-dot" style="background:#ef4444"></span>Inhibit / Blocked
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">LOGOS-to-TOE Intake Governance Gate Verification</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            We evaluated whether the offline reasoning sidecar pipeline could safely ingest theoretical math solver candidates without bypassing mandatory governance review. The system was presented with an incomplete research dossier lacking a concrete algebraic model candidate.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: The intake contract engine correctly identified the gaps, issued a hard 'BLOCK' recommendation to inhibit candidate promotion, and successfully protected the ledger registry.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0054'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0054', 'report'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </button>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
+          </div>
+        </article>
+
+        <!-- CARD 3: EQA-TEST-0053 -->
+        <article class="eq-card" id="eqa-card-0053" data-status="verified" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0053</span>
+              <span style="font-size:12px;color:var(--t4);">2026-05-23</span>
+            </div>
+            <span class="tier-chip tb-t3" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+              <span class="tier-dot" style="background:#eab308"></span>Degraded Sidecar
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">Reasoning Model Sidecar Pipeline &amp; Namespace Integrity Scan</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            We audited active Python environment variables, package search hierarchies, and potential import path collisions between standalone and embedded reasoning APIs in local workspaces.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: Mapped import-latency causes, defined explicit adapter targets, and established safe namespace isolation guidelines with 'Degraded Sidecar Only' status.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0053'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <a class="eq-slot-btn" href="#" onclick="openJsonInspector('toe-test-0053'); return false;" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </a>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
+          </div>
+        </article>
+
+        <!-- CARD 4: EQA-ARCHIVE-0001 -->
+        <article class="eq-card" id="eqa-card-archive" data-status="archived" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:2px 8px;border-radius:var(--r-xs);">EQA-ARCHIVE-0001</span>
+              <span style="font-size:12px;color:var(--t4);">2026-05-20</span>
+            </div>
+            <span class="tier-chip tb-t4" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+              <span class="tier-dot" style="background:#6b7280"></span>Archived
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">Historical Algebraic Number Theory Calibration Runs (0001 ~ 0051)</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 16px 0;max-width:800px;">
+            An archived registry of 51 deterministic calibration runs verifying fundamental algebraic number theory properties. Click on any run to load its full citable calibration results and verification brief.
+          </p>
+          <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--r-md);background:rgba(0,0,0,0.15);overflow:hidden;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);flex-wrap:wrap;gap:8px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--ts);display:flex;align-items:center;gap:6px;">
+                <span style="width:6px;height:6px;border-radius:50%;background:#6b7280;display:inline-block;"></span>
+                Calibration Registry (51 runs)
+              </span>
+              <input type="text" id="historical-run-search" placeholder="Search calibration runs..." oninput="handleHistoricalRunSearch()" style="padding:4px 8px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:4px;color:var(--tp);font-family:'Inter',sans-serif;font-size:10.5px;outline:none;width:180px;">
+            </div>
+            <div id="historical-runs-list" style="max-height:220px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;margin-top:20px;">
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </span>
+            <a class="eq-slot-btn" href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </a>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
+          </div>
+        </article>
+
+      </div><!-- /eq-ledger-list -->
+    </div><!-- /dashboard-toe -->
+
+    <!-- Interactive JSON Insight Inspector -->
+    <div id="eq-json-inspector" class="wrap" style="display:none;margin-top:32px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;animation:cardFadeIn 0.3s ease both;max-width:1200px;margin-left:auto;margin-right:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.02);padding:16px 24px;border-bottom:1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;color:#a78bfa;">
+            <rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;color:var(--ts);">Ledger Inspector: <span id="inspector-run-id">—</span></span>
+        </div>
+        <button onclick="closeJsonInspector()" style="background:transparent;border:none;color:var(--t4);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:4px;border-radius:var(--r-xs);transition:all 0.15s;" onmouseover="this.style.color='var(--ts)'" onmouseout="this.style.color='var(--t4)'">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M2.5 2.5l9 9M11.5 2.5l-9 9" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div style="display:flex;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.1);flex-wrap:wrap;">
+        <button class="inspector-tab active" onclick="switchInspectorTab('insights', this)" style="background:transparent;border:none;border-bottom:2px solid #3b82f6;color:var(--ts);padding:12px 20px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;outline:none;">📊 Insights</button>
+        <button class="inspector-tab" onclick="switchInspectorTab('charts', this)" style="background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);padding:12px 20px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;outline:none;">📈 Analysis</button>
+        <button class="inspector-tab" onclick="switchInspectorTab('integrity', this)" style="background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);padding:12px 20px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;outline:none;">🛡️ Integrity</button>
+        <button class="inspector-tab" onclick="switchInspectorTab('checks', this)" style="background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);padding:12px 20px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;outline:none;">✅ Verified Rules</button>
+        <button class="inspector-tab" onclick="switchInspectorTab('raw', this)" style="background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);padding:12px 20px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;transition:all 0.15s;outline:none;">📄 Raw JSON</button>
+      </div>
+      <div class="inspector-panel" id="ins-insights" style="padding:24px;"></div>
+      <div class="inspector-panel" id="ins-charts" style="padding:24px;display:none;"></div>
+      <div class="inspector-panel" id="ins-integrity" style="padding:24px;display:none;"></div>
+      <div class="inspector-panel" id="ins-checks" style="padding:24px;display:none;"></div>
+      <div class="inspector-panel" id="ins-raw" style="padding:24px;display:none;"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Flamehaven Labs</div>
+          <p class="footer-desc">EQA Research Station — deterministic reproduction of mathematical physics breakthroughs as runnable, citable, and CI-verified software artifacts.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">EQA Records</div>
+          <ul class="footer-links">
+            <li><a href="#" onclick="document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'}); return false;">OpenAI Erdős Eq. 2.2 Reproduction</a></li>
+            <li><a href="#" onclick="document.getElementById('eqa-card-0054').scrollIntoView({behavior:'smooth'}); return false;">LOGOS Governance Gate</a></li>
+            <li><a href="#" onclick="document.getElementById('eqa-card-archive').scrollIntoView({behavior:'smooth'}); return false;">Calibration Archive (51 runs)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Other Verification Lanes</div>
+          <ul class="footer-links">
+            <li><a href="./index.html">Verification Ledger Hub</a></li>
+            <li><a href="./index.html#dashboard-bsc">Bioscience Compliance (BSC)</a></li>
+            <li><a href="./index.html#dashboard-bav">Biomolecular AI Validation (BAV)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Trust &amp; Licensing</div>
+          <ul class="footer-links">
+            <li><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0 License</a></li>
+            <li><a href="https://flamehaven.space/" target="_blank" rel="noopener">flamehaven.space</a></li>
+            <li><a href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger" target="_blank" rel="noopener">GitHub Ledger</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-note">
+          &copy; 2026 Flamehaven Labs. All verification runs and static evidence artifacts are licensed under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+        </div>
+        <div class="footer-actions">
+          <button class="dl-copy-btn" onclick="copyURL(location.href)" style="font-size:11px;color:var(--t4);padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:none;cursor:pointer;">
+            Copy archive URL
+          </button>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /wrap -->
+</div><!-- /page-layout -->
+
+<!-- Mobile sidebar toggle -->
+<button class="sb-toggle" id="sb-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle navigation">
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M3 5h14M3 10h14M3 15h14" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<!-- TOAST -->
+<div id="toast">Link copied &#10003;</div>
+
+<script src="./js/chart-engine.js"></script>
+<script src="./js/portal.js" defer></script>
+</body>
+</html>
