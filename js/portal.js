@@ -1437,10 +1437,12 @@ function renderInspectorData(runId, data, reportText = '') {
   } else if (reportText && runId === 'toe-test-0054') {
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">Unmodified Markdown Report</span>
+        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">📄 Governance Gate Report (TOE-TEST-0054)</span>
         <button id="${copyButtonId}" class="eq-slot-btn" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:var(--r-xs);">Copy Markdown</button>
       </div>
-      <div style="max-height: 400px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 20px; font-size: 13.5px; line-height: 1.6; color: var(--t3); white-space: pre-wrap; font-family: 'JetBrains Mono', monospace;">${reportText}</div>
+      <div style="max-height: 480px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; text-align: left;">
+        <div class="calibration-markdown-body" style="font-family: 'Inter', sans-serif;">${parseMarkdownToHtml(reportText)}</div>
+      </div>
     `;
   } else {
     insRaw.innerHTML = `
