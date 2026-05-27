@@ -438,3 +438,39 @@
 }
 .empty-state svg { width: 40px; height: 40px; margin-bottom: 12px; opacity: .3; }
 .empty-state p { font-size: 14px; }
+
+/* ── CARD ANIMATION ──────────────────────────────────────────────────────── */
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cards-grid { animation: none; }
+
+/* ── EQA / BAV FILTER PILLS ─────────────────────────────────────────────── */
+.eq-filter-pill { transition: all 0.15s ease; }
+.eq-filter-pill:hover {
+  background: rgba(255,255,255,0.08) !important;
+  color: var(--ts) !important;
+  border-color: var(--t4) !important;
+}
+.eq-filter-pill.active {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.4) !important;
+  color: #93c5fd !important;
+}
+
+/* ── EQA ACTION SLOT BUTTONS ─────────────────────────────────────────────── */
+.eq-slot-btn { transition: all 0.15s ease; }
+.eq-slot-btn:not(.disabled):hover {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: var(--t4) !important;
+  color: var(--ts) !important;
+  transform: translateY(-1px);
+}
+
+/* ── INSPECTOR TABS ──────────────────────────────────────────────────────── */
+.inspector-tab { border-bottom: 2px solid transparent; }
+.inspector-tab:hover {
+  color: var(--ts) !important;
+  background: rgba(255,255,255,0.02) !important;
+}

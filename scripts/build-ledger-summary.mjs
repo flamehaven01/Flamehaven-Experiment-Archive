@@ -218,7 +218,7 @@ function scanLaneRecords(laneDirName) {
 
 function buildSummary() {
   const activeRecords = Object.keys(laneDefinitions)
-    .filter((laneKey) => laneKey === 'stem-bio-ai')
+    .filter((laneKey) => laneDefinitions[laneKey].status === 'active')
     .flatMap((laneKey) => scanLaneRecords(laneKey));
 
   const activeByLane = new Map();

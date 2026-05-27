@@ -1,3 +1,23 @@
+// ── CALIBRATION TOPICS REGISTRY ──────────────────────────────────────────────
+const CALIBRATION_TOPICS = [
+  { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
+  { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
+  { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
+  { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
+  { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
+  { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
+  { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
+  { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
+  { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
+  { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
+  { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
+  { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
+  { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
+  { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
+  { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
+  { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
+];
+
 // ── STATE VARIABLES ──────────────────────────────────────────────────────────
 let cards = [];
 let activeTier = 'all';
@@ -429,13 +449,10 @@ function applyFilters() {
     return bDate.localeCompare(aDate); // date-desc default
   });
 
-  visible.forEach((c, i) => {
-    c.style.order = i;
-    // subtle stagger animation
-    c.style.animation = 'none';
-    c.offsetHeight; // reflow
-    c.style.animation = `cardFadeIn .25s ease ${i * 40}ms both`;
-  });
+  // Set order and clear animation in one pass, then trigger single batch reflow
+  visible.forEach((c, i) => { c.style.order = i; c.style.animation = 'none'; });
+  void document.body.offsetHeight;
+  visible.forEach((c, i) => { c.style.animation = `cardFadeIn .25s ease ${i * 40}ms both`; });
 
   const count = visible.length;
   const resultCount = document.getElementById('result-count');
@@ -585,82 +602,33 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   }
 }
 
-// Inject subtle fade-in animation rule into document head
-const styleNode = document.createElement('style');
-styleNode.textContent = `
-  @keyframes cardFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .cards-grid { animation: none; }
-  
-  /* EQA custom filter pills */
-  .eq-filter-pill {
-    transition: all 0.15s ease;
-  }
-  .eq-filter-pill:hover {
-    background: rgba(255,255,255,0.08) !important;
-    color: var(--ts) !important;
-    border-color: var(--t4) !important;
-  }
-  .eq-filter-pill.active {
-    background: rgba(59, 130, 246, 0.15) !important;
-    border-color: rgba(59, 130, 246, 0.4) !important;
-    color: #93c5fd !important;
-  }
-  
-  /* EQA action slot buttons */
-  .eq-slot-btn {
-    transition: all 0.15s ease;
-  }
-  .eq-slot-btn:not(.disabled):hover {
-    background: rgba(255,255,255,0.08) !important;
-    border-color: var(--t4) !important;
-    color: var(--ts) !important;
-    transform: translateY(-1px);
-  }
-  
-  /* EQA inspector tabs */
-  .inspector-tab {
-    border-bottom: 2px solid transparent;
-  }
-  .inspector-tab:hover {
-    color: var(--ts) !important;
-    background: rgba(255,255,255,0.02) !important;
-  }
-`;
-document.head.appendChild(styleNode);
 
-// ── EQA LEDGER FILTERING ───────────────────────────────────────────────────
-function filterEqLedger(status, btn) {
-  activeEqStatus = status;
-  // Update active pill styling
-  document.querySelectorAll('#dashboard-toe .eq-filter-pill').forEach(p => {
+// ── LEDGER FILTERING (unified for EQA + BAV lanes) ────────────────────────
+const LANE_CFG = {
+  toe:    { stateKey: 'activeEqStatus',  dashId: '#dashboard-toe', searchId: 'eq-local-search',  cardSel: '.eq-card' },
+  rexsyn: { stateKey: 'activeBavStatus', dashId: '#dashboard-bav', searchId: 'bav-local-search', cardSel: '.bav-card' },
+};
+
+function filterLedger(lane, status, btn) {
+  if (lane === 'toe') activeEqStatus = status;
+  else activeBavStatus = status;
+  document.querySelectorAll(`${LANE_CFG[lane].dashId} .eq-filter-pill`).forEach(p => {
     p.classList.remove('active');
     p.style.color = 'var(--t4)';
   });
-  if (btn) {
-    btn.classList.add('active');
-    btn.style.color = 'var(--t3)';
-  }
-  
-  applyEqFilters();
-  
-  // Close inspector when filter changes to prevent interface mismatch
+  if (btn) { btn.classList.add('active'); btn.style.color = 'var(--t3)'; }
+  applyLedgerFilters(lane);
   closeJsonInspector();
 }
 
-function applyEqFilters() {
-  const query = (document.getElementById('eq-local-search')?.value || '').toLowerCase().trim();
-  const eqCards = document.querySelectorAll('.eq-card');
-  eqCards.forEach(card => {
-    const cardStatus = card.dataset.status;
-    const matchStatus = (activeEqStatus === 'all') || (cardStatus === activeEqStatus);
-    
-    const cardText = card.textContent.toLowerCase();
-    const matchQuery = !query || cardText.includes(query);
-    
-    if (matchStatus && matchQuery) {
+function applyLedgerFilters(lane) {
+  const cfg = LANE_CFG[lane];
+  const activeStatus = lane === 'toe' ? activeEqStatus : activeBavStatus;
+  const query = (document.getElementById(cfg.searchId)?.value || '').toLowerCase().trim();
+  document.querySelectorAll(cfg.cardSel).forEach(card => {
+    const match = (activeStatus === 'all' || card.dataset.status === activeStatus) &&
+                  (!query || card.textContent.toLowerCase().includes(query));
+    if (match) {
       card.style.display = 'flex';
       card.style.animation = 'none';
       card.offsetHeight; // reflow
@@ -671,45 +639,10 @@ function applyEqFilters() {
   });
 }
 
-// ── BAV LEDGER FILTERING ───────────────────────────────────────────────────
-function filterBavLedger(status, btn) {
-  activeBavStatus = status;
-  // Update active pill styling
-  document.querySelectorAll('#dashboard-bav .eq-filter-pill').forEach(p => {
-    p.classList.remove('active');
-    p.style.color = 'var(--t4)';
-  });
-  if (btn) {
-    btn.classList.add('active');
-    btn.style.color = 'var(--t3)';
-  }
-  
-  applyBavFilters();
-  
-  // Close inspector when filter changes to prevent interface mismatch
-  closeJsonInspector();
-}
-
-function applyBavFilters() {
-  const query = (document.getElementById('bav-local-search')?.value || '').toLowerCase().trim();
-  const bavCards = document.querySelectorAll('.bav-card');
-  bavCards.forEach(card => {
-    const cardStatus = card.dataset.status;
-    const matchStatus = (activeBavStatus === 'all') || (cardStatus === activeBavStatus);
-    
-    const cardText = card.textContent.toLowerCase();
-    const matchQuery = !query || cardText.includes(query);
-    
-    if (matchStatus && matchQuery) {
-      card.style.display = 'flex';
-      card.style.animation = 'none';
-      card.offsetHeight; // reflow
-      card.style.animation = 'cardFadeIn 0.25s ease both';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
+function filterEqLedger(status, btn) { filterLedger('toe', status, btn); }
+function filterBavLedger(status, btn) { filterLedger('rexsyn', status, btn); }
+function applyEqFilters() { applyLedgerFilters('toe'); }
+function applyBavFilters() { applyLedgerFilters('rexsyn'); }
 
 // ── EXTRAS FILTERING ───────────────────────────────────────────────────────
 function applyExtrasFilters() {
@@ -1444,25 +1377,7 @@ function renderInspectorData(runId, data, reportText = '') {
   if (runId.startsWith('eqa-calib-')) {
     const num = parseInt(runId.split('-')[2]);
     const numStr = String(num).padStart(4, '0');
-    const topicsList = [
-      { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
-      { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
-      { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
-      { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
-      { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
-      { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
-      { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
-      { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
-      { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
-      { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
-      { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
-      { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
-      { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
-      { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
-      { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
-      { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
-    ];
-    const topicObj = topicsList[(num - 1) % topicsList.length];
+    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
     const prime = 101 + (num * 4);
     const fieldDegree = Math.pow(2, 2 + (num % 4));
     const relativeError = (0.000142685 * (1 + (num % 10) / 10)).toFixed(8);
@@ -1539,26 +1454,7 @@ function getFallbackReportText(runId) {
     const num = parseInt(runId.split('-')[2]);
     const numStr = String(num).padStart(4, '0');
     
-    // Deterministic topics mapping
-    const topics = [
-      { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
-      { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
-      { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
-      { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
-      { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
-      { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
-      { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
-      { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
-      { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
-      { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
-      { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
-      { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
-      { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
-      { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
-      { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
-      { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
-    ];
-    const topicObj = topics[(num - 1) % topics.length];
+    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
     const prime = 101 + (num * 4);
     const fieldDegree = Math.pow(2, 2 + (num % 4));
     const relativeError = (0.000142685 * (1 + (num % 10) / 10)).toFixed(8);
@@ -1628,26 +1524,7 @@ function getFallbackDataset(runId) {
     const num = parseInt(runId.split('-')[2]);
     const numStr = String(num).padStart(4, '0');
     
-    // Deterministic topics mapping
-    const topics = [
-      { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
-      { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
-      { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
-      { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
-      { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
-      { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
-      { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
-      { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
-      { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
-      { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
-      { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
-      { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
-      { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
-      { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
-      { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
-      { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
-    ];
-    const topicObj = topics[(num - 1) % topics.length];
+    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
     const prime = 101 + (num * 4);
     
     return {
@@ -1669,8 +1546,8 @@ function getFallbackDataset(runId) {
         "relative_error": (0.000142685 * (1 + (num % 10) / 10)).toFixed(8)
       },
       "source_sha256_manifest": {
-        "src/calibration/euler_lattice.py": "calib6a7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef00" + numStr,
-        "src/calibration/verify_prime.py": "calibcf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a" + numStr
+        "src/calibration/euler_lattice.py": "[synthetic] calib6a7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef00" + numStr,
+        "src/calibration/verify_prime.py": "[synthetic] calibcf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a" + numStr
       }
     };
   }
@@ -2148,29 +2025,9 @@ window.renderHistoricalRuns = function() {
   
   container.innerHTML = '';
   
-  // Define topics
-  const topics = [
-    { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
-    { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
-    { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
-    { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
-    { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
-    { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
-    { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
-    { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
-    { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
-    { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
-    { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
-    { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
-    { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
-    { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
-    { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
-    { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
-  ];
-  
   for (let i = 1; i <= 51; i++) {
     const numStr = String(i).padStart(4, '0');
-    const topicObj = topics[(i - 1) % topics.length];
+    const topicObj = CALIBRATION_TOPICS[(i - 1) % CALIBRATION_TOPICS.length];
     const prime = 101 + (i * 4);
     const date = `2026-04-${String((i % 25) + 1).padStart(2, '0')}`;
     
