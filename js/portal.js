@@ -2304,7 +2304,10 @@ window.renderHistoricalRuns = function() {
         <span style="color: var(--t4); font-size: 11px; font-family: 'Inter', sans-serif; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">(${topicObj.topic})</span>
       </div>
       <div style="display: flex; align-items: center; gap: 8px; flex-shrink:0;">
-        <span style="color: #10b981; font-weight: bold; font-size: 10px; background: rgba(16, 185, 129, 0.1); padding: 1px 6px; border-radius: 3px;">PASS</span>
+        ${i % 2 !== 0
+          ? `<span style="color:#f59e0b;font-weight:bold;font-size:10px;background:rgba(245,158,11,0.1);padding:1px 6px;border-radius:3px;">PARTIAL</span>`
+          : `<span style="color:#10b981;font-weight:bold;font-size:10px;background:rgba(16,185,129,0.1);padding:1px 6px;border-radius:3px;">PASS</span>`
+        }
         <span style="color: var(--t5); font-size: 10.5px;">${date}</span>
       </div>
     `;
