@@ -1274,6 +1274,7 @@
     <!-- Tab selection bar -->
     <div style="display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.1); flex-wrap: wrap;">
       <button class="inspector-tab active" onclick="switchInspectorTab('insights', this)" style="background: transparent; border: none; border-bottom: 2px solid #3b82f6; color: var(--ts); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📊 Insights</button>
+      <button class="inspector-tab" onclick="switchInspectorTab('charts', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📈 Analysis</button>
       <button class="inspector-tab" onclick="switchInspectorTab('integrity', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">🛡️ Integrity</button>
       <button class="inspector-tab" onclick="switchInspectorTab('checks', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">✅ Verified Rules</button>
       <button class="inspector-tab" onclick="switchInspectorTab('raw', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📄 Raw JSON</button>
@@ -1281,6 +1282,7 @@
 
     <!-- Panel contents -->
     <div class="inspector-panel" id="ins-insights" style="padding: 24px;"></div>
+    <div class="inspector-panel" id="ins-charts" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-integrity" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-checks" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-raw" style="padding: 24px; display: none;"></div>
@@ -1348,6 +1350,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+<script src="./js/chart-engine.js"></script>
 <script src="./js/portal.js" defer></script>
 </body>
 </html>
