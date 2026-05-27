@@ -70,7 +70,7 @@
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161,161,170,0.1)"/>
             </svg>
             <span class="sb-folder-name">Equation-to-Artifact (EQA)</span>
-            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16,185,129,0.2);">4</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16,185,129,0.2);">6</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -93,6 +93,14 @@
             <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0053').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#3b82f6"></span>
               <span class="sb-file-name">eqa-test-0053</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0052').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#eab308"></span>
+              <span class="sb-file-name">eqa-test-0052</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0056').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#eab308"></span>
+              <span class="sb-file-name">eqa-test-0056 <span style="font-size:10px;color:var(--t5);">(AEFSO)</span></span>
             </div>
             <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-archive').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#6b7280"></span>
@@ -336,7 +344,71 @@
           </div>
         </article>
 
-        <!-- CARD 4: EQA-ARCHIVE-0001 -->
+        <!-- CARD 4: EQA-TEST-0052 -->
+        <article class="eq-card" id="eqa-card-0052" data-status="verified" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0052</span>
+              <span style="font-size:12px;color:var(--t4);">2026-05-10</span>
+            </div>
+            <span class="tier-chip tb-t3" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+              <span class="tier-dot" style="background:#eab308"></span>Gate Rejected
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">Fluid Dynamics GTE Pedagogy Hypothesis</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            We evaluated the hypothesis that the General Transport Equation (GTE) is the universal pedagogical foundation for fluid dynamics, unifying Mass, Momentum, Energy, and Scalar transport via φ-substitution — sourced from expert LinkedIn academic discussion.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: Gate REJECTED. While core mathematics is internally sound, the universality claim is invalid — GTE applies only to incompressible Newtonian flow. SPAR score 73/100, Omega 0.697 AMBER. Minor revision required.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0052'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0052', 'report'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </button>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
+          </div>
+        </article>
+
+        <!-- CARD 5: EQA-TEST-0056 (AEFSO) -->
+        <article class="eq-card" id="eqa-card-0056" data-status="verified" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0056</span>
+              <span style="font-size:12px;color:var(--t4);">2026-04-18</span>
+            </div>
+            <span class="tier-chip tb-t3" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+              <span class="tier-dot" style="background:#eab308"></span>Optional Layer
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">All Elementary Functions from a Single Operator (AEFSO)</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            We evaluated whether the AEFSO operator <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">eml(x,y) = exp(x) − ln(y)</code> could serve as a TOE core component — a single binary primitive sufficient to reconstruct all elementary functions. Assessed via SPAR paper review, fhval validation, and 4 dogfood runs.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: SPAR ACCEPT WITH BOUNDS. Classified as OPTIONAL_REPRESENTATION_LAYER — approved for symbolic normalization and IR research, not promoted to core. Key contribution: missing-link IR discovery.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0056'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0056', 'report'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </button>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
+          </div>
+        </article>
+
+        <!-- CARD 6: EQA-ARCHIVE-0001 -->
         <article class="eq-card" id="eqa-card-archive" data-status="archived" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
             <div style="display:flex;align-items:center;gap:10px;">

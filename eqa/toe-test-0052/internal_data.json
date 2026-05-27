@@ -1,0 +1,48 @@
+{
+  "trace_id": "toe-test-0052",
+  "subject": {
+    "hypothesis_id": "pedagogical-hierarchy-gte",
+    "gate": "REJECTED",
+    "sidrce_omega": 0.697,
+    "sr9_resonance": 0.549,
+    "di2_drift": 0.548
+  },
+  "spar_review": {
+    "verdict": "MINOR REVISION",
+    "score": 73,
+    "claim_drift": 25,
+    "layer_a_anomalies": 1,
+    "findings": [
+      {
+        "layer": "A",
+        "check_id": "A4",
+        "status": "ANOMALY",
+        "detail": "Claim-scope mismatch. Mathematical framework is sound, but pedagogical claim drives rejection."
+      },
+      {
+        "layer": "B",
+        "check_id": "B1",
+        "status": "WARN",
+        "detail": "Scope honesty violation. GTE is claimed as universal but is restricted to incompressible Newtonian flow."
+      },
+      {
+        "layer": "C",
+        "check_id": "C1",
+        "status": "APPROXIMATION",
+        "detail": "Domain restriction. Excludes pressure forces from natural diffusion terms."
+      },
+      {
+        "layer": "C",
+        "check_id": "C2",
+        "status": "GAPPED",
+        "detail": "Temperature is not a strictly conserved quantity."
+      },
+      {
+        "layer": "C",
+        "check_id": "C3",
+        "status": "HEURISTIC",
+        "detail": "Pedagogical claim relies on anecdotal evidence."
+      }
+    ]
+  }
+}

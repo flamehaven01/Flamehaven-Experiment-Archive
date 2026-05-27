@@ -92,6 +92,22 @@ function handleHashNavigation(hash) {
       if (card) card.scrollIntoView({ behavior: 'smooth' });
       openJsonInspector('toe-test-0053');
     }, 150);
+  } else if (hash === 'toe-test-0052') {
+    activeColl = 'toe';
+    applyFilters();
+    setTimeout(() => {
+      const card = document.getElementById('eqa-card-0052');
+      if (card) card.scrollIntoView({ behavior: 'smooth' });
+      openJsonInspector('toe-test-0052');
+    }, 150);
+  } else if (hash === 'toe-test-0056') {
+    activeColl = 'toe';
+    applyFilters();
+    setTimeout(() => {
+      const card = document.getElementById('eqa-card-0056');
+      if (card) card.scrollIntoView({ behavior: 'smooth' });
+      openJsonInspector('toe-test-0056');
+    }, 150);
   }
 }
 
@@ -704,6 +720,10 @@ async function openJsonInspector(runId, type = 'json') {
       rawTabBtn.innerHTML = `📄 Calibration Proof`;
     } else if (runId === 'toe-test-0054' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Intake Report`;
+    } else if (runId === 'toe-test-0052' && type === 'report') {
+      rawTabBtn.innerHTML = `📄 Analysis Report`;
+    } else if (runId === 'toe-test-0056' && type === 'report') {
+      rawTabBtn.innerHTML = `📄 Interim Decision`;
     } else {
       rawTabBtn.innerHTML = `📄 Raw JSON`;
     }
@@ -717,6 +737,10 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './eqa/toe-test-0054/logos_toe_contract_inspection.json';
   } else if (runId === 'toe-test-0053') {
     jsonPath = './eqa/toe-test-0053/analysis_results.json';
+  } else if (runId === 'toe-test-0052') {
+    jsonPath = './eqa/toe-test-0052/internal_data.json';
+  } else if (runId === 'toe-test-0056') {
+    jsonPath = './eqa/toe-test-0056/AEFSO_MANIFEST.json';
   } else if (runId === 'yorkeccak-bio') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
@@ -758,6 +782,16 @@ async function openJsonInspector(runId, type = 'json') {
   } else if (type === 'report' && runId === 'toe-test-0053') {
     try {
       const res = await fetch('./eqa/toe-test-0053/analysis_report.md?t=' + new Date().getTime());
+      if (res.ok) reportText = await res.text();
+    } catch (e) {}
+  } else if (type === 'report' && runId === 'toe-test-0052') {
+    try {
+      const res = await fetch('./eqa/toe-test-0052/analysis_report.md?t=' + new Date().getTime());
+      if (res.ok) reportText = await res.text();
+    } catch (e) {}
+  } else if (type === 'report' && runId === 'toe-test-0056') {
+    try {
+      const res = await fetch('./eqa/toe-test-0056/AEFSO_INTERIM_DECISION.md?t=' + new Date().getTime());
       if (res.ok) reportText = await res.text();
     } catch (e) {}
   }
@@ -1019,6 +1053,60 @@ function renderInspectorData(runId, data, reportText = '') {
       </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
         💡 <strong>Auditing Insight:</strong> Environmental scan discovered that importing general reasoning libraries directly in frontend request paths triggers SciPy/NumPy checks, degrading dashboard performance. Playbook mandates utilizing decoupled FastAPI loops over direct imports.
+      </p>
+    `;
+  } else if (runId === 'toe-test-0052') {
+    const spar = data.spar_review ?? {};
+    const subj = data.subject ?? {};
+    insightHtml = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Gate Verdict</div>
+          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">${subj.gate ?? 'REJECTED'}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">DI2 Drift: ${subj.di2_drift ?? 0.548}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">SPAR Score</div>
+          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${spar.score ?? 73} / 100</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Verdict: ${spar.verdict ?? 'MINOR REVISION'}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Omega (SIDRCE)</div>
+          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${subj.sidrce_omega ?? 0.697} AMBER</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">SR9 Resonance: ${subj.sr9_resonance ?? 0.549}</div>
+        </div>
+      </div>
+      <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
+        💡 <strong>Auditing Insight:</strong> The GTE pedagogy hypothesis claims the General Transport Equation is the universal foundation for fluid dynamics. While the core mathematics is sound, the gate was rejected due to scope overreach: the framework only applies to incompressible Newtonian flow, yet the pedagogical claim presents it as universal. Recommended revision explicitly bounds the claim.
+      </p>
+    `;
+  } else if (runId === 'toe-test-0056') {
+    const phaseVerdict = data.current_phase_verdict ?? {};
+    insightHtml = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Classification</div>
+          <div style="font-size: 16px; font-weight: 600; color: #eab308; margin-top: 4px;">OPTIONAL LAYER</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Not promoted to core</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">SPAR Verdict</div>
+          <div style="font-size: 16px; font-weight: 600; color: #10b981; margin-top: 4px;">ACCEPT W/ BOUNDS</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Representation sufficiency confirmed</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Phase Status</div>
+          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">Phase 7</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">TOE update docs ready</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Dogfood Runs</div>
+          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">4 completed</div>
+          <div style="font-size: 12px; color: #10b981; margin-top: 2px;">Missing-link discovered</div>
+        </div>
+      </div>
+      <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
+        💡 <strong>Auditing Insight:</strong> AEFSO (All Elementary Functions from a Single Operator) was evaluated as a potential TOE core component using operator <code>eml(x,y) = exp(x) − ln(y)</code>. After SPAR review, fhval validation, and 4 dogfood runs, it was classified as an <strong>optional backend representation layer</strong>. Its most significant contribution: exposing the missing-link gap — the ideal TOE intermediate representation that balances search uniformity with governance readability.
       </p>
     `;
   } else if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
@@ -1439,10 +1527,14 @@ function renderInspectorData(runId, data, reportText = '') {
         </div>
       </div>
     `;
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053')) {
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
-      : '📄 Namespace Audit Report (TOE-TEST-0053)';
+      : runId === 'toe-test-0053'
+      ? '📄 Namespace Audit Report (TOE-TEST-0053)'
+      : runId === 'toe-test-0052'
+      ? '📄 SPAR Analysis Report (TOE-TEST-0052)'
+      : '📄 Interim Decision (TOE-TEST-0056)';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>
@@ -1466,11 +1558,12 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const copyVal = (runId.startsWith('eqa-calib-') || (reportText && runId === 'toe-test-0054')) ? reportText : rawContent;
+      const isMarkdownReport = runId.startsWith('eqa-calib-') || (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056'));
+      const copyVal = isMarkdownReport ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
         copyBtn.textContent = 'Copied!';
         setTimeout(() => {
-          copyBtn.textContent = (runId.startsWith('eqa-calib-') || (reportText && runId === 'toe-test-0054')) ? 'Copy Markdown' : 'Copy JSON';
+          copyBtn.textContent = isMarkdownReport ? 'Copy Markdown' : 'Copy JSON';
         }, 2000);
       });
     };
@@ -1492,6 +1585,8 @@ function getChartsForRecord(runId, data) {
   if (runId === 'openai-erdos-eq22') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
   if (runId.startsWith('eqa-calib-')) return buildCalibCharts(data);
+  if (runId === 'toe-test-0052') return buildSparCharts(data);
+  if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
   return buildGenericCharts(data);
 }
 
@@ -1643,6 +1738,53 @@ function buildCalibCharts(data) {
   }
 
   return charts;
+}
+
+function buildSparCharts(data) {
+  const spar = data.spar_review ?? {};
+  const subj = data.subject ?? {};
+  const score = spar.score ?? 0;
+  return [
+    {
+      type: 'bar',
+      title: 'SPAR Review Score',
+      data: [{ label: 'SPAR Score', value: score, color: '#eab308', note: `Verdict: ${spar.verdict ?? ''} — Claim Drift: ${spar.claim_drift ?? 0}` }],
+      options: { maxValue: 100, unit: '/100', caption: `Score: ${score}/100. Typical ACCEPT threshold is 80+. Minor revision required to bound the universality claim.` },
+    },
+    {
+      type: 'bar',
+      title: 'Agent Metrics',
+      data: [
+        { label: 'SR9 Resonance', value: Math.round((subj.sr9_resonance ?? 0) * 100), color: '#10b981', note: `${subj.sr9_resonance ?? 0} — theoretical alignment` },
+        { label: 'DI2 Drift', value: Math.round((subj.di2_drift ?? 0) * 100), color: '#ef4444', note: `${subj.di2_drift ?? 0} — claim-to-math deviation` },
+        { label: 'Omega (SIDRCE)', value: Math.round((subj.sidrce_omega ?? 0) * 100), color: '#eab308', note: `${subj.sidrce_omega ?? 0} — composite adjudication` },
+      ],
+      options: { maxValue: 100, unit: '%', caption: 'SR9 Resonance measures theoretical alignment. DI2 Drift measures claim-to-math deviation. Omega is the composite SIDRCE adjudication score.' },
+    },
+  ];
+}
+
+function buildAEFSOCharts(data) {
+  const stack = data.validation_stack ?? [];
+  const stackColors = ['#10b981', '#3b82f6', '#a78bfa'];
+  return [
+    {
+      type: 'bar',
+      title: 'Validation Stack Completion',
+      data: stack.map((s, i) => ({ label: s, value: 100, color: stackColors[i % stackColors.length] })),
+      options: { maxValue: 100, unit: '% complete', caption: 'All three validation stages completed: SPAR paper review, fhval validation, and TOE dogfood testing (4 runs).' },
+    },
+    {
+      type: 'donut',
+      title: 'Target Outcome Classification',
+      data: [
+        { label: 'Optional Layer', value: 1, color: '#eab308' },
+        { label: 'Missing Link', value: 1, color: '#10b981' },
+        { label: 'Core (Rejected)', value: 1, color: '#ef4444' },
+      ],
+      options: { centerText: 'ORL', centerSub: 'classification', caption: 'AEFSO received OPTIONAL_REPRESENTATION_LAYER classification. Core candidate rejected; missing-link discovery approved for continued research.' },
+    },
+  ];
 }
 
 function renderAnalysisTab(container, runId, data) {
