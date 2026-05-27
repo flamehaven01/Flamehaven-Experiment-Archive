@@ -74,12 +74,10 @@
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="sb-info-btn">?
-            <span class="sb-tooltip">
-              <strong>Equation-to-Artifact Verification (EQA)</strong><br>
-              Deterministic verification process reproducing theoretical physics and mathematical breakthroughs as runnable, citable computational software (CI-tested Python, LaTeX source, and Zenodo DOI citations).
-            </span>
-          </div>
+          <span class="sb-tooltip">
+            <strong>Equation-to-Artifact Verification (EQA)</strong><br>
+            Deterministic verification process reproducing theoretical physics and mathematical breakthroughs as runnable, citable computational software (CI-tested Python, LaTeX source, and Zenodo DOI citations).
+          </span>
         </div>
         <div class="sb-children" id="child-toe">
           <div class="sb-files" style="padding-left: 8px;">
@@ -112,12 +110,10 @@
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="sb-info-btn">?
-            <span class="sb-tooltip">
-              <strong>Biomolecular AI Validation (BAV)</strong><br>
-              Biomedical pipeline validation analyzing structural folding consensus (AF3, AF2, Boltz-2, Chai-1) and compliance alignment.
-            </span>
-          </div>
+          <span class="sb-tooltip">
+            <strong>Biomolecular AI Validation (BAV)</strong><br>
+            Biomedical pipeline validation analyzing structural folding consensus (AF3, AF2, Boltz-2, Chai-1) and compliance alignment.
+          </span>
         </div>
         <div class="sb-children" id="child-rexsyn">
           <div class="sb-files" style="padding-left: 8px;">
@@ -132,7 +128,7 @@
       <!-- STEM-BIO-AI (BSC) Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
-          <button class="sb-folder-btn open" onclick="toggleFolder(this)" data-id="stem-bio-ai">
+          <button class="sb-folder-btn open active" onclick="toggleFolder(this)" data-id="stem-bio-ai">
             <svg class="sb-folder-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M1.5 2.5a1 1 0 011-1h3.5a1 1 0 01.7.3l1.6 1.6a1 1 0 00.7.3h4a1 1 0 011 1v6a1 1 0 01-1 1h-10a1 1 0 01-1-1v-8z" fill="rgba(161, 161, 170, 0.1)"/>
             </svg>
@@ -142,12 +138,10 @@
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="sb-info-btn">?
-            <span class="sb-tooltip">
-              <strong>Bioscience Compliance (BSC)</strong><br>
-              Deterministic static scanning auditing bioscience AI surfaces, checking clinical boundaries, safety limitations, and license compliance.
-            </span>
-          </div>
+          <span class="sb-tooltip">
+            <strong>Bioscience Compliance (BSC)</strong><br>
+            Deterministic static scanning auditing bioscience AI surfaces, checking clinical boundaries, safety limitations, and license compliance.
+          </span>
         </div>
         <div class="sb-children open" id="child-stem-bio-ai">
           <div class="sb-files open" style="padding-left: 8px;">
@@ -178,12 +172,10 @@
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="sb-info-btn">?
-            <span class="sb-tooltip">
-              <strong>Methodology &amp; Frameworks</strong><br>
-              Review dashboards, verification blueprints, and compliance mapping frameworks demonstrating systematic review methods.
-            </span>
-          </div>
+          <span class="sb-tooltip">
+            <strong>Methodology &amp; Frameworks</strong><br>
+            Review dashboards, verification blueprints, and compliance mapping frameworks demonstrating systematic review methods.
+          </span>
         </div>
         <div class="sb-children open" id="child-extra">
           <div class="sb-files open" style="padding-left: 8px;">
@@ -299,6 +291,24 @@
           <span>2 Reports Active (Authoritative)</span>
         </div>
       </div>
+
+      <!-- Card 4: Methodology & Frameworks -->
+      <div class="portal-intro-card" onclick="openCollection('extra')">
+        <div class="portal-intro-card-title">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 1.5h8a1.5 1.5 0 011.5 1.5v10a1.5 1.5 0 01-1.5 1.5H4a1.5 1.5 0 01-1.5-1.5V3A1.5 1.5 0 014 1.5z" stroke-linecap="round"/>
+            <path d="M5.5 4.5h5M5.5 7.5h5M5.5 10.5h3" stroke-linecap="round"/>
+          </svg>
+          Methodology &amp; Frameworks
+        </div>
+        <p class="portal-intro-card-desc">
+          Review dashboards, verification blueprints, and compliance mapping frameworks demonstrating systematic review methods.
+        </p>
+        <div class="portal-intro-card-status active">
+          <span class="status-dot"></span>
+          <span>1 Framework Active (v3)</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -357,6 +367,15 @@
       <button class="eq-filter-pill" onclick="filterEqLedger('published', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Published</button>
       <button class="eq-filter-pill" onclick="filterEqLedger('verified', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Verified</button>
       <button class="eq-filter-pill" onclick="filterEqLedger('archived', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Archived</button>
+      
+      <!-- Local search input -->
+      <div class="local-search-wrap" style="margin-left: auto; position: relative; display: flex; align-items: center; min-width: 200px;">
+        <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="position: absolute; left: 8px; width: 11px; height: 11px; color: var(--t5); pointer-events: none;">
+          <circle cx="5.5" cy="5.5" r="4"/>
+          <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="eq-local-search" placeholder="Search math runs..." oninput="handleLocalSearch('toe')" autocomplete="off" style="width: 100%; padding: 5px 8px 5px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--tp); font-family: 'Inter', sans-serif; font-size: 11px; outline: none; transition: border-color 0.15s;">
+      </div>
     </div>
 
     <!-- Vertical Stack for EQA Cards -->
@@ -394,19 +413,19 @@
               <rect x="2" y="2" width="8" height="8" rx="1"/>
               <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
             </svg>
-            [Report ↗]
+            [Report]
           </a>
           <a class="eq-slot-btn" href="https://github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/>
             </svg>
-            [Repo ↗]
+            [Repo]
           </a>
           <a class="eq-slot-btn" href="https://zenodo.org/records/20383217" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
             </svg>
-            [Paper ↗]
+            [Paper]
           </a>
         </div>
       </article>
@@ -492,7 +511,7 @@
               <rect x="2" y="2" width="8" height="8" rx="1"/>
               <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
             </svg>
-            [Report ↗]
+            [Report]
           </a>
           <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -509,7 +528,7 @@
         </div>
       </article>
 
-      <!-- CARD 4: EQA-ARCHIVE-0001 (Historical Runs) -->
+      <!-- CARD 4: EQA-ARCHIVE-0001 (Historical Runs Registry 1-51) -->
       <article class="eq-card" id="eqa-card-archive" data-status="archived" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -524,12 +543,25 @@
         <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
           Historical Algebraic Number Theory Calibration Runs (0001 ~ 0051)
         </h3>
-        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          A historical series of 51 deterministic calibration runs verifying fundamental algebraic number theory properties and topological invariants. These runs served to calibrate numerical tolerances, test genus theory class-group pigeonholes, and set algebraic geometric baselines.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Unified logs are preserved and archived, setting the numerical framework for active EQA verifications.</strong>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 16px 0; max-width: 800px;">
+          An archived registry of 51 deterministic calibration runs verifying fundamental algebraic number theory properties. Click on any run inside the scrollable list below to load its full citable calibration results and verification brief.
         </p>
+
+        <!-- Interactive Calibration Runs Scrollable Registry -->
+        <div style="margin-top: 8px; border: 1px solid var(--border); border-radius: var(--r-md); background: rgba(0,0,0,0.15); overflow: hidden; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); flex-wrap: wrap; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--ts); display: flex; align-items: center; gap: 6px;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #6b7280; display: inline-block;"></span>
+              Calibration Registry (51 runs)
+            </span>
+            <input type="text" id="historical-run-search" placeholder="Search calibration runs..." oninput="handleHistoricalRunSearch()" style="padding: 4px 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 4px; color: var(--tp); font-family: 'Inter', sans-serif; font-size: 10.5px; outline: none; width: 180px;">
+          </div>
+          <div id="historical-runs-list" style="max-height: 220px; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 6px;">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
         
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
           <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
@@ -547,7 +579,7 @@
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/>
             </svg>
-            [Repo ↗]
+            [Repo]
           </a>
           <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -618,6 +650,15 @@
       <button class="eq-filter-pill" onclick="filterBavLedger('published', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Published</button>
       <button class="eq-filter-pill" onclick="filterBavLedger('verified', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Verified</button>
       <button class="eq-filter-pill" onclick="filterBavLedger('archived', this)" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--t4); padding: 4px 12px; border-radius: var(--r-md); cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s;">Archived</button>
+      
+      <!-- Local search input -->
+      <div class="local-search-wrap" style="margin-left: auto; position: relative; display: flex; align-items: center; min-width: 200px;">
+        <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="position: absolute; left: 8px; width: 11px; height: 11px; color: var(--t5); pointer-events: none;">
+          <circle cx="5.5" cy="5.5" r="4"/>
+          <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="bav-local-search" placeholder="Search bio runs..." oninput="handleLocalSearch('rexsyn')" autocomplete="off" style="width: 100%; padding: 5px 8px 5px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--tp); font-family: 'Inter', sans-serif; font-size: 11px; outline: none; transition: border-color 0.15s;">
+      </div>
     </div>
 
     <!-- Vertical Stack for BAV Cards -->
@@ -655,7 +696,7 @@
               <rect x="2" y="2" width="8" height="8" rx="1"/>
               <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
             </svg>
-            [Report ↗]
+            [Report]
           </a>
           <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -672,6 +713,7 @@
         </div>
       </article>
     </div>
+  </div>
 
   <!-- REPORT VIEWER SECTION -->
   <div class="project-dashboard" id="report-viewer" style="display: none;">
@@ -703,7 +745,7 @@
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
             </svg>
-            Case Study Brief ↗
+            Case Study Brief
           </a>
           <a class="viewer-btn" id="btn-dl-md" href="#" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1182,8 +1224,17 @@
 
   <!-- ── REVIEW METHODOLOGY & FRAMEWORKS ─────────────────────────────────── -->
   <section class="extras-section" id="extras">
-    <div class="extras-header">
-      <div class="extras-title">Review Methodology &amp; Frameworks</div>
+    <div class="extras-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+      <div class="extras-title" style="margin: 0;">Review Methodology &amp; Frameworks</div>
+      
+      <!-- Methodology local search -->
+      <div class="local-search-wrap" style="position: relative; display: flex; align-items: center; min-width: 200px;">
+        <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="position: absolute; left: 8px; width: 11px; height: 11px; color: var(--t5); pointer-events: none;">
+          <circle cx="5.5" cy="5.5" r="4"/>
+          <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="extras-local-search" placeholder="Search methodology..." oninput="handleLocalSearch('extras')" autocomplete="off" style="width: 100%; padding: 5px 8px 5px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--tp); font-family: 'Inter', sans-serif; font-size: 11px; outline: none; transition: border-color 0.15s;">
+      </div>
     </div>
     <div class="extras-list">
       <div class="extra-item">
