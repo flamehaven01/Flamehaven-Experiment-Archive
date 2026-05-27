@@ -1233,12 +1233,19 @@ function renderInspectorData(runId, data, reportText = '') {
     }, 50);
   } else if (runId.startsWith('eqa-calib-')) {
     const obs = data.observations;
+    const calibChecks = Object.values(data.checks ?? {});
+    const calibPass = calibChecks.filter(Boolean).length;
+    const calibTotal = calibChecks.length;
+    const calibIsPartial = calibPass < calibTotal;
+    const calibVerdictLabel = calibIsPartial ? 'PARTIAL' : 'PASS';
+    const calibVerdictColor = calibIsPartial ? '#f59e0b' : '#10b981';
+    const calibVerdictSub = calibIsPartial ? `${calibPass} of ${calibTotal} checks passed` : 'All checks passed';
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Run Status</div>
-          <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">PASS</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Archived calibration</div>
+          <div style="font-size: 20px; font-weight: 600; color: ${calibVerdictColor}; margin-top: 4px;">${calibVerdictLabel}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">${calibVerdictSub}</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Target Equation</div>
