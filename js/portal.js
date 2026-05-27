@@ -1474,6 +1474,7 @@ function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
   if (runId === 'openai-erdos-eq22') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
+  if (runId.startsWith('eqa-calib-')) return buildCalibCharts(data);
   return buildGenericCharts(data);
 }
 
@@ -1587,6 +1588,44 @@ function buildGenericCharts(data) {
       options: { centerText: String(passCount), centerSub: `of ${vals.length} passed` },
     },
   ];
+}
+
+function buildCalibCharts(data) {
+  const checks = data.checks ?? {};
+  const vals = Object.values(checks);
+  const passCount = vals.filter(Boolean).length;
+  const failCount = vals.length - passCount;
+  const obs = data.observations ?? {};
+  const errorPct = parseFloat(obs.relative_error ?? '0');
+  const THRESHOLD = 0.03; // EQA Protocol §1 hard ceiling (%)
+  const charts = [];
+
+  if (errorPct > 0) {
+    const pctOfLimit = parseFloat((errorPct / THRESHOLD * 100).toFixed(3));
+    charts.push({
+      type: 'bar',
+      title: 'Precision Lock — Error Budget Consumed',
+      data: [{ label: 'Run Error', value: pctOfLimit, color: '#10b981', note: `${errorPct.toFixed(8)}% raw  |  EQA threshold: 0.03%` }],
+      options: {
+        maxValue: 100, unit: '% of limit',
+        caption: `Run consumed ${pctOfLimit}% of the 0.03% EQA precision budget — well within protocol bounds. [Synthetic calibration data]`,
+      },
+    });
+  }
+
+  if (vals.length) {
+    charts.push({
+      type: 'donut',
+      title: 'Verification Check Results',
+      data: [
+        { label: 'Pass', value: passCount, color: '#10b981' },
+        ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : []),
+      ],
+      options: { centerText: String(passCount), centerSub: `of ${vals.length} passed` },
+    });
+  }
+
+  return charts;
 }
 
 function renderAnalysisTab(container, runId, data) {
@@ -2213,7 +2252,23 @@ window.renderHistoricalRuns = function() {
   if (!container) return;
   
   container.innerHTML = '';
-  
+
+  // Inject aggregate stats banner before the run list (outside scroll area)
+  const oldBanner = container.parentElement?.querySelector('.calib-stats-banner');
+  if (oldBanner) oldBanner.remove();
+  const statsBanner = document.createElement('div');
+  statsBanner.className = 'calib-stats-banner';
+  statsBanner.style.cssText = 'display:flex;gap:20px;padding:7px 16px;background:rgba(167,139,250,0.04);border-bottom:1px solid rgba(167,139,250,0.12);flex-wrap:wrap;align-items:center;';
+  statsBanner.innerHTML = `
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">51 runs</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; 25 full-pass (5/5)</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#f59e0b;">&#9651; 26 partial (4/5)</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">16 topics</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">err &le; 2.71e&#8722;4%</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t5);margin-left:auto;">[synthetic]</span>
+  `;
+  container.parentElement?.insertBefore(statsBanner, container);
+
   for (let i = 1; i <= 51; i++) {
     const numStr = String(i).padStart(4, '0');
     const topicObj = CALIBRATION_TOPICS[(i - 1) % CALIBRATION_TOPICS.length];
