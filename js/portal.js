@@ -58,6 +58,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.renderHistoricalRuns) {
     window.renderHistoricalRuns();
   }
+
+  // ── Sidebar file tooltips (position:fixed to bypass overflow:hidden) ───
+  const sbTip = document.createElement('div');
+  sbTip.id = 'sb-tip';
+  document.body.appendChild(sbTip);
+
+  function positionSbTip(e) {
+    const x = e.clientX + 16;
+    const y = e.clientY - sbTip.offsetHeight / 2;
+    sbTip.style.left = Math.min(x, window.innerWidth - sbTip.offsetWidth - 10) + 'px';
+    sbTip.style.top  = Math.max(8, Math.min(y, window.innerHeight - sbTip.offsetHeight - 8)) + 'px';
+  }
+
+  document.querySelectorAll('.sb-file[data-tip]').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      sbTip.textContent = el.dataset.tip;
+      sbTip.classList.add('active');
+      positionSbTip(e);
+    });
+    el.addEventListener('mousemove', positionSbTip);
+    el.addEventListener('mouseleave', () => sbTip.classList.remove('active'));
+  });
 });
 
 // ── DEEP LINK ROUTING ────────────────────────────────────────────────────────

@@ -139,6 +139,22 @@
 }
 #toast.show { opacity: 1; transform: translateY(0); }
 
+/* ── SIDEBAR FILE TOOLTIP (fixed — avoids overflow:hidden clipping) ─────── */
+#sb-tip {
+  position: fixed; z-index: 500;
+  background: rgba(9,9,11,.97);
+  border: 1px solid var(--border-h);
+  color: var(--ts); border-radius: 6px;
+  padding: 5px 10px; font-size: 11px;
+  font-family: 'Inter', sans-serif; line-height: 1.45;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0,0,0,.55);
+  pointer-events: none;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity .12s ease, transform .12s ease;
+}
+#sb-tip.active { opacity: 1; transform: none; }
+
 /* ── MOBILE SIDEBAR BACKDROP ─────────────────────────────────────────────── */
 .sb-backdrop {
   display: none;
