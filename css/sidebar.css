@@ -77,20 +77,20 @@
 .sb-folder-header:hover .sb-folder-btn { color: var(--tp); }
 .sb-folder-btn.active { color: var(--tp); }
 
-/* Folder icon (open/closed) */
+/* Folder icon — emoji toggle (📁 closed / 📂 open) */
 .sb-folder-icon {
-  width: 14px; height: 14px; flex-shrink: 0;
-  color: var(--t5); transition: color .12s;
-  position: relative;
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.55;
+  transition: opacity .12s;
 }
+.sb-folder-icon::before { content: '📁'; }
+.sb-folder-btn.open .sb-folder-icon::before { content: '📂'; }
 .sb-folder-header:hover .sb-folder-icon,
-.sb-folder-btn.active .sb-folder-icon { color: var(--t3); }
-
-/* Open-folder shape: tab angled up-right to suggest flap raised */
-.sb-folder-btn.open .sb-folder-icon path {
-  d: path("M1.5 4.5a1 1 0 011-1h3l2-2h5.5a1 1 0 011 1v8.5a1 1 0 01-1 1h-10a1 1 0 01-1-1v-6.5z");
-  fill: rgba(161,161,170,0.15);
-}
+.sb-folder-btn.active .sb-folder-icon { opacity: 0.85; }
 
 /* Chevron */
 .sb-chevron {
