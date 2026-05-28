@@ -1,7 +1,19 @@
 mica_spec: "0.2.6"
 name: flamehaven-verification-ledger
 mode: memory_injection
-description: "Master MICA Package governing all validation lanes: Equation-to-Artifact (EQA), Biomolecular AI Validation, and Bioscience Compliance."
+description: >
+  Master MICA Package governing all validation lanes:
+  Equation-to-Artifact (EQA, runs TOE-TEST-0001~0056+),
+  Biomolecular AI Validation (BAV), and Bioscience Compliance (BSC).
+  EQA gate protocol, SPAR/Omega thresholds, chart conventions,
+  portal wiring standards, and UX/UI rules are fully documented in playbook.
+
+metadata:
+  version: "1.2.0"
+  last_updated: "2026-05-28"
+  eqa_run_range: "TOE-TEST-0001~0056"
+  di_count: 13
+  session_count: 3
 
 layers:
   - name: archive

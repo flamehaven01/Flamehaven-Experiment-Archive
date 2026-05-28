@@ -4,6 +4,37 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.2.0] - 2026-05-28
+
+EQA lane expansion adding two new verification cards (0052, 0056/AEFSO), portal UX improvements (sidebar ordering, emoji icons, mobile backdrop), tooltip architecture rework, and a full EQA operations playbook in the master MICA package.
+
+### ➕ New EQA Content
+- **TOE-TEST-0052 — GTE Pedagogy Hypothesis**: Gate REJECTED verdict card. SPAR 73/100, SIDRCE Omega 0.697 (RED band). Wired to inspector with SPAR sub-score bar and Omega gauge. Raw data: `eqa/toe-test-0052/internal_data.json` + `analysis_report.md`.
+- **TOE-TEST-0056 — AEFSO Optional Backend Representation Layer**: 7-phase experiment card. SPAR ACCEPT WITH BOUNDS. Classified `optional_backend_representation_layer`; DO NOT PROMOTE TO CORE, KEEP ALIVE. Wired with phase progression chart. Raw data: `eqa/toe-test-0056/AEFSO_MANIFEST.json` + decision/synthesis/review documents.
+
+### 📐 Navigation & Sidebar
+- **Descending run-code ordering**: EQA sidebar and card list reordered 0056 → 0055 → 0054 → 0053 → 0052 → archive (code-order, not time-order).
+- **Sidebar rename**: `openai-erdos-eq22 (0055)` → `eqa-test-0055 (openai-erdos)` for run-code-first consistency.
+- **📁/📂 Emoji folder icons**: Replaced SVG path chevron with `::before` content-toggling emoji (📁 closed / 📂 open on `.open` class).
+
+### 📱 Mobile Responsiveness
+- **`#sb-backdrop` overlay**: Added `position: fixed` backdrop div with `blur(1px)` behind the mobile sidebar. Tap backdrop to close (`closeSidebar()`).
+- **Slide distance corrected**: `left: -260px` → `-280px` to fully hide the 260px-wide sidebar off-screen; added `box-shadow` on slide-in.
+- **`closeSidebar()` helper**: Unified close path exported to `window`; used by backdrop click, nav link clicks, and file entry clicks on mobile.
+
+### 🔧 Tooltip Architecture
+- **Folder-level only**: Removed all file-level `data-tip` attributes (too granular — 13 attributes stripped from `eqa.html` + `index.html`).
+- **`position: fixed` JS engine**: Folder description tooltips (EQA / BAV / BSC / Methodology) now render via a JS-injected `#sb-tip` div on `document.body`, reading `.sb-tooltip` span `innerHTML`. Bypasses `overflow: hidden` sidebar clipping that silently suppressed CSS-only `position: absolute` tooltips.
+- **`#sb-tip` CSS**: Updated to multi-line HTML support (`max-width: 240px`, `white-space: normal`, `<strong>` colour rule).
+
+### 📚 MICA Memory Package
+- **New DIs (archive.json)**: DI-EQA-003 `gate-rejection-spar-threshold`, DI-EQA-004 `optional-layer-classification`, DI-EQA-005 `degraded-sidecar-isolation`, DI-SDK-003 `fixed-position-overflow-bypass`. Total DI count: 13.
+- **EQA Operations Playbook (§1.1–1.6)**: Full operations guide added to `verification-ledger-playbook.md` covering raw data management, portal wiring (4-step), hardcoding diagnosis table, scientific validity pre-publish checklist, insights/charts convention, and UX/UI guidelines.
+- **mica.yaml**: Added `metadata` block (version, last_updated, eqa_run_range, di_count, session_count). Description updated to reference full run range TOE-TEST-0001~0056+.
+- **README + CHANGELOG**: EQA section expanded, repository tree updated, Active Audits section restructured into EQA / BSC / Methodology subsections.
+
+---
+
 ## [1.1.1] - 2026-05-27
 
 Internal code quality pass addressing DRY violations, a rendering performance bottleneck, separation of concerns for CSS, and a data-transparency label in the fallback inspector — no user-facing behaviour changes.

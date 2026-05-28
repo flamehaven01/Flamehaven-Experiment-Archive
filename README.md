@@ -23,8 +23,9 @@ The summary file is intentionally narrow. It exists only to route users into the
 
 ### 1. Equation-to-Artifact (EQA) Verification
 - **Focus**: Translating high-stakes mathematical and physical proofs (such as discrete geometry conjectures) into runnable, CI-tested software artifacts.
-- **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, mathematical rules, and absolute consensus boundaries.
-- **Scope**: Active verification ledger featuring the May 2026 OpenAI Erdős unit-distance disproof reproduction.
+- **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, SPAR scoring, and SIDRCE Omega gate thresholds (GREEN ≥ 0.85 · AMBER [0.75, 0.85) · RED < 0.75).
+- **Scope**: Active EQA ledger spanning runs TOE-TEST-0001~0056. Includes published Zenodo-archived reproduction (0055), gate-rejected hypothesis (0052), optional backend layer experiment (0056/AEFSO), governance gate verification (0054), namespace integrity scan (0053), and 51-run algebraic calibration archive (0001–0051).
+- **Portal**: [`eqa.html`](./eqa.html) — dedicated EQA verification dashboard.
 
 ### 2. Bioscience Repository Compliance Scanner
 - **Focus**: Local, zero-execution repository safety and compliance audits for advanced bioscience systems.
@@ -44,23 +45,26 @@ All experiment results and compliance logs follow a unified hierarchical layout:
 
 ```
 flamehaven-verification-ledger/
-├── index.html                           # Premium Portal Homepage
+├── index.html                           # Main Verification Ledger Portal
+├── eqa.html                             # EQA-Dedicated Dashboard Portal
 ├── index.md                             # Markdown Archive Directory
+├── eqa/                                 # Equation-to-Artifact Run Artifacts
+│   ├── toe-test-0056/                   # AEFSO — Optional Backend Layer (SPAR: ACCEPT WITH BOUNDS)
+│   ├── toe-test-0055/ → openai-erdos-eq22/  # Erdős Eq.(2.2) Reproduction (Zenodo published)
+│   ├── toe-test-0054/                   # Governance Gate Verification (BLOCK / INHIBIT)
+│   ├── toe-test-0053/                   # Namespace Integrity Scan (DEGRADED SIDECAR)
+│   ├── toe-test-0052/                   # GTE Pedagogy Hypothesis (Gate REJECTED · SPAR 73)
+│   └── [archive 0001–0051]              # 51-run algebraic calibration archive
 ├── stem-bio-ai/                         # Bioscience Compliance Audits
+│   ├── yorkeccak-bio/2026-05-15/        # yorkeccak/bio — T1 Quarantine · Score 48
+│   └── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60
 ├── css/                                 # Styling System
-├── js/                                  # Interaction Logic
-│   ├── yorkeccak-bio/
-│   │   └── 2026-05-15/                  # yorkeccak/bio Audit Artifacts
-│   │       ├── report.html              # Interactive 2-Column Sticky TOC Report
-│   │       ├── report.md                # Raw Markdown Report
-│   │       ├── report.json              # Structured Telemetry Data
-│   │       └── explain.txt              # Execution Trace
-│   └── bioclaw/
-│       └── 2026-5-21/                   # Runchuan-BU/BioClaw Audit Artifacts
-│           ├── Runchuan-BU_BioClaw_report.html
-│           └── Runchuan-BU_BioClaw_report.md
+├── js/                                  # Interaction Logic (portal.js, chart-engine.js)
+├── memory/                              # MICA Memory Package
+│   ├── verification-ledger.mica.archive.json
+│   └── verification-ledger-playbook.md
 ├── extra/                               # Review Methodology & Frameworks
-│   └── pr_action_plan_v3.html           # Agent Review Dashboard (PR Action Plan 2.0)
+│   └── pr_action_plan_v3.html           # Agent Review Dashboard (PR Action Plan v3)
 └── README.md                            # Repository Documentation
 ```
 
@@ -72,12 +76,26 @@ To interactively browse this repository, run the local dev server and open the p
 1. Run `python -m http.server 7777` inside this folder.
 2. Open `http://localhost:7777` in your browser.
 
-### Active Audits:
-- **[Bioscience Compliance] yorkeccak/bio (T1 Quarantine · Score 48)**
+### 🔢 EQA — Equation-to-Artifact Runs
+- **[EQA · 0056] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`
+  - [EQA Portal](./eqa.html#toe-test-0056) · 7-phase experiment · DO NOT PROMOTE TO CORE
+- **[EQA · 0055] OpenAI Erdős Unit-Distance Disproof Eq.(2.2)** `PASS · Zenodo Published`
+  - [EQA Portal](./eqa.html#openai-erdos-eq22) | [Zenodo DOI](https://doi.org/10.5281/zenodo.15487327)
+- **[EQA · 0054] Governance Gate Verification** `BLOCK / INHIBIT`
+  - [EQA Portal](./eqa.html#toe-test-0054)
+- **[EQA · 0053] Namespace Integrity Scan** `DEGRADED SIDECAR`
+  - [EQA Portal](./eqa.html#toe-test-0053)
+- **[EQA · 0052] GTE Pedagogy Hypothesis** `GATE REJECTED · SPAR 73 · Omega 0.697 RED`
+  - [EQA Portal](./eqa.html#toe-test-0052)
+
+### 🧬 Bioscience Compliance Audits
+- **[BSC] yorkeccak/bio (T1 Quarantine · Score 48)**
   - [Interactive Report](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.html) | [Analyst Write-up](./stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md) | [Markdown](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md)
-- **[Bioscience Compliance] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
+- **[BSC] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
   - [Interactive Report](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html) | [Markdown](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md)
-- **[Methodology] Agent Review Dashboard (PR Action Plan 2.0)**
+
+### 📐 Methodology & Frameworks
+- **[Methodology] Agent Review Dashboard (PR Action Plan v3)**
   - [Interactive Dashboard](./extra/pr_action_plan_v3.html)
 
 ---
