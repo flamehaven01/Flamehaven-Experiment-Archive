@@ -266,17 +266,23 @@ function highlightFile(link) {
   document.querySelectorAll('.sb-file').forEach(f => f.classList.remove('sb-active'));
   link.classList.add('sb-active');
   
-  if (window.innerWidth <= 768) {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) sidebar.classList.remove('mobile-open');
-  }
+  if (window.innerWidth <= 768) closeSidebar();
 }
 
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.getElementById('sb-backdrop');
   if (sidebar) {
-    sidebar.classList.toggle('mobile-open');
+    const isOpen = sidebar.classList.toggle('mobile-open');
+    if (backdrop) backdrop.classList.toggle('active', isOpen);
   }
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.getElementById('sb-backdrop');
+  if (sidebar) sidebar.classList.remove('mobile-open');
+  if (backdrop) backdrop.classList.remove('active');
 }
 
 function handleSidebarSearch() {
@@ -612,10 +618,7 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   }
 
   // Slide mobile sidebar closed on mobile click
-  if (window.innerWidth <= 768) {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) sidebar.classList.remove('mobile-open');
-  }
+  if (window.innerWidth <= 768) closeSidebar();
 }
 
 
@@ -2502,6 +2505,7 @@ window.toggleFolder = toggleFolder;
 window.toggleSeries = toggleSeries;
 window.highlightFile = highlightFile;
 window.toggleSidebar = toggleSidebar;
+window.closeSidebar = closeSidebar;
 window.handleSidebarSearch = handleSidebarSearch;
 window.toggleGuide = toggleGuide;
 window.filterTier = filterTier;
