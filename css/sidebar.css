@@ -113,27 +113,8 @@
 /* Folder name */
 .sb-folder-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Information tooltip trigger */
-.sb-tooltip {
-  visibility: hidden; opacity: 0;
-  width: 220px; background: rgba(9, 9, 11, 0.96);
-  border: 1px solid var(--border-h); color: var(--ts);
-  border-radius: 8px; padding: 12px;
-  position: absolute; z-index: 300;
-  left: calc(100% + 8px); top: 50%;
-  transform: translateY(-50%) scale(0.95);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
-  pointer-events: none;
-  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: normal;
-  line-height: 1.5; white-space: normal;
-}
-.sb-tooltip strong { color: var(--tp); }
-.sb-folder-header:hover .sb-tooltip {
-  visibility: visible; opacity: 1;
-  transform: translateY(-50%) scale(1);
-}
+/* Folder tooltip content — rendered via JS #sb-tip (position:fixed), hidden here */
+.sb-tooltip { display: none; }
 
 /* Folder children */
 .sb-children {

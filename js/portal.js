@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.renderHistoricalRuns();
   }
 
-  // ── Sidebar file tooltips (position:fixed to bypass overflow:hidden) ───
+  // ── Sidebar folder tooltips (position:fixed to bypass overflow:hidden) ───
   const sbTip = document.createElement('div');
   sbTip.id = 'sb-tip';
   document.body.appendChild(sbTip);
@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sbTip.style.top  = Math.max(8, Math.min(y, window.innerHeight - sbTip.offsetHeight - 8)) + 'px';
   }
 
-  document.querySelectorAll('.sb-file[data-tip]').forEach(el => {
+  document.querySelectorAll('.sb-folder-header').forEach(el => {
+    const tipEl = el.querySelector('.sb-tooltip');
+    if (!tipEl) return;
     el.addEventListener('mouseenter', e => {
-      sbTip.textContent = el.dataset.tip;
+      sbTip.innerHTML = tipEl.innerHTML;
       sbTip.classList.add('active');
       positionSbTip(e);
     });
