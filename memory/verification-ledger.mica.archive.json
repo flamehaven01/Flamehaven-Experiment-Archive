@@ -95,14 +95,50 @@
       "binding": {
         "origin_episode": "EXP-059: Diagnosed that an unclosed BAV dashboard tag nested the BSC dashboard within a hidden element, and resolved it by restoring the missing closing div."
       }
+    },
+    {
+      "id": "DI-EQA-003",
+      "label": "gate-rejection-spar-threshold",
+      "statement": "An EQA run must achieve SPAR >= 80 and SIDRCE Omega >= 0.75 to pass the governance gate. Runs scoring below either threshold receive Gate REJECTED status and require documented revision before re-promotion. Omega in [0.75, 0.85) is AMBER; Omega < 0.75 is RED.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "TOE-TEST-0052: GTE pedagogy hypothesis scored SPAR 73/100 and SIDRCE Omega 0.697 (RED), resulting in Gate REJECTED. SPAR verdict: MINOR REVISION."
+      }
+    },
+    {
+      "id": "DI-EQA-004",
+      "label": "optional-layer-classification",
+      "statement": "An EQA experiment that demonstrates exploratory value without satisfying core promotion criteria must be classified as OPTIONAL BACKEND REPRESENTATION LAYER: DO NOT PROMOTE TO CORE, KEEP ALIVE. This classification preserves the experiment in the ledger without granting core lane status, and is the correct disposition for AEFSO-pattern multi-phase experiments.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "TOE-TEST-0056/AEFSO: 7-phase experiment converged on AEFSO_INSIGHT_CONVERGES_TO_TOE_UPDATE but did not meet core promotion threshold. SPAR verdict: ACCEPT WITH BOUNDS. Classified optional_backend_representation_layer, not promoted."
+      }
+    },
+    {
+      "id": "DI-EQA-005",
+      "label": "degraded-sidecar-isolation",
+      "statement": "When an EQA sidecar run receives DEGRADED SIDECAR verdict, the affected namespace must be immediately flagged for isolation. Dependent pipelines must not consume its outputs until namespace integrity is restored and a follow-up scan is filed.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "TOE-TEST-0053: Namespace integrity scan returned DEGRADED SIDECAR status; dependent pipeline consumption was blocked pending isolation and re-verification."
+      }
+    },
+    {
+      "id": "DI-SDK-003",
+      "label": "fixed-position-overflow-bypass",
+      "statement": "Sidebar tooltip elements must use position:fixed (appended to document.body) rather than position:absolute. CSS-only hover tooltips are clipped by the sidebar's overflow:hidden/auto scroll context and will not render. JS must inject the tooltip div into body and compute coordinates via clientX/clientY.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-060: Folder description tooltips were invisibly clipped by overflow-x:hidden on .sidebar. Resolved by migrating to a JS position:fixed engine reading .sb-tooltip span innerHTML."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 3,
-    "last_updated": "2026-05-27",
-    "session_count": 2,
+    "update_count": 4,
+    "last_updated": "2026-05-28",
+    "session_count": 3,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }
