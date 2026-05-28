@@ -235,9 +235,12 @@ function toggleFolder(btn) {
   const folderId = btn.dataset.id;
   const children = document.getElementById(`child-${folderId}`);
   const isOpen = btn.classList.toggle('open');
-  
+
   if (children) {
     children.classList.toggle('open', isOpen);
+    // Also toggle .sb-files directly inside (flat structure — no .sb-series wrapper)
+    const filesEl = children.querySelector('.sb-files');
+    if (filesEl) filesEl.classList.toggle('open', isOpen);
   }
   
   document.querySelectorAll('.sb-folder-btn').forEach(b => b.classList.remove('active'));
@@ -262,9 +265,13 @@ window.openCollection = function(folderId) {
     if (!folderBtn.classList.contains('open')) {
       folderBtn.classList.add('open');
       const children = document.getElementById(`child-${folderId}`);
-      if (children) children.classList.add('open');
+      if (children) {
+        children.classList.add('open');
+        const filesEl = children.querySelector('.sb-files');
+        if (filesEl) filesEl.classList.add('open');
+      }
     }
-    
+
     if (folderId === 'stem-bio-ai') {
       filterColl('stem-bio-ai', null);
     } else if (folderId === 'extra') {
