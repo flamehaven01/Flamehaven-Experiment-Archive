@@ -14,7 +14,7 @@
   "files": {
     "post_overlay_report": "./bav/exp-028/post_overlay_report.json"
   },
-  "source": "D:/Sanctum/Flamehaven-Labs/Rexsyn Experiment/Ex1-28/EXP-028-POST-OVERLAY/EXP_028_POST_OVERLAY_REPORT.json",
+  "source": "[workspace]/EXP_028_POST_OVERLAY_REPORT.json",
   "provenance_note": "Verbatim experiment report (DI-EQA-002). Live-fetched, no hardcoding (DI-BSC-001).",
   "disclaimer": "Pipeline calibration + honesty heuristics only. NOT clinical efficacy."
 }

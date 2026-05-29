@@ -15,7 +15,7 @@
 ## LOGOS Detection
 
 - Source syntax: `6/6` key files compile.
-- Python package name `logos` resolves to: `D:\Sanctum\RExSyn-Nexus-main\src\logos\__init__.py`
+- Python package name `logos` resolves to: `[workspace]/__init__.py`
 - Direct Flamehaven-LOGOS import status: `timeout`
 - AATS smoke status: `timeout`
 - TOE sidecar/report contract tests: `pass`

@@ -1,0 +1,32 @@
+mica_spec: "0.2.6"
+name: flamehaven-ledger-sanitizer
+mode: memory_injection
+description: >
+  Governance package for the Flamehaven Ledger Sanitizer — an OPSEC/PII guard
+  that scrubs local-workspace absolute paths and locale tokens from public
+  ledger files before publish. Engine skeleton adapted from AI-SLOP-DETECTOR
+  (autofix FixChange/FixResult/register pattern). Acts as a standing agent:
+  scan on demand (dry-run) and before every commit that touches published data.
+
+metadata:
+  version: "1.0.0"
+  last_updated: "2026-05-30"
+  tool: sanitizer/sanitize_ledger.py
+  di_count: 4
+  session_count: 1
+
+layers:
+  - name: archive
+    path: sanitizer/sanitizer.mica.archive.json
+    format: json
+    loading_hint: always
+
+invocation_protocol:
+  primary_pattern: readme_protocol
+  commands:
+    dry_run: "python sanitizer/sanitize_ledger.py"
+    apply: "python sanitizer/sanitize_ledger.py --apply"
+
+update_triggers:
+  - on_explicit_save
+  - before_publish_commit

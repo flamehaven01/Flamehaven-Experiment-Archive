@@ -3,19 +3,19 @@
   "generated_at_utc": "2026-04-16T05:09:26.138354+00:00",
   "status": "ok",
   "blocking_reasons": [],
-  "manifest_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-032-ADAPTIVE-GATE\\artifacts\\exp032_labeled_validation_manifest.json",
+  "manifest_path": "[workspace]/exp032_labeled_validation_manifest.json",
   "payload_search": {
     "roots": [
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper"
+      "[workspace]/parity_20260416_batch_reports_wrapper"
     ],
     "pattern": "rexsyn_bio_report_payload.json",
     "payload_files_found": [
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json",
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json",
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json",
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json",
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json",
-      "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+      "[workspace]/rexsyn_bio_report_payload.json",
+      "[workspace]/rexsyn_bio_report_payload.json",
+      "[workspace]/rexsyn_bio_report_payload.json",
+      "[workspace]/rexsyn_bio_report_payload.json",
+      "[workspace]/rexsyn_bio_report_payload.json",
+      "[workspace]/rexsyn_bio_report_payload.json"
     ]
   },
   "summary": {
@@ -187,7 +187,7 @@
       "critic_shadow_bounded_escalation_eligible": true,
       "critic_shadow_soft_discord_only": true,
       "critic_shadow_strict_recheck_pass": false,
-      "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+      "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
     },
     {
       "sample_id": "EXP032-BLOCK-001",
@@ -214,7 +214,7 @@
       "critic_shadow_bounded_escalation_eligible": false,
       "critic_shadow_soft_discord_only": true,
       "critic_shadow_strict_recheck_pass": false,
-      "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+      "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
     }
   ],
   "arm_level": {
@@ -385,7 +385,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-BLOCK-001",
@@ -414,7 +414,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-BLOCK-001",
@@ -443,7 +443,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -472,7 +472,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -501,7 +501,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -530,7 +530,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       }
     ]
   }

@@ -1,6 +1,6 @@
 {
   "schema": "legacy_replay_go_no_go_v1",
-  "output_root": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper",
+  "output_root": "[workspace]/parity_20260416_batch_reports_wrapper",
   "verdict": "GO",
   "blockers": [],
   "warnings": [

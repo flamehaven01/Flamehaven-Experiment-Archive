@@ -5,7 +5,7 @@
   "execution_mode": "LOCAL_ANALYSIS",
   "target": {
     "name": "Runchuan-BU/BioClaw",
-    "local_path": "D:\\Sanctum\\Extra Repo\\BioClaw",
+    "local_path": "[workspace]/BioClaw",
     "remote": "https://github.com/Runchuan-BU/BioClaw",
     "branch": "main",
     "commit": "faae6a2778e992b1cc6a4b1639e530a147d8b463",

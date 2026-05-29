@@ -4,10 +4,10 @@
   "short_name": "AEFSO",
   "status": "phase7_toe_update_docs_ready",
   "date_initialized": "2026-04-16",
-  "location": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-AEFSO",
+  "location": "[workspace]/TOE-TEST-AEFSO",
   "paper_sources": [
-    "D:\\Sanctum\\Flamehaven\\STRUCTURA\\Library\\Reserach Thesis\\000 외부 논문 핵심\\All elementary functions from a single operator.pdf",
-    "D:\\Sanctum\\Flamehaven\\STRUCTURA\\Library\\Reserach Thesis\\000 외부 논문 핵심\\All elementary functions from a single operator.txt"
+    "[workspace]/All elementary functions from a single operator.pdf",
+    "[workspace]/All elementary functions from a single operator.txt"
   ],
   "validation_stack": [
     "SPAR paper review",

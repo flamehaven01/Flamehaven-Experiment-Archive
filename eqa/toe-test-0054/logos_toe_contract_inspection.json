@@ -183,7 +183,7 @@
     "audit_hash": "25433b96c5253e20",
     "enabled": true,
     "available": true,
-    "lawbinder_root": "D:\\Sanctum\\Flamehaven-LawBinder",
+    "lawbinder_root": "[workspace]/Flamehaven-LawBinder",
     "role": "governance_arbitrator_not_verifier"
   }
 }

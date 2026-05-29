@@ -46,7 +46,7 @@
 
 ### 1.2 Summary Judgment
 
-BioClaw delivers a highly capable and functionally impressive biomedical AI assistant. However, it exhibits a catastrophic gap between its narrative claims ("Enterprise-grade", "HIPAA-compliant") and its structural technical reality. The repository lacks mandatory clinical boundaries (C5 WARN), entirely omits biological domain tests (T2=0), and utilizes a WhatsApp data pipeline that introduces immediate institutional breach risks. **Deployment in any clinical-adjacent or patient-data context is strongly discouraged until severe architectural remediation (보완) is completed.**
+BioClaw delivers a highly capable and functionally impressive biomedical AI assistant. However, it exhibits a catastrophic gap between its narrative claims ("Enterprise-grade", "HIPAA-compliant") and its structural technical reality. The repository lacks mandatory clinical boundaries (C5 WARN), entirely omits biological domain tests (T2=0), and utilizes a WhatsApp data pipeline that introduces immediate institutional breach risks. **Deployment in any clinical-adjacent or patient-data context is strongly discouraged until severe architectural remediation ([redacted]) is completed.**
 
 ---
 
@@ -74,7 +74,7 @@ BioClaw delivers a highly capable and functionally impressive biomedical AI assi
 
 ### 3.2 Critical Production Blockers
 
-The following items must be remediated (보완) before clearing `T1/T2 Quarantine` status for any institutional deployment:
+The following items must be remediated ([redacted]) before clearing `T1/T2 Quarantine` status for any institutional deployment:
 
 1. **WhatsApp Pipeline Sanitization:** The consumer messaging pipeline must be severed from raw clinical/genomic file ingress, or an E2E-encrypted staging gateway must be implemented.
 2. **Clinical Boundaries (C5):** Explicit "Not for Clinical Use" disclaimers must be hardcoded into the README, UI, and generated reports to mitigate legal liability.

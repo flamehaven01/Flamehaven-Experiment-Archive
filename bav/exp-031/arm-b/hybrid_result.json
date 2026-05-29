@@ -22,7 +22,7 @@
           "mode": "manual",
           "model_version": "alphafold3-server-manual-v1",
           "source": "af3_unzip_scan",
-          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_0.json"
+          "source_path": "[workspace]/fold_exp031_arm_a_af3_summary_confidences_0.json"
         },
         {
           "ptm_score": 0.4,
@@ -30,7 +30,7 @@
           "mode": "manual",
           "model_version": "alphafold3-server-manual-v1",
           "source": "af3_unzip_scan",
-          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_1.json"
+          "source_path": "[workspace]/fold_exp031_arm_a_af3_summary_confidences_1.json"
         },
         {
           "ptm_score": 0.4,
@@ -38,7 +38,7 @@
           "mode": "manual",
           "model_version": "alphafold3-server-manual-v1",
           "source": "af3_unzip_scan",
-          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_2.json"
+          "source_path": "[workspace]/fold_exp031_arm_a_af3_summary_confidences_2.json"
         }
       ],
       "trinity_manual_boltz2_by_cycle": [

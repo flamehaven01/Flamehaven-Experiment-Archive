@@ -1,0 +1,59 @@
+{
+  "mica_spec": "0.2.6",
+  "mica_schema_version": "0.2.6",
+  "project": {
+    "name": "flamehaven-ledger-sanitizer",
+    "full_name": "Flamehaven Ledger Sanitizer",
+    "version": "1.0.0",
+    "status": "active",
+    "primary_language": "Python",
+    "repo_path": "sanitizer/",
+    "canonical_statement": "Deterministic OPSEC/PII guard that scrubs local-workspace absolute paths and locale tokens from public-facing ledger files. Engine skeleton adapted from AI-SLOP-DETECTOR; runs as a standing pre-publish agent."
+  },
+  "design_invariants": [
+    {
+      "id": "DI-SAN-001",
+      "label": "no-absolute-workspace-paths",
+      "statement": "No published ledger file may contain a local-workspace absolute path. Any drive-letter or home path carrying a workspace marker (Sanctum, STRUCTURA, Users/dream) is collapsed to '[workspace]/<basename>'; if the path IS the workspace root, only '[workspace]' remains. Drive letter, OS, workspace codenames, username, and locale directories must all be removed.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-SAN-001: committed experiment JSON exposed D:\\Sanctum\\... absolute paths (drive, OS, workspace codenames, username) in a public repo — an information-disclosure / OPSEC failure."
+      }
+    },
+    {
+      "id": "DI-SAN-002",
+      "label": "no-locale-pii-tokens",
+      "statement": "No published file may contain Hangul (Korean) runs. Residual Korean text in an English public ledger is a locale/content leak and is redacted to '[redacted]'. This catches locale-revealing folder names and untranslated content regardless of context.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-SAN-001: paths such as '...\\000 (Korean research-folder)\\X.pdf' leaked locale and internal research structure."
+      }
+    },
+    {
+      "id": "DI-SAN-003",
+      "label": "preserve-urls-and-relative-paths",
+      "statement": "Sanitization must be marker-gated: only tokens carrying a workspace leak marker are rewritten. Public URLs (https://...), relative paths (./...), and code (JS regex literals, ternaries) must be left byte-for-byte unchanged. JSON files must remain valid after sanitization.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-SAN-002: an ungated drive-path regex matched the 's:' in 'https://' and would have corrupted every note hyperlink; fixed by gating replacement on workspace markers."
+      }
+    },
+    {
+      "id": "DI-SAN-004",
+      "label": "binary-artifacts-not-text-sanitizable",
+      "statement": "Binary artifacts (e.g. .pdf) cannot be safely text-sanitized in place. A binary that contains a leak must be regenerated from already-sanitized source or removed from the published repo; it must never be shipped with embedded workspace paths.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-SAN-003: analysis_report.pdf embedded D:\\Sanctum\\... paths in its binary stream; removed from the repo since the sanitized .md/.html equivalents remain."
+      }
+    }
+  ],
+  "operation_meta": {
+    "mica_schema_version": "0.2.6",
+    "archive_id": "LEDGER-SANITIZER-MICA-001",
+    "update_count": 1,
+    "last_updated": "2026-05-30",
+    "session_count": 1,
+    "bootstrap_note": "Sanitizer governance initialized after a repo-wide absolute-path/PII disclosure was found in committed experiment JSON. Adapted from AI-SLOP-DETECTOR engine pattern."
+  }
+}

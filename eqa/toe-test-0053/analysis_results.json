@@ -5,7 +5,7 @@
   "baseline_comparison": [
     {
       "name": "TOE-TEST-0051",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0051",
+      "path": "[workspace]/TOE-TEST-0051",
       "exists": true,
       "file_count": 1,
       "suffix_counts": {
@@ -21,7 +21,7 @@
     },
     {
       "name": "TOE-TEST-0052",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0052",
+      "path": "[workspace]/TOE-TEST-0052",
       "exists": true,
       "file_count": 9,
       "suffix_counts": {
@@ -49,7 +49,7 @@
     },
     {
       "name": "TOE-TEST-AEFSO",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-AEFSO",
+      "path": "[workspace]/TOE-TEST-AEFSO",
       "exists": true,
       "file_count": 28,
       "suffix_counts": {
@@ -95,32 +95,32 @@
   ],
   "logos_source_compile": [
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\runner.py",
+      "path": "[workspace]/runner.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\evidence.py",
+      "path": "[workspace]/evidence.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\pipeline.py",
+      "path": "[workspace]/pipeline.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\symbolic_verifier.py",
+      "path": "[workspace]/symbolic_verifier.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\psi_field.py",
+      "path": "[workspace]/psi_field.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\bridge\\manifold_bridge.py",
+      "path": "[workspace]/manifold_bridge.py",
       "exists": true,
       "status": "pass"
     }
@@ -128,25 +128,25 @@
   "logos_runtime_probe": {
     "package_name_resolution": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
         "import importlib.util; spec=importlib.util.find_spec('logos'); print(None if spec is None else spec.origin)"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 15,
       "duration_s": 0.105,
       "returncode": 0,
       "status": "pass",
-      "stdout": "D:\\Sanctum\\RExSyn-Nexus-main\\src\\logos\\__init__.py\n",
+      "stdout": "[workspace]/n",
       "stderr": ""
     },
     "direct_import": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
-        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
+        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 20,
       "duration_s": 20.017,
       "returncode": null,
@@ -156,11 +156,11 @@
     },
     "aats_smoke": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
-        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
+        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 20,
       "duration_s": 20.028,
       "returncode": null,
@@ -171,14 +171,14 @@
   },
   "toe_contract_probe": {
     "args": [
-      "D:\\Sanctum\\venv\\Scripts\\python.exe",
+      "[workspace]/python.exe",
       "-m",
       "pytest",
       "tests/unit/test_logos_sidecar_contract.py",
       "tests/unit/test_research_run_export_contract.py",
       "-q"
     ],
-    "cwd": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+    "cwd": "[workspace]/Flamehaven-TOE(Theory of Everything)",
     "timeout_s": 60,
     "duration_s": 2.317,
     "returncode": 0,

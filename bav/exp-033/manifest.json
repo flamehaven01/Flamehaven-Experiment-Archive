@@ -9,7 +9,7 @@
   "sha256": {
     "governance_multiaxis": "fcb21f95407094b47690dbfc154b555c7ae47068aeb781abbb9c11243deceb90"
   },
-  "source": "D:/Sanctum/Flamehaven-Labs/Rexsyn Experiment/EXP-034-METHODLOCK-MODAL-EXPANSION/artifacts/exp034_trackA_legacy_replay_20260419_101344/exp034_vs_exp033_multiaxis.json (baseline=EXP033_PARITY_V5J)",
+  "source": "[workspace]/exp034_vs_exp033_multiaxis.json (baseline=EXP033_PARITY_V5J)",
   "provenance_note": "Verbatim cross-experiment comparison artifact (DI-EQA-002). EXP-033 governance read from baseline side. Live-fetched, no hardcoding (DI-BSC-001).",
   "disclaimer": "Pipeline reliability + governance only. NOT clinical efficacy."
 }

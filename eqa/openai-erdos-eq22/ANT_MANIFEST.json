@@ -2,8 +2,8 @@
   "experiment_id": "TOE_TEST_ANT_OPENAI_ERDOS",
   "title": "Integrating Algebraic Number Theory Breakthroughs (Erdos-OpenAI)",
   "status": "executable_research_only_proxy_verified",
-  "location": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
-  "main_repo": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+  "location": "[workspace]/TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
+  "main_repo": "[workspace]/Flamehaven-TOE(Theory of Everything)",
   "validation_stack": [
     "live TOE Python imports",
     "finite unit-distance density probe",

@@ -41,7 +41,7 @@
 ## LOGOS Detection<br>
 <br>
 - Source syntax: `6/6` key files compile.<br>
-- Python package name `logos` resolves to: `D:\Sanctum\RExSyn-Nexus-main\src\logos\__init__.py`<br>
+- Python package name `logos` resolves to: `[workspace]/__init__.py`<br>
 - Direct Flamehaven-LOGOS import status: `timeout`<br>
 - AATS smoke status: `timeout`<br>
 - TOE sidecar/report contract tests: `pass`<br>
@@ -80,7 +80,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   &quot;baseline_comparison&quot;: [
     {
       &quot;name&quot;: &quot;TOE-TEST-0051&quot;,
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0051&quot;,
+      &quot;path&quot;: &quot;[workspace]/TOE-TEST-0051&quot;,
       &quot;exists&quot;: true,
       &quot;file_count&quot;: 1,
       &quot;suffix_counts&quot;: {
@@ -96,7 +96,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     {
       &quot;name&quot;: &quot;TOE-TEST-0052&quot;,
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0052&quot;,
+      &quot;path&quot;: &quot;[workspace]/TOE-TEST-0052&quot;,
       &quot;exists&quot;: true,
       &quot;file_count&quot;: 9,
       &quot;suffix_counts&quot;: {
@@ -124,7 +124,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     {
       &quot;name&quot;: &quot;TOE-TEST-AEFSO&quot;,
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-AEFSO&quot;,
+      &quot;path&quot;: &quot;[workspace]/TOE-TEST-AEFSO&quot;,
       &quot;exists&quot;: true,
       &quot;file_count&quot;: 28,
       &quot;suffix_counts&quot;: {
@@ -170,32 +170,32 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   ],
   &quot;logos_source_compile&quot;: [
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\runner.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/runner.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     },
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\evidence.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/evidence.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     },
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\aats\\pipeline.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/pipeline.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     },
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\aats\\symbolic_verifier.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/symbolic_verifier.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     },
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\aats\\psi_field.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/psi_field.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     },
     {
-      &quot;path&quot;: &quot;D:\\Sanctum\\Flamehaven-LOGOS\\bridge\\manifold_bridge.py&quot;,
+      &quot;path&quot;: &quot;[workspace]/manifold_bridge.py&quot;,
       &quot;exists&quot;: true,
       &quot;status&quot;: &quot;pass&quot;
     }
@@ -203,25 +203,25 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   &quot;logos_runtime_probe&quot;: {
     &quot;package_name_resolution&quot;: {
       &quot;args&quot;: [
-        &quot;D:\\Sanctum\\venv\\Scripts\\python.exe&quot;,
+        &quot;[workspace]/python.exe&quot;,
         &quot;-c&quot;,
         &quot;import importlib.util; spec=importlib.util.find_spec(&#x27;logos&#x27;); print(None if spec is None else spec.origin)&quot;
       ],
-      &quot;cwd&quot;: &quot;D:\\Sanctum&quot;,
+      &quot;cwd&quot;: &quot;[workspace]&quot;,
       &quot;timeout_s&quot;: 15,
       &quot;duration_s&quot;: 0.105,
       &quot;returncode&quot;: 0,
       &quot;status&quot;: &quot;pass&quot;,
-      &quot;stdout&quot;: &quot;D:\\Sanctum\\RExSyn-Nexus-main\\src\\logos\\__init__.py\n&quot;,
+      &quot;stdout&quot;: &quot;[workspace]/n&quot;,
       &quot;stderr&quot;: &quot;&quot;
     },
     &quot;direct_import&quot;: {
       &quot;args&quot;: [
-        &quot;D:\\Sanctum\\venv\\Scripts\\python.exe&quot;,
+        &quot;[workspace]/python.exe&quot;,
         &quot;-c&quot;,
-        &quot;import sys; sys.path.insert(0, &#x27;D:\\\\Sanctum\\\\Flamehaven-LOGOS&#x27;); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print(&#x27;flamehaven_logos_direct_import_ok&#x27;)&quot;
+        &quot;import sys; sys.path.insert(0, &#x27;[workspace]/Flamehaven-LOGOS&#x27;); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print(&#x27;flamehaven_logos_direct_import_ok&#x27;)&quot;
       ],
-      &quot;cwd&quot;: &quot;D:\\Sanctum&quot;,
+      &quot;cwd&quot;: &quot;[workspace]&quot;,
       &quot;timeout_s&quot;: 20,
       &quot;duration_s&quot;: 20.017,
       &quot;returncode&quot;: null,
@@ -231,11 +231,11 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     &quot;aats_smoke&quot;: {
       &quot;args&quot;: [
-        &quot;D:\\Sanctum\\venv\\Scripts\\python.exe&quot;,
+        &quot;[workspace]/python.exe&quot;,
         &quot;-c&quot;,
-        &quot;import sys; sys.path.insert(0, &#x27;D:\\\\Sanctum\\\\Flamehaven-LOGOS&#x27;); from aats.pipeline import AATSPipeline; result=AATSPipeline().run(&#x27;bounded TOE candidate sidecar test&#x27;,&#x27;physics&#x27;,{}); print(result.to_dict())&quot;
+        &quot;import sys; sys.path.insert(0, &#x27;[workspace]/Flamehaven-LOGOS&#x27;); from aats.pipeline import AATSPipeline; result=AATSPipeline().run(&#x27;bounded TOE candidate sidecar test&#x27;,&#x27;physics&#x27;,{}); print(result.to_dict())&quot;
       ],
-      &quot;cwd&quot;: &quot;D:\\Sanctum&quot;,
+      &quot;cwd&quot;: &quot;[workspace]&quot;,
       &quot;timeout_s&quot;: 20,
       &quot;duration_s&quot;: 20.028,
       &quot;returncode&quot;: null,
@@ -246,14 +246,14 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   },
   &quot;toe_contract_probe&quot;: {
     &quot;args&quot;: [
-      &quot;D:\\Sanctum\\venv\\Scripts\\python.exe&quot;,
+      &quot;[workspace]/python.exe&quot;,
       &quot;-m&quot;,
       &quot;pytest&quot;,
       &quot;tests/unit/test_logos_sidecar_contract.py&quot;,
       &quot;tests/unit/test_research_run_export_contract.py&quot;,
       &quot;-q&quot;
     ],
-    &quot;cwd&quot;: &quot;D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)&quot;,
+    &quot;cwd&quot;: &quot;[workspace]/Flamehaven-TOE(Theory of Everything)&quot;,
     &quot;timeout_s&quot;: 60,
     &quot;duration_s&quot;: 2.317,
     &quot;returncode&quot;: 0,
@@ -273,7 +273,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   "baseline_comparison": [
     {
       "name": "TOE-TEST-0051",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0051",
+      "path": "[workspace]/TOE-TEST-0051",
       "exists": true,
       "file_count": 1,
       "suffix_counts": {
@@ -289,7 +289,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     {
       "name": "TOE-TEST-0052",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-0052",
+      "path": "[workspace]/TOE-TEST-0052",
       "exists": true,
       "file_count": 9,
       "suffix_counts": {
@@ -317,7 +317,7 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     {
       "name": "TOE-TEST-AEFSO",
-      "path": "D:\\Sanctum\\Flamehaven-TOE\\TOE-TEST\\TOE-TEST-AEFSO",
+      "path": "[workspace]/TOE-TEST-AEFSO",
       "exists": true,
       "file_count": 28,
       "suffix_counts": {
@@ -363,32 +363,32 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   ],
   "logos_source_compile": [
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\runner.py",
+      "path": "[workspace]/runner.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\missing_link\\evidence.py",
+      "path": "[workspace]/evidence.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\pipeline.py",
+      "path": "[workspace]/pipeline.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\symbolic_verifier.py",
+      "path": "[workspace]/symbolic_verifier.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\aats\\psi_field.py",
+      "path": "[workspace]/psi_field.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "D:\\Sanctum\\Flamehaven-LOGOS\\bridge\\manifold_bridge.py",
+      "path": "[workspace]/manifold_bridge.py",
       "exists": true,
       "status": "pass"
     }
@@ -396,25 +396,25 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   "logos_runtime_probe": {
     "package_name_resolution": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
         "import importlib.util; spec=importlib.util.find_spec('logos'); print(None if spec is None else spec.origin)"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 15,
       "duration_s": 0.105,
       "returncode": 0,
       "status": "pass",
-      "stdout": "D:\\Sanctum\\RExSyn-Nexus-main\\src\\logos\\__init__.py\n",
+      "stdout": "[workspace]/n",
       "stderr": ""
     },
     "direct_import": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
-        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
+        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 20,
       "duration_s": 20.017,
       "returncode": null,
@@ -424,11 +424,11 @@ Markdown is the editable text report; JSON is the machine payload.<br>
     },
     "aats_smoke": {
       "args": [
-        "D:\\Sanctum\\venv\\Scripts\\python.exe",
+        "[workspace]/python.exe",
         "-c",
-        "import sys; sys.path.insert(0, 'D:\\\\Sanctum\\\\Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
+        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
       ],
-      "cwd": "D:\\Sanctum",
+      "cwd": "[workspace]",
       "timeout_s": 20,
       "duration_s": 20.028,
       "returncode": null,
@@ -439,14 +439,14 @@ Markdown is the editable text report; JSON is the machine payload.<br>
   },
   "toe_contract_probe": {
     "args": [
-      "D:\\Sanctum\\venv\\Scripts\\python.exe",
+      "[workspace]/python.exe",
       "-m",
       "pytest",
       "tests/unit/test_logos_sidecar_contract.py",
       "tests/unit/test_research_run_export_contract.py",
       "-q"
     ],
-    "cwd": "D:\\Sanctum\\Flamehaven-TOE\\Flamehaven-TOE(Theory of Everything)",
+    "cwd": "[workspace]/Flamehaven-TOE(Theory of Everything)",
     "timeout_s": 60,
     "duration_s": 2.317,
     "returncode": 0,

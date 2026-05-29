@@ -4,8 +4,8 @@
   "baseline": {
     "label": "EXP033_PARITY_V5J",
     "roots": [
-      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass",
-      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block"
+      "[workspace]/phase456_runs_parity_v5j_pass",
+      "[workspace]/phase456_runs_parity_v5j_block"
     ],
     "payload_count": 6,
     "summary": {
@@ -92,7 +92,7 @@
         "ccge_clinical_interpretation_reliability": 0.8969925171066602,
         "request_hash": "f9afce65b763e8432b41a666f0cdb043f7856dc1d4a15322116861887ad96c84",
         "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP033_PARITY_V5J",
@@ -120,7 +120,7 @@
         "ccge_clinical_interpretation_reliability": 0.8969925171066602,
         "request_hash": "ec2c92b628307488adf830597b442e3ef4d01e080ebd85ef7c943b9c518d40d1",
         "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP033_PARITY_V5J",
@@ -148,7 +148,7 @@
         "ccge_clinical_interpretation_reliability": 0.8969925171066602,
         "request_hash": "cfb94779ba3e774233d085ca51fbd7bd9970cd9a8aa6370b1ee3400bd2e0d732",
         "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP033_PARITY_V5J",
@@ -176,7 +176,7 @@
         "ccge_clinical_interpretation_reliability": 0.9464349994048993,
         "request_hash": "fcecfe40838a68c582fd2247fb171792b42e2bef30cd5f248aa862970f5897ed",
         "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP033_PARITY_V5J",
@@ -204,7 +204,7 @@
         "ccge_clinical_interpretation_reliability": 0.9464349994048993,
         "request_hash": "02dd73e920198be7827e669d1fb412004d65f480f23d40a21e63c4822865f33d",
         "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP033_PARITY_V5J",
@@ -232,14 +232,14 @@
         "ccge_clinical_interpretation_reliability": 0.9464349994048993,
         "request_hash": "d2cc59aa390737f2cd6cbde812a45efc01ab3d1a92c832f71e8bba5044e51545",
         "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       }
     ]
   },
   "current": {
     "label": "EXP034_LEGACY_REPLAY",
     "roots": [
-      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344"
+      "[workspace]/exp034_trackA_legacy_replay_20260419_101344"
     ],
     "payload_count": 6,
     "summary": {
@@ -326,7 +326,7 @@
         "ccge_clinical_interpretation_reliability": 0.9755474753484398,
         "request_hash": "",
         "payload_hash": "21c8bf8944fc85e654afbb2675f9a7b62aafd546f9c6735a5fa6254d95ed9cb6",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP034_LEGACY_REPLAY",
@@ -354,7 +354,7 @@
         "ccge_clinical_interpretation_reliability": 0.9751954111309646,
         "request_hash": "",
         "payload_hash": "7697929a976182741c99c4684c8e10843fb9027968d474137178fcf6ed6d8a84",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP034_LEGACY_REPLAY",
@@ -382,7 +382,7 @@
         "ccge_clinical_interpretation_reliability": 0.9753396055365184,
         "request_hash": "",
         "payload_hash": "ff1cf79044c19dbb9ce4528488b8bac080781935b531c8ab3dacf7847e22276a",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP034_LEGACY_REPLAY",
@@ -410,7 +410,7 @@
         "ccge_clinical_interpretation_reliability": 0.9740407695465146,
         "request_hash": "",
         "payload_hash": "b4b261ae9ace47b9e70724ffd74586ee24a2316f29ca5eeb9bf53c22a8321824",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP034_LEGACY_REPLAY",
@@ -438,7 +438,7 @@
         "ccge_clinical_interpretation_reliability": 0.9736524109237799,
         "request_hash": "",
         "payload_hash": "b2ff46c7faf0f03ef6d5fcb0abef1a9be8cdee7e2d518563164215310940e6b3",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       },
       {
         "dataset": "EXP034_LEGACY_REPLAY",
@@ -466,7 +466,7 @@
         "ccge_clinical_interpretation_reliability": 0.9737971424784846,
         "request_hash": "",
         "payload_hash": "50d97a886d8bddd23c27ed8f063c8684a1447c4b00cfbcaa8874db463862f5a8",
-        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
       }
     ]
   },
