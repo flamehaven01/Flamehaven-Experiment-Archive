@@ -4,6 +4,32 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.4.0] - 2026-05-29
+
+Social share unification, Methodology & Frameworks portal cleanup, and viewer frame polish.
+
+### 🔗 Social Share Unification (DI-SDK-004)
+- **Viewer frame header**: FB / LI / X / Email / Copy Link 5-icon set added to all report viewer headers. Applies universally without modifying individual HTML source files.
+- **Footer**: "Copy archive URL" button replaced with FB / LI / X / Email / Copy Link 5-icon set.
+- **BioClaw report.html**: Brand bar (fh-brand-bar) and all associated CSS/JS fully removed — social share now handled by viewer frame only.
+- **X (Twitter)**: Added as 4th icon across all share surfaces.
+- **Copy Link**: Added to viewer frame header with green checkmark feedback (1.8s).
+
+### 📁 Methodology & Frameworks
+- **effective_html_template.html**: New blank audit report scaffold (604 lines, zero dependencies). Replaces pr_action_plan_v3.html.
+- **Sidebar**: Split into Templates / Frameworks / Practical Code sub-categories with 13px inline SVG icons.
+- **pr_action_plan_v3.html**: Removed (superseded by effective_html_template).
+
+### 🎨 UI Polish
+- **Footer padding**: `padding-bottom` reduced 40px → 24px, `margin-top` retained at 80px.
+- **extras-category-header SVG**: Explicit `width="13" height="13"` on all 3 category icons (Templates/Frameworks/Practical Code) to prevent browser default size fallback.
+
+### 📚 MICA v1.4.0
+- Added DI-SDK-004 (social-share-frame-pattern).
+- `operation_meta`: update_count 6, session_count 5, last_updated 2026-05-29.
+
+---
+
 ## [1.3.0] - 2026-05-29
 
 BSC lane UX polish, compliance sandbox refactor to data-driven architecture, and portal consistency improvements.

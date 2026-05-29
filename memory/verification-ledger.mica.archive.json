@@ -149,14 +149,23 @@
       "binding": {
         "origin_episode": "EXP-062: Stats row had hardcoded literals 2/1/1T1/1T2. Replaced with DOM-counting logic and swapped Collections for Avg Score computed from data-score attributes."
       }
+    },
+    {
+      "id": "DI-SDK-004",
+      "label": "social-share-frame-pattern",
+      "statement": "Social share buttons (FB / LI / X / Email / Copy Link) must be placed in the portal viewer frame header and page footer — never embedded inside individual HTML report files. Individual report HTMLs must not contain fh-brand-bar or equivalent share UI. This ensures universal coverage without per-file modification.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-063: BioClaw report contained inline fh-brand-bar social icons. Removed and consolidated all share logic into viewer-frame-header and footer-actions, establishing the frame-level share pattern."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 5,
+    "update_count": 6,
     "last_updated": "2026-05-29",
-    "session_count": 4,
+    "session_count": 5,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }

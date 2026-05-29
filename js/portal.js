@@ -28,8 +28,32 @@ let activeEqStatus = 'all';
 let activeBavStatus = 'all';
 
 // Initialize card array on DOM load
+function copyFooterLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('footer-share-copy');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#10b981" stroke-width="1.8"><path d="M2 6l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      setTimeout(() => { btn.innerHTML = orig; }, 1800);
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
+
+  // Footer share icons — static page URL
+  const fUrl = encodeURIComponent(window.location.href);
+  const fTitle = encodeURIComponent('Flamehaven Verification Ledger');
+  const fFb = document.getElementById('footer-share-fb');
+  if (fFb) fFb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + fUrl;
+  const fLi = document.getElementById('footer-share-li');
+  if (fLi) fLi.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + fUrl;
+  const fX = document.getElementById('footer-share-x');
+  if (fX) fX.href = 'https://x.com/intent/tweet?url=' + fUrl + '&text=' + fTitle;
+  const fEmail = document.getElementById('footer-share-email');
+  if (fEmail) fEmail.href = 'mailto:?subject=' + fTitle + '&body=' + fUrl;
   
   // Apply initial filters
   applyFilters();
@@ -179,6 +203,18 @@ function goHome(e) {
 }
 
 // ── CLOSE REPORT VIEWER (SMART NAV) ──────────────────────────────────────────
+function copyReportLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('btn-share-copy');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#10b981" stroke-width="1.8"><path d="M2 6l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      setTimeout(() => { btn.innerHTML = orig; }, 1800);
+    }
+  });
+}
+
 function closeReport(e) {
   if (e) e.preventDefault();
   
@@ -2624,6 +2660,8 @@ window.switchInspectorTab = switchInspectorTab;
 window.openReportViewer = openReportViewer;
 window.goHome = goHome;
 window.closeReport = closeReport;
+window.copyReportLink = copyReportLink;
+window.copyFooterLink = copyFooterLink;
 window.toggleFolder = toggleFolder;
 window.toggleSeries = toggleSeries;
 window.highlightFile = highlightFile;
