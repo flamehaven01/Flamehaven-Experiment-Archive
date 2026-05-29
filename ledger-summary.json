@@ -1,9 +1,9 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-05-25T10:51:48.980Z",
+  "generatedAt": "2026-05-29T00:00:00.000Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
-  "reportsActive": 2,
+  "reportsActive": 7,
   "lanes": [
     {
       "key": "stem-bio-ai",
@@ -15,15 +15,15 @@
     },
     {
       "key": "toe",
-      "title": "TOE",
-      "status": "in_preparation",
-      "summary": "Calibration and algebraic-geometric verification runs are in preparation.",
-      "recordCount": 0,
-      "latestAuditDate": ""
+      "title": "EQA",
+      "status": "active",
+      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical physics breakthroughs as runnable, CI-tested software. Active named runs TOE-TEST-0052~0056 plus 51-run algebraic calibration archive. Gate protocol: SPAR >= 80 and SIDRCE Omega >= 0.75 required for PASS.",
+      "recordCount": 6,
+      "latestAuditDate": "2026-05-28"
     },
     {
       "key": "rexsyn",
-      "title": "REXSYN",
+      "title": "BAV",
       "status": "in_preparation",
       "summary": "Integrated telemetry and conformational consensus briefings remain under pre-release review.",
       "recordCount": 0,
@@ -32,11 +32,102 @@
   ],
   "methodology": [
     {
-      "title": "Agent Review Dashboard (PR Action Plan 2.0)",
+      "title": "Agent Review Dashboard (PR Action Plan v3)",
       "url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/extra/pr_action_plan_v3.html"
     }
   ],
   "records": [
+    {
+      "id": "toe-test-0056-aefso",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0056 — AEFSO Optional Backend Representation Layer",
+      "targetSlug": "toe-test-0056",
+      "auditDate": "2026-04-16",
+      "gate": "OPTIONAL_LAYER",
+      "spar": null,
+      "sparVerdict": "ACCEPT WITH BOUNDS",
+      "summary": "7-phase AEFSO experiment converging on optional backend representation layer classification. AEFSO insight converges to TOE update scope. Decision: DO NOT PROMOTE TO CORE, KEEP ALIVE AS OPTIONAL BACKEND REPRESENTATION LAYER.",
+      "useScope": "Optional backend layer only; not eligible for core promotion.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0056",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0056/AEFSO_MANIFEST.json",
+        "decision": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0056/AEFSO_INTERIM_DECISION.md",
+        "spar": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0056/AEFSO_SPAR_REVIEW_v1.md"
+      }
+    },
+    {
+      "id": "toe-test-0055-openai-erdos-eq22",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0055 — OpenAI Erdős Unit-Distance Disproof Eq.(2.2)",
+      "targetSlug": "openai-erdos-eq22",
+      "auditDate": "2026-05-27",
+      "gate": "PASS",
+      "spar": null,
+      "sparVerdict": "ACCEPT",
+      "summary": "Executable reproduction of OpenAI's Erdős unit-distance graph disproof equation (2.2). Verified with mpmath arbitrary precision (>=200-bit). Zenodo DOI archived. CI-tested Python artifact published.",
+      "useScope": "Fully published. Citable via Zenodo DOI.",
+      "zenodoDoi": "10.5281/zenodo.15487327",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#openai-erdos-eq22",
+      "urls": {
+        "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#openai-erdos-eq22"
+      }
+    },
+    {
+      "id": "toe-test-0054",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0054 — Governance Gate Verification",
+      "targetSlug": "toe-test-0054",
+      "auditDate": "2026-05-28",
+      "gate": "BLOCK",
+      "spar": null,
+      "sparVerdict": "BLOCK / INHIBIT",
+      "summary": "Governance gate verification run. BLOCK/INHIBIT verdict — LawBinder constraint applied. Pipeline halted pending explicit governance sign-off.",
+      "useScope": "Governance audit record only; no deployment.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0054",
+      "urls": {
+        "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0054"
+      }
+    },
+    {
+      "id": "toe-test-0053",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0053 — Namespace Integrity Scan",
+      "targetSlug": "toe-test-0053",
+      "auditDate": "2026-05-28",
+      "gate": "DEGRADED",
+      "spar": null,
+      "sparVerdict": "DEGRADED SIDECAR",
+      "summary": "Namespace integrity scan returning DEGRADED SIDECAR verdict. Affected namespace isolated; dependent pipelines blocked pending re-verification.",
+      "useScope": "Isolation record; namespace under remediation.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0053",
+      "urls": {
+        "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0053"
+      }
+    },
+    {
+      "id": "toe-test-0052",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0052 — GTE Pedagogy Hypothesis",
+      "targetSlug": "toe-test-0052",
+      "auditDate": "2026-05-28",
+      "gate": "REJECTED",
+      "spar": 73,
+      "sparVerdict": "MINOR REVISION",
+      "sidrceOmega": 0.697,
+      "omegaBand": "RED",
+      "summary": "Fluid dynamics GTE pedagogy hypothesis gate evaluation. SPAR 73/100 and SIDRCE Omega 0.697 (RED band) fall below gate thresholds (SPAR >= 80, Omega >= 0.75). Gate REJECTED. SPAR verdict: MINOR REVISION required before re-promotion.",
+      "useScope": "Revision required; not eligible for core promotion.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0052",
+      "urls": {
+        "data": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0052/internal_data.json",
+        "report": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0052/analysis_report.md"
+      }
+    },
     {
       "id": "stem-bio-ai-bioclaw-2026-5-21",
       "laneKey": "stem-bio-ai",
@@ -72,7 +163,7 @@
       "auditDate": "2026-05-16",
       "score": 48,
       "tier": "T1 Quarantine",
-      "summary": "The `T1 Quarantine` result is justified. The repository presents a strong bio-facing README and a recognizable data-source story, but it still lacks the engineering, governance, and deployment-boundary evidence needed for patient-adjacent or regulated use. The most important shift in the current `1.7.7` output is not the final score itself. It is that the report now surfaces external-service dependency and unsupported legal/compliance claims more explicitly, and no longer presents `Code Integrity` or `AIRI` in a way that looks artificially clean.",
+      "summary": "The `T1 Quarantine` result is justified. The repository presents a strong bio-facing README and a recognizable data-source story, but it still lacks the engineering, governance, and deployment-boundary evidence needed for patient-adjacent or regulated use.",
       "useScope": "Exploratory review only; no patient-adjacent use.",
       "sourceCommit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99",
       "repoUrl": "https://github.com/yorkeccak/bio.git",
