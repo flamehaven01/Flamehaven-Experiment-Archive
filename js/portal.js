@@ -28,6 +28,24 @@ let activeEqStatus = 'all';
 let activeBavStatus = 'all';
 
 // Initialize card array on DOM load
+// BAV archive: populate the foundational-iterations list from manifest (live, no hardcoding).
+async function renderBavArchive() {
+  const list = document.getElementById('bav-archive-list');
+  if (!list) return;
+  let mf = null;
+  try { mf = await fetch('./bav/archive/manifest.json?t=' + Date.now()).then(r => r.ok ? r.json() : null); } catch (e) { /* ignore */ }
+  if (!mf || !Array.isArray(mf.runs)) { list.innerHTML = '<div style="color:var(--t4);font-style:italic;padding:8px;">Archive manifest unavailable.</div>'; return; }
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const grad = new Set(mf.graduated || []);
+  list.innerHTML = mf.runs.map(r => {
+    const isGrad = grad.has(r.id);
+    const tag = isGrad ? '<span style="font-size:9px;font-family:\'JetBrains Mono\',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">graduated</span>' : '';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
+    </div>`;
+  }).join('');
+}
+
 function copyFooterLink() {
   const url = window.location.href;
   navigator.clipboard.writeText(url).then(() => {
@@ -54,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (fX) fX.href = 'https://x.com/intent/tweet?url=' + fUrl + '&text=' + fTitle;
   const fEmail = document.getElementById('footer-share-email');
   if (fEmail) fEmail.href = 'mailto:?subject=' + fTitle + '&body=' + fUrl;
+
+  renderBavArchive();
   
   // Apply initial filters
   applyFilters();
@@ -2942,6 +2962,7 @@ window.goHome = goHome;
 window.closeReport = closeReport;
 window.copyReportLink = copyReportLink;
 window.copyFooterLink = copyFooterLink;
+window.renderBavArchive = renderBavArchive;
 window.toggleFolder = toggleFolder;
 window.toggleSeries = toggleSeries;
 window.highlightFile = highlightFile;

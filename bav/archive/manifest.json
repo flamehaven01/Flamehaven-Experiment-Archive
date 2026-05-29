@@ -1,0 +1,119 @@
+{
+  "schema_id": "flamehaven_bav_archive_foundational.v1",
+  "label": "Foundational Iterations (EXP-001~030)",
+  "note": "Early RExSyn/NNSL iteration sequence establishing the trinity-consensus, multimodal, and governance primitives that later experiments (EXP-028, 031-034) graduated into full ledger cards. Archived as historical record; reproducibility/governance only.",
+  "count": 26,
+  "graduated": [
+    "EXP-028",
+    "EXP-031",
+    "EXP-032",
+    "EXP-033",
+    "EXP-034"
+  ],
+  "runs": [
+    {
+      "id": "EXP-001",
+      "theme": "Trinity"
+    },
+    {
+      "id": "EXP-002",
+      "theme": "Trinity"
+    },
+    {
+      "id": "EXP-003",
+      "theme": "Genomic Origin"
+    },
+    {
+      "id": "EXP-004",
+      "theme": "Topological"
+    },
+    {
+      "id": "EXP-008",
+      "theme": "Rag Logos Nnsl"
+    },
+    {
+      "id": "EXP-009",
+      "theme": "Smiles Direct"
+    },
+    {
+      "id": "EXP-010",
+      "theme": "Multimodal"
+    },
+    {
+      "id": "EXP-011",
+      "theme": "Hyper Resonance"
+    },
+    {
+      "id": "EXP-012",
+      "theme": "Sovereign Origin"
+    },
+    {
+      "id": "EXP-013",
+      "theme": "Non Linear Sovereignty"
+    },
+    {
+      "id": "EXP-014",
+      "theme": "Zero Noise"
+    },
+    {
+      "id": "EXP-015",
+      "theme": "Sovereign Agreement"
+    },
+    {
+      "id": "EXP-016",
+      "theme": "Capsule Proxy"
+    },
+    {
+      "id": "EXP-017",
+      "theme": "Capsule Merge"
+    },
+    {
+      "id": "EXP-018",
+      "theme": "Struct Direct"
+    },
+    {
+      "id": "EXP-019",
+      "theme": "Struct Chem"
+    },
+    {
+      "id": "EXP-020",
+      "theme": "Aligned Routing"
+    },
+    {
+      "id": "EXP-021",
+      "theme": "Anchor Strike"
+    },
+    {
+      "id": "EXP-022",
+      "theme": "Trinity Strike"
+    },
+    {
+      "id": "EXP-023",
+      "theme": "Ab Test"
+    },
+    {
+      "id": "EXP-024",
+      "theme": "Noise Scan"
+    },
+    {
+      "id": "EXP-025",
+      "theme": "Toggle Matrix"
+    },
+    {
+      "id": "EXP-026",
+      "theme": "Four Phase"
+    },
+    {
+      "id": "EXP-027",
+      "theme": "Post Overlay"
+    },
+    {
+      "id": "EXP-029",
+      "theme": "Post Overlay"
+    },
+    {
+      "id": "EXP-030",
+      "theme": "Root Refactor"
+    }
+  ]
+}
