@@ -1,0 +1,143 @@
+{
+  "experiment": "EXP-028-POST-OVERLAY",
+  "started_at_utc": "2026-02-05T13:33:53.013359+00:00",
+  "completed_at_utc": "2026-02-05T13:37:54.738674+00:00",
+  "phase_status": [
+    {
+      "phase": "phase1_negative_control",
+      "script": "run_phase1_negative_control.py",
+      "returncode": 0,
+      "status": "ok",
+      "started_at_utc": "2026-02-05T13:33:53.013380+00:00",
+      "duration_s": 108.8918021999998,
+      "expected_artifact": "phase1_summary.json",
+      "expected_artifact_exists": true,
+      "stdout_log": "phase1_negative_control.stdout.log",
+      "stderr_log": "phase1_negative_control.stderr.log"
+    },
+    {
+      "phase": "phase2_di2_calibration",
+      "script": "run_phase2_di2_calibration.py",
+      "returncode": 0,
+      "status": "ok",
+      "started_at_utc": "2026-02-05T13:35:41.907228+00:00",
+      "duration_s": 0.5547073000016098,
+      "expected_artifact": "phase2_calibration_report.json",
+      "expected_artifact_exists": true,
+      "stdout_log": "phase2_di2_calibration.stdout.log",
+      "stderr_log": "phase2_di2_calibration.stderr.log"
+    },
+    {
+      "phase": "phase3_two_phase_eval",
+      "script": "run_phase3_two_phase_eval.py",
+      "returncode": 0,
+      "status": "ok",
+      "started_at_utc": "2026-02-05T13:35:42.462862+00:00",
+      "duration_s": 36.307032299999264,
+      "expected_artifact": "phase3_summary.json",
+      "expected_artifact_exists": true,
+      "stdout_log": "phase3_two_phase_eval.stdout.log",
+      "stderr_log": "phase3_two_phase_eval.stderr.log"
+    },
+    {
+      "phase": "phase4_chem_policy",
+      "script": "run_phase4_chem_policy.py",
+      "returncode": 0,
+      "status": "ok",
+      "started_at_utc": "2026-02-05T13:36:18.774280+00:00",
+      "duration_s": 95.95852290000039,
+      "expected_artifact": "phase4_summary.json",
+      "expected_artifact_exists": true,
+      "stdout_log": "phase4_chem_policy.stdout.log",
+      "stderr_log": "phase4_chem_policy.stderr.log"
+    }
+  ],
+  "phase1": {
+    "n_total": 6,
+    "n_pos": 3,
+    "n_neg": 3,
+    "sr9_auc": 1.0,
+    "overall_auc": 1.0,
+    "di2_auc": 1.0,
+    "sr9_pos_mean": 0.2633254069474952,
+    "sr9_neg_mean": 0.17534318572964713,
+    "di2_pos_mean": 0.6129695415950667,
+    "di2_neg_mean": 0.5072621048818626,
+    "overall_pos_mean": 0.4206652675389024,
+    "overall_neg_mean": 0.32470669934814417,
+    "agreement_pos_mean": 0.05469541595066785,
+    "agreement_neg_mean": 0.22023976290441127,
+    "ctm_abstain_rate": 0.0
+  },
+  "phase2": {
+    "n_samples": 6,
+    "metrics": {
+      "brier_before": 0.20438956803785827,
+      "brier_after": 0.005625000000000005,
+      "ece_before": 0.447146281643398,
+      "ece_after": 0.07500000000000004,
+      "ece_cv_raw": 0.13782707209652204,
+      "ece_cv_calibrated": 0.07500000000000004
+    },
+    "improvement": {
+      "brier_delta": 0.19876456803785825,
+      "ece_delta": 0.3721462816433979,
+      "ece_cv_delta": 0.062827072096522
+    },
+    "notes": {
+      "calibration": "CV logistic raw scores are monotonic-mapped with isotonic PAV.",
+      "selection": "Deployment uses final logistic + isotonic blocks."
+    }
+  },
+  "phase3": {
+    "n_total": 2,
+    "n_train": 4,
+    "n_test": 2,
+    "gate_threshold": 0.075,
+    "gate_threshold_default": 0.5,
+    "test_ratio": 0.3,
+    "pass_rate_min": 0.2,
+    "pass_rate_max": 0.8,
+    "gate_optimization": {
+      "threshold": 0.075,
+      "youden_j": 0.0,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "fallback_used": true,
+      "fallback_strategy": "quantile_target_pass_rate",
+      "target_pass_rate": 0.5
+    },
+    "phase_a_pass_rate": 1.0,
+    "phase_a_abstain_rate": 0.0,
+    "baseline_sr9_auc": 1.0,
+    "two_phase_sr9_auc": 1.0,
+    "two_phase_overall_auc": 1.0,
+    "baseline_sr9_mean": 0.24870025243428762,
+    "two_phase_sr9_mean": 0.24870025243428762
+  },
+  "phase4": {
+    "rdkit_available": true,
+    "chem_on": {
+      "n_total": 6,
+      "sr9_auc": 1.0,
+      "di2_auc": 1.0,
+      "overall_auc": 1.0,
+      "sr9_mean": 0.21933429633857116,
+      "di2_mean": 0.5601158232384648,
+      "overall_mean": 0.3726859834435232
+    },
+    "chem_off": {
+      "n_total": 6,
+      "sr9_auc": 1.0,
+      "di2_auc": 1.0,
+      "overall_auc": 1.0,
+      "sr9_mean": 0.21933429633857116,
+      "di2_mean": 0.5601158232384648,
+      "overall_mean": 0.3726859834435232
+    },
+    "policy_recommendation": {
+      "chem_on": true,
+      "reason": "selected_by_overall_auc"
+    }
+  }
+}

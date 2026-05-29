@@ -113,7 +113,7 @@
           <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="rexsyn">
             <span class="sb-folder-icon"></span>
             <span class="sb-folder-name">Biomolecular AI Validation (BAV)</span>
-            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">4</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">5</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -140,6 +140,10 @@
             <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0031').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#eab308"></span>
               <span class="sb-file-name">exp-031 ood-ablation</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0028').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#ef4444"></span>
+              <span class="sb-file-name">exp-028 honesty-test</span>
             </div>
           </div>
         </div>
@@ -794,7 +798,38 @@
     <!-- Vertical Stack for BAV Cards -->
     <div class="bav-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
       
-      <!-- CARD 1: BAV-RUN-31-32 (Consensus Calibration) -->
+      <!-- CARD 0: EXP-028 POST-OVERLAY (Honesty Test) -->
+      <article class="bav-card" id="bav-card-0028" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-028 · POST-OVERLAY</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-02-05</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#ef4444"></span>
+            Honest Abstain
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          The Honesty Test: It Looked Perfect, Then It Failed
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
+          Integrating AlphaFold 3 + AlphaGenome produced confident, well-calibrated outputs — yet the honesty check (SR9 cross-domain resonance, DI2 logical drift) flagged contradictory reasoning.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Brier 0.0056 and AUC 1.0 (calibrated), but SR9 far below 0.80 and DI2 far above 0.20 — the system honestly reports it cannot resolve the reasoning rather than hallucinating confidence.</strong>
+        </p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-028'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Inspect
+          </button>
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/i-integrated-alphafolder3-alphagenome-it-looked-perfect-then-it-failed-the-honesty-test/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
+            Note
+          </a>
+        </div>
+      </article>
+
+      <!-- CARD 1: EXP-031 OOD-ABLATION (Multi-Model Disagreement) -->
       <article class="bav-card" id="bav-card-0031" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">

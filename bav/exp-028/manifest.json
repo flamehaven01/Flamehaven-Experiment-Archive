@@ -1,0 +1,20 @@
+{
+  "schema_id": "flamehaven_bav_exp028_honesty_test.v1",
+  "experiment": "EXP-028-POST-OVERLAY",
+  "theme": "The honesty test: well-calibrated yet honestly reports cross-domain uncertainty (SR9 low / DI2 high).",
+  "method": "RExSyn iteration 28 - SR9/DI2 honesty gating + isotonic/logistic calibration",
+  "guard_thresholds": {
+    "sr9_min": 0.8,
+    "di2_max": 0.2,
+    "brier_max": 0.01
+  },
+  "sha256": {
+    "post_overlay_report": "ad478c0a1a4302f043cdc37e4a43413caa275e3bf8177f2428865fac520385b9"
+  },
+  "files": {
+    "post_overlay_report": "./bav/exp-028/post_overlay_report.json"
+  },
+  "source": "D:/Sanctum/Flamehaven-Labs/Rexsyn Experiment/Ex1-28/EXP-028-POST-OVERLAY/EXP_028_POST_OVERLAY_REPORT.json",
+  "provenance_note": "Verbatim experiment report (DI-EQA-002). Live-fetched, no hardcoding (DI-BSC-001).",
+  "disclaimer": "Pipeline calibration + honesty heuristics only. NOT clinical efficacy."
+}

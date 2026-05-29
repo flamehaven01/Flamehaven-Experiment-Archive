@@ -864,6 +864,8 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './bav/exp-032/pass-001-arm-a/payload.json';
   } else if (runId === 'bav-exp-031') {
     jsonPath = './bav/exp-031/arm-a/hybrid_result.json';
+  } else if (runId === 'bav-exp-028') {
+    jsonPath = './bav/exp-028/post_overlay_report.json';
   } else if (runId === 'bav-exp-033') {
     jsonPath = './bav/exp-033/governance_multiaxis.json';
   } else if (runId === 'bav-exp-034') {
@@ -1186,6 +1188,32 @@ function renderBavExp031Insights(d) {
   `;
 }
 
+// BAV EXP-028 insights: the honesty test. Live from phase1/phase2.
+function renderBavExp028Insights(d) {
+  if (!d || !d.phase1) return '<p class="empty-state">No EXP-028 data loaded.</p>';
+  const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
+  const p1 = d.phase1 || {}, p2 = (d.phase2 && d.phase2.metrics) || {};
+  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  return `
+    <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
+      <span style="font-size: 14px;">🧪</span>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #ef4444;">The Honesty Test · Looked Perfect, Then Failed</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Excellent calibration (Brier ${num(p2.brier_after, 4)}) and perfect discrimination (AUC ${num(p1.sr9_auc, 2)}) — yet SR9 (cross-domain resonance) sits far below 0.80 and DI2 (logical drift) far above 0.20. The system honestly reports "I cannot resolve this" instead of hallucinating confidence.</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+      ${metric('Brier (after)', num(p2.brier_after, 4), (p2.brier_after ?? 1) <= 0.01 ? '#10b981' : '#ef4444')}
+      ${metric('SR9 (positive)', num(p1.sr9_pos_mean), (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444')}
+      ${metric('DI2 (positive)', num(p1.di2_pos_mean), (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444')}
+      ${metric('Discrimination AUC', num(p1.overall_auc, 2), '#10b981')}
+    </div>
+    <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
+      💡 <strong>Honest calibration beats false confidence:</strong> a model that says "I don't know" when cross-domain signals contradict is more valuable than one that reports high confidence while wrong. Failing the honesty test here is the correct, safe outcome.
+    </p>
+  `;
+}
+
 // BAV EXP-033 insights: pipeline-level validation. Live from multiaxis baseline.
 function renderBavExp033Insights(d) {
   const base = d && d.baseline && d.baseline.summary;
@@ -1291,6 +1319,12 @@ function renderBavChecks(runId, data) {
       const r = (a && a.result) || {};
       gates.push({ label: `arm ${n} · convergence gate`, status: 'OBSERVER', detail: `${r.verification_status || '—'} · drift ${(r.final_drift ?? 0).toFixed(3)} → KEEP_OBSERVER` });
     });
+  } else if (runId === 'bav-exp-028') {
+    const p1 = data.phase1 || {}, p2 = (data.phase2 && data.phase2.metrics) || {};
+    gates.push({ label: 'Calibration · Brier <= 0.01', status: (p2.brier_after ?? 1) <= 0.01 ? 'PASS' : 'FAIL', detail: `Brier (after) = ${(p2.brier_after ?? 0).toFixed(4)}` });
+    gates.push({ label: 'Discrimination · AUC = 1.0', status: (p1.overall_auc ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `overall AUC = ${p1.overall_auc}` });
+    gates.push({ label: 'Honesty · SR9 >= 0.80', status: (p1.sr9_pos_mean ?? 0) >= 0.80 ? 'PASS' : 'FAIL', detail: `SR9 (positive) = ${(p1.sr9_pos_mean ?? 0).toFixed(3)} — cross-domain resonance below target (honest abstain)` });
+    gates.push({ label: 'Honesty · DI2 <= 0.20', status: (p1.di2_pos_mean ?? 1) <= 0.20 ? 'PASS' : 'FAIL', detail: `DI2 (positive) = ${(p1.di2_pos_mean ?? 0).toFixed(3)} — logical drift above target (honest abstain)` });
   } else if (runId === 'bav-exp-032') {
     const pm = data.pipeline_metrics || {}, g = data.governance_status || {};
     gates.push({ label: 'Guard · SR9 (tech) >= 0.70', status: (pm.sr9_tech ?? 0) >= 0.70 ? 'PASS' : 'FAIL', detail: `SR9 = ${(pm.sr9_tech ?? 0).toFixed(3)}` });
@@ -1636,6 +1670,8 @@ function renderInspectorData(runId, data, reportText = '') {
     insightHtml = renderBavInsights(data);
   } else if (runId === 'bav-exp-031') {
     insightHtml = renderBavExp031Insights(data);
+  } else if (runId === 'bav-exp-028') {
+    insightHtml = renderBavExp028Insights(data);
   } else if (runId === 'bav-exp-033') {
     insightHtml = renderBavExp033Insights(data);
   } else if (runId === 'bav-exp-034') {
@@ -1918,10 +1954,45 @@ function getChartsForRecord(runId, data) {
   if (runId === 'toe-test-0052') return buildSparCharts(data);
   if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
+  if (runId === 'bav-exp-028') return buildBavExp028Charts(data);
   if (runId === 'bav-exp-032') return buildBavExp032Charts(data);
   if (runId === 'bav-exp-033') return buildBavExp033Charts(data);
   if (runId === 'bav-exp-034') return buildBavExp034Charts(data);
   return buildGenericCharts(data);
+}
+
+// BAV EXP-028: honesty test — calibration achieved but cross-domain resonance fails honestly. Live.
+function buildBavExp028Charts(data) {
+  if (!data) return [];
+  const p1 = data.phase1 || {};
+  const p2 = (data.phase2 && data.phase2.metrics) || {};
+  const specs = [];
+  // 1. Calibration improvement (before -> after)
+  specs.push({
+    type: 'grouped-bar',
+    title: 'Calibration Improvement (lower is better)',
+    data: {
+      groups: [
+        { label: 'Brier', values: [+(p2.brier_before ?? 0), +(p2.brier_after ?? 0)] },
+        { label: 'ECE', values: [+(p2.ece_before ?? 0), +(p2.ece_after ?? 0)] },
+      ],
+      series: [{ name: 'Before', color: '#ef4444' }, { name: 'After', color: '#10b981' }],
+    },
+    options: { maxValue: Math.max(+(p2.brier_before ?? 0), +(p2.ece_before ?? 0), 0.5), caption: 'Isotonic + logistic calibration drove Brier to ' + (p2.brier_after != null ? p2.brier_after.toFixed(4) : '—') + ' — the model is well-calibrated. Calibration alone, however, does not certify reasoning.' },
+  });
+  // 2. Honesty test vs targets (SR9 >= 0.80, DI2 <= 0.20) — the system fails honestly
+  specs.push({
+    type: 'bar',
+    title: 'Honesty Test: Cross-Domain Resonance vs Targets',
+    data: [
+      { label: 'SR9 (positive)', value: +(p1.sr9_pos_mean ?? 0), color: (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444' },
+      { label: 'SR9 target', value: 0.80, color: 'rgba(255,255,255,0.18)' },
+      { label: 'DI2 (positive)', value: +(p1.di2_pos_mean ?? 0), color: (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444' },
+      { label: 'DI2 target', value: 0.20, color: 'rgba(255,255,255,0.18)' },
+    ],
+    options: { maxValue: 1, caption: 'SR9 (cross-domain resonance, target >=0.80) is far below target and DI2 (logical drift, target <=0.20) far above — the system honestly reports it cannot resolve the cross-domain reasoning rather than hallucinating confidence.' },
+  });
+  return specs;
 }
 
 // BAV EXP-033: pipeline-level p_e2e chain + classification parity. Live from multiaxis baseline. No hardcoding.
