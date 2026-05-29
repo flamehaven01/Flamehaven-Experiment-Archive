@@ -131,8 +131,7 @@
       "binding": {
         "origin_episode": "EXP-060: Folder description tooltips were invisibly clipped by overflow-x:hidden on .sidebar. Resolved by migrating to a JS position:fixed engine reading .sb-tooltip span innerHTML."
       }
-    }
-  ],
+    },
     {
       "id": "DI-BSC-001",
       "label": "data-driven-compliance-sandbox",
