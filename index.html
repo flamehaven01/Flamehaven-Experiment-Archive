@@ -147,7 +147,7 @@
             </div>
             <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-archive').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#6b7280"></span>
-              <span class="sb-file-name">bav-archive-0001~0030</span>
+              <span class="sb-file-name">exp-001~030 archive</span>
             </div>
           </div>
         </div>
@@ -734,31 +734,31 @@
       <div class="project-dashboard-eyebrow">Biomolecular AI Validation (BAV)</div>
       <h2 class="project-dashboard-title">Biomolecular AI Validation Ledger</h2>
       <p class="project-dashboard-desc">
-        Governs structural and logical conformance of biomedical AI pipelines. Enforces 3D biomolecular coordinate integrity checks, multi-model consensus predictions, and automated compliance boundaries.
+        Validates whether an <em>entire</em> biomedical AI pipeline — RExSyn reasoning + NNSL resonance + LawBinder governance — deserves trust, not just whether one model looks confident. Treats model disagreement as signal, gates fail-closed, and keeps accepted results separate from held diagnostics.
       </p>
     </div>
-    
+
     <div class="dashboard-grid">
-      <!-- BAV Protocol -->
+      <!-- Governance Protocol -->
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="2" y="2" width="12" height="12" rx="1.5"/>
             <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
           </svg>
-          BAV Protocol
+          Governance Protocol
         </div>
         <p class="dashboard-card-desc">
-          High-performance multi-model 3D structure predictions and cross-database validation tracking:
+          How a multi-engine pipeline is judged trustworthy — disagreement, honesty, and chain reliability:
         </p>
         <ul class="dashboard-list">
-          <li><strong>AlphaFold 3 / 2 Consensus</strong>: Cross-referenced with the official <code>AlphaFold Protein Structure Database</code> for coordinate-level structural integrity.</li>
-          <li><strong>AlphaGenome Integration</strong>: In-silico epigenomic &amp; transcription-factor variant impact modeling to flag functional deviations.</li>
-          <li><strong>Boltz-2 / Chai-1 Co-calibration</strong>: Dynamic conformational consensus, binding-affinity simulations, and structural boundary compliance checks.</li>
+          <li><strong>Multi-Model Disagreement</strong>: AlphaFold 3 / 2 / Chai-1 / Boltz-2 cross-validation. Rising drift exposes hidden topology conflict — disagreement is signal, not noise (KEEP_OBSERVER when convergence fails).</li>
+          <li><strong>Honesty Gating (SR9 / DI2)</strong>: Cross-domain resonance must clear SR9 &ge; 0.70 and logical drift DI2 &le; 0.30; the pipeline abstains rather than hallucinate confidence.</li>
+          <li><strong>End-to-End Reliability</strong>: <code>p_e2e = capture &times; transfer &times; model &times; clinical</code>, with LawBinder fail-closed escalation to human review.</li>
         </ul>
       </div>
 
-      <!-- Biomedical Archival Alignment -->
+      <!-- Governance Reproducibility -->
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -768,15 +768,15 @@
             <circle cx="12" cy="12" r="2.5"/>
             <path d="M14 14l1.5 1.5" stroke-linecap="round"/>
           </svg>
-          Biomedical Archival Alignment
+          Governance Reproducibility
         </div>
         <p class="dashboard-card-desc">
-          Ensuring verified biomedical software and predictions are fit for peer-reviewed citation:
+          Why each verdict is auditable and how accepted results stay clean:
         </p>
         <ul class="dashboard-list">
-          <li><strong>Citable Metadata</strong>: Enforcing standardized <code>CITATION.cff</code> and Zenodo integrations to issue immutable DOIs.</li>
-          <li><strong>Provenance Manifests</strong>: Freezing SHA-256 cryptographic signatures of code files and predictions to verify execution immutability.</li>
-          <li><strong>Audit Disclosures</strong>: Exposing explicit LaTeX paper sources alongside codebases to document deviations from literature.</li>
+          <li><strong>Path Separation</strong>: An accepted legacy-replay anchor is never blended with a held current-regeneration path — controlled expansion without breaking the PASS/BLOCK baseline.</li>
+          <li><strong>Provenance Manifests</strong>: Verbatim run payloads frozen with SHA-256; all card values are live-fetched from them, never hardcoded.</li>
+          <li><strong>Honest Scope</strong>: Pipeline reliability &amp; governance only — explicitly not clinical efficacy, with disabled features disclosed.</li>
         </ul>
       </div>
     </div>
@@ -802,37 +802,101 @@
     <!-- Vertical Stack for BAV Cards -->
     <div class="bav-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
       
-      <!-- CARD 0: EXP-028 POST-OVERLAY (Honesty Test) -->
-      <article class="bav-card" id="bav-card-0028" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+      <!-- CARD 4: EXP-034 METHODLOCK-MODAL-EXPANSION (Path Separation) -->
+      <article class="bav-card" id="bav-card-0034" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-028 · POST-OVERLAY</span>
-            <span style="font-size: 12px; color: var(--t4);">2026-02-05</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-034 · METHODLOCK</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-04-19</span>
           </div>
           <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
-            <span class="tier-dot" style="background:#ef4444"></span>
-            Honest Abstain
+            <span class="tier-dot" style="background:#10b981"></span>
+            GO · Path Held
           </span>
         </div>
         <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
-          The Honesty Test: It Looked Perfect, Then It Failed
+          When a Pipeline Passes — But One Path Must Still Be Held
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          Integrating AlphaFold 3 + AlphaGenome produced confident, well-calibrated outputs — yet the honesty check (SR9 cross-domain resonance, DI2 logical drift) flagged contradictory reasoning.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Brier 0.0056 and AUC 1.0 (calibrated), but SR9 far below 0.80 and DI2 far above 0.20 — the system honestly reports it cannot resolve the reasoning rather than hallucinating confidence.</strong>
+          Modal expansion (AlphaFold-EBI observer, AlphaGenome live) was admitted only after the parity anchor reproduced. The legacy-replay path was accepted (GO); the current-regeneration path was held (HOLD) rather than blended into success.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Cross-cycle accuracy delta = 0.0 (judgment baseline fixed) while governance surface became more measurable (p_e2e +0.045). Non-degradation, not repair.</strong>
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-028'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-034'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Inspect
           </button>
-          <a class="eq-slot-btn" href="https://flamehaven.space/writing/i-integrated-alphafolder3-alphagenome-it-looked-perfect-then-it-failed-the-honesty-test/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/when-an-ai-pipeline-passes-but-one-path-still-must-be-held-exp-034/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
             Note
           </a>
         </div>
       </article>
+      <!-- CARD 3: EXP-033 LAWBINDER-CRITIC-ALIGNMENT (Pipeline-Level Validation) -->
+      <article class="bav-card" id="bav-card-0033" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #60a5fa; background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-033 · LAWBINDER-CRITIC</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-03-10</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#60a5fa"></span>
+            Pipeline Audit
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          How Do You Know the Entire Pipeline Is Wrong — Not Just One Model?
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
+          Validating each model in isolation misses the chain blind spot. The CareChain Governance Engine measures end-to-end reliability: p_e2e = capture × transfer × model × clinical, with rule-traceable verdicts and SHA-256 reproducibility.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Classification accuracy 1.0 with zero dangerous false-pass, yet p_e2e = 0.563 — each stage scores high while the chain product reveals the real reliability. Methodology / governance only.</strong>
+        </p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-033'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Inspect
+          </button>
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/how-do-you-know-when-your-entire-ai-pipeline-is-wrong-not-just-one-model-exp-033/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
+            Note
+          </a>
+        </div>
+      </article>
+      <!-- CARD 2: EXP-032 ADAPTIVE-GATE (Governance) -->
+      <article class="bav-card" id="bav-card-0032" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-032 · ADAPTIVE-GATE</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-03-07</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#10b981"></span>
+            Verdict GO
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          Adaptive Gate: Pipeline Governance &amp; PASS/BLOCK Discrimination
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
+          Legacy-replay parity anchor for the RExSyn + NNSL governance chain. Pass-eligible and block controls are routed through LawBinder fail-closed gating with SR9/DI2 honesty checks.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Classification accuracy 1.0, dangerous false-pass 0.0 (verdict GO). PASS->PASS, BLOCK->BLOCK — while LawBinder escalates both to human review (fail-closed). Pipeline reliability only, not clinical efficacy.</strong>
+        </p>
 
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-032'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Inspect
+          </button>
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/orchestrating-alphafold-3-2-with-python-handling-ai-hallucinations-using-adapter-patter-trinity-protocol-part-1/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/>
+            </svg>
+            Note
+          </a>
+        </div>
+      </article>
       <!-- CARD 1: EXP-031 OOD-ABLATION (Multi-Model Disagreement) -->
       <article class="bav-card" id="bav-card-0031" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
@@ -880,110 +944,41 @@
           </span>
         </div>
       </article>
-
-      <!-- CARD 2: EXP-032 ADAPTIVE-GATE (Governance) -->
-      <article class="bav-card" id="bav-card-0032" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+      <!-- CARD 0: EXP-028 POST-OVERLAY (Honesty Test) -->
+      <article class="bav-card" id="bav-card-0028" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-032 · ADAPTIVE-GATE</span>
-            <span style="font-size: 12px; color: var(--t4);">2026-03-07</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-028 · POST-OVERLAY</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-02-05</span>
           </div>
           <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
-            <span class="tier-dot" style="background:#10b981"></span>
-            Verdict GO
+            <span class="tier-dot" style="background:#ef4444"></span>
+            Honest Abstain
           </span>
         </div>
         <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
-          Adaptive Gate: Pipeline Governance &amp; PASS/BLOCK Discrimination
+          The Honesty Test: It Looked Perfect, Then It Failed
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          Legacy-replay parity anchor for the RExSyn + NNSL governance chain. Pass-eligible and block controls are routed through LawBinder fail-closed gating with SR9/DI2 honesty checks.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Classification accuracy 1.0, dangerous false-pass 0.0 (verdict GO). PASS->PASS, BLOCK->BLOCK — while LawBinder escalates both to human review (fail-closed). Pipeline reliability only, not clinical efficacy.</strong>
-        </p>
-
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-032'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Inspect
-          </button>
-          <a class="eq-slot-btn" href="https://flamehaven.space/writing/orchestrating-alphafold-3-2-with-python-handling-ai-hallucinations-using-adapter-patter-trinity-protocol-part-1/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/>
-            </svg>
-            Note
-          </a>
-        </div>
-      </article>
-
-      <!-- CARD 3: EXP-033 LAWBINDER-CRITIC-ALIGNMENT (Pipeline-Level Validation) -->
-      <article class="bav-card" id="bav-card-0033" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #60a5fa; background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-033 · LAWBINDER-CRITIC</span>
-            <span style="font-size: 12px; color: var(--t4);">2026-03-10</span>
-          </div>
-          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
-            <span class="tier-dot" style="background:#60a5fa"></span>
-            Pipeline Audit
-          </span>
-        </div>
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
-          How Do You Know the Entire Pipeline Is Wrong — Not Just One Model?
-        </h3>
-        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          Validating each model in isolation misses the chain blind spot. The CareChain Governance Engine measures end-to-end reliability: p_e2e = capture × transfer × model × clinical, with rule-traceable verdicts and SHA-256 reproducibility.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Classification accuracy 1.0 with zero dangerous false-pass, yet p_e2e = 0.563 — each stage scores high while the chain product reveals the real reliability. Methodology / governance only.</strong>
+          Integrating AlphaFold 3 + AlphaGenome produced confident, well-calibrated outputs — yet the honesty check (SR9 cross-domain resonance, DI2 logical drift) flagged contradictory reasoning.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Brier 0.0056 and AUC 1.0 (calibrated), but SR9 far below 0.80 and DI2 far above 0.20 — the system honestly reports it cannot resolve the reasoning rather than hallucinating confidence.</strong>
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-033'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-028'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Inspect
           </button>
-          <a class="eq-slot-btn" href="https://flamehaven.space/writing/how-do-you-know-when-your-entire-ai-pipeline-is-wrong-not-just-one-model-exp-033/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/i-integrated-alphafolder3-alphagenome-it-looked-perfect-then-it-failed-the-honesty-test/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
             Note
           </a>
         </div>
       </article>
-
-      <!-- CARD 4: EXP-034 METHODLOCK-MODAL-EXPANSION (Path Separation) -->
-      <article class="bav-card" id="bav-card-0034" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EXP-034 · METHODLOCK</span>
-            <span style="font-size: 12px; color: var(--t4);">2026-04-19</span>
-          </div>
-          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
-            <span class="tier-dot" style="background:#10b981"></span>
-            GO · Path Held
-          </span>
-        </div>
-        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
-          When a Pipeline Passes — But One Path Must Still Be Held
-        </h3>
-        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          Modal expansion (AlphaFold-EBI observer, AlphaGenome live) was admitted only after the parity anchor reproduced. The legacy-replay path was accepted (GO); the current-regeneration path was held (HOLD) rather than blended into success.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Cross-cycle accuracy delta = 0.0 (judgment baseline fixed) while governance surface became more measurable (p_e2e +0.045). Non-degradation, not repair.</strong>
-        </p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-034'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l4 8 4-8M4 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Inspect
-          </button>
-          <a class="eq-slot-btn" href="https://flamehaven.space/writing/when-an-ai-pipeline-passes-but-one-path-still-must-be-held-exp-034/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
-            Note
-          </a>
-        </div>
-      </article>
-
       <!-- CARD 5: BAV ARCHIVE (Foundational Iterations EXP-001~030) -->
       <article class="bav-card" id="bav-card-archive" data-status="archived" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--t4); background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 2px 8px; border-radius: var(--r-xs);">BAV-ARCHIVE-0001~0030</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--t4); background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 2px 8px; border-radius: var(--r-xs);">EXP-001~030 · ARCHIVE</span>
             <span style="font-size: 12px; color: var(--t4);">2026-01~04</span>
           </div>
           <span class="tier-chip tb-t4" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
