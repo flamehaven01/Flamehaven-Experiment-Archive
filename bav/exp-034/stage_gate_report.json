@@ -1,0 +1,90 @@
+{
+  "schema": "exp033_stage_gate_report_v1",
+  "generated_at_utc": "2026-04-19T03:11:53.960198+00:00",
+  "overall_status": "HOLD",
+  "final_action": "Do not advance. Patch diagnosis required from first failed gate.",
+  "inputs": {
+    "parity_verdict_json": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_parity_20260419_101134\\exp034_verdict_benchmark.json",
+    "repro_report_json": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_parity_20260419_101134\\exp033_methodgov_repro_report.json",
+    "compare_v5j_json": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_parity_20260419_101134\\exp034_vs_exp032_multiaxis.json",
+    "run_summary_json": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_parity_20260419_101134\\run_summary.json",
+    "ag_compare_json": null,
+    "allowed_changed_fields": [
+      "discord_score",
+      "discord_score_normalized",
+      "discord_score_rawtext_stable",
+      "discord_score_delta"
+    ]
+  },
+  "gates": [
+    {
+      "gate_id": "G1_PARITY_CLASSIFICATION",
+      "status": "FAIL",
+      "checks": {
+        "status_ok": true,
+        "sample_accuracy_1_0": false,
+        "sample_balanced_accuracy_1_0": false,
+        "arm_accuracy_1_0": false,
+        "arm_balanced_accuracy_1_0": false
+      },
+      "failures": [
+        "sample_accuracy_1_0",
+        "sample_balanced_accuracy_1_0",
+        "arm_accuracy_1_0",
+        "arm_balanced_accuracy_1_0"
+      ],
+      "next_action": "Stop. Diagnose parity inputs/arms and rerun."
+    },
+    {
+      "gate_id": "G2_REPRO_INTEGRITY",
+      "status": "PASS",
+      "checks": {
+        "phase456_returncodes_zero": true,
+        "key_metric_mappings_complete": true,
+        "request_hashes_unique": true,
+        "allowed_missing_only_for_parity_mode": true
+      },
+      "failures": [],
+      "next_action": "Proceed to Gate 3 (32/33 parity compare)."
+    },
+    {
+      "gate_id": "G3_PARITY_COMPARE",
+      "status": "FAIL",
+      "checks": {
+        "baseline_accuracy_1_0": true,
+        "baseline_balanced_accuracy_1_0": true,
+        "current_accuracy_1_0": false,
+        "current_balanced_accuracy_1_0": false,
+        "changed_fields_within_allowlist": false
+      },
+      "failures": [
+        "current_accuracy_1_0",
+        "current_balanced_accuracy_1_0",
+        "changed_fields_within_allowlist",
+        "disallowed_changed_fields=ccge_rule_id,ccge_status,clinical_status"
+      ],
+      "next_action": "Stop. Investigate 32/33 drift before extension."
+    },
+    {
+      "gate_id": "G4_CCGE_OBSERVABILITY",
+      "status": "PASS",
+      "checks": {
+        "ccge_status_counts_present": true,
+        "ccge_rule_id_counts_present": true,
+        "strict_recheck_counts_present": true,
+        "lawbinder_decision_counts_present": true
+      },
+      "failures": [],
+      "next_action": "Proceed to Gate 5 (AG extension)."
+    },
+    {
+      "gate_id": "G5_AG_EXTENSION",
+      "status": "NOT_RUN",
+      "checks": {
+        "ag_compare_provided": false
+      },
+      "failures": [],
+      "next_action": "Optional stage not executed. Run AG on/off and re-evaluate."
+    }
+  ]
+}

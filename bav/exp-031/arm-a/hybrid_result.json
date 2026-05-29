@@ -1,0 +1,605 @@
+{
+  "job_id": "exp031-arm-a",
+  "timestamp_utc": "2026-02-09T17:31:20.676502+00:00",
+  "request": {
+    "sequences": [
+      "MSRSLLLRFLLFLLLLPPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+    ],
+    "ligand_smiles": "CC(=O)OC1=CC=CC=C1C(=O)O",
+    "mutation_strategy": "stability",
+    "prediction_config": {
+      "random_seed": 20260208,
+      "trinity_af3_mode": "manual",
+      "trinity_ag_mode": "server",
+      "trinity_validators": [
+        "af2"
+      ],
+      "trinity_manual_af3_by_cycle": [
+        {
+          "ptm_score": 0.4,
+          "ranking_score": 0.9,
+          "mode": "manual",
+          "model_version": "alphafold3-server-manual-v1",
+          "source": "af3_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_0.json"
+        },
+        {
+          "ptm_score": 0.4,
+          "ranking_score": 0.9,
+          "mode": "manual",
+          "model_version": "alphafold3-server-manual-v1",
+          "source": "af3_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_1.json"
+        },
+        {
+          "ptm_score": 0.4,
+          "ranking_score": 0.9,
+          "mode": "manual",
+          "model_version": "alphafold3-server-manual-v1",
+          "source": "af3_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\fold_exp031_arm_a_af3\\fold_exp031_arm_a_af3_summary_confidences_2.json"
+        }
+      ],
+      "trinity_manual_af2_by_cycle": [
+        {
+          "ptm_score": 0.33,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_004_alphafold2_ptm_model_5_seed_000.json",
+          "ranking_score": 0.33
+        },
+        {
+          "ptm_score": 0.31,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_001_alphafold2_ptm_model_1_seed_000.json",
+          "ranking_score": 0.31
+        },
+        {
+          "ptm_score": 0.3,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_005_alphafold2_ptm_model_3_seed_000.json",
+          "ranking_score": 0.3
+        }
+      ],
+      "trinity_target_type": "protein_ligand",
+      "trinity_ood": {
+        "abs_diff_threshold": 0.15,
+        "z_threshold": 2.0
+      },
+      "trinity_effective_drift_mode": "observer_only",
+      "trinity_lawbinder_mode": "observer",
+      "trinity_lawbinder_observer_only": true,
+      "trinity_validator_weights": {
+        "af2": 1.0
+      }
+    },
+    "exp031_arm": "A",
+    "exp031_arm_label": "af3_plus_af2"
+  },
+  "result": {
+    "pdb_file": "/tmp/exp031-arm-a_best_attempt.pdb",
+    "confidence": 0.9,
+    "plddt_mean": 40.0,
+    "engine_status": "trinity_failed_convergence",
+    "trinity_history": [
+      {
+        "cycle": 1,
+        "sequences": [
+          "MSRSLLLRFLLFLLLLPPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.4,
+        "ptm_af2": 0.33,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3-server-manual-v1",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.33,
+        "validator_ptm_std": 0.0,
+        "validator_ptm_min": 0.33,
+        "validator_ptm_max": 0.33,
+        "validator_weights": {
+          "af2": 1.0
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.33
+        },
+        "validator_source": "af2",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.33,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.07,
+        "base_drift": 0.07,
+        "effective_drift": 0.07,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.0,
+        "structural_anomaly": true,
+        "structural_anomaly_reason": "zscore_exceed",
+        "structural_anomaly_zscore": 700.0,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.07
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9996749735894581,
+            "drift_score": 0.0,
+            "input_hash": "bef5eb05eb58c6ec04c557c1ac11ccf70f8c8f2161297a36e57885b25f129781",
+            "vector": [
+              0.20003250792402114,
+              0.16502681903731742,
+              0.46507558092334905,
+              0.46507558092334905,
+              0.5000812698100527,
+              0.5000812698100527
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.9428606464041431,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9430521642492946,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.9409691353657371,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9444349333183886,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [
+          "S2A",
+          "S4A",
+          "P17A"
+        ],
+        "cycle_seed": 1896966158
+      },
+      {
+        "cycle": 2,
+        "sequences": [
+          "MARALLLRFLLFLLLLAPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.4,
+        "ptm_af2": 0.31,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3-server-manual-v1",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.31,
+        "validator_ptm_std": 0.0,
+        "validator_ptm_min": 0.31,
+        "validator_ptm_max": 0.31,
+        "validator_weights": {
+          "af2": 1.0
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.31
+        },
+        "validator_source": "af2",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.31,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.09000000000000002,
+        "base_drift": 0.09000000000000002,
+        "effective_drift": 0.09000000000000002,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.0,
+        "structural_anomaly": true,
+        "structural_anomaly_reason": "zscore_exceed",
+        "structural_anomaly_zscore": 900.0000000000002,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.09000000000000002
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9779534878252318,
+            "drift_score": 0.0,
+            "input_hash": "1ba7aabfdd4aa3eeab62849f9387f54f8cd28a84b1e07f24d9496ce00b308b14",
+            "vector": [
+              0.20222922453035116,
+              0.15672764901102215,
+              0.46007148580654883,
+              0.46007148580654883,
+              0.5055730613258779,
+              0.5055730613258779
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.9406377104796024,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9409162392534887,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.93878310549618,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9421056577361677,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [
+          "P18A",
+          "P20A",
+          "V21L"
+        ],
+        "cycle_seed": 4016785629
+      },
+      {
+        "cycle": 3,
+        "sequences": [
+          "MARALLLRFLLFLLLLAALALLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.4,
+        "ptm_af2": 0.3,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3-server-manual-v1",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.3,
+        "validator_ptm_std": 0.0,
+        "validator_ptm_min": 0.3,
+        "validator_ptm_max": 0.3,
+        "validator_weights": {
+          "af2": 1.0
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.3
+        },
+        "validator_source": "af2",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.3,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.10000000000000003,
+        "base_drift": 0.10000000000000003,
+        "effective_drift": 0.10000000000000003,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.0,
+        "structural_anomaly": true,
+        "structural_anomaly_reason": "zscore_exceed",
+        "structural_anomaly_zscore": 1000.0000000000003,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.10000000000000003
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9672315572906,
+            "drift_score": 0.0,
+            "input_hash": "b6aee20bb433624773fce8b0246c38ec2247f154234aa36f0ce3ee029d44293c",
+            "vector": [
+              0.20333142711013957,
+              0.15249857033260467,
+              0.457495710997814,
+              0.457495710997814,
+              0.508328567775349,
+              0.508328567775349
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.9394415387386101,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9397642708116731,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.9376058219736061,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9408553357123113,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [],
+        "cycle_seed": 1659450879
+      }
+    ],
+    "cycle_count": 3,
+    "final_drift": 0.10000000000000003,
+    "verification_status": "Unverified (Drift Detected)",
+    "mutation_summary": {
+      "mutation_count": 6,
+      "mutations": [
+        {
+          "position": 1,
+          "original": "S",
+          "mutated": "A",
+          "notation": "S2A"
+        },
+        {
+          "position": 3,
+          "original": "S",
+          "mutated": "A",
+          "notation": "S4A"
+        },
+        {
+          "position": 16,
+          "original": "P",
+          "mutated": "A",
+          "notation": "P17A"
+        },
+        {
+          "position": 17,
+          "original": "P",
+          "mutated": "A",
+          "notation": "P18A"
+        },
+        {
+          "position": 19,
+          "original": "P",
+          "mutated": "A",
+          "notation": "P20A"
+        },
+        {
+          "position": 20,
+          "original": "V",
+          "mutated": "L",
+          "notation": "V21L"
+        }
+      ],
+      "identity": 0.8846
+    },
+    "trinity_modes": {
+      "af3_mode": "mock",
+      "af2_mode": "mock",
+      "alphagenome_mode": "server",
+      "lawbinder_mode": "observer",
+      "manual_af3": true,
+      "manual_af2": true,
+      "validators": [
+        "af2"
+      ]
+    },
+    "adapter_versions": {
+      "af3": "alphafold3-server-manual-v1",
+      "af2": "af2-manual-v1",
+      "alphagenome": "alphagenome-grpc-v1",
+      "boltz2": "unavailable",
+      "chai1": "unavailable"
+    },
+    "validator_summary": {
+      "validators": [
+        "af2"
+      ],
+      "target_type": "protein_ligand",
+      "reference_source": "af2",
+      "reference_ptm": 0.3,
+      "reference_ptm_std": 0.0,
+      "reference_ptm_min": 0.3,
+      "reference_ptm_max": 0.3,
+      "ptm_weighted_mean": 0.3,
+      "ptm_std": 0.0,
+      "ptm_min": 0.3,
+      "ptm_max": 0.3,
+      "weight_source": "config_override",
+      "weights": {
+        "af2": 1.0
+      },
+      "weights_used": {
+        "af2": 1.0
+      },
+      "calibrated_ptm": {
+        "af2": 0.3
+      },
+      "effective_drift_mode": "observer_only",
+      "base_drift": 0.10000000000000003,
+      "effective_drift": 0.10000000000000003,
+      "uncertainty_penalty": 0.0,
+      "structural_anomaly": {
+        "detected": true,
+        "reason": "zscore_exceed",
+        "zscore": 1000.0000000000003,
+        "abs_threshold": 0.15,
+        "z_threshold": 2.0
+      },
+      "anomaly_reason": "zscore_exceed",
+      "lawbinder_observer_metrics": {
+        "lawbinder": {
+          "decision": "PASS",
+          "gate_pass": true
+        },
+        "governance": {
+          "drift_score": 0.0
+        },
+        "consensus": {
+          "consensus_ratio": 1.0
+        },
+        "effective_drift": 0.10000000000000003
+      },
+      "lawbinder": {
+        "enabled": true,
+        "mode": "observer",
+        "decision": "PASS",
+        "gate_pass": true,
+        "governance": {
+          "status": "PASS",
+          "reason": "Valid",
+          "nan_count": 0,
+          "original_norm": 1.9672315572906,
+          "drift_score": 0.0,
+          "input_hash": "b6aee20bb433624773fce8b0246c38ec2247f154234aa36f0ce3ee029d44293c",
+          "vector": [
+            0.20333142711013957,
+            0.15249857033260467,
+            0.457495710997814,
+            0.457495710997814,
+            0.508328567775349,
+            0.508328567775349
+          ]
+        },
+        "consensus": {
+          "status": "UNANIMOUS",
+          "consensus_ratio": 1.0,
+          "final_score": 0.9394415387386101,
+          "total_anchors": 3,
+          "votes": [
+            {
+              "anchor_id": "stable",
+              "similarity": 0.9397642708116731,
+              "passed": true,
+              "weight": 1.0
+            },
+            {
+              "anchor_id": "ligand_sensitive",
+              "similarity": 0.9376058219736061,
+              "passed": true,
+              "weight": 1.1
+            },
+            {
+              "anchor_id": "drift_guard",
+              "similarity": 0.9408553357123113,
+              "passed": true,
+              "weight": 1.2
+            }
+          ]
+        }
+      },
+      "metrics": {
+        "af2": {
+          "ptm_score": 0.3,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "manual"
+        }
+      }
+    },
+    "determinism_signature": "adf5b4ffe78b617d8090d60f235d28d11d56d37ed8ba7d9ee6eb3dc9db72c5b4",
+    "reproducibility": {
+      "seed": 20260208,
+      "adapter_versions": {
+        "af3": "alphafold3-server-manual-v1",
+        "af2": "af2-manual-v1",
+        "alphagenome": "alphagenome-grpc-v1",
+        "boltz2": "unavailable",
+        "chai1": "unavailable"
+      },
+      "determinism_signature": "adf5b4ffe78b617d8090d60f235d28d11d56d37ed8ba7d9ee6eb3dc9db72c5b4"
+    }
+  }
+}

@@ -1,0 +1,679 @@
+{
+  "schema": "exp033_compare_32_vs_33_multiaxis_v1",
+  "generated_at_utc": "2026-04-19T04:10:19.456638+00:00",
+  "baseline": {
+    "label": "EXP033_PARITY_V5J",
+    "roots": [
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block"
+    ],
+    "payload_count": 6,
+    "summary": {
+      "rows": 6,
+      "samples": 2,
+      "arms": 3,
+      "classification": {
+        "tp_pass": 3,
+        "tn_block": 3,
+        "fp_dangerous_pass": 0,
+        "fn_false_reject": 0,
+        "pass_recall": 1.0,
+        "block_recall": 1.0,
+        "balanced_accuracy": 1.0,
+        "accuracy": 1.0
+      },
+      "disagreement": {
+        "discord_score_mean": 1.0088809910371732,
+        "discord_score_normalized_mean": 1.0088809910371732,
+        "discord_score_rawtext_stable_mean": 0.9582632585820571,
+        "lawbinder_escalate_type_counts": {
+          "ESCALATE_SOFT_DISCORD": 6
+        }
+      },
+      "governance": {
+        "clinical_status_counts": {
+          "BLOCK": 3,
+          "PASS": 3
+        },
+        "lawbinder_decision_counts": {
+          "ESCALATE": 6
+        },
+        "ccge_status_counts": {
+          "BLOCK": 3,
+          "PASS": 3
+        },
+        "ccge_rule_id_counts": {
+          "R2_component_floor": 3,
+          "R6_pass": 3
+        },
+        "strict_recheck_status_counts": {
+          "FAIL": 6
+        },
+        "ccge_p_e2e_mean": 0.5627431206568898,
+        "ccge_data_capture_quality_mean": 0.8148874992430016,
+        "ccge_transfer_integrity_mean": 0.815,
+        "ccge_model_accuracy_contextual_mean": 0.8996101471322538,
+        "ccge_clinical_interpretation_reliability_mean": 0.9217137582557798
+      },
+      "nnsl": {
+        "sr9_tech_mean": 0.9530760521193692,
+        "di2_tech_mean": 0.16370206371187496,
+        "sr9_clinical_mean": 0.5627431206568898
+      },
+      "hashes": {
+        "request_hash_unique_count": 6,
+        "payload_hash_unique_count": 2
+      }
+    },
+    "rows": [
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "A",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 0.9224315997261325,
+        "nnsl_di2_tech": 0.13789143079565597,
+        "nnsl_sr9_clinical": 0.39876052125434286,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.39876052125434286,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.9151884397535193,
+        "ccge_clinical_interpretation_reliability": 0.8969925171066602,
+        "request_hash": "f9afce65b763e8432b41a666f0cdb043f7856dc1d4a15322116861887ad96c84",
+        "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "B",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 0.9224315997261325,
+        "nnsl_di2_tech": 0.13789143079565597,
+        "nnsl_sr9_clinical": 0.39876052125434286,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.39876052125434286,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.9151884397535193,
+        "ccge_clinical_interpretation_reliability": 0.8969925171066602,
+        "request_hash": "ec2c92b628307488adf830597b442e3ef4d01e080ebd85ef7c943b9c518d40d1",
+        "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "C",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 0.9224315997261325,
+        "nnsl_di2_tech": 0.13789143079565597,
+        "nnsl_sr9_clinical": 0.39876052125434286,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.39876052125434286,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.9151884397535193,
+        "ccge_clinical_interpretation_reliability": 0.8969925171066602,
+        "request_hash": "cfb94779ba3e774233d085ca51fbd7bd9970cd9a8aa6370b1ee3400bd2e0d732",
+        "payload_hash": "8b8a2e5da5b50b2c3e96d3b518c1da7a627fd0118eca587839355533ceb2fcab",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_block\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "A",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 0.983720504512606,
+        "nnsl_di2_tech": 0.18951269662809395,
+        "nnsl_sr9_clinical": 0.7267257200594367,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7267257200594367,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9464349994048993,
+        "request_hash": "fcecfe40838a68c582fd2247fb171792b42e2bef30cd5f248aa862970f5897ed",
+        "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "B",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 0.983720504512606,
+        "nnsl_di2_tech": 0.18951269662809395,
+        "nnsl_sr9_clinical": 0.7267257200594367,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7267257200594367,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9464349994048993,
+        "request_hash": "02dd73e920198be7827e669d1fb412004d65f480f23d40a21e63c4822865f33d",
+        "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP033_PARITY_V5J",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "C",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.0088809910371732,
+        "discord_score_normalized": 1.0088809910371732,
+        "discord_score_rawtext_stable": 0.9582632585820571,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 0.983720504512606,
+        "nnsl_di2_tech": 0.18951269662809395,
+        "nnsl_sr9_clinical": 0.7267257200594367,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7267257200594367,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9464349994048993,
+        "request_hash": "d2cc59aa390737f2cd6cbde812a45efc01ab3d1a92c832f71e8bba5044e51545",
+        "payload_hash": "99bc1ddbacf79fa553591678bcf2277335498c2289b486f4ce88130420d70190",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-033-LAWBINDER-CRITIC-ALIGNMENT\\artifacts\\exp033_official_methodlock_parity_20260309_184159\\phase456_runs_parity_v5j_pass\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+      }
+    ]
+  },
+  "current": {
+    "label": "EXP034_LEGACY_REPLAY",
+    "roots": [
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344"
+    ],
+    "payload_count": 6,
+    "summary": {
+      "rows": 6,
+      "samples": 2,
+      "arms": 3,
+      "classification": {
+        "tp_pass": 3,
+        "tn_block": 3,
+        "fp_dangerous_pass": 0,
+        "fn_false_reject": 0,
+        "pass_recall": 1.0,
+        "block_recall": 1.0,
+        "balanced_accuracy": 1.0,
+        "accuracy": 1.0
+      },
+      "disagreement": {
+        "discord_score_mean": 1.045599336703627,
+        "discord_score_normalized_mean": 1.045599336703627,
+        "discord_score_rawtext_stable_mean": 1.045599336703627,
+        "lawbinder_escalate_type_counts": {
+          "ESCALATE_SOFT_DISCORD": 6
+        }
+      },
+      "governance": {
+        "clinical_status_counts": {
+          "BLOCK": 3,
+          "PASS": 3
+        },
+        "lawbinder_decision_counts": {
+          "ESCALATE": 6
+        },
+        "ccge_status_counts": {
+          "BLOCK": 3,
+          "PASS": 3
+        },
+        "ccge_rule_id_counts": {
+          "R2_component_floor": 3,
+          "R6_pass": 3
+        },
+        "strict_recheck_status_counts": {
+          "FAIL": 6
+        },
+        "ccge_p_e2e_mean": 0.6072180084168509,
+        "ccge_data_capture_quality_mean": 0.8148874992430016,
+        "ccge_transfer_integrity_mean": 0.815,
+        "ccge_model_accuracy_contextual_mean": 0.9345159272554943,
+        "ccge_clinical_interpretation_reliability_mean": 0.9745954691607835
+      },
+      "nnsl": {
+        "sr9_tech_mean": 1.0,
+        "di2_tech_mean": 0.12702265419608175,
+        "sr9_clinical_mean": 0.6072180084168509
+      },
+      "hashes": {
+        "request_hash_unique_count": 0,
+        "payload_hash_unique_count": 6
+      }
+    },
+    "rows": [
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "A",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.12226262325780118,
+        "nnsl_sr9_clinical": 0.46676410335824714,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.46676410335824714,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.985,
+        "ccge_clinical_interpretation_reliability": 0.9755474753484398,
+        "request_hash": "",
+        "payload_hash": "21c8bf8944fc85e654afbb2675f9a7b62aafd546f9c6735a5fa6254d95ed9cb6",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "B",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.12402294434517672,
+        "nnsl_sr9_clinical": 0.46659565339251313,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.46659565339251313,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.985,
+        "ccge_clinical_interpretation_reliability": 0.9751954111309646,
+        "request_hash": "",
+        "payload_hash": "7697929a976182741c99c4684c8e10843fb9027968d474137178fcf6ed6d8a84",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-BLOCK-001",
+        "arm": "C",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "clinical_status": "BLOCK",
+        "predicted_binary": "BLOCK_EXPECTED",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": false,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.12330197231740772,
+        "nnsl_sr9_clinical": 0.46666464518852346,
+        "ccge_status": "BLOCK",
+        "ccge_rule_id": "R2_component_floor",
+        "ccge_p_e2e": 0.46666464518852346,
+        "ccge_data_capture_quality": 0.7250000000000001,
+        "ccge_transfer_integrity": 0.67,
+        "ccge_model_accuracy_contextual": 0.985,
+        "ccge_clinical_interpretation_reliability": 0.9753396055365184,
+        "request_hash": "",
+        "payload_hash": "ff1cf79044c19dbb9ce4528488b8bac080781935b531c8ab3dacf7847e22276a",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "A",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.12979615226742686,
+        "nnsl_sr9_clinical": 0.7479229741725826,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7479229741725826,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9740407695465146,
+        "request_hash": "",
+        "payload_hash": "b4b261ae9ace47b9e70724ffd74586ee24a2316f29ca5eeb9bf53c22a8321824",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "B",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.13173794538110073,
+        "nnsl_sr9_clinical": 0.7476247707038545,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7476247707038545,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9736524109237799,
+        "request_hash": "",
+        "payload_hash": "b2ff46c7faf0f03ef6d5fcb0abef1a9be8cdee7e2d518563164215310940e6b3",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "dataset": "EXP034_LEGACY_REPLAY",
+        "sample_id": "EXP032-PASS-001",
+        "arm": "C",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "clinical_status": "PASS",
+        "predicted_binary": "PASS_ELIGIBLE",
+        "lawbinder_decision": "ESCALATE",
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "discord_score": 1.045599336703627,
+        "discord_score_normalized": 1.045599336703627,
+        "discord_score_rawtext_stable": 1.045599336703627,
+        "strict_recheck_status": "FAIL",
+        "strict_evidence_current": true,
+        "nnsl_sr9_tech": 1.0,
+        "nnsl_di2_tech": 0.1310142876075772,
+        "nnsl_sr9_clinical": 0.7477359036853843,
+        "ccge_status": "PASS",
+        "ccge_rule_id": "R6_pass",
+        "ccge_p_e2e": 0.7477359036853843,
+        "ccge_data_capture_quality": 0.9047749984860032,
+        "ccge_transfer_integrity": 0.96,
+        "ccge_model_accuracy_contextual": 0.8840318545109884,
+        "ccge_clinical_interpretation_reliability": 0.9737971424784846,
+        "request_hash": "",
+        "payload_hash": "50d97a886d8bddd23c27ed8f063c8684a1447c4b00cfbcaa8874db463862f5a8",
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+      }
+    ]
+  },
+  "delta_summary": {
+    "balanced_accuracy_delta": 0.0,
+    "accuracy_delta": 0.0,
+    "discord_score_mean_delta": 0.03671834566645371,
+    "ccge_p_e2e_mean_delta": 0.04447488775996111,
+    "nnsl_sr9_tech_mean_delta": 0.04692394788063081,
+    "nnsl_di2_tech_mean_delta": -0.03667940951579321,
+    "nnsl_sr9_clinical_mean_delta": 0.04447488775996111,
+    "ccge_data_capture_quality_mean_delta": 0.0,
+    "ccge_transfer_integrity_mean_delta": 0.0,
+    "ccge_model_accuracy_contextual_mean_delta": 0.034905780123240415,
+    "ccge_clinical_interpretation_reliability_mean_delta": 0.05288171090500371
+  },
+  "pairwise_changes": {
+    "paired_rows": 6,
+    "changed_row_count": 6,
+    "changed_field_counts": {
+      "discord_score": 6,
+      "nnsl_sr9_tech": 6,
+      "nnsl_di2_tech": 6,
+      "nnsl_sr9_clinical": 6,
+      "ccge_p_e2e": 6
+    },
+    "changed_rows": [
+      {
+        "key": "EXP032-BLOCK-001|A",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.9224315997261325,
+            "current": 1.0,
+            "delta": 0.07756840027386747
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.13789143079565597,
+            "current": 0.12226262325780118,
+            "delta": -0.015628807537854783
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46676410335824714,
+            "delta": 0.06800358210390428
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46676410335824714,
+            "delta": 0.06800358210390428
+          }
+        }
+      },
+      {
+        "key": "EXP032-BLOCK-001|B",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.9224315997261325,
+            "current": 1.0,
+            "delta": 0.07756840027386747
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.13789143079565597,
+            "current": 0.12402294434517672,
+            "delta": -0.01386848645047925
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46659565339251313,
+            "delta": 0.06783513213817027
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46659565339251313,
+            "delta": 0.06783513213817027
+          }
+        }
+      },
+      {
+        "key": "EXP032-BLOCK-001|C",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.9224315997261325,
+            "current": 1.0,
+            "delta": 0.07756840027386747
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.13789143079565597,
+            "current": 0.12330197231740772,
+            "delta": -0.014589458478248246
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46666464518852346,
+            "delta": 0.0679041239341806
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.39876052125434286,
+            "current": 0.46666464518852346,
+            "delta": 0.0679041239341806
+          }
+        }
+      },
+      {
+        "key": "EXP032-PASS-001|A",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.983720504512606,
+            "current": 1.0,
+            "delta": 0.016279495487394047
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.18951269662809395,
+            "current": 0.12979615226742686,
+            "delta": -0.05971654436066709
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7479229741725826,
+            "delta": 0.02119725411314588
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7479229741725826,
+            "delta": 0.02119725411314588
+          }
+        }
+      },
+      {
+        "key": "EXP032-PASS-001|B",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.983720504512606,
+            "current": 1.0,
+            "delta": 0.016279495487394047
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.18951269662809395,
+            "current": 0.13173794538110073,
+            "delta": -0.05777475124699322
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7476247707038545,
+            "delta": 0.02089905064441777
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7476247707038545,
+            "delta": 0.02089905064441777
+          }
+        }
+      },
+      {
+        "key": "EXP032-PASS-001|C",
+        "changed_fields": {
+          "discord_score": {
+            "baseline": 1.0088809910371732,
+            "current": 1.045599336703627,
+            "delta": 0.03671834566645371
+          },
+          "nnsl_sr9_tech": {
+            "baseline": 0.983720504512606,
+            "current": 1.0,
+            "delta": 0.016279495487394047
+          },
+          "nnsl_di2_tech": {
+            "baseline": 0.18951269662809395,
+            "current": 0.1310142876075772,
+            "delta": -0.058498409020516756
+          },
+          "nnsl_sr9_clinical": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7477359036853843,
+            "delta": 0.021010183625947643
+          },
+          "ccge_p_e2e": {
+            "baseline": 0.7267257200594367,
+            "current": 0.7477359036853843,
+            "delta": 0.021010183625947643
+          }
+        }
+      }
+    ]
+  }
+}

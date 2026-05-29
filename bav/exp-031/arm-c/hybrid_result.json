@@ -1,0 +1,658 @@
+{
+  "job_id": "exp031-arm-c",
+  "timestamp_utc": "2026-02-09T17:38:37.949176+00:00",
+  "request": {
+    "sequences": [
+      "MSRSLLLRFLLFLLLLPPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+    ],
+    "ligand_smiles": "CC(=O)OC1=CC=CC=C1C(=O)O",
+    "mutation_strategy": "stability",
+    "prediction_config": {
+      "random_seed": 20260208,
+      "trinity_af3_mode": "disabled",
+      "trinity_ag_mode": "server",
+      "trinity_validators": [
+        "af2",
+        "boltz2",
+        "chai1"
+      ],
+      "trinity_manual_af2_by_cycle": [
+        {
+          "ptm_score": 0.33,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_004_alphafold2_ptm_model_5_seed_000.json",
+          "ranking_score": 0.33
+        },
+        {
+          "ptm_score": 0.31,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_001_alphafold2_ptm_model_1_seed_000.json",
+          "ranking_score": 0.31
+        },
+        {
+          "ptm_score": 0.3,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "af2_unzip_scan",
+          "source_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-031-OOD-ABLATION\\output\\exp031_arm_a_af2_0f979.result\\exp031_arm_a_af2_0f979\\exp031_arm_a_af2_0f979_scores_rank_005_alphafold2_ptm_model_3_seed_000.json",
+          "ranking_score": 0.3
+        }
+      ],
+      "trinity_manual_boltz2_by_cycle": [
+        {
+          "ptm_score": 0.772,
+          "mode": "manual",
+          "model_version": "boltz2-manual-v1"
+        },
+        {
+          "ptm_score": 0.772,
+          "mode": "manual",
+          "model_version": "boltz2-manual-v1"
+        },
+        {
+          "ptm_score": 0.772,
+          "mode": "manual",
+          "model_version": "boltz2-manual-v1"
+        }
+      ],
+      "trinity_manual_chai1_by_cycle": [
+        {
+          "ptm_score": 0.768,
+          "mode": "manual",
+          "model_version": "chai1-manual-v1"
+        },
+        {
+          "ptm_score": 0.768,
+          "mode": "manual",
+          "model_version": "chai1-manual-v1"
+        },
+        {
+          "ptm_score": 0.768,
+          "mode": "manual",
+          "model_version": "chai1-manual-v1"
+        }
+      ],
+      "trinity_target_type": "protein_ligand",
+      "trinity_ood": {
+        "abs_diff_threshold": 0.15,
+        "z_threshold": 2.0
+      },
+      "trinity_effective_drift_mode": "observer_only",
+      "trinity_lawbinder_mode": "observer",
+      "trinity_lawbinder_observer_only": true,
+      "trinity_validator_weights": {
+        "af2": 0.2,
+        "boltz2": 0.45,
+        "chai1": 0.35
+      }
+    },
+    "exp031_arm": "C",
+    "exp031_arm_label": "af2_plus_boltz2_plus_chai1_plus_lawbinder_observer"
+  },
+  "result": {
+    "pdb_file": "/tmp/exp031-arm-c_best_attempt.pdb",
+    "confidence": 0.79356091189153,
+    "plddt_mean": 76.52036498351816,
+    "engine_status": "trinity_failed_convergence",
+    "trinity_history": [
+      {
+        "cycle": 1,
+        "sequences": [
+          "MSRSLLLRFLLFLLLLPPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.7551233743824728,
+        "ptm_af2": 0.33,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.6822,
+        "validator_ptm_std": 0.20742441729191116,
+        "validator_ptm_min": 0.33,
+        "validator_ptm_max": 0.772,
+        "validator_weights": {
+          "af2": 0.2,
+          "boltz2": 0.45,
+          "chai1": 0.35
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.33,
+          "boltz2": 0.772,
+          "chai1": 0.768
+        },
+        "validator_source": "af2+boltz2+chai1",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.33,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          },
+          "boltz2": {
+            "ptm_score": 0.772,
+            "mode": "manual",
+            "model_version": "boltz2-manual-v1",
+            "source": "manual"
+          },
+          "chai1": {
+            "ptm_score": 0.768,
+            "mode": "manual",
+            "model_version": "chai1-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.07292337438247276,
+        "base_drift": 0.07292337438247276,
+        "effective_drift": 0.22292337438247276,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.15,
+        "structural_anomaly": false,
+        "structural_anomaly_reason": "none",
+        "structural_anomaly_zscore": 0.3515660081611642,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.22292337438247276
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9620406103573242,
+            "drift_score": 0.0,
+            "input_hash": "039fb815b0f735a976d972153e47502a1f1c64f5a3f587172e9682169903a34e",
+            "vector": [
+              0.3848663327335262,
+              0.3476992251836004,
+              0.4725063389226634,
+              0.396055321951775,
+              0.4039547288288523,
+              0.4332224295017008
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.9966923753108493,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9968741666762708,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.9962279657624631,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9969665912590188,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [],
+        "cycle_seed": 1896966158
+      },
+      {
+        "cycle": 2,
+        "sequences": [
+          "MSRSLLLRFLLFLLLLPPLPVLLADPGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.7551233743824728,
+        "ptm_af2": 0.31,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.6782,
+        "validator_ptm_std": 0.21685222823132091,
+        "validator_ptm_min": 0.31,
+        "validator_ptm_max": 0.772,
+        "validator_weights": {
+          "af2": 0.2,
+          "boltz2": 0.45,
+          "chai1": 0.35
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.31,
+          "boltz2": 0.772,
+          "chai1": 0.768
+        },
+        "validator_source": "af2+boltz2+chai1",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.31,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          },
+          "boltz2": {
+            "ptm_score": 0.772,
+            "mode": "manual",
+            "model_version": "boltz2-manual-v1",
+            "source": "manual"
+          },
+          "chai1": {
+            "ptm_score": 0.768,
+            "mode": "manual",
+            "model_version": "chai1-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.07692337438247276,
+        "base_drift": 0.07692337438247276,
+        "effective_drift": 0.22692337438247276,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.15,
+        "structural_anomaly": false,
+        "structural_anomaly_reason": "none",
+        "structural_anomaly_zscore": 0.354727156874851,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.22692337438247276
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9533829396210673,
+            "drift_score": 0.0,
+            "input_hash": "8f3b99a713f9d73cda7dcbc41569574b1eb516c0f0ae7fd709d8a1657d69940a",
+            "vector": [
+              0.38657211500421806,
+              0.34719254798629634,
+              0.47255282458676173,
+              0.3957629658460592,
+              0.4009187117814187,
+              0.4351425328639809
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.996590315659219,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9967821234072705,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.9961306828140963,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9968518059772048,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [
+          "D25E",
+          "P26A"
+        ],
+        "cycle_seed": 4016785629
+      },
+      {
+        "cycle": 3,
+        "sequences": [
+          "MSRSLLLRFLLFLLLLPPLPVLLAEAGAPTPVNPCCYYPCQHQGICVRFGLD"
+        ],
+        "ptm_af3": 0.7652036498351816,
+        "ptm_af2": 0.3,
+        "af2_mode": "manual",
+        "af3_model_version": "alphafold3",
+        "af2_model_version": "af2-manual-v1",
+        "validator_ptm_ref": 0.6762,
+        "validator_ptm_std": 0.22156614262011143,
+        "validator_ptm_min": 0.3,
+        "validator_ptm_max": 0.772,
+        "validator_weights": {
+          "af2": 0.2,
+          "boltz2": 0.45,
+          "chai1": 0.35
+        },
+        "validator_weight_source": "config_override",
+        "validator_calibrated_ptm": {
+          "af2": 0.3,
+          "boltz2": 0.772,
+          "chai1": 0.768
+        },
+        "validator_source": "af2+boltz2+chai1",
+        "validator_metrics": {
+          "af2": {
+            "ptm_score": 0.3,
+            "mode": "manual",
+            "model_version": "af2-manual-v1",
+            "source": "manual"
+          },
+          "boltz2": {
+            "ptm_score": 0.772,
+            "mode": "manual",
+            "model_version": "boltz2-manual-v1",
+            "source": "manual"
+          },
+          "chai1": {
+            "ptm_score": 0.768,
+            "mode": "manual",
+            "model_version": "chai1-manual-v1",
+            "source": "manual"
+          }
+        },
+        "drift": 0.08900364983518161,
+        "base_drift": 0.08900364983518161,
+        "effective_drift": 0.2390036498351816,
+        "effective_drift_mode": "observer_only",
+        "uncertainty_penalty": 0.15,
+        "structural_anomaly": false,
+        "structural_anomaly_reason": "none",
+        "structural_anomaly_zscore": 0.40170239361789023,
+        "structural_anomaly_abs_threshold": 0.15,
+        "structural_anomaly_z_threshold": 2.0,
+        "lawbinder_mode": "observer",
+        "lawbinder_decision": "PASS",
+        "lawbinder_gate_pass": true,
+        "lawbinder_observer_metrics": {
+          "lawbinder": {
+            "decision": "PASS",
+            "gate_pass": true
+          },
+          "governance": {
+            "drift_score": 0.0
+          },
+          "consensus": {
+            "consensus_ratio": 1.0
+          },
+          "effective_drift": 0.2390036498351816
+        },
+        "lawbinder_summary": {
+          "enabled": true,
+          "mode": "observer",
+          "decision": "PASS",
+          "gate_pass": true,
+          "governance": {
+            "status": "PASS",
+            "reason": "Valid",
+            "nan_count": 0,
+            "original_norm": 1.9442921928080181,
+            "drift_score": 0.0,
+            "input_hash": "b4b6497276a220a86d489828b555aa8cfeeeb7424922b88ed1316a1c23f63746",
+            "vector": [
+              0.39356412203149693,
+              0.3477872320329627,
+              0.4685490964447705,
+              0.3914001984782748,
+              0.400368761577778,
+              0.43717708847680903
+            ]
+          },
+          "consensus": {
+            "status": "UNANIMOUS",
+            "consensus_ratio": 1.0,
+            "final_score": 0.9966426837915419,
+            "total_anchors": 3,
+            "votes": [
+              {
+                "anchor_id": "stable",
+                "similarity": 0.9968877091242515,
+                "passed": true,
+                "weight": 1.0
+              },
+              {
+                "anchor_id": "ligand_sensitive",
+                "similarity": 0.9962556664483151,
+                "passed": true,
+                "weight": 1.1
+              },
+              {
+                "anchor_id": "drift_guard",
+                "similarity": 0.9967932619122413,
+                "passed": true,
+                "weight": 1.2
+              }
+            ]
+          }
+        },
+        "status": "DRIFTING",
+        "mutations_applied": [],
+        "cycle_seed": 1659450879
+      }
+    ],
+    "cycle_count": 3,
+    "final_drift": 0.08900364983518161,
+    "verification_status": "Unverified (Drift Detected)",
+    "mutation_summary": {
+      "mutation_count": 2,
+      "mutations": [
+        {
+          "position": 24,
+          "original": "D",
+          "mutated": "E",
+          "notation": "D25E"
+        },
+        {
+          "position": 25,
+          "original": "P",
+          "mutated": "A",
+          "notation": "P26A"
+        }
+      ],
+      "identity": 0.9615
+    },
+    "trinity_modes": {
+      "af3_mode": "mock",
+      "af2_mode": "mock",
+      "alphagenome_mode": "server",
+      "lawbinder_mode": "observer",
+      "manual_af3": false,
+      "manual_af2": true,
+      "validators": [
+        "af2",
+        "boltz2",
+        "chai1"
+      ]
+    },
+    "adapter_versions": {
+      "af3": "alphafold3",
+      "af2": "af2-manual-v1",
+      "alphagenome": "alphagenome-grpc-v1",
+      "boltz2": "boltz2-manual-v1",
+      "chai1": "chai1-manual-v1"
+    },
+    "validator_summary": {
+      "validators": [
+        "af2",
+        "boltz2",
+        "chai1"
+      ],
+      "target_type": "protein_ligand",
+      "reference_source": "af2+boltz2+chai1",
+      "reference_ptm": 0.6762,
+      "reference_ptm_std": 0.22156614262011143,
+      "reference_ptm_min": 0.3,
+      "reference_ptm_max": 0.772,
+      "ptm_weighted_mean": 0.6762,
+      "ptm_std": 0.22156614262011143,
+      "ptm_min": 0.3,
+      "ptm_max": 0.772,
+      "weight_source": "config_override",
+      "weights": {
+        "af2": 0.2,
+        "boltz2": 0.45,
+        "chai1": 0.35
+      },
+      "weights_used": {
+        "af2": 0.2,
+        "boltz2": 0.45,
+        "chai1": 0.35
+      },
+      "calibrated_ptm": {
+        "af2": 0.3,
+        "boltz2": 0.772,
+        "chai1": 0.768
+      },
+      "effective_drift_mode": "observer_only",
+      "base_drift": 0.08900364983518161,
+      "effective_drift": 0.2390036498351816,
+      "uncertainty_penalty": 0.15,
+      "structural_anomaly": {
+        "detected": false,
+        "reason": "none",
+        "zscore": 0.40170239361789023,
+        "abs_threshold": 0.15,
+        "z_threshold": 2.0
+      },
+      "anomaly_reason": "none",
+      "lawbinder_observer_metrics": {
+        "lawbinder": {
+          "decision": "PASS",
+          "gate_pass": true
+        },
+        "governance": {
+          "drift_score": 0.0
+        },
+        "consensus": {
+          "consensus_ratio": 1.0
+        },
+        "effective_drift": 0.2390036498351816
+      },
+      "lawbinder": {
+        "enabled": true,
+        "mode": "observer",
+        "decision": "PASS",
+        "gate_pass": true,
+        "governance": {
+          "status": "PASS",
+          "reason": "Valid",
+          "nan_count": 0,
+          "original_norm": 1.9442921928080181,
+          "drift_score": 0.0,
+          "input_hash": "b4b6497276a220a86d489828b555aa8cfeeeb7424922b88ed1316a1c23f63746",
+          "vector": [
+            0.39356412203149693,
+            0.3477872320329627,
+            0.4685490964447705,
+            0.3914001984782748,
+            0.400368761577778,
+            0.43717708847680903
+          ]
+        },
+        "consensus": {
+          "status": "UNANIMOUS",
+          "consensus_ratio": 1.0,
+          "final_score": 0.9966426837915419,
+          "total_anchors": 3,
+          "votes": [
+            {
+              "anchor_id": "stable",
+              "similarity": 0.9968877091242515,
+              "passed": true,
+              "weight": 1.0
+            },
+            {
+              "anchor_id": "ligand_sensitive",
+              "similarity": 0.9962556664483151,
+              "passed": true,
+              "weight": 1.1
+            },
+            {
+              "anchor_id": "drift_guard",
+              "similarity": 0.9967932619122413,
+              "passed": true,
+              "weight": 1.2
+            }
+          ]
+        }
+      },
+      "metrics": {
+        "af2": {
+          "ptm_score": 0.3,
+          "mode": "manual",
+          "model_version": "af2-manual-v1",
+          "source": "manual"
+        },
+        "boltz2": {
+          "ptm_score": 0.772,
+          "mode": "manual",
+          "model_version": "boltz2-manual-v1",
+          "source": "manual"
+        },
+        "chai1": {
+          "ptm_score": 0.768,
+          "mode": "manual",
+          "model_version": "chai1-manual-v1",
+          "source": "manual"
+        }
+      }
+    },
+    "determinism_signature": "64a1ab2e61608bc8cd4b9392963cfff9442fb083c2f77cadf4a6f0d79995bf53",
+    "reproducibility": {
+      "seed": 20260208,
+      "adapter_versions": {
+        "af3": "alphafold3",
+        "af2": "af2-manual-v1",
+        "alphagenome": "alphagenome-grpc-v1",
+        "boltz2": "boltz2-manual-v1",
+        "chai1": "chai1-manual-v1"
+      },
+      "determinism_signature": "64a1ab2e61608bc8cd4b9392963cfff9442fb083c2f77cadf4a6f0d79995bf53"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema_id": "flamehaven_bav_exp032_legacy_replay.v1",
+  "experiment": "EXP-032-ADAPTIVE-GATE",
+  "mode": "legacy_replay",
+  "mode_note": "Legacy replay is the only accepted parity anchor (EXP-034 confirmed). Current-regeneration path is diagnostic-only and excluded.",
+  "baseline_version": "EXP032_v5j",
+  "method": "RexBio-v2 LOGOS(3-modal)+RExSyn+NNSL prototype",
+  "engines": [
+    "af2",
+    "af3",
+    "chai1",
+    "boltz2",
+    "alphagenome_api"
+  ],
+  "guard_thresholds": {
+    "sr9_min": 0.7,
+    "di2_max": 0.3
+  },
+  "verification": {
+    "go_no_go_verdict": "GO",
+    "benchmark_accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "dangerous_pass_rate": 0.0,
+    "false_reject_rate": 0.0,
+    "contracts_ok": true
+  },
+  "samples": [
+    {
+      "sample_id": "pass-001-arm-a",
+      "payload": "./bav/exp-032/pass-001-arm-a/payload.json",
+      "sha256": "b4b261ae9ace47b9e70724ffd74586ee24a2316f29ca5eeb9bf53c22a8321824"
+    },
+    {
+      "sample_id": "pass-001-arm-b",
+      "payload": "./bav/exp-032/pass-001-arm-b/payload.json",
+      "sha256": "b2ff46c7faf0f03ef6d5fcb0abef1a9be8cdee7e2d518563164215310940e6b3"
+    },
+    {
+      "sample_id": "pass-001-arm-c",
+      "payload": "./bav/exp-032/pass-001-arm-c/payload.json",
+      "sha256": "50d97a886d8bddd23c27ed8f063c8684a1447c4b00cfbcaa8874db463862f5a8"
+    },
+    {
+      "sample_id": "block-001-arm-a",
+      "payload": "./bav/exp-032/block-001-arm-a/payload.json",
+      "sha256": "21c8bf8944fc85e654afbb2675f9a7b62aafd546f9c6735a5fa6254d95ed9cb6"
+    },
+    {
+      "sample_id": "block-001-arm-b",
+      "payload": "./bav/exp-032/block-001-arm-b/payload.json",
+      "sha256": "7697929a976182741c99c4684c8e10843fb9027968d474137178fcf6ed6d8a84"
+    },
+    {
+      "sample_id": "block-001-arm-c",
+      "payload": "./bav/exp-032/block-001-arm-c/payload.json",
+      "sha256": "ff1cf79044c19dbb9ce4528488b8bac080781935b531c8ab3dacf7847e22276a"
+    }
+  ],
+  "benchmark": "./bav/exp-032/benchmark.json",
+  "go_no_go": "./bav/exp-032/go_no_go.json",
+  "source": "D:/Sanctum/렉스바이오 파이프라인/check_output_actual/parity_20260416_batch_reports_wrapper",
+  "provenance_note": "Payloads copied verbatim from certified legacy-replay batch (DI-EQA-002). SHA256 enables integrity verification. Card values are live-fetched, never hardcoded (DI-BSC-001).",
+  "disclaimer": "Pipeline reliability heuristics only. NOT clinical efficacy."
+}

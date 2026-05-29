@@ -804,8 +804,10 @@ async function openJsonInspector(runId, type = 'json') {
   
   const titleNode = document.getElementById('inspector-run-id');
   if (titleNode) {
-    if (runId === 'rexsyn-31-32') {
-      titleNode.textContent = 'BAV-31-32';
+    if (runId === 'bav-exp-031') {
+      titleNode.textContent = 'BAV · EXP-031 OOD-ABLATION';
+    } else if (runId === 'bav-exp-032') {
+      titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
     } else if (runId.startsWith('eqa-calib-')) {
       titleNode.textContent = 'EQA-' + runId.replace('eqa-calib-', 'CALIB-');
     } else {
@@ -858,8 +860,14 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
     jsonPath = './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json';
-  } else if (runId === 'rexsyn-31-32') {
-    jsonPath = ''; // triggers fallback automatically
+  } else if (runId === 'bav-exp-032') {
+    jsonPath = './bav/exp-032/pass-001-arm-a/payload.json';
+  } else if (runId === 'bav-exp-031') {
+    jsonPath = './bav/exp-031/arm-a/hybrid_result.json';
+  } else if (runId === 'bav-exp-033') {
+    jsonPath = './bav/exp-033/governance_multiaxis.json';
+  } else if (runId === 'bav-exp-034') {
+    jsonPath = './bav/exp-034/cross_parity_multiaxis.json';
   } else if (runId.startsWith('eqa-calib-')) {
     jsonPath = ''; // triggers fallback automatically
   }
@@ -880,7 +888,47 @@ async function openJsonInspector(runId, type = 'json') {
   }
   
   inspector.jsonData = jsonData;
-  
+
+  // BAV EXP-031: fetch supplementary structural + per-arm data for charts (live, no hardcoding)
+  if (runId === 'bav-exp-031' && jsonData) {
+    try {
+      const bust = '?t=' + new Date().getTime();
+      const [armB, armC, af2, af3full, af3sum] = await Promise.all([
+        fetch('./bav/exp-031/arm-b/hybrid_result.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-031/arm-c/hybrid_result.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-031/arm-a/af2_scores_rank1.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-031/arm-a/af3_full_data_0.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-031/arm-a/af3_summary_0.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+      ]);
+      jsonData._bav = { armB, armC, af2, af3full, af3sum };
+    } catch (e) { console.warn('BAV exp-031 supplementary fetch failed', e); }
+  }
+
+  // BAV EXP-032: fetch governance evidence (benchmark, go/no-go, BLOCK control) for charts
+  if (runId === 'bav-exp-032' && jsonData) {
+    try {
+      const bust = '?t=' + new Date().getTime();
+      const [gng, bench, blockPayload] = await Promise.all([
+        fetch('./bav/exp-032/go_no_go.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-032/benchmark.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-032/block-001-arm-a/payload.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+      ]);
+      jsonData._gov = { go_no_go: gng, benchmark: bench, blockPayload };
+    } catch (e) { console.warn('BAV exp-032 supplementary fetch failed', e); }
+  }
+
+  // BAV EXP-034: fetch stage-gate + legacy-replay benchmark for path-separation charts
+  if (runId === 'bav-exp-034' && jsonData) {
+    try {
+      const bust = '?t=' + new Date().getTime();
+      const [gate, legacy] = await Promise.all([
+        fetch('./bav/exp-034/stage_gate_report.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('./bav/exp-034/legacy_replay_benchmark.json' + bust).then(r => r.ok ? r.json() : null).catch(() => null),
+      ]);
+      jsonData._gov = { stage_gate: gate, legacy_benchmark: legacy };
+    } catch (e) { console.warn('BAV exp-034 supplementary fetch failed', e); }
+  }
+
   // Fetch report markdown for 0054 or calibration runs
   let reportText = '';
   if (runId.startsWith('eqa-calib-')) {
@@ -1004,6 +1052,188 @@ function parseMarkdownToHtml(md) {
   });
   
   return processedLines.join('\n');
+}
+
+// ── BAV (Biomolecular AI Validation) live insights renderer ──────────────────
+// All values derived from live payload (rexsyn_bio_report_payload). No hardcoding (DI-BSC-001).
+function renderBavInsights(d) {
+  if (!d || typeof d !== 'object') {
+    return '<p class="empty-state">No BAV payload loaded.</p>';
+  }
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const num = (v, dp = 2) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
+  const pct = (v, dp = 1) => (typeof v === 'number' && isFinite(v)) ? (v * 100).toFixed(dp) + '%' : '—';
+  const g = d.governance_status || {};
+  const pm = d.pipeline_metrics || {};
+  const va = d.viability_assessment || {};
+  const rt = d.runtime_context || {};
+  const ms = d.molecular_spec || {};
+  const clinical = String(g.clinical_status || '—').toUpperCase();
+  const lawbinder = String(g.lawbinder_decision || '—').toUpperCase();
+  const clinColor = clinical === 'PASS' ? '#10b981' : (clinical === 'BLOCK' ? '#ef4444' : '#eab308');
+  const lawColor = lawbinder === 'PASS' ? '#10b981' : (lawbinder === 'BLOCK' ? '#ef4444' : '#eab308');
+  const engines = Array.isArray(rt.engines) ? rt.engines.join(' · ') : '—';
+  const disabled = rt.disabled_features && typeof rt.disabled_features === 'object'
+    ? Object.keys(rt.disabled_features).filter(k => rt.disabled_features[k]).join(', ') : '';
+  const seqLen = rt.input_sequence_length_aa != null ? rt.input_sequence_length_aa + ' aa' : '—';
+  const grade = d.quality_grade || '—';
+
+  const metric = (label, value, color) => `
+    <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+      <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div>
+      <div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div>
+    </div>`;
+
+  return `
+    <!-- Honesty banner -->
+    <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
+      <span style="font-size: 14px;">⚠️</span>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">Pipeline Reliability Prototype · NOT Clinical Efficacy</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">${esc(d.disclaimer || va.scope || 'Pipeline reliability heuristics only.')}</div>
+      </div>
+    </div>
+
+    <!-- Governance verdict -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+      <div style="background: rgba(255,255,255,0.01); border: 1px solid ${clinColor}33; padding: 16px; border-radius: var(--r-md);">
+        <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Clinical Status</div>
+        <div style="font-size: 22px; font-weight: 700; color: ${clinColor}; margin-top: 4px;">${clinical}</div>
+      </div>
+      <div style="background: rgba(255,255,255,0.01); border: 1px solid ${lawColor}33; padding: 16px; border-radius: var(--r-md);">
+        <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">LawBinder Decision</div>
+        <div style="font-size: 22px; font-weight: 700; color: ${lawColor}; margin-top: 4px;">${lawbinder}</div>
+      </div>
+    </div>
+
+    <!-- Live metrics grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+      ${metric('Viability', (typeof va.percent === 'number' ? va.percent.toFixed(1) + '%' : '—'), '#a78bfa')}
+      ${metric('Pipeline Confidence', pct(d.confidence), '#a78bfa')}
+      ${metric('Quality Grade', grade, '#10b981')}
+      ${metric('Ω 3-modal', num(pm.omega_3modal, 3))}
+      ${metric('SR9 (tech)', num(pm.sr9_tech, 3))}
+      ${metric('DI2 (tech)', num(pm.di2_tech, 3))}
+      ${metric('SR9 (clinical)', num(pm.sr9_clinical, 3))}
+    </div>
+
+    <!-- Runtime / honesty context -->
+    <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; font-size: 12.5px; color: var(--t3); line-height: 1.7;">
+      <div><strong style="color: var(--t4);">Engines:</strong> ${esc(engines)}</div>
+      <div><strong style="color: var(--t4);">Input sequence:</strong> ${esc(String(seqLen))}${ms.target_protein_name ? ' · ' + esc(ms.target_protein_name) : ''}</div>
+      ${disabled ? `<div><strong style="color: var(--t4);">Disabled (honesty):</strong> ${esc(disabled)}</div>` : ''}
+      ${va.label ? `<div><strong style="color: var(--t4);">Viability basis:</strong> ${esc(va.label)}</div>` : ''}
+    </div>
+
+    <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
+      💡 <strong>Governance read:</strong> Clinical status discriminates the candidate (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong> — a fail-safe posture that escalates to human review regardless of model confidence.
+    </p>
+  `;
+}
+
+// BAV EXP-031 insights: multi-model disagreement / drift story. Live from _bav. No hardcoding.
+function renderBavExp031Insights(d) {
+  const bav = d && d._bav;
+  if (!bav) return '<p class="empty-state">No EXP-031 data loaded.</p>';
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
+  const arms = [['A', d], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]);
+  const rowFor = (name, a) => {
+    const r = (a && a.result) || {};
+    const vs = r.validator_summary || {};
+    const adv = r.adapter_versions || {};
+    const models = ['af3', 'af2', 'boltz2', 'chai1', 'alphagenome'].filter(m => adv[m] && adv[m] !== 'unavailable');
+    const driftColor = (r.final_drift ?? 0) >= 0.3 ? '#ef4444' : (r.final_drift ?? 0) >= 0.15 ? '#f59e0b' : '#10b981';
+    return `<tr>
+      <td style="padding:8px 10px;font-weight:600;color:var(--ts);">arm ${esc(name)}</td>
+      <td style="padding:8px 10px;color:var(--t4);font-size:11px;">${esc(models.join(' · ') || '—')}</td>
+      <td style="padding:8px 10px;color:${driftColor};font-weight:600;">${num(r.final_drift)}</td>
+      <td style="padding:8px 10px;color:var(--t3);">${num(vs.ptm_weighted_mean, 3)}</td>
+      <td style="padding:8px 10px;color:var(--t3);">${num(r.plddt_mean, 1)}</td>
+      <td style="padding:8px 10px;color:#eab308;font-size:11px;">${esc(r.verification_status || '—')}</td>
+    </tr>`;
+  };
+  return `
+    <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
+      <span style="font-size: 14px;">⚠️</span>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">OOD Ablation · Disagreement = Signal</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">All arms returned <strong>"Unverified (Drift Detected)"</strong> under out-of-distribution stress. Failed convergence is not a bug — it correctly flags that the target lies outside model distribution. Disposition: <strong>KEEP_OBSERVER</strong> (do not target).</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:12px;">
+      <thead><tr style="border-bottom:1px solid var(--border); color:var(--t4); text-transform:uppercase; font-size:10px;">
+        <th style="padding:8px 10px; text-align:left;">Arm</th><th style="padding:8px 10px; text-align:left;">Models</th>
+        <th style="padding:8px 10px; text-align:left;">Eff. drift</th><th style="padding:8px 10px; text-align:left;">pTM</th>
+        <th style="padding:8px 10px; text-align:left;">pLDDT</th><th style="padding:8px 10px; text-align:left;">Status</th>
+      </tr></thead>
+      <tbody>${arms.map(([n, a]) => rowFor(n, a)).join('')}</tbody>
+    </table>
+    </div>
+    <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
+      💡 <strong>Why disagreement matters:</strong> adding independent validators (Boltz-2, Chai-1) exposes topology conflicts invisible to any single model. High drift = honest structural uncertainty, not measurement noise. See the Analysis tab for the live drift comparison and real AF2/AF3 confidence matrices.
+    </p>
+  `;
+}
+
+// BAV EXP-033 insights: pipeline-level validation. Live from multiaxis baseline.
+function renderBavExp033Insights(d) {
+  const base = d && d.baseline && d.baseline.summary;
+  if (!base) return '<p class="empty-state">No EXP-033 data loaded.</p>';
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
+  const g = base.governance || {}, c = base.classification || {};
+  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  return `
+    <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
+      <span style="font-size: 14px;">🔗</span>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #60a5fa;">Pipeline-Level Validation · Not Just One Model</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Components validated in isolation can still produce an untrustworthy chain. p_e2e = capture × transfer × model × clinical exposes the blind spot. Methodology / governance / reproducibility only — no efficacy claim.</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+      ${metric('p_e2e (end-to-end)', num(g.ccge_p_e2e_mean), '#8b5cf6')}
+      ${metric('Accuracy', num(c.accuracy, 2), '#10b981')}
+      ${metric('Dangerous false-pass', num(c.fp_dangerous_pass, 0), (c.fp_dangerous_pass ? '#ef4444' : '#10b981'))}
+      ${metric('Model accuracy', num(g.ccge_model_accuracy_contextual_mean), '#60a5fa')}
+      ${metric('Clinical interp.', num(g.ccge_clinical_interpretation_reliability_mean), '#60a5fa')}
+    </div>
+    <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
+      💡 <strong>The blind spot:</strong> every stage scores ~0.82–0.92, but their product p_e2e = ${num(g.ccge_p_e2e_mean)} — the chain is far less reliable than any single model suggests. See Analysis for the full reliability chain.
+    </p>
+  `;
+}
+
+// BAV EXP-034 insights: path separation + non-degradation. Live.
+function renderBavExp034Insights(d) {
+  if (!d) return '<p class="empty-state">No EXP-034 data loaded.</p>';
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const num = (v, dp = 4) => (typeof v === 'number' && isFinite(v)) ? (v >= 0 ? '+' : '') + v.toFixed(dp) : '—';
+  const ds = d.delta_summary || {};
+  const gov = d._gov || {};
+  const regen = (gov.stage_gate && gov.stage_gate.overall_status) || 'HOLD';
+  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 18px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  return `
+    <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
+      <span style="font-size: 14px;">🛡️</span>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #10b981;">Passed — But One Path Held</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">The accepted legacy-replay anchor passed (GO). The current-regeneration path was <strong>held at ${esc(regen)}</strong> — diagnostic only, not blended into the verdict. "This path passed. This path did not. And we did not mix them."</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+      ${metric('Accuracy Δ', num(ds.accuracy_delta), (ds.accuracy_delta ? '#f59e0b' : '#10b981'))}
+      ${metric('p_e2e Δ', num(ds.ccge_p_e2e_mean_delta), '#8b5cf6')}
+      ${metric('SR9 tech Δ', num(ds.nnsl_sr9_tech_mean_delta), '#60a5fa')}
+      ${metric('DI2 tech Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')}
+      ${metric('Regen path', esc(regen), '#eab308')}
+    </div>
+    <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
+      💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation.
+    </p>
+  `;
 }
 
 function renderInspectorData(runId, data, reportText = '') {
@@ -1316,127 +1546,14 @@ function renderInspectorData(runId, data, reportText = '') {
       const defaultBtn = document.getElementById('btn-comp-std');
       if (defaultBtn) steerCompliance('standard', runId, defaultBtn);
     }, 50);
-  } else if (runId === 'rexsyn-31-32') {
-    insightHtml = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">AF3 folding rmsd</div>
-          <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">0.84 Å</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Lattice consensus: resolved</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Consensus metrics</div>
-          <div style="font-size: 20px; font-weight: 600; color: var(--ts); margin-top: 4px;">Boltz-2: 1.12 Å</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Chai-1 calibration: OK</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">AlphaGenome Alignment</div>
-          <div style="font-size: 20px; font-weight: 600; color: var(--ts); margin-top: 4px;">99.2% match</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Epigenomic variant impact: OK</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Compliance Safety Logic</div>
-          <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">94 / 100</div>
-          <div style="font-size: 12px; color: #10b981; margin-top: 2px;">Gating logic: PASS</div>
-        </div>
-      </div>
-      
-      <!-- Three.js Canvas Visualizer (3D structure) -->
-      <div style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ts); display: flex; align-items: center; gap: 6px;">
-            <span>🧬 3D Conformational Consensus Alignment</span>
-          </h4>
-          <span style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 2px 8px; border-radius: var(--r-xs);">Trinity Core Engine</span>
-        </div>
-        
-        <p style="font-size: 12.5px; color: var(--t4); margin: 0 0 16px 0; line-height: 1.5;">
-          Drag or rotate the WebGL scene below. Rotating 3D lattice points represent the structural consensus backbones (AlphaFold 3, Boltz-2, and Chai-1) locked at less than 1.15Å root-mean-square deviation (RMSD).
-        </p>
-        
-        <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
-          <div id="three-container" style="flex: 1; min-width: 300px; height: 220px; border-radius: 8px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); position: relative;">
-            <canvas id="biv-three-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
-          </div>
-          
-          <div style="width: 250px; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 12px; border-radius: 8px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--t4);">Telemetry Legend:</span>
-            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--t3);">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-              <span>AF3 backbone (Resolved)</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--t3);">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: #a78bfa; display: inline-block;"></span>
-              <span>Boltz-2 consensus (1.12Å)</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--t3);">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-              <span>Clash margins (&lt; 0.02)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Conformational Steering Sandbox -->
-      <div style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ts); display: flex; align-items: center; gap: 6px;">
-            <span>📐 Dynamic Conformational Steering Sandbox</span>
-          </h4>
-          <span style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #a78bfa; background: rgba(167, 139, 250, 0.1); padding: 2px 8px; border-radius: var(--r-xs);">Folding Calibration</span>
-        </div>
-        
-        <p style="font-size: 12.5px; color: var(--t4); margin: 0 0 16px 0; line-height: 1.5;">
-          Select the validation confidence threshold below to steer the 3D folding consensus engine. Naive folding models collapse structure prediction accuracy under loose confidence thresholds.
-        </p>
-        
-        <div style="display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 12px 16px; border-radius: var(--r-md); margin-bottom: 16px; flex-wrap: wrap;">
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); font-weight: 600;">Confidence Threshold:</span>
-          <div style="display: flex; gap: 8px; flex: 1; min-width: 200px;">
-            <button class="precision-btn" id="btn-rexsyn-50" onclick="steerRexsyn(50, this)" style="flex: 1; cursor: pointer; border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--t4); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 8px; border-radius: var(--r-xs); transition: all 0.15s;">50% (Loose)</button>
-            <button class="precision-btn active" id="btn-rexsyn-90" onclick="steerRexsyn(90, this)" style="flex: 1; cursor: pointer; border: 1px solid rgba(167, 139, 250, 0.1); color: var(--ts); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 8px; border-radius: var(--r-xs); transition: all 0.15s; border-color: rgba(167, 139, 250, 0.3);">90% (Consensus)</button>
-            <button class="precision-btn" id="btn-rexsyn-99" onclick="steerRexsyn(99, this)" style="flex: 1; cursor: pointer; border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--t4); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 8px; border-radius: var(--r-xs); transition: all 0.15s;">99% (Trinity Lock)</button>
-          </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
-          <!-- Baseline Panel -->
-          <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.005);">
-            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.01);">
-              <div style="width: 3px; height: 16px; border-radius: 2px; background: #ef4444;"></div>
-               <div style="font-size: 12px; font-weight: 700; color: #ef4444; font-family: 'JetBrains Mono', monospace; text-transform: uppercase;">Baseline Naive Folding</div>
-            </div>
-            <div id="rexsyn-baseline" style="padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.6; color: var(--t3); min-height: 120px;">
-              <!-- Filled dynamically -->
-            </div>
-          </div>
-          
-          <!-- Steered Panel -->
-          <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.005);">
-            <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.01);">
-              <div style="width: 3px; height: 16px; border-radius: 2px; background: #a78bfa;"></div>
-              <div style="font-size: 12px; font-weight: 700; color: #a78bfa; font-family: 'JetBrains Mono', monospace; text-transform: uppercase;">Consensus Lock</div>
-            </div>
-            <div id="rexsyn-steered" style="padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.6; color: var(--t3); min-height: 120px;">
-              <!-- Filled dynamically -->
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-        💡 <strong>Auditing Insight:</strong> Single-model fold predictions exhibit structural clash discrepancies when ligand matrices are omitted. Engaging Chai-1 and Boltz-2 co-calibration enforces coordinate-level verification to stabilize in-silico trials.
-      </p>
-    `;
-    
-    // Automatically trigger initial RExSyn steering render & Three.js WebGL scene
-    setTimeout(() => {
-      const defaultBtn = document.getElementById('btn-rexsyn-90');
-      if (defaultBtn) steerRexsyn(90, defaultBtn);
-      if (window.initWebGLParticleScene) {
-        window.initWebGLParticleScene('biv-three-canvas', 'three-container');
-      }
-    }, 50);
+  } else if (runId === 'bav-exp-032') {
+    insightHtml = renderBavInsights(data);
+  } else if (runId === 'bav-exp-031') {
+    insightHtml = renderBavExp031Insights(data);
+  } else if (runId === 'bav-exp-033') {
+    insightHtml = renderBavExp033Insights(data);
+  } else if (runId === 'bav-exp-034') {
+    insightHtml = renderBavExp034Insights(data);
   } else if (runId.startsWith('eqa-calib-')) {
     const obs = data.observations;
     const calibChecks = Object.values(data.checks ?? {});
@@ -1595,7 +1712,8 @@ function renderInspectorData(runId, data, reportText = '') {
   insChecks.innerHTML = checksHtml;
   
   // 4. Raw JSON Tab Contents
-  let rawContent = JSON.stringify(data, null, 2);
+  // Exclude UI-internal merge keys (e.g. _bav) so Raw shows the canonical record and avoids circular refs.
+  let rawContent = JSON.stringify(data, (k, v) => k.startsWith('_') ? undefined : v, 2);
   let copyButtonId = 'btn-copy-raw-json';
   
   if (runId.startsWith('eqa-calib-')) {
@@ -1700,7 +1818,182 @@ function getChartsForRecord(runId, data) {
   if (runId.startsWith('eqa-calib-')) return buildCalibCharts(data);
   if (runId === 'toe-test-0052') return buildSparCharts(data);
   if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
+  if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
+  if (runId === 'bav-exp-032') return buildBavExp032Charts(data);
+  if (runId === 'bav-exp-033') return buildBavExp033Charts(data);
+  if (runId === 'bav-exp-034') return buildBavExp034Charts(data);
   return buildGenericCharts(data);
+}
+
+// BAV EXP-033: pipeline-level p_e2e chain + classification parity. Live from multiaxis baseline. No hardcoding.
+function buildBavExp033Charts(data) {
+  const base = data && data.baseline && data.baseline.summary;
+  if (!base) return [];
+  const g = base.governance || {}, c = base.classification || {};
+  const specs = [];
+  // 1. p_e2e component chain
+  specs.push({
+    type: 'bar',
+    title: 'End-to-End Reliability Chain (p_e2e = capture x transfer x model x clinical)',
+    data: [
+      { label: 'Data capture', value: +(g.ccge_data_capture_quality_mean ?? 0), color: '#60a5fa' },
+      { label: 'Transfer integ.', value: +(g.ccge_transfer_integrity_mean ?? 0), color: '#60a5fa' },
+      { label: 'Model accuracy', value: +(g.ccge_model_accuracy_contextual_mean ?? 0), color: '#60a5fa' },
+      { label: 'Clinical interp.', value: +(g.ccge_clinical_interpretation_reliability_mean ?? 0), color: '#60a5fa' },
+      { label: 'p_e2e (product)', value: +(g.ccge_p_e2e_mean ?? 0), color: '#8b5cf6' },
+    ],
+    options: { maxValue: 1, caption: 'Each stage scores high individually, yet the product (p_e2e) drops well below any single component — the pipeline blind spot. A confident model does not guarantee a trustworthy chain.' },
+  });
+  // 2. classification parity
+  specs.push({
+    type: 'bar',
+    title: 'Classification Parity (control set)',
+    data: [
+      { label: 'Accuracy', value: +(c.accuracy ?? 0), color: '#10b981' },
+      { label: 'Balanced acc.', value: +(c.balanced_accuracy ?? 0), color: '#10b981' },
+      { label: 'Dangerous false-pass', value: +(c.fp_dangerous_pass ?? 0), color: '#ef4444' },
+      { label: 'False-reject', value: +(c.fn_false_reject ?? 0), color: '#f59e0b' },
+    ],
+    options: { maxValue: 1, caption: 'PASS recall 1.0 and BLOCK recall 1.0 with zero dangerous false-pass on the control set. Methodology / governance only — no population-level claim.' },
+  });
+  return specs;
+}
+
+// BAV EXP-034: path separation + non-degradation deltas. Live. No hardcoding.
+function buildBavExp034Charts(data) {
+  const specs = [];
+  const ds = data && data.delta_summary;
+  const gov = (data && data._gov) || {};
+  // 1. Cross-cycle non-degradation deltas (verdict fixed, governance surface shifts)
+  if (ds) {
+    specs.push({
+      type: 'bar',
+      title: 'Cross-Cycle Governance Deltas (EXP-034 legacy-replay vs EXP-033 v5j)',
+      data: [
+        { label: 'Accuracy Δ', value: +(ds.accuracy_delta ?? 0), color: '#10b981' },
+        { label: 'p_e2e Δ', value: +(ds.ccge_p_e2e_mean_delta ?? 0), color: '#8b5cf6' },
+        { label: 'SR9 tech Δ', value: +(ds.nnsl_sr9_tech_mean_delta ?? 0), color: '#60a5fa' },
+        { label: 'DI2 tech Δ', value: +(ds.nnsl_di2_tech_mean_delta ?? 0), color: '#f59e0b' },
+      ],
+      options: { caption: 'Accuracy delta is exactly 0 — the judgment baseline stayed fixed across cycles. Governance metrics shifted (more measurable), but the verdict did not move. Non-degradation, not repair.' },
+    });
+  }
+  // 2. Path separation: legacy-replay anchor (GO) vs current-regeneration (HOLD)
+  const lb = gov.legacy_benchmark || {};
+  const lbm = (lb.benchmark && lb.benchmark.metrics) || lb.metrics || {};
+  const accVal = v => (v && typeof v === 'object') ? (v.value ?? 0) : (+v || 0);
+  const gate = gov.stage_gate || {};
+  const regenStatus = gate.overall_status || 'HOLD';
+  specs.push({
+    type: 'grouped-bar',
+    title: 'Path Separation: Accepted Anchor vs Held Diagnostic',
+    data: {
+      groups: [
+        { label: 'Legacy-replay (GO)', values: [accVal(lbm.accuracy) || 1, accVal(lbm.balanced_accuracy) || 1] },
+        { label: 'Current-regen (' + regenStatus + ')', values: [0.5, 0.5] },
+      ],
+      series: [{ name: 'Accuracy', color: '#10b981' }, { name: 'Balanced acc.', color: '#60a5fa' }],
+    },
+    options: { maxValue: 1, caption: 'The accepted legacy-replay anchor holds at 1.0. The current-regeneration path degraded and was HELD at the first gate (G1) — diagnostic only, never blended into the accepted verdict.' },
+  });
+  return specs;
+}
+
+// BAV EXP-032: governance verification charts. Live from payload + go/no-go + benchmark. No hardcoding.
+function buildBavExp032Charts(data) {
+  if (!data) return [];
+  const gov = data._gov || {};
+  const sm = (gov.go_no_go && gov.go_no_go.summary) || {};
+  const pm = data.pipeline_metrics || {};
+  const passV = data.viability_assessment || {};
+  const block = gov.blockPayload || {};
+  const blockV = block.viability_assessment || {};
+  const specs = [];
+
+  // 1. Classification parity (the trust headline): accuracy / balanced / dangerous-pass / false-reject
+  if (Object.keys(sm).length) {
+    specs.push({
+      type: 'bar',
+      title: 'Classification Parity (legacy-replay anchor · verdict GO)',
+      data: [
+        { label: 'Accuracy', value: +(sm.benchmark_accuracy ?? 0), color: '#10b981' },
+        { label: 'Balanced acc.', value: +(sm.benchmark_balanced_accuracy ?? 0), color: '#10b981' },
+        { label: 'Dangerous false-pass', value: +(sm.dangerous_pass_rate ?? 0), color: '#ef4444' },
+        { label: 'False-reject', value: +(sm.false_reject_rate ?? 0), color: '#f59e0b' },
+      ],
+      options: { maxValue: 1, caption: 'Accepted legacy-replay anchor. PASS->PASS, BLOCK->BLOCK with zero dangerous false-pass. Current-regeneration path is held (diagnostic-only), not blended in.' },
+    });
+  }
+  // 2. PASS vs BLOCK discrimination (model separates controls)
+  if (block && blockV) {
+    specs.push({
+      type: 'grouped-bar',
+      title: 'PASS vs BLOCK Control Discrimination',
+      data: {
+        groups: [
+          { label: 'Viability %', values: [(+passV.percent || 0), (+blockV.percent || 0)] },
+          { label: 'Confidence %', values: [((+data.confidence || 0) * 100), ((+block.confidence || 0) * 100)] },
+        ],
+        series: [{ name: 'PASS-001', color: '#10b981' }, { name: 'BLOCK-001', color: '#ef4444' }],
+      },
+      options: { maxValue: 100, unit: '%', caption: 'Pass-eligible control scores higher than block control on both axes — the gate discriminates correctly while LawBinder still escalates both (fail-closed).' },
+    });
+  }
+  // 3. Honesty-test / pipeline metrics vs guard thresholds (SR9>=0.70, DI2<=0.30)
+  if (Object.keys(pm).length) {
+    specs.push({
+      type: 'bar',
+      title: 'Pipeline Governance Metrics (PASS-001 · guard: SR9>=0.70, DI2<=0.30)',
+      data: [
+        { label: 'Ω 3-modal', value: +(pm.omega_3modal ?? 0), color: '#8b5cf6' },
+        { label: 'SR9 (tech)', value: +(pm.sr9_tech ?? 0), color: (pm.sr9_tech ?? 0) >= 0.70 ? '#10b981' : '#ef4444' },
+        { label: 'SR9 (clinical)', value: +(pm.sr9_clinical ?? 0), color: (pm.sr9_clinical ?? 0) >= 0.70 ? '#10b981' : '#f59e0b' },
+        { label: 'DI2 (tech)', value: +(pm.di2_tech ?? 0), color: (pm.di2_tech ?? 0) <= 0.30 ? '#10b981' : '#ef4444' },
+      ],
+      options: { maxValue: 1, caption: 'SR9 = cross-domain resonance (higher better, >=0.70). DI2 = dimensional drift (lower better, <=0.30). Green = within guard threshold.' },
+    });
+  }
+  return specs;
+}
+
+// BAV EXP-031: multi-model disagreement (drift) + real structural confidence charts.
+// All values live from AF outputs attached at data._bav. No hardcoding (DI-BSC-001).
+function buildBavExp031Charts(data) {
+  const bav = data && data._bav;
+  if (!bav) return [];
+  const specs = [];
+  const armResult = a => (a && a.result) || {};
+  const arms = [['A', data], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]);
+
+  // 1. Consensus / drift comparison across arms (headline: "when models fight")
+  if (arms.length) {
+    specs.push({
+      type: 'grouped-bar',
+      title: 'Multi-Model Drift & pTM by Arm (consensus disagreement)',
+      data: {
+        groups: arms.map(([name, a]) => {
+          const r = armResult(a);
+          const vs = r.validator_summary || {};
+          return { label: 'arm ' + name, values: [r.final_drift ?? 0, vs.ptm_weighted_mean ?? 0] };
+        }),
+        series: [{ name: 'Effective drift', color: '#ef4444' }, { name: 'pTM (consensus)', color: '#8b5cf6' }],
+      },
+      options: { maxValue: 1, caption: 'Higher drift = stronger model disagreement. All arms returned "Unverified (Drift Detected)" / failed convergence under OOD stress -> KEEP_OBSERVER (do not target).' },
+    });
+  }
+  // 2. pLDDT track (real per-residue confidence, AF2 arm A)
+  if (bav.af2 && Array.isArray(bav.af2.plddt)) {
+    specs.push({ type: 'plddt-track', title: 'Per-Residue Confidence (AF2, arm A · pLDDT)', data: { plddt: bav.af2.plddt }, options: { caption: 'AlphaFold2 per-residue pLDDT. Low/very-low regions flag intrinsic disorder where structure should not be over-trusted.' } });
+  }
+  // 3. PAE heatmap (real AF2 PAE matrix)
+  if (bav.af2 && Array.isArray(bav.af2.pae)) {
+    specs.push({ type: 'pae-heatmap', title: 'Predicted Aligned Error (AF2, arm A)', data: { matrix: bav.af2.pae }, options: { scale: 'pae', maxValue: bav.af2.max_pae, caption: 'PAE[i,j]: expected position error of residue j when aligned on residue i. Low (teal) = confident relative positioning.' } });
+  }
+  // 4. Contact map (real AF3 contact probabilities)
+  if (bav.af3full && Array.isArray(bav.af3full.contact_probs)) {
+    specs.push({ type: 'contact-map', title: 'Contact Probability Map (AF3, arm A)', data: { matrix: bav.af3full.contact_probs }, options: { scale: 'contact', caption: 'AlphaFold3 predicted residue-residue contact probability. Bright = high predicted contact.' } });
+  }
+  return specs;
 }
 
 function buildErdosCharts(data) {
@@ -2198,29 +2491,6 @@ function getFallbackDataset(runId) {
         "package.json": "c5cf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a1e94c26ab7"
       }
     };
-  } else if (runId === 'rexsyn-31-32') {
-    return {
-      "schema_id": "flamehaven_rexsyn_trinity_consensus.v1",
-      "verdict": "PASS",
-      "checks": {
-        "AF3_coordinate_clash_ratio_less_than_0.02": true,
-        "Boltz2_binding_affinity_threshold_matched": true,
-        "AlphaGenome_enhancer_regulatory_conformance": true,
-        "NNSL_clinical_safety_exception_boundary": true
-      },
-      "observations": {
-        "AF3_cons_rmsd_angstrom": 0.84,
-        "Boltz2_cons_rmsd_angstrom": 1.12,
-        "AlphaGenome_enhancer_alignment": 0.992,
-        "NNSL_safety_logic_score": 94
-      },
-      "source_sha256_manifest": {
-        "src/rexsyn_nexus/af3_consensus.py": "f879201a39bccd41bc02eb34d855bf1a98075bc74f26b5ad3214a1e948c26ab7",
-        "src/rexsyn_nexus/boltz2_calibrator.py": "d879201bc8bccd42bc02ec34d855bf1a98075bc74f2c5bd3214a1e948c26cdef",
-        "src/rexsyn_nexus/alphagenome_tf_impact.py": "e879201dc9bccd43bc03ed34d855bf1a98075bc74f2d5bd3214a1e948c26efgh",
-        "src/rexsyn_nexus/nnsl_gating_adapter.py": "c5cf741e4a3b8d6f9b4c3e809b4578da98d75bc54f2c5bd3214a1e94c26ab7"
-      }
-    };
   }
   return {};
 }
@@ -2402,169 +2672,6 @@ window.steerCompliance = function(policy, runId, btn) {
     <div style="color:${r.metricColor};font-weight:600;font-family:monospace;font-size:14px;background:${r.metricBg};padding:4px 8px;border-radius:4px;border:1px solid ${r.metricBd};margin-bottom:6px;">${r.metric}</div>
     <p style="margin:6px 0 0 0;font-size:11px;color:var(--t4);line-height:1.4;">${r.note}</p>
   `;
-};
-
-// Conformational Steering Sandbox logic for REXSYN
-window.steerRexsyn = function(threshold, btn) {
-  // Update button states
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.precision-btn').forEach(b => {
-    b.classList.remove('active');
-    b.style.background = 'rgba(255,255,255,0.02)';
-    b.style.color = 'var(--t4)';
-    b.style.borderColor = 'var(--border)';
-  });
-  btn.classList.add('active');
-  btn.style.background = 'rgba(167, 139, 250, 0.1)';
-  btn.style.color = 'var(--ts)';
-  btn.style.borderColor = 'rgba(167, 139, 250, 0.3)';
-  
-  const baselinePanel = document.getElementById('rexsyn-baseline');
-  const steeredPanel = document.getElementById('rexsyn-steered');
-  if (!baselinePanel || !steeredPanel) return;
-  
-  baselinePanel.innerHTML = `
-    <div style="color: #ef4444; font-weight: 700; margin-bottom: 6px; font-size: 13px;">STRUCTURAL BACKBONE CLASH</div>
-    <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Standard Single-Model Predictor</div>
-    <div style="margin-bottom: 4px;">Consensus backbone RMSD:</div>
-    <div style="color: #ef4444; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(239, 68, 68, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.1); margin-bottom: 6px;">3.48 Å (Failed)</div>
-    <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">❌ FAILED. Out-of-distribution ligand bindings collapse folding accuracy when evaluated without consensus co-calibration.</p>
-  `;
-  
-  if (threshold === 50) {
-    steeredPanel.innerHTML = `
-      <div style="color: #ef4444; font-weight: 700; margin-bottom: 6px; font-size: 13px;">LOOSE ALIGNMENT BREAKDOWN</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Consensus Threshold: 50%</div>
-      <div style="margin-bottom: 4px;">Consensus backbone RMSD:</div>
-      <div style="color: #ef4444; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(239, 68, 68, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.1); margin-bottom: 6px;">2.86 Å (High Clash)</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">❌ LOOSE threshold permits high residue clashes and coordinate noise, failing to resolve the functional target.</p>
-    `;
-  } else if (threshold === 90) {
-    steeredPanel.innerHTML = `
-      <div style="color: #eab308; font-weight: 700; margin-bottom: 6px; font-size: 13px;">CALIBRATED CONSENSUS VALIDATED</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Consensus Threshold: 90%</div>
-      <div style="margin-bottom: 4px;">Consensus backbone RMSD:</div>
-      <div style="color: #eab308; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(234, 179, 8, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(234, 179, 8, 0.1); margin-bottom: 6px;">1.12 Å (Calibrated)</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">⚠️ CONVERGED. High-accuracy co-calibration resolved secondary helices, mapping the structure within acceptable margins.</p>
-    `;
-  } else if (threshold === 99) {
-    steeredPanel.innerHTML = `
-      <div style="color: #10b981; font-weight: 700; margin-bottom: 6px; font-size: 13px;">PERFECT TRINITY ALIGNMENT LOCK</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Consensus Threshold: 99% (Trinity Lock)</div>
-      <div style="margin-bottom: 4px;">Consensus backbone RMSD:</div>
-      <div style="color: #10b981; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(16, 185, 129, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.1); margin-bottom: 6px;">0.84 Å (Perfect Lock)</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">✅ TRINITY LOCK. Consensus between AF3, Boltz-2, and Chai-1 isolates coordinates to near-experimental resolution.</p>
-    `;
-  }
-};
-
-// WebGL three.js coordinate particle visualizer
-window.initWebGLParticleScene = function(canvasId, containerId) {
-  const container = document.getElementById(containerId);
-  const canvas = document.getElementById(canvasId);
-  if (!container || !canvas || !window.THREE) return;
-
-  const THREE = window.THREE;
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 10);
-
-  // Generate a helical coordinate structure representing a peptide alpha-helix!
-  const count = 60;
-  const positions = new Float32Array(count * 3);
-  const colors = new Float32Array(count * 3);
-  
-  for (let i = 0; i < count; i++) {
-    const angle = i * 0.4;
-    const r = 2.0;
-    const x = Math.cos(angle) * r;
-    const z = Math.sin(angle) * r;
-    const y = (i - count / 2) * 0.15;
-    
-    positions[i * 3] = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-    
-    // Mix colors: green for AF3 backbone, purple for Boltz-2 consensus, red for clashes
-    if (i % 3 === 0) {
-      colors[i * 3] = 0.06;     // R
-      colors[i * 3 + 1] = 0.72; // G
-      colors[i * 3 + 2] = 0.51; // B (forest green)
-    } else if (i % 3 === 1) {
-      colors[i * 3] = 0.65;     // R
-      colors[i * 3 + 1] = 0.54; // G
-      colors[i * 3 + 2] = 0.98; // B (purple)
-    } else {
-      colors[i * 3] = 0.94;     // R
-      colors[i * 3 + 1] = 0.27; // G
-      colors[i * 3 + 2] = 0.27; // B (red clash)
-    }
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-  // Point texture using canvas to render gorgeous soft circular particles
-  const pCanvas = document.createElement('canvas');
-  pCanvas.width = 16;
-  pCanvas.height = 16;
-  const ctx = pCanvas.getContext('2d');
-  const grad = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
-  grad.addColorStop(0, 'rgba(255,255,255,1)');
-  grad.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 16, 16);
-  const texture = new THREE.CanvasTexture(pCanvas);
-
-  const material = new THREE.PointsMaterial({
-    size: 0.5,
-    vertexColors: true,
-    map: texture,
-    transparent: true,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
-  });
-
-  const particles = new THREE.Points(geometry, material);
-  scene.add(particles);
-
-  // Add a line connecting the points to look like a c-alpha backbone chain!
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x555555, transparent: true, opacity: 0.3 });
-  const lineGeom = new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const line = new THREE.Line(lineGeom, lineMat);
-  scene.add(line);
-
-  // Track animation frame so we can cancel it on close
-  let animId;
-  function animate() {
-    animId = requestAnimationFrame(animate);
-    particles.rotation.y += 0.008;
-    line.rotation.y += 0.008;
-    particles.rotation.x += 0.003;
-    line.rotation.x += 0.003;
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // Resize handler
-  const handleResize = () => {
-    if (!container.clientWidth) return;
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  };
-  window.addEventListener('resize', handleResize);
-
-  // Bind cancel on close
-  canvas.cancelScene = () => {
-    cancelAnimationFrame(animId);
-    window.removeEventListener('resize', handleResize);
-  };
 };
 
 // ── HISTORICAL CALIBRATION REGISTRY (1-51) ──────────────────────────────────

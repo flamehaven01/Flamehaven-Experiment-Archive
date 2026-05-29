@@ -1,0 +1,338 @@
+{
+  "method": "RexBio-v2 LOGOS(3-modal)+RExSyn+NNSL prototype",
+  "mode": "mock_or_simulation_friendly_pipeline_assessment",
+  "disclaimer": "This payload reports pipeline reliability heuristics. It is not evidence of clinical efficacy, safety, or regulatory validity.",
+  "confidence": 0.9106523117635371,
+  "plddt_score": 91.0652311763537,
+  "plddt_aggregation": {
+    "pipeline_confidence_index": 91.0652311763537,
+    "model_plddt_means": {
+      "af2": null,
+      "af3": null,
+      "chai1": null,
+      "boltz2": null
+    },
+    "consensus_structural_plddt_mean": null,
+    "reported_source": "pipeline_confidence_index",
+    "note": "If structural model means are available, report uses structural consensus; otherwise pipeline index."
+  },
+  "quality_grade": "A",
+  "md_refinement_applied": false,
+  "saxs_validation_enabled": false,
+  "saxs_chi2": null,
+  "ethics_certification": {
+    "ove_score": 0.9106523117635371,
+    "drift_status": "normal",
+    "policy_compliance": "ESCALATE"
+  },
+  "pipeline_metrics": {
+    "omega_3modal": 0.8855376138016209,
+    "sr9_tech": 1.0,
+    "di2_tech": 0.1310142876075772,
+    "sr9_clinical": 0.7477359036853843
+  },
+  "governance_status": {
+    "lawbinder_decision": "ESCALATE",
+    "clinical_status": "PASS",
+    "lawbinder_shadow_hint": {
+      "enabled": true,
+      "non_binding": true,
+      "shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+      "observer_operational_hint": "proceed_with_bounded_validation_plan"
+    }
+  },
+  "governance_gap_analysis": {
+    "status": "PASS",
+    "rule_id": "R6_pass",
+    "rows": [
+      {
+        "component": "data_capture_quality",
+        "current": 0.9047749984860032,
+        "threshold": 0.9,
+        "gap": 0.004774998486003157,
+        "status": "PASS"
+      },
+      {
+        "component": "transfer_integrity",
+        "current": 0.96,
+        "threshold": 0.93,
+        "gap": 0.029999999999999916,
+        "status": "PASS"
+      },
+      {
+        "component": "model_accuracy_contextual",
+        "current": 0.8840318545109884,
+        "threshold": 0.88,
+        "gap": 0.00403185451098842,
+        "status": "PASS"
+      },
+      {
+        "component": "clinical_interpretation_reliability",
+        "current": 0.9737971424784846,
+        "threshold": 0.88,
+        "gap": 0.09379714247848459,
+        "status": "PASS"
+      },
+      {
+        "component": "end_to_end_p_e2e",
+        "current": 0.7477359036853843,
+        "threshold": 0.72,
+        "gap": 0.027735903685384367,
+        "status": "PASS"
+      },
+      {
+        "component": "drift_score",
+        "current": 0.1310142876075772,
+        "threshold": 0.2,
+        "gap": -0.06898571239242282,
+        "status": "PASS"
+      },
+      {
+        "component": "seal_consensus",
+        "current": 3.0,
+        "threshold": 3.0,
+        "gap": 0.0,
+        "status": "PASS"
+      }
+    ],
+    "bottlenecks": [],
+    "targets": {
+      "ove_min": 0.85,
+      "drift_score_max": 0.2,
+      "seal_consensus_min": 3.0
+    }
+  },
+  "strict_evidence_recheck": {
+    "status": "FAIL",
+    "strict_evidence_current": true,
+    "validation_passed": true,
+    "slop_gate_passed": true,
+    "grounding_overlap": 0.15789473684210525,
+    "would_require_rerun": false,
+    "reasons": [
+      "grounding overlap below strict threshold candidate (0.158 < 0.800)"
+    ],
+    "recommended_mode": "strict_evidence=true for top-k/final claims"
+  },
+  "escalation_action_plan": {
+    "triggered": true,
+    "lawbinder_decision": "ESCALATE",
+    "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+    "discord_score": 1.045599336703627,
+    "constitutional_score": 0.0,
+    "lawbinder_violation_keys": [
+      "discord_score"
+    ],
+    "mixing_weights": {
+      "irf": 0.27042078021831867,
+      "aats": 0.35266669234159825,
+      "hrpo-x": 0.37691252744008313
+    },
+    "actions": [
+      {
+        "priority": 1,
+        "action": "Bounded escalation (critic-aware)",
+        "why": "discord-only escalation (discord_score=1.046) should be treated as bounded critic review, not immediate terminal failure",
+        "outputs": [
+          "critic-vs-consensus disagreement map",
+          "HRPO-X dissent rationale trace",
+          "bounded validation plan with acceptance guards"
+        ]
+      },
+      {
+        "priority": 1,
+        "action": "Run disagreement decomposition",
+        "why": "discord_score=1.046 indicates high modal conflict",
+        "outputs": [
+          "per-modal claim disagreement map",
+          "evidence gap list by claim",
+          "top-3 low-risk validation tasks"
+        ]
+      },
+      {
+        "priority": 2,
+        "action": "Strict evidence rerun for final/top-k claims",
+        "why": "grounding overlap below strict threshold candidate (0.158 < 0.800)",
+        "mode": "strict_evidence=true"
+      }
+    ],
+    "summary": "Convert fail-closed escalation into a deterministic verification plan instead of stopping at review-only state."
+  },
+  "lawbinder_signal_snapshot": {
+    "enabled": true,
+    "lawbinder_decision": "ESCALATE",
+    "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+    "discord_score": 1.045599336703627,
+    "discord_score_normalized": 1.045599336703627,
+    "discord_score_rawtext_stable": 1.045599336703627,
+    "discord_score_delta": 0.0,
+    "discord_dual_record_enabled": false,
+    "constitutional_score": 0.0,
+    "violation_keys": [
+      "discord_score"
+    ],
+    "selected_engines": [
+      "irf",
+      "aats",
+      "hrpo-x"
+    ],
+    "mixing_weights": {
+      "irf": 0.27042078021831867,
+      "aats": 0.35266669234159825,
+      "hrpo-x": 0.37691252744008313
+    },
+    "top_weight_engine": "hrpo-x",
+    "top_weight_value": 0.37691252744008313,
+    "engine_scores": {
+      "irf": 0.7667885459293248,
+      "aats": 1.0,
+      "hrpo-x": 0.8636363636363635
+    },
+    "engine_confidences": {
+      "irf": 0.7667885459293248,
+      "aats": 1.0,
+      "hrpo-x": 0.95
+    },
+    "engine_trace_lengths": {
+      "irf": 8,
+      "aats": 5,
+      "hrpo-x": 9
+    },
+    "score_geometry": {
+      "aats_irf_gap": 0.23321145407067523,
+      "hrpo_vs_aats_irf_mean": 0.019757909328298906,
+      "hrpo_is_duo_outlier": false
+    },
+    "psi_signals": {
+      "aats_psi_resonance": 1.0,
+      "missing_link_unified_psi_q": 0.8753756720994307
+    },
+    "missing_link_validation": {
+      "passed": true,
+      "strict_evidence": true,
+      "grounding_overlap": 0.15789473684210525,
+      "grounding_status": "clean"
+    },
+    "hrpo_config": {
+      "r_min": 0.0,
+      "epsilon": 0.0
+    }
+  },
+  "critic_channel_shadow_assessment": {
+    "enabled": true,
+    "mode": "observer_shadow_only",
+    "lawbinder_decision": "ESCALATE",
+    "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+    "recommendation": "bounded_escalation_critic_channel",
+    "shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+    "shadow_policy_path": "observer_shadow.bounded_escalation_critic_channel",
+    "observer_operational_hint": "proceed_with_bounded_validation_plan",
+    "non_binding": true,
+    "bounded_escalation_eligible": true,
+    "checks": {
+      "aats_irf_aligned": true,
+      "hrpo_dissent_present": true,
+      "hrpo_not_duo_outlier": true,
+      "soft_discord_only": true,
+      "psi_supportive": true,
+      "evidence_validation_passed": true,
+      "strict_evidence_recheck_pass": false
+    },
+    "signals": {
+      "discord_score": 1.045599336703627,
+      "discord_score_normalized": 1.045599336703627,
+      "discord_score_rawtext_stable": 1.045599336703627,
+      "discord_score_delta": 0.0,
+      "constitutional_score": 0.0,
+      "aats_irf_gap": 0.23321145407067523,
+      "hrpo_vs_aats_irf_mean": 0.019757909328298906,
+      "aats_psi_resonance": 1.0,
+      "missing_link_unified_psi_q": 0.8753756720994307
+    },
+    "note": "Shadow assessment only for EXP-032B. Does not override LawBinder or clinical governance decisions."
+  },
+  "clinical_interpretation_contract": {
+    "current_score": 0.9737971424784846,
+    "required_min": 0.88,
+    "gap": 0.09379714247848459,
+    "estimated_contract_readiness": 0.7473684210526316,
+    "required_claim_fields": [
+      "claim_text",
+      "target",
+      "endpoint",
+      "condition",
+      "population_or_context",
+      "evidence_source_id",
+      "evidence_tier",
+      "quantitative_support",
+      "association_vs_mechanism"
+    ],
+    "gate_rules": [
+      "missing endpoint or condition -> BLOCK",
+      "missing evidence_source_id -> BLOCK",
+      "strict_evidence=false -> CONDITIONAL at most",
+      "association presented as mechanism -> BLOCK"
+    ]
+  },
+  "verdict_benchmark_hook": {
+    "enabled": true,
+    "sample_id": "EXP032-PASS-001",
+    "sample_label": "Protein-ligand candidate (pass-eligible control)",
+    "dataset_split": "id_positive_control",
+    "expected_verdict": "PASS_ELIGIBLE",
+    "expected_verdict_reason": "Control sample intended to verify non-zero acceptance behavior under adequate evidence.",
+    "expected_clinical_status": "PASS",
+    "expected_lawbinder_decision": "PASS",
+    "actual_clinical_status": "PASS",
+    "actual_lawbinder_decision": "ESCALATE",
+    "checks": {
+      "clinical_status_match": true,
+      "lawbinder_decision_match": false,
+      "computable": true
+    },
+    "note": "Single-sample benchmark hook only. Cohort verdict metrics require labeled multi-sample aggregation."
+  },
+  "viability_assessment": {
+    "score": 0.7149112430172131,
+    "percent": 71.49,
+    "label": "heuristic_not_empirical",
+    "scope": "pipeline_reliability_only_not_clinical_efficacy",
+    "formula_version": "viability_v1",
+    "inputs": {
+      "confidence": 0.9106523117635371,
+      "omega_3modal": 0.8855376138016209,
+      "sr9_tech": 1.0,
+      "di2_tech": 0.1310142876075772,
+      "sr9_clinical": 0.7477359036853843,
+      "lawbinder_decision": "ESCALATE",
+      "clinical_status": "PASS"
+    },
+    "formula": "((0.30*c)+(0.25*o)+(0.20*s9t)+(0.15*s9c)+(0.10*(1-di2)))*penalty",
+    "penalty": 0.8
+  },
+  "runtime_context": {
+    "run_scope": "mock_end_to_end",
+    "engines": [
+      "LOGOS",
+      "RExSyn",
+      "NNSL",
+      "LawBinder",
+      "ClinicalGovernanceCore"
+    ],
+    "disabled_features": {
+      "saxs_validation": true,
+      "md_refinement": true,
+      "wet_lab_execution": true,
+      "external_structure_inference_api": true
+    },
+    "input_sequence_length_aa": 0,
+    "input_sequence_warning": ""
+  },
+  "action_checklist": [
+    "Raise OVE score to >= 0.85",
+    "Reduce drift_score to <= 0.200",
+    "Raise seal_consensus to >= 3",
+    "Strengthen evidence-to-claim mapping for clinical interpretation reliability",
+    "Tag evidence by system/endpoint/quality for data_capture_quality uplift"
+  ]
+}

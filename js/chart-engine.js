@@ -1,7 +1,8 @@
 // chart-engine.js
 // Pure SVG chart renderer for Flamehaven Research Lab.
 // No external dependencies. Exported to window.ChartEngine.
-// Supports: bar (horizontal), donut, scatter, grouped-bar
+// Supports: bar (horizontal), donut, scatter, grouped-bar,
+//           pae-heatmap, contact-map (matrix), plddt-track (per-residue confidence)
 
 (function () {
   'use strict';
@@ -248,6 +249,131 @@ ${noteStr}`;
     return wrapSvg(W, H, yTicks + axes + bars + legend) + caption;
   }
 
+  // ── COLOR LERP (for heatmaps) ─────────────────────────────────────────────
+  // stops: [[t, [r,g,b]], ...] sorted by t in [0,1]. Returns "rgb(...)".
+  function lerpColor(t, stops) {
+    t = Math.min(Math.max(t, 0), 1);
+    for (let i = 1; i < stops.length; i++) {
+      if (t <= stops[i][0]) {
+        const [t0, c0] = stops[i - 1], [t1, c1] = stops[i];
+        const f = (t - t0) / (t1 - t0 || 1);
+        const r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
+        const g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
+        const b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
+        return `rgb(${r},${g},${b})`;
+      }
+    }
+    const last = stops[stops.length - 1][1];
+    return `rgb(${last[0]},${last[1]},${last[2]})`;
+  }
+
+  // PAE: low error (confident) -> teal, high error -> red.
+  const PAE_STOPS = [[0, [45, 212, 191]], [0.5, [245, 158, 11]], [1, [239, 68, 68]]];
+  // Contact: low prob -> dark, high prob -> violet.
+  const CONTACT_STOPS = [[0, [20, 20, 30]], [0.5, [99, 102, 241]], [1, [167, 139, 250]]];
+
+  // ── HEATMAP (PAE matrix / contact map) ─────────────────────────────────────
+  // spec.data : {matrix: [[...]]}
+  // spec.options: {scale?: 'pae'|'contact', maxValue?, unit?, caption?, legendLabel?}
+  function renderHeatmap(spec) {
+    const m = (spec.data && spec.data.matrix) || [];
+    const n = m.length;
+    if (!n || !Array.isArray(m[0])) return '<div style="color:rgba(255,255,255,0.3);font-size:12px;">No matrix</div>';
+    const opts = spec.options || {};
+    const mode = opts.scale === 'contact' ? 'contact' : 'pae';
+    const stops = mode === 'contact' ? CONTACT_STOPS : PAE_STOPS;
+    const maxV = opts.maxValue != null ? opts.maxValue : (mode === 'contact' ? 1 : Math.max(...m.flat(), 1));
+    const unit = opts.unit || (mode === 'pae' ? ' Å' : '');
+
+    const PAD = { top: 14, right: 80, bottom: 36, left: 40 };
+    const CELL = Math.max(2, Math.min(9, Math.floor(300 / n)));
+    const grid = n * CELL;
+    const W = PAD.left + grid + PAD.right;
+    const H = PAD.top + grid + PAD.bottom;
+
+    let cells = '';
+    for (let i = 0; i < n; i++) {
+      const row = m[i] || [];
+      for (let j = 0; j < n; j++) {
+        const v = +row[j] || 0;
+        const t = mode === 'contact' ? v : (v / maxV);
+        cells += `<rect x="${(PAD.left + j * CELL).toFixed(1)}" y="${(PAD.top + i * CELL).toFixed(1)}" width="${CELL}" height="${CELL}" fill="${lerpColor(t, stops)}"/>`;
+      }
+    }
+    // residue axis ticks (every ~10)
+    const step = Math.max(1, Math.round(n / 6));
+    let ticks = '';
+    for (let k = 0; k < n; k += step) {
+      const px = (PAD.left + k * CELL + CELL / 2).toFixed(1);
+      ticks += `<text x="${px}" y="${PAD.top + grid + 14}" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="8.5" font-family="${FM}">${k}</text>
+<text x="${PAD.left - 6}" y="${(PAD.top + k * CELL + CELL / 2).toFixed(1)}" dominant-baseline="middle" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="8.5" font-family="${FM}">${k}</text>`;
+    }
+    // colorbar legend (vertical)
+    const lbX = PAD.left + grid + 18, lbY = PAD.top, lbH = Math.min(grid, 160), lbW = 10;
+    let bar = '';
+    const segs = 24;
+    for (let s = 0; s < segs; s++) {
+      const t = 1 - s / (segs - 1); // top = high
+      bar += `<rect x="${lbX}" y="${(lbY + (s / segs) * lbH).toFixed(1)}" width="${lbW}" height="${(lbH / segs + 0.6).toFixed(1)}" fill="${lerpColor(t, stops)}"/>`;
+    }
+    const hiLabel = mode === 'contact' ? '1.0' : fmtNum(maxV) + unit;
+    const loLabel = mode === 'contact' ? '0.0' : '0';
+    const legLabel = opts.legendLabel || (mode === 'pae' ? 'PAE' : 'contact');
+    const legend = bar +
+      `<text x="${lbX + lbW + 4}" y="${lbY + 8}" fill="rgba(255,255,255,0.5)" font-size="9" font-family="${FM}">${esc(hiLabel)}</text>
+<text x="${lbX + lbW + 4}" y="${lbY + lbH}" fill="rgba(255,255,255,0.5)" font-size="9" font-family="${FM}">${esc(loLabel)}</text>
+<text x="${lbX}" y="${lbY + lbH + 16}" fill="rgba(255,255,255,0.35)" font-size="9" font-family="${FS}">${esc(legLabel)}</text>`;
+
+    const caption = opts.caption
+      ? `<div style="font-size:11px;color:rgba(255,255,255,0.28);margin-top:8px;font-family:${FS};line-height:1.55;">${esc(opts.caption)}</div>`
+      : '';
+    return wrapSvg(W, H, cells + ticks + legend) + caption;
+  }
+
+  // ── pLDDT TRACK (per-residue confidence) ───────────────────────────────────
+  // spec.data : {plddt: [...]}
+  // spec.options: {caption?, meanLabel?}
+  // Bands (AlphaFold convention): >90 very high, 70-90 confident, 50-70 low, <50 very low.
+  function renderPlddtTrack(spec) {
+    const v = (spec.data && spec.data.plddt) || [];
+    const n = v.length;
+    if (!n) return '<div style="color:rgba(255,255,255,0.3);font-size:12px;">No pLDDT</div>';
+    const opts = spec.options || {};
+    const W = 520, PAD = { top: 14, right: 16, bottom: 34, left: 38 }, CH = 150;
+    const H = PAD.top + CH + PAD.bottom;
+    const PW = W - PAD.left - PAD.right;
+    const bw = PW / n;
+    const yS = val => PAD.top + CH - (Math.min(Math.max(val, 0), 100) / 100) * CH;
+    const bandColor = val => val >= 90 ? '#10b981' : val >= 70 ? '#60a5fa' : val >= 50 ? '#f59e0b' : '#ef4444';
+
+    // band guide lines at 50/70/90
+    let guides = '';
+    [50, 70, 90].forEach(g => {
+      const gy = yS(g).toFixed(1);
+      guides += `<line x1="${PAD.left}" y1="${gy}" x2="${W - PAD.right}" y2="${gy}" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="${PAD.left - 5}" y="${gy}" dominant-baseline="middle" text-anchor="end" fill="rgba(255,255,255,0.28)" font-size="8.5" font-family="${FM}">${g}</text>`;
+    });
+    const bars = v.map((val, i) => {
+      const x = (PAD.left + i * bw).toFixed(2);
+      const y = yS(val).toFixed(1);
+      const h = (PAD.top + CH - yS(val)).toFixed(1);
+      return `<rect x="${x}" y="${y}" width="${(bw + 0.5).toFixed(2)}" height="${h}" fill="${bandColor(val)}" opacity="0.9"/>`;
+    }).join('');
+    const axis = `<line x1="${PAD.left}" y1="${PAD.top + CH}" x2="${W - PAD.right}" y2="${PAD.top + CH}" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<text x="${PAD.left + PW / 2}" y="${H - 4}" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="10" font-family="${FS}">residue</text>`;
+    const mean = v.reduce((s, x) => s + x, 0) / n;
+    const meanLine = `<line x1="${PAD.left}" y1="${yS(mean).toFixed(1)}" x2="${W - PAD.right}" y2="${yS(mean).toFixed(1)}" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+<text x="${W - PAD.right}" y="${(yS(mean) - 4).toFixed(1)}" text-anchor="end" fill="rgba(255,255,255,0.6)" font-size="9" font-family="${FM}">mean ${fmtNum(mean)}</text>`;
+    // band legend
+    const bands = [['>90 very high', '#10b981'], ['70-90 confident', '#60a5fa'], ['50-70 low', '#f59e0b'], ['<50 very low', '#ef4444']];
+    const legend = `<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-family:${FS};font-size:10px;color:rgba(255,255,255,0.5);">` +
+      bands.map(b => `<span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:9px;height:9px;border-radius:2px;background:${b[1]};display:inline-block;"></span>${b[0]}</span>`).join('') + `</div>`;
+    const caption = opts.caption
+      ? `<div style="font-size:11px;color:rgba(255,255,255,0.28);margin-top:6px;font-family:${FS};line-height:1.55;">${esc(opts.caption)}</div>`
+      : '';
+    return wrapSvg(W, H, guides + bars + axis + meanLine) + legend + caption;
+  }
+
   // ── PUBLIC API ────────────────────────────────────────────────────────────
 
   const ChartEngine = {
@@ -272,6 +398,9 @@ ${noteStr}`;
         case 'donut':       html = renderDonut(spec);       break;
         case 'scatter':     html = renderScatter(spec);     break;
         case 'grouped-bar': html = renderGroupedBar(spec);  break;
+        case 'pae-heatmap': html = renderHeatmap(spec);     break;
+        case 'contact-map': html = renderHeatmap(spec);     break;
+        case 'plddt-track': html = renderPlddtTrack(spec);  break;
         default:            html = `<div style="color:rgba(255,255,255,0.3);font-size:12px;">Unknown type: ${esc(spec.type)}</div>`;
       }
       chart.innerHTML = html;

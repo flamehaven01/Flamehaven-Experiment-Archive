@@ -1,0 +1,537 @@
+{
+  "schema": "exp032_verdict_benchmark_report_v1",
+  "generated_at_utc": "2026-04-19T03:13:56.182056+00:00",
+  "status": "ok",
+  "blocking_reasons": [],
+  "manifest_path": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-032-ADAPTIVE-GATE\\artifacts\\exp032_labeled_validation_manifest.json",
+  "payload_search": {
+    "roots": [
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344"
+    ],
+    "pattern": "rexsyn_bio_report_payload.json",
+    "payload_files_found": [
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json",
+      "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+    ]
+  },
+  "summary": {
+    "counts": {
+      "manifest_samples": 2,
+      "matched_payload_samples": 2,
+      "evaluable_samples": 2,
+      "missing_results": 0,
+      "noncomputable_rows": 0,
+      "pass_eligible_in_manifest": 1,
+      "block_expected_in_manifest": 1
+    },
+    "duplicate_payloads_by_sample": {
+      "EXP032-PASS-001": 2,
+      "EXP032-BLOCK-001": 2
+    },
+    "unmatched_payload_sample_ids": []
+  },
+  "benchmark": {
+    "counts": {
+      "n_evaluable": 2,
+      "n_pass_eligible": 1,
+      "n_block_expected": 1,
+      "tp_pass": 1,
+      "tn_block": 1,
+      "fp_dangerous_pass": 0,
+      "fn_false_reject": 0,
+      "predicted_pass": 1
+    },
+    "metrics": {
+      "dangerous_pass_count": 0,
+      "dangerous_pass_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 1,
+        "computable": true
+      },
+      "false_reject_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 1,
+        "computable": true
+      },
+      "block_recall": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "computable": true
+      },
+      "pass_recall": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "computable": true
+      },
+      "pass_precision": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "computable": true
+      },
+      "accuracy": {
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2,
+        "computable": true
+      },
+      "balanced_accuracy": {
+        "value": 1.0,
+        "computable": true
+      }
+    }
+  },
+  "critic_shadow": {
+    "counts": {
+      "n_evaluable": 2,
+      "n_shadow_enabled": 2,
+      "n_soft_discord": 2,
+      "n_bounded_escalation_eligible": 1,
+      "n_bounded_escalation_eligible_soft_discord": 1,
+      "n_pass_shadow_enabled": 1,
+      "n_block_shadow_enabled": 1,
+      "n_pass_bounded_escalation_eligible": 1,
+      "n_block_bounded_escalation_eligible": 0
+    },
+    "metrics": {
+      "shadow_enabled_rate": {
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2,
+        "computable": true
+      },
+      "soft_discord_rate_among_shadow": {
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2,
+        "computable": true
+      },
+      "bounded_escalation_eligible_rate": {
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2,
+        "computable": true
+      },
+      "bounded_escalation_eligible_rate_among_soft_discord": {
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2,
+        "computable": true
+      },
+      "pass_bounded_escalation_eligible_rate": {
+        "value": 1.0,
+        "numerator": 1,
+        "denominator": 1,
+        "computable": true
+      },
+      "block_bounded_escalation_eligible_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 1,
+        "computable": true
+      },
+      "false_bounded_escalation_on_block_rate": {
+        "value": 0.0,
+        "numerator": 0,
+        "denominator": 1,
+        "computable": true
+      }
+    },
+    "recommendation_counts": {
+      "bounded_escalation_critic_channel": 1,
+      "standard_escalation": 1
+    },
+    "shadow_verdict_counts": {
+      "SHADOW_SOFT_ESCALATE_BOUNDED": 1,
+      "SHADOW_STANDARD_ESCALATE": 1
+    },
+    "operational_hint_counts": {
+      "proceed_with_bounded_validation_plan": 1,
+      "hold_review_only": 1
+    },
+    "lawbinder_escalate_type_counts": {
+      "ESCALATE_SOFT_DISCORD": 2
+    }
+  },
+  "rows": [
+    {
+      "sample_id": "EXP032-PASS-001",
+      "sample_label": "Protein-ligand candidate (pass-eligible control)",
+      "dataset_split": "id_positive_control",
+      "expected_verdict": "PASS_ELIGIBLE",
+      "actual_clinical_status": "PASS",
+      "actual_lawbinder_decision": "ESCALATE",
+      "predicted_binary_verdict": "PASS_ELIGIBLE",
+      "match": true,
+      "computable": true,
+      "hook_computable": true,
+      "status": "ok",
+      "clinical_status_match": true,
+      "lawbinder_decision_match": false,
+      "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+      "lawbinder_discord_score": 1.045599336703627,
+      "lawbinder_constitutional_score": 0.0,
+      "critic_shadow_enabled": true,
+      "critic_shadow_recommendation": "bounded_escalation_critic_channel",
+      "critic_shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+      "critic_shadow_policy_path": "observer_shadow.bounded_escalation_critic_channel",
+      "critic_shadow_operational_hint": "proceed_with_bounded_validation_plan",
+      "critic_shadow_bounded_escalation_eligible": true,
+      "critic_shadow_soft_discord_only": true,
+      "critic_shadow_strict_recheck_pass": false,
+      "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+    },
+    {
+      "sample_id": "EXP032-BLOCK-001",
+      "sample_label": "Protein-ligand negative control (block-expected, distinct sequence)",
+      "dataset_split": "ood_negative_control",
+      "expected_verdict": "BLOCK_EXPECTED",
+      "actual_clinical_status": "BLOCK",
+      "actual_lawbinder_decision": "ESCALATE",
+      "predicted_binary_verdict": "BLOCK_EXPECTED",
+      "match": true,
+      "computable": true,
+      "hook_computable": true,
+      "status": "ok",
+      "clinical_status_match": true,
+      "lawbinder_decision_match": true,
+      "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+      "lawbinder_discord_score": 1.045599336703627,
+      "lawbinder_constitutional_score": 0.0,
+      "critic_shadow_enabled": true,
+      "critic_shadow_recommendation": "standard_escalation",
+      "critic_shadow_verdict": "SHADOW_STANDARD_ESCALATE",
+      "critic_shadow_policy_path": "observer_shadow.standard_escalation",
+      "critic_shadow_operational_hint": "hold_review_only",
+      "critic_shadow_bounded_escalation_eligible": false,
+      "critic_shadow_soft_discord_only": true,
+      "critic_shadow_strict_recheck_pass": false,
+      "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+    }
+  ],
+  "arm_level": {
+    "summary": {
+      "counts": {
+        "matched_payload_sample_arms": 6,
+        "evaluable_sample_arms": 6
+      },
+      "duplicate_payloads_by_sample_arm": {},
+      "arms_observed": [
+        "arm_a",
+        "arm_b",
+        "arm_c"
+      ]
+    },
+    "benchmark": {
+      "counts": {
+        "n_evaluable": 6,
+        "n_pass_eligible": 3,
+        "n_block_expected": 3,
+        "tp_pass": 3,
+        "tn_block": 3,
+        "fp_dangerous_pass": 0,
+        "fn_false_reject": 0,
+        "predicted_pass": 3
+      },
+      "metrics": {
+        "dangerous_pass_count": 0,
+        "dangerous_pass_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "computable": true
+        },
+        "false_reject_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "computable": true
+        },
+        "block_recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "computable": true
+        },
+        "pass_recall": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "computable": true
+        },
+        "pass_precision": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "computable": true
+        },
+        "accuracy": {
+          "value": 1.0,
+          "numerator": 6,
+          "denominator": 6,
+          "computable": true
+        },
+        "balanced_accuracy": {
+          "value": 1.0,
+          "computable": true
+        }
+      }
+    },
+    "critic_shadow": {
+      "counts": {
+        "n_evaluable": 6,
+        "n_shadow_enabled": 6,
+        "n_soft_discord": 6,
+        "n_bounded_escalation_eligible": 3,
+        "n_bounded_escalation_eligible_soft_discord": 3,
+        "n_pass_shadow_enabled": 3,
+        "n_block_shadow_enabled": 3,
+        "n_pass_bounded_escalation_eligible": 3,
+        "n_block_bounded_escalation_eligible": 0
+      },
+      "metrics": {
+        "shadow_enabled_rate": {
+          "value": 1.0,
+          "numerator": 6,
+          "denominator": 6,
+          "computable": true
+        },
+        "soft_discord_rate_among_shadow": {
+          "value": 1.0,
+          "numerator": 6,
+          "denominator": 6,
+          "computable": true
+        },
+        "bounded_escalation_eligible_rate": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "computable": true
+        },
+        "bounded_escalation_eligible_rate_among_soft_discord": {
+          "value": 0.5,
+          "numerator": 3,
+          "denominator": 6,
+          "computable": true
+        },
+        "pass_bounded_escalation_eligible_rate": {
+          "value": 1.0,
+          "numerator": 3,
+          "denominator": 3,
+          "computable": true
+        },
+        "block_bounded_escalation_eligible_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "computable": true
+        },
+        "false_bounded_escalation_on_block_rate": {
+          "value": 0.0,
+          "numerator": 0,
+          "denominator": 3,
+          "computable": true
+        }
+      },
+      "recommendation_counts": {
+        "standard_escalation": 3,
+        "bounded_escalation_critic_channel": 3
+      },
+      "shadow_verdict_counts": {
+        "SHADOW_STANDARD_ESCALATE": 3,
+        "SHADOW_SOFT_ESCALATE_BOUNDED": 3
+      },
+      "operational_hint_counts": {
+        "hold_review_only": 3,
+        "proceed_with_bounded_validation_plan": 3
+      },
+      "lawbinder_escalate_type_counts": {
+        "ESCALATE_SOFT_DISCORD": 6
+      }
+    },
+    "rows": [
+      {
+        "sample_id": "EXP032-BLOCK-001",
+        "arm_name": "arm_a",
+        "arm_id": "A",
+        "sample_label": "Protein-ligand negative control (block-expected, distinct sequence)",
+        "dataset_split": "ood_negative_control",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "actual_clinical_status": "BLOCK",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "BLOCK_EXPECTED",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": true,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "standard_escalation",
+        "critic_shadow_verdict": "SHADOW_STANDARD_ESCALATE",
+        "critic_shadow_policy_path": "observer_shadow.standard_escalation",
+        "critic_shadow_operational_hint": "hold_review_only",
+        "critic_shadow_bounded_escalation_eligible": false,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "sample_id": "EXP032-BLOCK-001",
+        "arm_name": "arm_b",
+        "arm_id": "B",
+        "sample_label": "Protein-ligand negative control (block-expected, distinct sequence)",
+        "dataset_split": "ood_negative_control",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "actual_clinical_status": "BLOCK",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "BLOCK_EXPECTED",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": true,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "standard_escalation",
+        "critic_shadow_verdict": "SHADOW_STANDARD_ESCALATE",
+        "critic_shadow_policy_path": "observer_shadow.standard_escalation",
+        "critic_shadow_operational_hint": "hold_review_only",
+        "critic_shadow_bounded_escalation_eligible": false,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "sample_id": "EXP032-BLOCK-001",
+        "arm_name": "arm_c",
+        "arm_id": "C",
+        "sample_label": "Protein-ligand negative control (block-expected, distinct sequence)",
+        "dataset_split": "ood_negative_control",
+        "expected_verdict": "BLOCK_EXPECTED",
+        "actual_clinical_status": "BLOCK",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "BLOCK_EXPECTED",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": true,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "standard_escalation",
+        "critic_shadow_verdict": "SHADOW_STANDARD_ESCALATE",
+        "critic_shadow_policy_path": "observer_shadow.standard_escalation",
+        "critic_shadow_operational_hint": "hold_review_only",
+        "critic_shadow_bounded_escalation_eligible": false,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-BLOCK-001\\arm_c\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "sample_id": "EXP032-PASS-001",
+        "arm_name": "arm_a",
+        "arm_id": "A",
+        "sample_label": "Protein-ligand candidate (pass-eligible control)",
+        "dataset_split": "id_positive_control",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "actual_clinical_status": "PASS",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "PASS_ELIGIBLE",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": false,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "bounded_escalation_critic_channel",
+        "critic_shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+        "critic_shadow_policy_path": "observer_shadow.bounded_escalation_critic_channel",
+        "critic_shadow_operational_hint": "proceed_with_bounded_validation_plan",
+        "critic_shadow_bounded_escalation_eligible": true,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_a\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "sample_id": "EXP032-PASS-001",
+        "arm_name": "arm_b",
+        "arm_id": "B",
+        "sample_label": "Protein-ligand candidate (pass-eligible control)",
+        "dataset_split": "id_positive_control",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "actual_clinical_status": "PASS",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "PASS_ELIGIBLE",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": false,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "bounded_escalation_critic_channel",
+        "critic_shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+        "critic_shadow_policy_path": "observer_shadow.bounded_escalation_critic_channel",
+        "critic_shadow_operational_hint": "proceed_with_bounded_validation_plan",
+        "critic_shadow_bounded_escalation_eligible": true,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_b\\rexsyn_bio_report_payload.json"
+      },
+      {
+        "sample_id": "EXP032-PASS-001",
+        "arm_name": "arm_c",
+        "arm_id": "C",
+        "sample_label": "Protein-ligand candidate (pass-eligible control)",
+        "dataset_split": "id_positive_control",
+        "expected_verdict": "PASS_ELIGIBLE",
+        "actual_clinical_status": "PASS",
+        "actual_lawbinder_decision": "ESCALATE",
+        "predicted_binary_verdict": "PASS_ELIGIBLE",
+        "match": true,
+        "computable": true,
+        "hook_computable": true,
+        "status": "ok",
+        "clinical_status_match": true,
+        "lawbinder_decision_match": false,
+        "lawbinder_escalate_type": "ESCALATE_SOFT_DISCORD",
+        "lawbinder_discord_score": 1.045599336703627,
+        "lawbinder_constitutional_score": 0.0,
+        "critic_shadow_enabled": true,
+        "critic_shadow_recommendation": "bounded_escalation_critic_channel",
+        "critic_shadow_verdict": "SHADOW_SOFT_ESCALATE_BOUNDED",
+        "critic_shadow_policy_path": "observer_shadow.bounded_escalation_critic_channel",
+        "critic_shadow_operational_hint": "proceed_with_bounded_validation_plan",
+        "critic_shadow_bounded_escalation_eligible": true,
+        "critic_shadow_soft_discord_only": true,
+        "critic_shadow_strict_recheck_pass": false,
+        "source_payload": "D:\\Sanctum\\Flamehaven-Labs\\Rexsyn Experiment\\EXP-034-METHODLOCK-MODAL-EXPANSION\\artifacts\\exp034_trackA_legacy_replay_20260419_101344\\EXP032-PASS-001\\arm_c\\rexsyn_bio_report_payload.json"
+      }
+    ]
+  }
+}

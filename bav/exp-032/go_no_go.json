@@ -1,0 +1,19 @@
+{
+  "schema": "legacy_replay_go_no_go_v1",
+  "output_root": "D:\\Sanctum\\렉스바이오 파이프라인\\check_output_actual\\parity_20260416_batch_reports_wrapper",
+  "verdict": "GO",
+  "blockers": [],
+  "warnings": [
+    "metric_recalculation_delta p_e2e=0.04447488775996111 sr9_tech=0.04692394788063081 di2_tech=-0.03667940951579321"
+  ],
+  "summary": {
+    "benchmark_accuracy": 1.0,
+    "benchmark_balanced_accuracy": 1.0,
+    "dangerous_pass_rate": 0.0,
+    "false_reject_rate": 0.0,
+    "compare_accuracy": 1.0,
+    "compare_balanced_accuracy": 1.0,
+    "contract_files": 6,
+    "contracts_ok": true
+  }
+}
