@@ -799,6 +799,9 @@ window.handleLocalSearch = function(type) {
 async function openJsonInspector(runId, type = 'json') {
   const inspector = document.getElementById('eq-json-inspector');
   if (!inspector) return;
+  // Hide any open report viewer so a prior report (e.g. a BSC report) does not bleed into this inspector view.
+  const reportViewer = document.getElementById('report-viewer');
+  if (reportViewer) reportViewer.style.display = 'none';
   inspector.style.display = 'block';
   inspector.dataset.activeRunId = runId;
   
