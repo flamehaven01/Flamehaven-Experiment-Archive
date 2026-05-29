@@ -443,6 +443,8 @@ function applyFilters() {
   // Toggle views dynamically
   if (portalIntro) portalIntro.style.display = (activeColl === 'all') ? '' : 'none';
   if (collStem) collStem.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
+  const dbExtra = document.getElementById('dashboard-extra');
+  if (dbExtra) dbExtra.style.display = (activeColl === 'extra') ? 'block' : 'none';
   if (sectionExtras) sectionExtras.style.display = (activeColl === 'extra') ? '' : 'none';
   if (toolbar) toolbar.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
   if (resMeta) resMeta.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
@@ -553,8 +555,9 @@ function getBaseUrl() {
 
 // ── ARTICLE LINKS (flamehaven.space writing) ──────────────────────────────────
 const ARTICLE_LINKS = {
-  'yorkeccak-bio': 'https://flamehaven.space/writing/your-bio-repo-could-get-you-fined-here-is-why-we-check-every-single-one/',
-  'bioclaw': 'https://flamehaven.space/writing/stanford-princeton-a-biorxiv-paper-so-why-did-nobody-ask-where-the-data-goes/',
+  'yorkeccak-bio':          'https://flamehaven.space/writing/your-bio-repo-could-get-you-fined-here-is-why-we-check-every-single-one/',
+  'bioclaw':                'https://flamehaven.space/writing/stanford-princeton-a-biorxiv-paper-so-why-did-nobody-ask-where-the-data-goes/',
+  'effective-html-template':'https://flamehaven.space/writing/the-meeting-nobody-could-follow--the-format-of-ai-output-is-a-design-decision-we-made-it-wrong-for-three-years/',
 };
 
 // ── COPY URL ──────────────────────────────────────────────────────────────────
@@ -616,6 +619,18 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   // Setup connection link buttons
   const viewTabBtn = document.getElementById('btn-view-tab');
   if (viewTabBtn) viewTabBtn.href = absHtmlPath;
+
+  // HTML download button — shown only for reports with a downloadable HTML artifact
+  const HTML_DOWNLOADABLE = ['effective-html-template'];
+  const htmlDlBtn = document.getElementById('btn-dl-html');
+  if (htmlDlBtn) {
+    if (htmlPath && HTML_DOWNLOADABLE.includes(reportId)) {
+      htmlDlBtn.href = absHtmlPath;
+      htmlDlBtn.style.display = '';
+    } else {
+      htmlDlBtn.style.display = 'none';
+    }
+  }
   
   const mdBtn = document.getElementById('btn-dl-md');
   if (mdBtn) {

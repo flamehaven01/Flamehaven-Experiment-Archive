@@ -430,6 +430,21 @@
 }
 .extra-link:hover { color: var(--tp); border-color: var(--border-h); }
 
+/* ── EXTRAS CATEGORY GROUPS ─────────────────────────────────────────────── */
+.extras-category-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 16px 24px 10px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--t3);
+  border-top: 1px solid var(--border);
+}
+.extras-category-header:first-of-type { border-top: none; }
+.extras-category-header svg { width: 13px; height: 13px; flex-shrink: 0; }
+.extras-empty { padding: 0 24px 16px; }
+.extra-empty-state {
+  font-size: 11px; color: var(--t5); font-style: italic; padding: 10px 0;
+}
+
 /* ── EMPTY STATE ─────────────────────────────────────────────────────────── */
 .empty-state {
   display: none; text-align: center;

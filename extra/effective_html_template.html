@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Document Title] — Effective HTML Output</title>
+<!--
+  Effective HTML Output Template v1.0
+  Based on: https://thariqs.github.io/html-effectiveness/
+  Principle: Spatial layout > linear Markdown. Single file. Zero external dependencies.
+  Usage: Replace every [PLACEHOLDER] with your content. Delete unused sections.
+  Types: Exploration | Code Review | Design | Prototype | Diagram | Deck | Research | Report | Editor
+-->
+<style>
+/* ── RESET & TOKENS ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:       #0f1117;
+  --ink-mid:   #4a5166;
+  --ink-dim:   #8b93a8;
+  --ink-faint: #c0c6d4;
+  --paper:     #fafaf8;
+  --paper2:    #f3f3f0;
+  --paper3:    #ebebea;
+  --rule:      #e2e2de;
+
+  /* Status palette */
+  --p0: #d63031; --p0-bg: #fff2f2; --p0-rule: #ffc1c1;
+  --p1: #e17055; --p1-bg: #fff6f0; --p1-rule: #ffd0b8;
+  --p2: #b8860b; --p2-bg: #fffbea; --p2-rule: #ffe08a;
+  --p3: #2d6a9f; --p3-bg: #f0f6ff; --p3-rule: #b3d4f5;
+  --ok: #00897b; --ok-bg: #f0faf8; --ok-rule: #80cbc4;
+  --new:#6c3483; --new-bg:#faf0ff; --new-rule:#d7aefb;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.5;
+}
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────────── */
+.page { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* ── MASTHEAD ───────────────────────────────────────────────────────────── */
+.masthead { margin-bottom: 28px; }
+.masthead-eyebrow {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--ink-dim); margin-bottom: 8px;
+}
+.masthead-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 26px; font-weight: 400; color: var(--ink); line-height: 1.2; margin-bottom: 8px;
+}
+.masthead-title em { font-style: italic; color: var(--ink-mid); }
+.masthead-meta {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; color: var(--ink-dim);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.meta-sep { color: var(--ink-faint); }
+.commit {
+  font-size: 10px; background: var(--paper3); border: 1px solid var(--rule);
+  padding: 2px 6px; border-radius: 3px; color: var(--ink-mid);
+}
+
+/* ── TYPE SELECTOR ──────────────────────────────────────────────────────── */
+.type-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+}
+.type-chip {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 4px 10px; border-radius: 4px; border: 1px solid var(--rule);
+  background: var(--paper2); color: var(--ink-dim); cursor: default;
+}
+.type-chip.active {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+
+/* ── SCORECARD ──────────────────────────────────────────────────────────── */
+.scorecard {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule);
+  border-radius: 8px; overflow: hidden; margin-bottom: 24px;
+}
+.score-cell {
+  background: var(--paper); padding: 16px 18px; cursor: pointer; transition: background 0.15s;
+}
+.score-cell:hover { background: var(--paper2); }
+.score-label {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-dim);
+}
+.score-num { font-size: 28px; font-weight: 700; margin: 4px 0; color: var(--ink); }
+.score-sub { font-size: 11px; color: var(--ink-dim); }
+.s-open  .score-num { color: var(--p0); }
+.s-done  .score-num { color: var(--ok); }
+.s-warn  .score-num { color: var(--p2); }
+.s-info  .score-num { color: var(--p3); }
+
+/* ── PROGRESS ───────────────────────────────────────────────────────────── */
+.progress-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; color: var(--ink-dim);
+}
+.progress-track {
+  flex: 1; height: 5px; background: var(--paper3); border-radius: 99px; overflow: hidden;
+}
+.progress-fill { height: 100%; background: var(--ok); border-radius: 99px; width: 0%; transition: width 0.4s; }
+
+/* ── FILTER BAR ─────────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 24px; padding: 10px 14px; background: var(--paper2);
+  border: 1px solid var(--rule); border-radius: 8px;
+}
+.filter-group-label {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-faint);
+}
+.filter-pill {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; padding: 3px 10px; border-radius: 4px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink-dim);
+  cursor: pointer; transition: all 0.12s;
+}
+.filter-pill.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter-div { width: 1px; height: 16px; background: var(--rule); margin: 0 4px; }
+.filter-search {
+  flex: 1; min-width: 140px; padding: 3px 10px; border-radius: 4px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; outline: none;
+}
+.filter-search::placeholder { color: var(--ink-faint); }
+
+/* ── SECTION ────────────────────────────────────────────────────────────── */
+.section { margin-bottom: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); }
+.section.hidden { display: none; }
+.section-head {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  cursor: pointer; user-select: none; background: var(--paper2); transition: background 0.12s;
+}
+.section-head:hover { background: var(--paper3); }
+.section-title { flex: 1; font-size: 13px; font-weight: 600; color: var(--ink); }
+.section-count {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; color: var(--ink-dim);
+}
+.chevron { font-size: 12px; color: var(--ink-dim); transition: transform 0.15s; }
+.section.open .chevron { transform: rotate(90deg); }
+.section-body { display: none; }
+.section.open .section-body { display: block; }
+
+/* ── BADGES ─────────────────────────────────────────────────────────────── */
+.badge {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-p0 { background: var(--p0-bg); color: var(--p0); border: 1px solid var(--p0-rule); }
+.badge-p1 { background: var(--p1-bg); color: var(--p1); border: 1px solid var(--p1-rule); }
+.badge-p2 { background: var(--p2-bg); color: var(--p2); border: 1px solid var(--p2-rule); }
+.badge-p3 { background: var(--p3-bg); color: var(--p3); border: 1px solid var(--p3-rule); }
+.badge-ok  { background: var(--ok-bg);  color: var(--ok);  border: 1px solid var(--ok-rule); }
+.badge-new { background: var(--new-bg); color: var(--new); border: 1px solid var(--new-rule); }
+
+/* ── ITEM ───────────────────────────────────────────────────────────────── */
+.item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 16px; border-bottom: 1px solid var(--rule);
+  transition: background 0.12s;
+}
+.item:last-child { border-bottom: none; }
+.item:hover { background: var(--paper2); }
+.item-left { flex: 1; }
+.item-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.item-id {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; color: var(--ink-faint); flex-shrink: 0;
+}
+.item-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.item-target {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; color: var(--ink-dim); margin-bottom: 6px;
+}
+.item-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.55; margin-bottom: 8px; }
+.code-block {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; background: var(--paper3); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 8px 12px; margin: 8px 0; white-space: pre-wrap;
+  color: var(--ink-mid);
+}
+.fix-label {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ink-faint); margin-bottom: 3px;
+}
+.fix-desc { font-size: 12px; color: var(--ink-mid); }
+.item.is-done { opacity: 0.55; }
+
+/* ── STATUS CHIP ────────────────────────────────────────────────────────── */
+.status-chip {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 4px;
+  flex-shrink: 0; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.chip-open    { background: var(--p0-bg); color: var(--p0); border: 1px solid var(--p0-rule); }
+.chip-done    { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-rule); }
+.chip-partial { background: var(--p2-bg); color: var(--p2); border: 1px solid var(--p2-rule); }
+.chip-new     { background: var(--new-bg); color: var(--new); border: 1px solid var(--new-rule); }
+.chip-info    { background: var(--p3-bg); color: var(--p3); border: 1px solid var(--p3-rule); }
+
+/* ── SIDE-BY-SIDE PANEL (Exploration/Design use case) ───────────────────── */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; }
+.compare-panel {
+  background: var(--paper2); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 14px; font-size: 12px; color: var(--ink-mid);
+}
+.compare-panel-label {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ink-faint); margin-bottom: 8px;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-note {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 10px; color: var(--ink-faint); max-width: 480px; line-height: 1.6;
+}
+.footer-actions { display: flex; gap: 8px; }
+.btn {
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  font-size: 11px; padding: 6px 14px; border-radius: 5px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--paper2); color: var(--ink-mid); transition: all 0.12s;
+}
+.btn:hover { border-color: var(--ink-dim); color: var(--ink); }
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-primary:hover { opacity: 0.85; }
+
+.no-results {
+  display: none; text-align: center; padding: 40px 24px;
+  font-size: 13px; color: var(--ink-dim);
+}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <!-- ── MASTHEAD ─────────────────────────────────────────────────────── -->
+  <div class="masthead">
+    <div class="masthead-eyebrow">[Category] &mdash; [Context or Project]</div>
+    <div class="masthead-title">[Document Title] <em>[Optional subtitle]</em></div>
+    <div class="masthead-meta">
+      <span>[Date]</span>
+      <span class="meta-sep">&middot;</span>
+      <span>[Author or Agent]</span>
+      <span class="meta-sep">&middot;</span>
+      <span class="commit">[commit or version]</span>
+    </div>
+  </div>
+
+  <!-- ── DOCUMENT TYPE SELECTOR (choose one, delete the rest) ──────────── -->
+  <div class="type-row">
+    <span class="type-chip active">Exploration</span>
+    <span class="type-chip">Code Review</span>
+    <span class="type-chip">Design</span>
+    <span class="type-chip">Prototype</span>
+    <span class="type-chip">Diagram</span>
+    <span class="type-chip">Deck</span>
+    <span class="type-chip">Research</span>
+    <span class="type-chip">Report</span>
+    <span class="type-chip">Editor</span>
+  </div>
+
+  <!-- ── SCORECARD (4 cells — adapt labels/colors to your doc type) ──── -->
+  <div class="scorecard">
+    <div class="score-cell s-open" onclick="filterByStatus('open')">
+      <div class="score-label">Open</div>
+      <div class="score-num">0</div>
+      <div class="score-sub">[status label]</div>
+    </div>
+    <div class="score-cell s-done" onclick="filterByStatus('done')">
+      <div class="score-label">Done</div>
+      <div class="score-num">0</div>
+      <div class="score-sub">[status label]</div>
+    </div>
+    <div class="score-cell s-warn" onclick="filterByStatus('partial')">
+      <div class="score-label">Partial</div>
+      <div class="score-num">0</div>
+      <div class="score-sub">[status label]</div>
+    </div>
+    <div class="score-cell s-info" onclick="filterByStatus('all')">
+      <div class="score-label">New</div>
+      <div class="score-num">0</div>
+      <div class="score-sub">reset filters</div>
+    </div>
+  </div>
+
+  <!-- ── PROGRESS ───────────────────────────────────────────────────────── -->
+  <div class="progress-row">
+    <span>Progress</span>
+    <div class="progress-track"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+    <span id="prog-pct">0%</span>
+  </div>
+
+  <!-- ── FILTER BAR ────────────────────────────────────────────────────── -->
+  <div class="filter-bar">
+    <span class="filter-group-label">Priority</span>
+    <button class="filter-pill on" onclick="filterPriority('all',this)">All</button>
+    <button class="filter-pill" onclick="filterPriority('p0',this)">P0</button>
+    <button class="filter-pill" onclick="filterPriority('p1',this)">P1</button>
+    <button class="filter-pill" onclick="filterPriority('p2',this)">P2</button>
+    <button class="filter-pill" onclick="filterPriority('p3',this)">P3</button>
+    <div class="filter-div"></div>
+    <span class="filter-group-label">Status</span>
+    <button class="filter-pill" onclick="filterStatus('open',this)">Open</button>
+    <button class="filter-pill" onclick="filterStatus('done',this)">Done</button>
+    <button class="filter-pill" onclick="filterStatus('partial',this)">Partial</button>
+    <input class="filter-search" type="text" placeholder="Search items…" oninput="searchItems(this.value)">
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTIONS — P0 to P3 shown as example skeleton.
+       Each section: data-priority must match filter-pill values.
+       Each item: data-status="open|done|partial|new", data-search="keywords"
+       ══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ── P0: Critical ──────────────────────────────────────────────── -->
+  <div class="section open" id="s-p0" data-priority="p0">
+    <div class="section-head" onclick="toggle('s-p0')">
+      <span class="badge badge-p0">P0</span>
+      <span class="section-title">[Critical issue category]</span>
+      <span class="section-count">0 open</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+
+      <div class="item" data-status="open" data-search="[search keywords]">
+        <div class="item-left">
+          <div class="item-header">
+            <span class="item-id">P0-1</span>
+            <span class="item-title">[Finding title]</span>
+          </div>
+          <div class="item-target">[file/location or component]</div>
+          <div class="item-desc">[Describe the issue clearly. What breaks? What is the risk?]</div>
+          <div class="fix-label">Action</div>
+          <div class="fix-desc">[Specific remediation step]</div>
+        </div>
+        <span class="status-chip chip-open">Open</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── P1: High ──────────────────────────────────────────────────── -->
+  <div class="section" id="s-p1" data-priority="p1">
+    <div class="section-head" onclick="toggle('s-p1')">
+      <span class="badge badge-p1">P1</span>
+      <span class="section-title">[High-priority issue category]</span>
+      <span class="section-count">0 open</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+
+      <div class="item" data-status="open" data-search="[search keywords]">
+        <div class="item-left">
+          <div class="item-header">
+            <span class="item-id">P1-1</span>
+            <span class="item-title">[Finding title]</span>
+          </div>
+          <div class="item-target">[file/location or component]</div>
+          <div class="item-desc">[Describe the issue]</div>
+          <!-- Optional: code block
+          <div class="code-block">[code snippet here]</div>
+          -->
+          <div class="fix-label">Action</div>
+          <div class="fix-desc">[Remediation step]</div>
+        </div>
+        <span class="status-chip chip-open">Open</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── P2: Medium ────────────────────────────────────────────────── -->
+  <div class="section" id="s-p2" data-priority="p2">
+    <div class="section-head" onclick="toggle('s-p2')">
+      <span class="badge badge-p2">P2</span>
+      <span class="section-title">[Medium-priority issue category]</span>
+      <span class="section-count">0 open</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+
+      <div class="item" data-status="open" data-search="[search keywords]">
+        <div class="item-left">
+          <div class="item-header">
+            <span class="item-id">P2-1</span>
+            <span class="item-title">[Finding title]</span>
+          </div>
+          <div class="item-target">[file/location]</div>
+          <div class="item-desc">[Describe the issue]</div>
+        </div>
+        <span class="status-chip chip-open">Open</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── P3: Low / Informational ───────────────────────────────────── -->
+  <div class="section" id="s-p3" data-priority="p3">
+    <div class="section-head" onclick="toggle('s-p3')">
+      <span class="badge badge-p3">P3</span>
+      <span class="section-title">[Low-priority or informational]</span>
+      <span class="section-count">0 open</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+
+      <div class="item" data-status="info" data-search="[keywords]">
+        <div class="item-left">
+          <div class="item-header">
+            <span class="item-id">P3-1</span>
+            <span class="item-title">[Finding or note]</span>
+          </div>
+          <div class="item-desc">[Description]</div>
+        </div>
+        <span class="status-chip chip-info">Info</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── DONE / RESOLVED ───────────────────────────────────────────── -->
+  <div class="section" id="s-done" data-priority="done">
+    <div class="section-head" onclick="toggle('s-done')">
+      <span class="badge badge-ok">&#10003; Done</span>
+      <span class="section-title">Resolved this sprint</span>
+      <span class="section-count">0 items</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+
+      <div class="item is-done" data-status="done" data-search="[keywords]">
+        <div class="item-left">
+          <div class="item-header">
+            <span class="item-id">P0-0</span>
+            <span class="item-title">[Resolved item title]</span>
+          </div>
+          <div class="item-target">[closed by PR/commit]</div>
+          <div class="item-desc">[What was fixed and how it was verified]</div>
+        </div>
+        <span class="status-chip chip-done">Done</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SIDE-BY-SIDE COMPARE (optional — remove if not needed) ──── -->
+  <!--
+  <div class="section open" id="s-compare" data-priority="compare">
+    <div class="section-head" onclick="toggle('s-compare')">
+      <span class="badge badge-p3">Compare</span>
+      <span class="section-title">[Option A vs Option B]</span>
+      <span class="chevron">&#9656;</span>
+    </div>
+    <div class="section-body">
+      <div class="compare-grid">
+        <div class="compare-panel">
+          <div class="compare-panel-label">Option A — [label]</div>
+          [Description or code]
+        </div>
+        <div class="compare-panel">
+          <div class="compare-panel-label">Option B — [label]</div>
+          [Description or code]
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <div class="no-results" id="noResults">No items match the current filter.</div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────── -->
+  <div class="footer">
+    <div class="footer-note">
+      Effective HTML Output Template v1.0 &middot;
+      Based on <a href="https://thariqs.github.io/html-effectiveness/" target="_blank" rel="noopener" style="color:inherit">html-effectiveness</a> &middot;
+      Zero external dependencies &middot; Single-file &middot; System fonts only.
+    </div>
+    <div class="footer-actions">
+      <button class="btn" onclick="expandAll()">Expand all</button>
+      <button class="btn" onclick="collapseAll()">Collapse</button>
+      <button class="btn btn-primary" onclick="copyPrompt()">&#8984; Copy as prompt</button>
+    </div>
+  </div>
+
+</div>
+<script>
+  /* ── TOGGLE ─────────────────────────────────────────────────────── */
+  function toggle(id) { document.getElementById(id).classList.toggle('open'); }
+  function expandAll()   { document.querySelectorAll('.section').forEach(s => s.classList.add('open')); }
+  function collapseAll() { document.querySelectorAll('.section').forEach(s => s.classList.remove('open')); }
+
+  /* ── FILTER STATE ───────────────────────────────────────────────── */
+  let aPriority = 'all', aStatus = 'all', aSearch = '';
+
+  function filterPriority(p, btn) {
+    aPriority = p;
+    document.querySelectorAll('.filter-bar .filter-pill').forEach(b => {
+      if (['All','P0','P1','P2','P3'].includes(b.textContent)) b.classList.remove('on');
+    });
+    btn.classList.add('on');
+    apply();
+  }
+
+  function filterStatus(s, btn) {
+    aStatus = aStatus === s ? 'all' : s;
+    document.querySelectorAll('.filter-bar .filter-pill').forEach(b => {
+      if (['Open','Done','Partial'].includes(b.textContent)) b.classList.remove('on');
+    });
+    if (aStatus !== 'all') btn.classList.add('on');
+    apply();
+  }
+
+  function filterByStatus(s) {
+    aStatus = s === 'all' ? 'all' : s;
+    aPriority = 'all';
+    document.querySelectorAll('.filter-bar .filter-pill').forEach(b => b.classList.remove('on'));
+    document.querySelector('.filter-bar .filter-pill').classList.add('on');
+    apply();
+  }
+
+  function searchItems(v) { aSearch = v.toLowerCase(); apply(); }
+
+  function apply() {
+    let any = false;
+    document.querySelectorAll('.section').forEach(sec => {
+      const sp = sec.dataset.priority || '';
+      const matchP = aPriority === 'all' || sp === aPriority;
+      if (!matchP) { sec.classList.add('hidden'); return; }
+      let secMatch = false;
+      sec.querySelectorAll('.item').forEach(item => {
+        const is = (item.dataset.status || '').toLowerCase();
+        const sr = (item.dataset.search || '').toLowerCase();
+        const tt = (item.querySelector('.item-title')?.textContent || '').toLowerCase();
+        const matchS = aStatus === 'all' || is === aStatus;
+        const matchQ = !aSearch || sr.includes(aSearch) || tt.includes(aSearch);
+        if (matchS && matchQ) { item.style.display = ''; secMatch = true; }
+        else item.style.display = 'none';
+      });
+      if (secMatch) { sec.classList.remove('hidden'); any = true; }
+      else sec.classList.add('hidden');
+    });
+    document.getElementById('noResults').style.display = any ? 'none' : 'block';
+  }
+
+  /* ── TYPE CHIP TOGGLE ───────────────────────────────────────────── */
+  document.querySelectorAll('.type-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.type-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  /* ── COPY AS PROMPT ─────────────────────────────────────────────── */
+  function copyPrompt() {
+    const items = [];
+    document.querySelectorAll('.item').forEach(item => {
+      const title = item.querySelector('.item-title')?.textContent || '';
+      const status = item.dataset.status || '';
+      const id = item.querySelector('.item-id')?.textContent || '';
+      if (title && title !== '[Finding title]' && title !== '[Finding or note]' && title !== '[Resolved item title]') {
+        items.push(`${id} [${status.toUpperCase()}] ${title}`);
+      }
+    });
+    const docTitle = document.querySelector('.masthead-title')?.textContent?.trim() || '[Document]';
+    const t = items.length
+      ? `${docTitle}\n\n${items.join('\n')}`
+      : `${docTitle}\n\n[No items added yet — fill in [PLACEHOLDER] content]`;
+    navigator.clipboard.writeText(t).then(() => {
+      const b = document.querySelector('.btn-primary');
+      const o = b.textContent;
+      b.textContent = '✓ Copied';
+      setTimeout(() => b.textContent = o, 2000);
+    });
+  }
+
+
+</script>
+</body>
+</html>

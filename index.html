@@ -178,16 +178,28 @@
           </button>
           <span class="sb-tooltip">
             <strong>Methodology &amp; Frameworks</strong><br>
-            Review dashboards, verification blueprints, and compliance mapping frameworks demonstrating systematic review methods.
+            Reusable templates, operational frameworks, and practical code for deterministic AI verification and compliance auditing. Currently: HTML Effectiveness Template (blank, html-effectiveness framework, 9 document types). Frameworks and Practical Code in preparation.
           </span>
         </div>
         <div class="sb-children" id="child-extra">
+          <!-- Templates -->
+          <div style="padding: 6px 8px 2px 8px; font-size: 9px; font-family: 'JetBrains Mono', monospace; color: var(--t5); text-transform: uppercase; letter-spacing: 0.6px;">Templates</div>
           <div class="sb-files" style="padding-left: 8px;">
-            <a class="sb-file" href="#" onclick="openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard'); highlightFile(this); return false;">
+            <a class="sb-file" href="#" onclick="openReportViewer('effective-html-template', './extra/effective_html_template.html', '', '', '', 'HTML Effectiveness Template', 'Blank template · html-effectiveness framework · 9 document types'); highlightFile(this); return false;">
               <span class="sb-file-dot" style="background:var(--tp)"></span>
-              <span class="sb-file-name" title="Agent Review Dashboard (PR Action Plan 2.0)">Agent Review Dashboard (PR Action Plan 2.0)</span>
-              <span class="sb-file-tier" style="color:var(--t4);border-color:var(--border)">v3</span>
+              <span class="sb-file-name" title="HTML Effectiveness Template — Blank reusable template based on html-effectiveness framework">HTML Effectiveness Template</span>
+              <span class="sb-file-tier" style="color:var(--t4);border-color:var(--border)">v1</span>
             </a>
+          </div>
+          <!-- Frameworks -->
+          <div style="padding: 6px 8px 2px 8px; font-size: 9px; font-family: 'JetBrains Mono', monospace; color: var(--t5); text-transform: uppercase; letter-spacing: 0.6px;">Frameworks</div>
+          <div class="sb-files" style="padding-left: 8px;">
+            <div style="padding: 4px 8px; font-size: 10px; color: var(--t5); font-style: italic;">Coming soon</div>
+          </div>
+          <!-- Practical Code -->
+          <div style="padding: 6px 8px 2px 8px; font-size: 9px; font-family: 'JetBrains Mono', monospace; color: var(--t5); text-transform: uppercase; letter-spacing: 0.6px;">Practical Code</div>
+          <div class="sb-files" style="padding-left: 8px;">
+            <div style="padding: 4px 8px; font-size: 10px; color: var(--t5); font-style: italic;">Coming soon</div>
           </div>
         </div>
       </div>
@@ -348,8 +360,11 @@
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
-            <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
+            <line x1="3" y1="4" x2="13" y2="4" stroke-linecap="round"/>
+            <line x1="3" y1="8" x2="13" y2="8" stroke-linecap="round"/>
+            <path d="M3 12h5" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="2.5"/>
+            <path d="M14 14l1.5 1.5" stroke-linecap="round"/>
           </svg>
           Scholarly Archival Alignment
         </div>
@@ -727,8 +742,11 @@
       <div class="dashboard-card">
         <div class="dashboard-card-title">
           <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
-            <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
+            <line x1="3" y1="4" x2="13" y2="4" stroke-linecap="round"/>
+            <line x1="3" y1="8" x2="13" y2="8" stroke-linecap="round"/>
+            <path d="M3 12h5" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="2.5"/>
+            <path d="M14 14l1.5 1.5" stroke-linecap="round"/>
           </svg>
           Biomedical Archival Alignment
         </div>
@@ -822,12 +840,34 @@
         <div class="viewer-frame-eyebrow" id="viewer-eyebrow">Bioscience Compliance · 2026-05-18</div>
         <h2 class="viewer-frame-title" id="viewer-title">yorkeccak/bio</h2>
       </div>
-      <button class="viewer-close-btn" onclick="closeReport(event)">
-        <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M2 2l6 6M8 2L2 8" stroke-linecap="round"/>
-        </svg>
-        Close Report
-      </button>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <!-- Social share icons in frame header — applies to all reports without modifying HTML sources -->
+        <a id="btn-share-fb" href="#" target="_blank" rel="noopener" title="Share on Facebook"
+           style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--t4);transition:all .15s;"
+           onmouseover="this.style.borderColor='var(--border-h)';this.style.color='var(--ts)'"
+           onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t4)'">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a id="btn-share-li" href="#" target="_blank" rel="noopener" title="Share on LinkedIn"
+           style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--t4);transition:all .15s;"
+           onmouseover="this.style.borderColor='var(--border-h)';this.style.color='var(--ts)'"
+           onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t4)'">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0h.003z"/></svg>
+        </a>
+        <a id="btn-share-email" href="#" title="Share via Email"
+           style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--t4);transition:all .15s;"
+           onmouseover="this.style.borderColor='var(--border-h)';this.style.color='var(--ts)'"
+           onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t4)'">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7" stroke-linecap="round"/></svg>
+        </a>
+        <div style="width:1px;height:16px;background:var(--border);margin:0 2px;"></div>
+        <button class="viewer-close-btn" onclick="closeReport(event)">
+          <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M2 2l6 6M8 2L2 8" stroke-linecap="round"/>
+          </svg>
+          Close Report
+        </button>
+      </div>
     </div>
 
     <div class="viewer-layout">
@@ -852,6 +892,12 @@
               <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
             </svg>
             Case Study Brief
+          </a>
+          <a class="viewer-btn" id="btn-dl-html" href="#" download style="display:none;">
+            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download HTML
           </a>
           <a class="viewer-btn" id="btn-dl-md" href="#" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -922,8 +968,11 @@
         <div class="dashboard-card">
           <div class="dashboard-card-title">
             <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-              <line x1="8" y1="2" x2="8" y2="14" stroke-linecap="round"/>
-              <line x1="2" y1="8" x2="14" y2="8" stroke-linecap="round"/>
+              <line x1="3" y1="4" x2="13" y2="4" stroke-linecap="round"/>
+              <line x1="3" y1="8" x2="13" y2="8" stroke-linecap="round"/>
+              <path d="M3 12h5" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="2.5"/>
+              <path d="M14 14l1.5 1.5" stroke-linecap="round"/>
             </svg>
             Compliance Archival Alignment
           </div>
@@ -1333,35 +1382,116 @@
     </div>
   </section>
 
+  <!-- ── METHODOLOGY DASHBOARD (outside extras-section for correct grid width) -->
+  <div class="project-dashboard" id="dashboard-extra" style="display: block; margin-bottom: 0; border-radius: var(--r-2xl) var(--r-2xl) 0 0; border-bottom: none;">
+    <div class="project-dashboard-header">
+      <div class="project-dashboard-eyebrow">Methodology &amp; Frameworks</div>
+      <h2 class="project-dashboard-title">Verification Methodology Hub</h2>
+      <p class="project-dashboard-desc">
+        Reusable templates, operational frameworks, and practical code supporting deterministic AI verification and bioscience compliance auditing. All resources are structured, citable, and ready to deploy.
+      </p>
+    </div>
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="12" height="12" rx="1.5"/>
+            <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
+          </svg>
+          Methodology Protocol
+        </div>
+        <p class="dashboard-card-desc">Structured review templates, frameworks, and operational audit protocols:</p>
+        <ul class="dashboard-list">
+          <li><strong>PR Action Plan v3</strong>: Agent review dashboard for systematic pull-request audit workflows with deterministic verdict dispatch.</li>
+          <li><strong>Audit Frameworks</strong>: Governance gate protocols and verification methodology frameworks (in preparation).</li>
+          <li><strong>Practical Code</strong>: Downloadable scan scripts, JSON schemas, and ledger utilities (in preparation).</li>
+        </ul>
+      </div>
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">
+          <svg class="portal-intro-card-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="3" y1="4" x2="13" y2="4" stroke-linecap="round"/>
+            <line x1="3" y1="8" x2="13" y2="8" stroke-linecap="round"/>
+            <path d="M3 12h5" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="2.5"/>
+            <path d="M14 14l1.5 1.5" stroke-linecap="round"/>
+          </svg>
+          Resource Archival Alignment
+        </div>
+        <p class="dashboard-card-desc">Ensuring all methodology resources are citable, inspectable, and reproducible:</p>
+        <ul class="dashboard-list">
+          <li><strong>Versioned Templates</strong>: Every template is version-tagged and archived with a stable ledger reference.</li>
+          <li><strong>Citable Metadata</strong>: Resources link directly to originating audit records and verification runs.</li>
+          <li><strong>Open Distribution</strong>: All practical code and frameworks are published as static, zero-dependency artifacts.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <!-- ── REVIEW METHODOLOGY & FRAMEWORKS ─────────────────────────────────── -->
-  <section class="extras-section" id="extras">
+  <section class="extras-section" id="extras" style="border-radius: 0 0 var(--r-2xl) var(--r-2xl); margin-top: 0; border-top: 1px solid var(--border);">
+
+    <!-- Category search -->
     <div class="extras-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
-      <div class="extras-title" style="margin: 0;">Review Methodology &amp; Frameworks</div>
-      
-      <!-- Methodology local search -->
+      <div class="extras-title" style="margin: 0;">Resources</div>
       <div class="local-search-wrap" style="position: relative; display: flex; align-items: center; min-width: 200px;">
         <svg class="search-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="position: absolute; left: 8px; width: 11px; height: 11px; color: var(--t5); pointer-events: none;">
           <circle cx="5.5" cy="5.5" r="4"/>
           <path d="M9 9l3.5 3.5" stroke-linecap="round"/>
         </svg>
-        <input type="text" id="extras-local-search" placeholder="Search methodology..." oninput="handleLocalSearch('extras')" autocomplete="off" style="width: 100%; padding: 5px 8px 5px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--tp); font-family: 'Inter', sans-serif; font-size: 11px; outline: none; transition: border-color 0.15s;">
+        <input type="text" id="extras-local-search" placeholder="Search resources..." oninput="handleLocalSearch('extras')" autocomplete="off" style="width: 100%; padding: 5px 8px 5px 26px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--tp); font-family: 'Inter', sans-serif; font-size: 11px; outline: none; transition: border-color 0.15s;">
       </div>
+    </div>
+    <!-- ── TEMPLATES ─────────────────────────────────────────────────────── -->
+    <div class="extras-category-header">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="12" height="12" rx="1.5"/>
+        <path d="M4 5h6M4 7.5h6M4 10h4" stroke-linecap="round"/>
+      </svg>
+      Templates
     </div>
     <div class="extras-list">
       <div class="extra-item">
         <div class="extra-icon">
           <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="1" y="1" width="11" height="11" rx="1.5"/>
-            <path d="M4 6.5h5M4 4.5h3M4 8.5h4" stroke-linecap="round"/>
+            <path d="M4 5h6M4 7.5h4" stroke-linecap="round"/>
+            <circle cx="9" cy="9" r="2.5"/>
+            <path d="M10.8 10.8l1.2 1.2" stroke-linecap="round"/>
           </svg>
         </div>
         <div>
-          <div class="extra-name">PR Action Plan v3</div>
-          <div class="extra-meta">Agent Review Dashboard · 41KB HTML</div>
+          <div class="extra-name">HTML Effectiveness Template</div>
+          <div class="extra-meta">html-effectiveness framework · Blank reusable · 9 document types · Zero dependencies</div>
         </div>
-        <a href="#" onclick="openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard'); return false;" class="extra-link">Open →</a>
+        <a href="#" onclick="openReportViewer('effective-html-template', './extra/effective_html_template.html', '', '', '', 'HTML Effectiveness Template', 'Blank template · html-effectiveness framework · 9 document types'); return false;" class="extra-link">Open →</a>
       </div>
     </div>
+
+    <!-- ── FRAMEWORKS ─────────────────────────────────────────────────────── -->
+    <div class="extras-category-header">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="3" width="5" height="8" rx="1"/>
+        <rect x="8" y="3" width="5" height="8" rx="1"/>
+        <path d="M6 7h2" stroke-linecap="round"/>
+      </svg>
+      Frameworks
+    </div>
+    <div class="extras-list extras-empty">
+      <div class="extra-empty-state">No frameworks published yet.</div>
+    </div>
+
+    <!-- ── PRACTICAL CODE ─────────────────────────────────────────────────── -->
+    <div class="extras-category-header">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 5l-2 2 2 2M11 5l2 2-2 2M8 3l-2 8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Practical Code
+    </div>
+    <div class="extras-list extras-empty">
+      <div class="extra-empty-state">No code resources published yet.</div>
+    </div>
+
   </section>
 
   <!-- Interactive JSON Insight Inspector -->
