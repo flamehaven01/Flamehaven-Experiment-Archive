@@ -37,13 +37,29 @@ async function renderBavArchive() {
   if (!mf || !Array.isArray(mf.runs)) { list.innerHTML = '<div style="color:var(--t4);font-style:italic;padding:8px;">Archive manifest unavailable.</div>'; return; }
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const grad = new Set(mf.graduated || []);
-  list.innerHTML = mf.runs.map(r => {
+  list.innerHTML = mf.runs.map((r, i) => {
     const isGrad = grad.has(r.id);
     const tag = isGrad ? '<span style="font-size:9px;font-family:\'JetBrains Mono\',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">graduated</span>' : '';
-    return `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
+    const note = r.note ? `<a href="${esc(r.note)}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:3px 8px;">↗ ${esc(r.note_label || 'Note')}</a>` : '';
+    return `<div class="bav-arch-row" onclick="toggleBavArchiveRow(${i})" style="background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">▸</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
+      </div>
+      <div id="bav-arch-detail-${i}" style="display:none;padding:0 10px 10px 22px;font-size:11.5px;color:var(--t4);line-height:1.55;">
+        ${esc(r.summary || '')}${note}
+      </div>
     </div>`;
   }).join('');
+}
+
+// Toggle an archive row's summary detail panel.
+function toggleBavArchiveRow(i) {
+  const d = document.getElementById('bav-arch-detail-' + i);
+  if (!d) return;
+  const open = d.style.display !== 'none';
+  d.style.display = open ? 'none' : 'block';
+  const caret = d.parentElement && d.parentElement.querySelector('span span');
+  if (caret) caret.textContent = open ? '▸' : '▾';
 }
 
 function copyFooterLink() {
@@ -2963,6 +2979,7 @@ window.closeReport = closeReport;
 window.copyReportLink = copyReportLink;
 window.copyFooterLink = copyFooterLink;
 window.renderBavArchive = renderBavArchive;
+window.toggleBavArchiveRow = toggleBavArchiveRow;
 window.toggleFolder = toggleFolder;
 window.toggleSeries = toggleSeries;
 window.highlightFile = highlightFile;

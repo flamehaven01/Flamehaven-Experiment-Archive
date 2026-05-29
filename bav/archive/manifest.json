@@ -1,7 +1,11 @@
 {
   "schema_id": "flamehaven_bav_archive_foundational.v1",
   "label": "Foundational Iterations (EXP-001~030)",
-  "note": "Early RExSyn/NNSL iteration sequence establishing the trinity-consensus, multimodal, and governance primitives that later experiments (EXP-028, 031-034) graduated into full ledger cards. Archived as historical record; reproducibility/governance only.",
+  "note": "Early RExSyn/NNSL iteration sequence establishing the trinity-consensus, multimodal, and governance primitives that later experiments (EXP-028, 031-034) graduated into full ledger cards. Click any entry for its summary. Reproducibility/governance only.",
+  "benchmark_targets": {
+    "sr9_min": 0.8,
+    "di2_max": 0.2
+  },
   "count": 26,
   "graduated": [
     "EXP-028",
@@ -13,107 +17,163 @@
   "runs": [
     {
       "id": "EXP-001",
-      "theme": "Trinity"
+      "slug": "TRINITY",
+      "theme": "Trinity",
+      "summary": "Trinity consensus origin. Linked to the Upadacitinib \"truthful null\": the SR9 gate (>0.80) rejected all three lipid carriers (SR9 ~0.23-0.28) in under 2 hours, replacing ~8 months of bench work.",
+      "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
+      "note_label": "Truthful Null (Upadacitinib)"
     },
     {
       "id": "EXP-002",
-      "theme": "Trinity"
+      "slug": "TRINITY",
+      "theme": "Trinity",
+      "summary": "Trinity consensus origin. Linked to the Upadacitinib \"truthful null\": the SR9 gate (>0.80) rejected all three lipid carriers (SR9 ~0.23-0.28) in under 2 hours, replacing ~8 months of bench work.",
+      "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
+      "note_label": "Truthful Null (Upadacitinib)"
     },
     {
       "id": "EXP-003",
-      "theme": "Genomic Origin"
+      "slug": "GENOMIC-ORIGIN",
+      "theme": "Genomic Origin",
+      "summary": "AlphaGenome genomic-origin reasoning probe."
     },
     {
       "id": "EXP-004",
-      "theme": "Topological"
+      "slug": "TOPOLOGICAL",
+      "theme": "Topological",
+      "summary": "Topological data-analysis structure probe."
     },
     {
       "id": "EXP-008",
-      "theme": "Rag Logos Nnsl"
+      "slug": "RAG-LOGOS-NNSL",
+      "theme": "Rag Logos Nnsl",
+      "summary": "RAG + LOGOS + NNSL integration baseline."
     },
     {
       "id": "EXP-009",
-      "theme": "Smiles Direct"
+      "slug": "SMILES-DIRECT",
+      "theme": "Smiles Direct",
+      "summary": "Direct SMILES chemical-reasoning path."
     },
     {
       "id": "EXP-010",
-      "theme": "Multimodal"
+      "slug": "MULTIMODAL",
+      "theme": "Multimodal",
+      "summary": "Multimodal (chem + genomic + struct) fusion."
     },
     {
       "id": "EXP-011",
-      "theme": "Hyper Resonance"
+      "slug": "HYPER-RESONANCE",
+      "theme": "Hyper Resonance",
+      "summary": "Hyper-resonance SR9 sensitivity tuning."
     },
     {
       "id": "EXP-012",
-      "theme": "Sovereign Origin"
+      "slug": "SOVEREIGN-ORIGIN",
+      "theme": "Sovereign Origin",
+      "summary": "Sovereign-origin reasoning baseline."
     },
     {
       "id": "EXP-013",
-      "theme": "Non Linear Sovereignty"
+      "slug": "NON-LINEAR-SOVEREIGNTY",
+      "theme": "Non Linear Sovereignty",
+      "summary": "Non-linear sovereignty formulation."
     },
     {
       "id": "EXP-014",
-      "theme": "Zero Noise"
+      "slug": "ZERO-NOISE",
+      "theme": "Zero Noise",
+      "summary": "Zero-noise control condition."
     },
     {
       "id": "EXP-015",
-      "theme": "Sovereign Agreement"
+      "slug": "SOVEREIGN-AGREEMENT",
+      "theme": "Sovereign Agreement",
+      "summary": "Sovereign-agreement consensus test."
     },
     {
       "id": "EXP-016",
-      "theme": "Capsule Proxy"
+      "slug": "CAPSULE-PROXY",
+      "theme": "Capsule Proxy",
+      "summary": "Capsule proxy representation."
     },
     {
       "id": "EXP-017",
-      "theme": "Capsule Merge"
+      "slug": "CAPSULE-MERGE",
+      "theme": "Capsule Merge",
+      "summary": "Capsule merge representation."
     },
     {
       "id": "EXP-018",
-      "theme": "Struct Direct"
+      "slug": "STRUCT-DIRECT",
+      "theme": "Struct Direct",
+      "summary": "Structure-direct prediction path."
     },
     {
       "id": "EXP-019",
-      "theme": "Struct Chem"
+      "slug": "STRUCT-CHEM",
+      "theme": "Struct Chem",
+      "summary": "Structure + chemistry joint path."
     },
     {
       "id": "EXP-020",
-      "theme": "Aligned Routing"
+      "slug": "ALIGNED-ROUTING",
+      "theme": "Aligned Routing",
+      "summary": "Aligned routing of multi-engine signals."
     },
     {
       "id": "EXP-021",
-      "theme": "Anchor Strike"
+      "slug": "ANCHOR-STRIKE",
+      "theme": "Anchor Strike",
+      "summary": "Anchor-strike evidence grounding."
     },
     {
       "id": "EXP-022",
-      "theme": "Trinity Strike"
+      "slug": "TRINITY-STRIKE",
+      "theme": "Trinity Strike",
+      "summary": "Trinity-strike consensus stress test."
     },
     {
       "id": "EXP-023",
-      "theme": "Ab Test"
+      "slug": "AB-TEST",
+      "theme": "Ab Test",
+      "summary": "A/B comparison of engine configs."
     },
     {
       "id": "EXP-024",
-      "theme": "Noise Scan"
+      "slug": "NOISE-SCAN",
+      "theme": "Noise Scan",
+      "summary": "Noise-scan robustness sweep."
     },
     {
       "id": "EXP-025",
-      "theme": "Toggle Matrix"
+      "slug": "TOGGLE-MATRIX",
+      "theme": "Toggle Matrix",
+      "summary": "Feature toggle matrix ablation."
     },
     {
       "id": "EXP-026",
-      "theme": "Four Phase"
+      "slug": "FOUR-PHASE",
+      "theme": "Four Phase",
+      "summary": "Four-phase staged evaluation."
     },
     {
       "id": "EXP-027",
-      "theme": "Post Overlay"
+      "slug": "POST-OVERLAY",
+      "theme": "Post Overlay",
+      "summary": "Post-overlay calibration pass."
     },
     {
       "id": "EXP-029",
-      "theme": "Post Overlay"
+      "slug": "POST-OVERLAY",
+      "theme": "Post Overlay",
+      "summary": "Post-overlay calibration pass."
     },
     {
       "id": "EXP-030",
-      "theme": "Root Refactor"
+      "slug": "ROOT-REFACTOR",
+      "theme": "Root Refactor",
+      "summary": "Root pipeline refactor / consolidation."
     }
   ]
 }
