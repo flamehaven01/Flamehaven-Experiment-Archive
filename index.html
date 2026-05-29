@@ -113,21 +113,33 @@
           <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="rexsyn">
             <span class="sb-folder-icon"></span>
             <span class="sb-folder-name">Biomolecular AI Validation (BAV)</span>
-            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">1 Run</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">4</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           <span class="sb-tooltip">
             <strong>Biomolecular AI Validation (BAV)</strong><br>
-            Biomedical pipeline validation analyzing structural folding consensus (AF3, AF2, Boltz-2, Chai-1) and compliance alignment.
+            Governance validation of the RExSyn + NNSL pipeline: multi-model structural consensus (AF3, AF2, Boltz-2, Chai-1) and end-to-end reliability gating.
           </span>
         </div>
         <div class="sb-children" id="child-rexsyn">
           <div class="sb-files" style="padding-left: 8px;">
-            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0031').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0034').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#10b981"></span>
-              <span class="sb-file-name">bav-run-31-32</span>
+              <span class="sb-file-name">exp-034 methodlock</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0033').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#60a5fa"></span>
+              <span class="sb-file-name">exp-033 lawbinder-critic</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0032').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#10b981"></span>
+              <span class="sb-file-name">exp-032 adaptive-gate</span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); activeColl='rexsyn'; applyFilters(); document.getElementById('bav-card-0031').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#eab308"></span>
+              <span class="sb-file-name">exp-031 ood-ablation</span>
             </div>
           </div>
         </div>
@@ -286,7 +298,7 @@
         </p>
         <div class="portal-intro-card-status active">
           <span class="status-dot"></span>
-          <span>1 Run Active (Telemetry Case Notes)</span>
+          <span>4 Experiments (EXP-031~034)</span>
         </div>
       </div>
       

@@ -929,6 +929,15 @@ async function openJsonInspector(runId, type = 'json') {
     } catch (e) { console.warn('BAV exp-034 supplementary fetch failed', e); }
   }
 
+  // BAV: fetch the experiment manifest (provenance/SHA256) for the Integrity tab
+  if (runId.startsWith('bav-exp-') && jsonData) {
+    try {
+      const n = runId.replace('bav-exp-', '');
+      const mf = await fetch('./bav/exp-' + n + '/manifest.json?t=' + new Date().getTime()).then(r => r.ok ? r.json() : null).catch(() => null);
+      if (mf) jsonData._manifest = mf;
+    } catch (e) { console.warn('BAV manifest fetch failed', e); }
+  }
+
   // Fetch report markdown for 0054 or calibration runs
   let reportText = '';
   if (runId.startsWith('eqa-calib-')) {
@@ -1234,6 +1243,83 @@ function renderBavExp034Insights(d) {
       💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation.
     </p>
   `;
+}
+
+// ── BAV Integrity tab: provenance & reproducibility (live from manifest) ─────
+function renderBavIntegrity(runId, data) {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const mf = (data && data._manifest) || {};
+  const ver = mf.verification || {};
+  const guard = mf.guard_thresholds || {};
+  // Collect SHA256 from the various manifest shapes (flat / arms[] / samples[])
+  const sha = Object.assign({}, mf.sha256 || {});
+  (mf.arms || []).forEach(a => { if (a.sha256) sha['arm ' + (a.arm || '?')] = a.sha256; });
+  (mf.samples || []).forEach(s => { if (s.sha256) sha[s.sample_id || 'sample'] = s.sha256; });
+  const rows = [];
+  if (mf.experiment) rows.push(['Experiment', mf.experiment]);
+  if (mf.mode) rows.push(['Run mode', mf.mode]);
+  if (mf.baseline_version) rows.push(['Baseline version', mf.baseline_version]);
+  if (mf.method) rows.push(['Method', mf.method]);
+  if (guard.sr9_min != null) rows.push(['Guard thresholds', `SR9 >= ${guard.sr9_min} · DI2 <= ${guard.di2_max}`]);
+  if (ver.go_no_go_verdict) rows.push(['Go / No-Go verdict', ver.go_no_go_verdict]);
+  if (ver.benchmark_accuracy != null) rows.push(['Benchmark accuracy', String(ver.benchmark_accuracy)]);
+  if (ver.dangerous_pass_rate != null) rows.push(['Dangerous false-pass', String(ver.dangerous_pass_rate)]);
+  const metaRows = rows.map(([k, v]) => `<div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); gap:8px;"><span style="color:var(--t4);">${esc(k)}</span><span style="color:var(--ts);">${esc(v)}</span></div>`).join('');
+  const shaKeys = Object.keys(sha);
+  const shaRows = shaKeys.length
+    ? shaKeys.map(k => `<div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); flex-wrap:wrap; gap:8px;"><span style="color:var(--ts);">${esc(k)}</span><span style="color:var(--t4);">${esc(String(sha[k]).substring(0, 32))}…</span></div>`).join('')
+    : `<div style="color:var(--t4); font-style:italic;">No file hashes in manifest.</div>`;
+  return `
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:16px;">
+      <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">Provenance &amp; Reproducibility</span>
+      <span style="color:#10b981; font-family:'JetBrains Mono', monospace; font-size:11px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); padding:2px 8px; border-radius:var(--r-xs);">🛡️ VERBATIM · SHA256</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px; margin-bottom:16px;">${metaRows || '<div style="color:var(--t4); font-style:italic;">No provenance metadata.</div>'}</div>
+    <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--t4); text-transform:uppercase; margin-bottom:8px;">Verbatim source hashes (DI-EQA-002)</div>
+    <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px;">${shaRows}</div>
+    ${mf.disclaimer ? `<div style="margin-top:16px; font-size:11.5px; color:var(--t4); font-style:italic; border-top:1px solid var(--border); padding-top:12px;">${esc(mf.disclaimer)}</div>` : ''}
+  `;
+}
+
+// ── BAV Verified Rules tab: governance gate fail/go status (live) ────────────
+function renderBavChecks(runId, data) {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const gates = []; // {label, status: PASS|FAIL|WARN|GO|HOLD|OBSERVER, detail}
+  if (runId === 'bav-exp-031') {
+    const bav = data._bav || {};
+    [['A', data], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]).forEach(([n, a]) => {
+      const r = (a && a.result) || {};
+      gates.push({ label: `arm ${n} · convergence gate`, status: 'OBSERVER', detail: `${r.verification_status || '—'} · drift ${(r.final_drift ?? 0).toFixed(3)} → KEEP_OBSERVER` });
+    });
+  } else if (runId === 'bav-exp-032') {
+    const pm = data.pipeline_metrics || {}, g = data.governance_status || {};
+    gates.push({ label: 'Guard · SR9 (tech) >= 0.70', status: (pm.sr9_tech ?? 0) >= 0.70 ? 'PASS' : 'FAIL', detail: `SR9 = ${(pm.sr9_tech ?? 0).toFixed(3)}` });
+    gates.push({ label: 'Guard · DI2 (tech) <= 0.30', status: (pm.di2_tech ?? 1) <= 0.30 ? 'PASS' : 'FAIL', detail: `DI2 = ${(pm.di2_tech ?? 0).toFixed(3)}` });
+    gates.push({ label: 'Clinical interpretation gate', status: g.clinical_status === 'PASS' ? 'PASS' : 'FAIL', detail: `clinical_status = ${g.clinical_status || '—'}` });
+    gates.push({ label: 'LawBinder (fail-closed)', status: g.lawbinder_decision === 'PASS' ? 'PASS' : 'WARN', detail: `decision = ${g.lawbinder_decision || '—'} (escalates to human review)` });
+  } else if (runId === 'bav-exp-033') {
+    const base = (data.baseline && data.baseline.summary) || {};
+    const c = base.classification || {}, gg = base.governance || {};
+    gates.push({ label: 'Zero dangerous false-pass', status: (c.fp_dangerous_pass ?? 1) === 0 ? 'PASS' : 'FAIL', detail: `fp_dangerous_pass = ${c.fp_dangerous_pass}` });
+    gates.push({ label: 'Classification accuracy = 1.0', status: (c.accuracy ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `accuracy = ${c.accuracy}` });
+    gates.push({ label: 'End-to-end reliability (p_e2e)', status: 'WARN', detail: `p_e2e = ${(gg.ccge_p_e2e_mean ?? 0).toFixed(3)} (chain below any single stage — pipeline blind spot)` });
+  } else if (runId === 'bav-exp-034') {
+    const sg = (data._gov && data._gov.stage_gate) || {};
+    (sg.gates || []).forEach(g => gates.push({ label: esc(g.gate_id || 'gate'), status: g.status || 'WARN', detail: g.next_action || '' }));
+    if (sg.overall_status) gates.push({ label: 'Overall stage-gate', status: sg.overall_status, detail: sg.final_action || '' });
+  }
+  if (!gates.length) return '<p class="empty-state">No governance gates recorded for this record.</p>';
+  const palette = { PASS: '#10b981', GO: '#10b981', FAIL: '#ef4444', WARN: '#eab308', HOLD: '#eab308', OBSERVER: '#eab308' };
+  const icon = { PASS: '✓', GO: '✓', FAIL: '✗', WARN: '!', HOLD: '!', OBSERVER: '◐' };
+  const rows = gates.map(g => {
+    const col = palette[g.status] || '#eab308';
+    return `<div style="display:flex; align-items:center; padding:8px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); font-size:12.5px; color:var(--t3);">
+      <span style="color:${col}; font-weight:bold; margin-right:8px;">[${icon[g.status] || '?'}]</span>
+      <div style="flex:1;"><div style="font-weight:600; color:var(--ts); font-size:12px; font-family:'JetBrains Mono',monospace; margin-bottom:2px;">${esc(g.label)}</div><div style="font-size:12px; color:var(--t4);">${esc(g.detail)}</div></div>
+      <span style="font-size:11px; font-family:'JetBrains Mono',monospace; color:${col}; margin-left:12px;">${esc(g.status)}</span>
+    </div>`;
+  }).join('');
+  return `<div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Governance Gate Fitness (fail-closed)</div><div style="display:flex; flex-direction:column; gap:8px;">${rows}</div>`;
 }
 
 function renderInspectorData(runId, data, reportText = '') {
@@ -1604,6 +1690,19 @@ function renderInspectorData(runId, data, reportText = '') {
   }
   insInsights.innerHTML = insightHtml;
   
+  // BAV records: dedicated Integrity (provenance) + Verified Rules (governance gates) tabs
+  if (runId.startsWith('bav-exp-')) {
+    insIntegrity.innerHTML = renderBavIntegrity(runId, data);
+    insChecks.innerHTML = renderBavChecks(runId, data);
+    // Raw JSON + Analysis tabs handled below
+    let rawContentBav = JSON.stringify(data, (k, v) => k.startsWith('_') ? undefined : v, 2);
+    if (insRaw) {
+      insRaw.innerHTML = `<div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t4); margin-bottom:8px;">Canonical record (verbatim, internal merge keys hidden)</div><pre style="margin:0; white-space:pre-wrap; word-break:break-word; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(0,0,0,0.2); border:1px solid var(--border); border-radius:var(--r-sm); padding:14px; max-height:480px; overflow:auto;">${rawContentBav.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</pre>`;
+    }
+    if (insCharts) { insCharts.innerHTML = ''; renderAnalysisTab(insCharts, runId, data); }
+    return;
+  }
+
   // 2. Integrity Tab Contents
   let manifest = data.source_sha256_manifest || data.file_hashes_sha256 || {};
   let integrityHtml = `
