@@ -669,7 +669,10 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   
   const liBtn = document.getElementById('btn-share-li');
   if (liBtn) liBtn.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(fullShareUrl);
-  
+
+  const xBtn = document.getElementById('btn-share-x');
+  if (xBtn) xBtn.href = 'https://x.com/intent/tweet?url=' + encodeURIComponent(fullShareUrl) + '&text=' + encodeURIComponent('Flamehaven Labs Audit: ' + reportTitle);
+
   const emailBtn = document.getElementById('btn-share-email');
   if (emailBtn) {
     emailBtn.href = 'mailto:?subject=' + encodeURIComponent('Flamehaven Labs Audit: ' + reportTitle) +
