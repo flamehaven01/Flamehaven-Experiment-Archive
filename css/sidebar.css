@@ -87,8 +87,8 @@
   opacity: 0.55;
   transition: opacity .12s;
 }
-.sb-folder-icon::before { content: '📁'; }
-.sb-folder-btn.open .sb-folder-icon::before { content: '📂'; }
+.sb-folder-icon::before { content: '\1F4C1'; }
+.sb-folder-btn.open .sb-folder-icon::before { content: '\1F4C2'; }
 .sb-folder-header:hover .sb-folder-icon,
 .sb-folder-btn.active .sb-folder-icon { opacity: 0.85; }
 

@@ -4,6 +4,38 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.3.0] - 2026-05-29
+
+BSC lane UX polish, compliance sandbox refactor to data-driven architecture, and portal consistency improvements.
+
+### 🧬 BSC Lane Improvements
+- **Read Article button**: Added per-report flamehaven.space article links for yorkeccak/bio and BioClaw. Visible on card and in report viewer sidebar. Opens in new tab.
+- **Inspect button**: Renamed JSON inspector card button from "JSON" → "Inspect" with magnifying glass icon. Order: Open Report → Inspect → Read Article → PDF → MD → JSON.
+- **Stats row — dynamic**: Reports/T1/T2/Avg Score now computed from DOM (`data-coll`, `data-tier`, `data-score`). Hardcoded literals removed (DI-BSC-002).
+- **Collections stat removed**: Replaced with **Avg Score (N/100)** — Collections always = 1 in BSC single-lane space; meaningless and misleading.
+
+### 🔧 Compliance Sandbox Refactor (DI-BSC-001)
+- **Data-driven `steerCompliance`**: Removed all hardcoded scores (`isYork` binary flag, literals 75/70/48/60/38/50). All values now read from `inspector.jsonData` (live report.json).
+- **`COMPLIANCE_POLICIES` map**: Each policy is a pure function `(data) => result`. Adding a new policy = one map entry, zero existing code changes.
+- **Standard Prior cognitive fix**: Label changed to "Full Audit Score:", metric now shows `Δ −N from S1 naive` to explain governance weighting reduction. Note explains 70→60 drop.
+- **`metricLabel` field**: Per-policy label ("Full Audit Score" / "Compliance Verdict" / "Steered Score & Verdict") replaces hardcoded template string.
+- **Simulation label**: Sandbox header now reads "Compliance Engine · Simulation".
+- **Gauge arc dynamic**: `fillDash` computed as `213.6 * score/100` from JSON, not hardcoded per report.
+
+### 🎨 Portal Consistency
+- **Folder initial state**: BSC and Methodology folders now start closed (removed hardcoded `open` class on `sb-children`, `sb-files`, and button).
+- **Folder badge green**: All folder badges now use consistent green style (`#10b981`).
+- **Folder icon encoding**: CSS `content` emoji replaced with Unicode escapes (`\1F4C1`/`\1F4C2`) to prevent cp949 render corruption.
+- **Copy Link (viewer)**: Removed redundant "Copy Link" button from viewer sidebar; social share row handles distribution.
+- **Card Copy Link**: Reduced to icon-only (`dl-copy-btn`, no text label).
+- **Button order unified**: All `viewer-btn` elements use base style (no `primary` override) for visual consistency.
+
+### 📚 MICA v1.3.0
+- Added DI-BSC-001 (data-driven compliance sandbox) and DI-BSC-002 (BSC stats dynamic count).
+- `operation_meta`: update_count 5, session_count 4, last_updated 2026-05-29.
+
+---
+
 ## [1.2.0] - 2026-05-28
 
 EQA lane expansion adding two new verification cards (0052, 0056/AEFSO), portal UX improvements (sidebar ordering, emoji icons, mobile backdrop), tooltip architecture rework, and a full EQA operations playbook in the master MICA package.

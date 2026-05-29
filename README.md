@@ -29,8 +29,8 @@ The summary file is intentionally narrow. It exists only to route users into the
 
 ### 2. Bioscience Repository Compliance Scanner
 - **Focus**: Local, zero-execution repository safety and compliance audits for advanced bioscience systems.
-- **Methodology**: Maps observables (README intent, dependency safety, exception handling, data-provenance, clinical disclaimers) directly to structured evidence-readiness tiers (T0 Quarantine to T3 Clear), mapped to the **MIT AI Risk Repository (AIRI)**.
-- **Scope**: 2 authoritatively active repository audit reports.
+- **Methodology**: Maps observables (README intent, dependency safety, exception handling, data-provenance, clinical disclaimers) directly to structured evidence-readiness tiers (T0 Quarantine to T3 Clear), mapped to the **MIT AI Risk Repository (AIRI)**. Interactive Compliance Steering Sandbox applies Standard Prior / EU AI Act Art. 12 / MIT AI Risk Cap policy rules against live report JSON — no hardcoded scores.
+- **Scope**: 2 active reports · Avg Score 54/100 · 1 T1 Quarantine · 1 T2 Caution. Each report links to a companion flamehaven.space article.
 
 ### 3. Biomolecular AI Validation
 - **Focus**: Governing structural alignment and structural consensus integrity for biomedical model fine-tunes.
@@ -73,8 +73,8 @@ flamehaven-verification-ledger/
 ## 🚀 Quick Browse
 
 To interactively browse this repository, run the local dev server and open the portal:
-1. Run `python -m http.server 7777` inside this folder.
-2. Open `http://localhost:7777` in your browser.
+1. Run `python -m http.server 8080` inside this folder.
+2. Open `http://localhost:8080` in your browser.
 
 ### 🔢 EQA — Equation-to-Artifact Runs
 - **[EQA · 0056] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`

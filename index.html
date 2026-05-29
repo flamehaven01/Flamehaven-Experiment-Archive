@@ -136,10 +136,10 @@
       <!-- STEM-BIO-AI (BSC) Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
-          <button class="sb-folder-btn open active" onclick="toggleFolder(this)" data-id="stem-bio-ai">
+          <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="stem-bio-ai">
             <span class="sb-folder-icon"></span>
             <span class="sb-folder-name">Bioscience Compliance (BSC)</span>
-            <span class="sb-folder-badge">2</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">2</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -149,8 +149,8 @@
             Deterministic static scanning auditing bioscience AI surfaces, checking clinical boundaries, safety limitations, and license compliance.
           </span>
         </div>
-        <div class="sb-children open" id="child-stem-bio-ai">
-          <div class="sb-files open" style="padding-left: 8px;">
+        <div class="sb-children" id="child-stem-bio-ai">
+          <div class="sb-files" style="padding-left: 8px;">
             <a class="sb-file" href="#" onclick="openReportViewer('yorkeccak-bio', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.html', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.md', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf', 'yorkeccak/bio', 'Bioscience Compliance · 2026-05-18'); highlightFile(this); return false;">
               <span class="sb-file-dot" style="background:var(--t1)"></span>
               <span class="sb-file-name" title="yorkeccak/bio">yorkeccak/bio</span>
@@ -168,10 +168,10 @@
       <!-- Methodology & Frameworks Folder -->
       <div class="sb-folder">
         <div class="sb-folder-header">
-          <button class="sb-folder-btn open" onclick="toggleFolder(this)" data-id="extra">
+          <button class="sb-folder-btn" onclick="toggleFolder(this)" data-id="extra">
             <span class="sb-folder-icon"></span>
             <span class="sb-folder-name">Methodology &amp; Frameworks</span>
-            <span class="sb-folder-badge">1</span>
+            <span class="sb-folder-badge" style="color:#10b981;border-color:rgba(16, 185, 129, 0.2);">1</span>
             <svg class="sb-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M3 2l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -181,8 +181,8 @@
             Review dashboards, verification blueprints, and compliance mapping frameworks demonstrating systematic review methods.
           </span>
         </div>
-        <div class="sb-children open" id="child-extra">
-          <div class="sb-files open" style="padding-left: 8px;">
+        <div class="sb-children" id="child-extra">
+          <div class="sb-files" style="padding-left: 8px;">
             <a class="sb-file" href="#" onclick="openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard'); highlightFile(this); return false;">
               <span class="sb-file-dot" style="background:var(--tp)"></span>
               <span class="sb-file-name" title="Agent Review Dashboard (PR Action Plan 2.0)">Agent Review Dashboard (PR Action Plan 2.0)</span>
@@ -835,7 +835,13 @@
       <div class="viewer-sidebar-panel">
         <div class="viewer-action-box">
           <div class="viewer-action-title">Connections</div>
-          <a class="viewer-btn primary" id="btn-view-tab" href="#" target="_blank" rel="noopener">
+          <a class="viewer-btn" id="btn-article" href="#" target="_blank" rel="noopener" style="display:none;">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/>
+            </svg>
+            Read Article
+          </a>
+          <a class="viewer-btn" id="btn-view-tab" href="#" target="_blank" rel="noopener">
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M1 9l8-8M4 1h5v5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -865,13 +871,6 @@
             </svg>
             Download PDF
           </a>
-          <button class="viewer-btn" id="btn-copy-link">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="4" y="4" width="7" height="7" rx="1"/>
-              <path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/>
-            </svg>
-            Copy Link
-          </button>
         </div>
       </div>
 
@@ -977,19 +976,19 @@
       <!-- Stats row embedded in Dashboard -->
       <div class="stats-row" style="margin-top: 24px; border: 1px solid var(--border); border-radius: var(--r-xl); background: rgba(255, 255, 255, 0.01); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 20px;">
         <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
-          <div class="stat-num" id="stat-total" style="font-size: 24px; font-weight: 700; color: var(--ts);">2</div>
+          <div class="stat-num" id="stat-total" style="font-size: 24px; font-weight: 700; color: var(--ts);">—</div>
           <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Reports</div>
         </div>
         <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
-          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: var(--ts);">1</div>
-          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Collections</div>
+          <div class="stat-num" id="stat-avg" style="font-size: 24px; font-weight: 700; color: var(--ts);">—</div>
+          <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Avg Score</div>
         </div>
         <div class="stat-cell" style="border-right: 1px solid var(--border); padding-right: 16px; display: block; text-align: left;">
-          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: #f97316;">1 T1</div>
+          <div class="stat-num" id="stat-t1" style="font-size: 24px; font-weight: 700; color: #f97316;">—</div>
           <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Quarantine</div>
         </div>
         <div class="stat-cell" style="padding-right: 16px; display: block; text-align: left;">
-          <div class="stat-num" style="font-size: 24px; font-weight: 700; color: #eab308;">1 T2</div>
+          <div class="stat-num" id="stat-t2" style="font-size: 24px; font-weight: 700; color: #eab308;">—</div>
           <div class="stat-label" style="font-size: 12px; color: var(--t4); margin-top: 4px;">Caution</div>
         </div>
       </div>
@@ -1135,10 +1134,23 @@
           </a>
           <button class="dl-btn" onclick="openJsonInspector('yorkeccak-bio'); return false;" style="cursor: pointer; color: #a78bfa; border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); font-weight: 500;">
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+              <circle cx="5" cy="5" r="3.2"/>
+              <path d="M7.5 7.5l2.8 2.8" stroke-linecap="round"/>
             </svg>
-            JSON
+            Inspect
           </button>
+          <a class="dl-btn" href="https://flamehaven.space/writing/your-bio-repo-could-get-you-fined-here-is-why-we-check-every-single-one/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/>
+            </svg>
+            Read Article
+          </a>
+          <a class="dl-btn" href="./stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf" download>
+            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            PDF
+          </a>
           <a class="dl-btn" href="./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1151,18 +1163,11 @@
             </svg>
             JSON
           </a>
-          <a class="dl-btn" href="./stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf" download>
-            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            PDF
-          </a>
           <button class="dl-copy-btn" onclick="copyURL('./stem-bio-ai/yorkeccak-bio/2026-05-15/report.html')" title="Copy link">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="4" y="4" width="7" height="7" rx="1"/>
               <path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/>
             </svg>
-            Copy Link
           </button>
         </div>
       </article>
@@ -1279,10 +1284,23 @@
           </a>
           <button class="dl-btn" onclick="openJsonInspector('bioclaw'); return false;" style="cursor: pointer; color: #a78bfa; border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.05); font-weight: 500;">
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+              <circle cx="5" cy="5" r="3.2"/>
+              <path d="M7.5 7.5l2.8 2.8" stroke-linecap="round"/>
             </svg>
-            JSON
+            Inspect
           </button>
+          <a class="dl-btn" href="https://flamehaven.space/writing/stanford-princeton-a-biorxiv-paper-so-why-did-nobody-ask-where-the-data-goes/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/>
+            </svg>
+            Read Article
+          </a>
+          <a class="dl-btn" href="./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf" download>
+            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            PDF
+          </a>
           <a class="dl-btn" href="./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md" download>
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1295,18 +1313,11 @@
             </svg>
             JSON
           </a>
-          <a class="dl-btn" href="./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf" download>
-            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            PDF
-          </a>
           <button class="dl-copy-btn" onclick="copyURL('./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html')" title="Copy link">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="4" y="4" width="7" height="7" rx="1"/>
               <path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/>
             </svg>
-            Copy Link
           </button>
         </div>
       </article>

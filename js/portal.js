@@ -458,6 +458,23 @@ function applyFilters() {
   if (statsRow) statsRow.style.display = showStatsAndGuide ? '' : 'none';
   if (scoreGuide) scoreGuide.style.display = showStatsAndGuide ? '' : 'none';
 
+  // Compute BSC stats dynamically from DOM — no hardcoded counts
+  if (showStatsAndGuide) {
+    const cards = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"]');
+    const t1Count = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"][data-tier="T1"]').length;
+    const t2Count = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"][data-tier="T2"]').length;
+    const scores = [...cards].map(c => Number(c.dataset.score)).filter(s => !isNaN(s));
+    const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : '—';
+    const elTotal = document.getElementById('stat-total');
+    const elAvg   = document.getElementById('stat-avg');
+    const elT1    = document.getElementById('stat-t1');
+    const elT2    = document.getElementById('stat-t2');
+    if (elTotal) elTotal.textContent = cards.length;
+    if (elAvg)   elAvg.textContent   = avg !== '—' ? `${avg}/100` : '—';
+    if (elT1)    elT1.textContent    = t1Count ? `${t1Count} T1` : '0';
+    if (elT2)    elT2.textContent    = t2Count ? `${t2Count} T2` : '0';
+  }
+
   // Highlight corresponding coll pill
   document.querySelectorAll('.coll-pill').forEach(p => {
     const onclickText = p.getAttribute('onclick') || '';
@@ -533,16 +550,20 @@ function getBaseUrl() {
   return loc.origin + path;
 }
 
+
+// ── ARTICLE LINKS (flamehaven.space writing) ──────────────────────────────────
+const ARTICLE_LINKS = {
+  'yorkeccak-bio': 'https://flamehaven.space/writing/your-bio-repo-could-get-you-fined-here-is-why-we-check-every-single-one/',
+  'bioclaw': 'https://flamehaven.space/writing/stanford-princeton-a-biorxiv-paper-so-why-did-nobody-ask-where-the-data-goes/',
+};
+
 // ── COPY URL ──────────────────────────────────────────────────────────────────
 function copyURL(path) {
   const base = getBaseUrl();
   const full = path.startsWith('http') ? path : base + path.replace(/^\.\//, '');
   navigator.clipboard.writeText(full).then(() => {
     const t = document.getElementById('toast');
-    if (t) {
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2200);
-    }
+    if (t) { t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
   });
 }
 
@@ -580,6 +601,18 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
   const eyebrowNode = document.getElementById('viewer-eyebrow');
   if (eyebrowNode) eyebrowNode.textContent = reportEyebrow;
 
+  // Article link (flamehaven.space writing)
+  const articleBtn = document.getElementById('btn-article');
+  if (articleBtn) {
+    const articleUrl = ARTICLE_LINKS[reportId];
+    if (articleUrl) {
+      articleBtn.href = articleUrl;
+      articleBtn.style.display = '';
+    } else {
+      articleBtn.style.display = 'none';
+    }
+  }
+
   // Setup connection link buttons
   const viewTabBtn = document.getElementById('btn-view-tab');
   if (viewTabBtn) viewTabBtn.href = absHtmlPath;
@@ -612,14 +645,6 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
     } else {
       pdfBtn.style.display = 'none';
     }
-  }
-
-  // Bind copy clipboard button
-  const copyBtn = document.getElementById('btn-copy-link');
-  if (copyBtn) {
-    copyBtn.onclick = function() {
-      copyURL(absHtmlPath);
-    };
   }
 
   // Update social shares
@@ -1144,12 +1169,12 @@ function renderInspectorData(runId, data, reportText = '') {
       </p>
     `;
   } else if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
-    const scoreVal = data.score ? data.score.final_score : (runId === 'yorkeccak-bio' ? 48 : 60);
-    const tierVal = data.score ? data.score.formal_tier : (runId === 'yorkeccak-bio' ? 'T1 Quarantine' : 'T2 Caution');
-    const isYork = runId === 'yorkeccak-bio';
-    const scoreColor = isYork ? '#f97316' : '#eab308';
-    const fillDash = isYork ? '102.5 213.6' : '128.2 213.6';
-    const scopeStr = data.score ? data.score.use_scope : (isYork ? "Exploratory review only; no patient-adjacent use." : "Research reference and supervised non-clinical technical review only.");
+    const scoreVal = data.score ? data.score.final_score : 0;
+    const tierVal = data.score ? data.score.formal_tier : '';
+    const scoreColor = _bscTierColor(tierVal);
+    // arc length = circumference(r=34) * score/100 = 213.6 * score/100
+    const fillDash = `${(213.6 * scoreVal / 100).toFixed(1)} 213.6`;
+    const scopeStr = data.score ? data.score.use_scope : '';
     
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: center;">
@@ -1186,7 +1211,7 @@ function renderInspectorData(runId, data, reportText = '') {
           <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ts); display: flex; align-items: center; gap: 6px;">
             <span>🛡️ Sovereign Bio-Audit Compliance Steering Sandbox</span>
           </h4>
-          <span style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: var(--r-xs);">Compliance Engine</span>
+          <span style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: var(--r-xs);">Compliance Engine · Simulation</span>
         </div>
         
         <p style="font-size: 12.5px; color: var(--t4); margin: 0 0 16px 0; line-height: 1.5;">
@@ -2214,9 +2239,71 @@ window.steerPrecision = function(bits, btn) {
   }
 };
 
-// Sovereign Bio-Audit Compliance Steering Sandbox logic
+// ── BSC COMPLIANCE POLICY RULES ──────────────────────────────────────────────
+// All scores derived from live inspector.jsonData — no hardcoding.
+// Derivation:
+//   baseline  = data.score.stage_1_readme_intent  (S1 intent-only, pre-governance)
+//   standard  = data.score.final_score + data.score.formal_tier  (audit result as-is)
+//   eu-ai-act = BLOCK if !has_explicit_clinical_boundary (Art. 12 hard rule)
+//   mit-cap   = final_score - 10 if C5 triggered (clinical boundary absent, MIT AIRI V4_03)
+function _bscTierLabel(score) {
+  if (score >= 85) return 'T4 Accepted';
+  if (score >= 70) return 'T3 Conditional';
+  if (score >= 50) return 'T2 Caution';
+  return 'T1 Quarantine';
+}
+function _bscTierColor(tier) {
+  if (!tier) return '#ef4444';
+  if (tier.startsWith('T1')) return '#f97316';
+  if (tier.startsWith('T2')) return '#eab308';
+  return '#10b981';
+}
+const COMPLIANCE_POLICIES = {
+  standard(data) {
+    const score = data.score.final_score;
+    const tier = data.score.formal_tier;
+    const s1 = data.score.stage_1_readme_intent || score;
+    const delta = s1 - score;
+    const deltaStr = delta > 0 ? ` (Δ −${delta} from S1 naive ${s1})` : '';
+    const c = _bscTierColor(tier);
+    return { header: 'DIAGNOSTIC ALIGNMENT SIGNALED', headerColor: c,
+      label: 'Policy: Standard Prior — actual audit result, no additional policy applied',
+      metricLabel: 'Full Audit Score:',
+      metric: `${score} | ${tier}${deltaStr}`, metricColor: c, metricBg: 'rgba(255,255,255,0.02)', metricBd: 'var(--border)',
+      note: delta > 0
+        ? `Governance weighting reduced S1 naive score by Δ −${delta} (${s1} → ${score}). Clinical boundary gaps penalized but promotion not halted.`
+        : 'Observational compliance mapped. Scoring weights applied. No promotion halt triggered.' };
+  },
+  'eu-ai-act'(data) {
+    const hasBoundary = data.classification && data.classification.has_explicit_clinical_boundary;
+    if (!hasBoundary) return { header: 'ARTICLE 12 COMPLIANCE BLOCKED', headerColor: '#ef4444',
+      label: 'Policy: EU AI Act High-Risk Gating', metricLabel: 'Compliance Verdict:',
+      metric: 'BLOCKED | T0 Gated Floor',
+      metricColor: '#ef4444', metricBg: 'rgba(239,68,68,0.05)', metricBd: 'rgba(239,68,68,0.1)',
+      note: '❌ FAILED. Art. 12 mandates clinical disclaimer boundaries. Missing boundary lock forces T0 hard-floor override.' };
+    const score = data.score.final_score; const tier = data.score.formal_tier; const c = _bscTierColor(tier);
+    return { header: 'ARTICLE 12 COMPLIANT', headerColor: c, label: 'Policy: EU AI Act High-Risk Gating',
+      metricLabel: 'Compliance Verdict:', metric: `Score: ${score} | ${tier}`,
+      metricColor: c, metricBg: 'rgba(255,255,255,0.02)', metricBd: 'var(--border)',
+      note: '✅ Clinical boundary requirements satisfied under Art. 12.' };
+  },
+  'mit-cap'(data) {
+    const c5 = data.classification && data.classification.has_explicit_clinical_boundary === false;
+    const penalty = c5 ? 10 : 0;
+    const score = Math.max(0, data.score.final_score - penalty);
+    const tier = _bscTierLabel(score); const col = c5 ? '#eab308' : _bscTierColor(tier);
+    return { header: c5 ? 'MIT AIRI RISK PENALTY ENGAGED' : 'MIT AIRI COMPLIANT', headerColor: col,
+      label: 'Policy: MIT AI Risk Rep. Penalty Cap', metricLabel: 'Steered Score &amp; Verdict:',
+      metric: c5 ? `${score} | ${tier} (−${penalty} C5 penalty)` : `${score} | ${tier}`,
+      metricColor: col, metricBg: c5 ? 'rgba(234,179,8,0.05)' : 'rgba(255,255,255,0.02)',
+      metricBd: c5 ? 'rgba(234,179,8,0.1)' : 'var(--border)',
+      note: c5 ? `⚠️ WARN. C5 detector triggered (clinical boundary absent) → −${penalty} penalty applied under MIT AIRI V4_03.`
+               : '✅ No C5 penalty triggered. MIT AIRI requirements satisfied.' };
+  },
+};
+
+// Sovereign Bio-Audit Compliance Steering Sandbox — data-driven, no hardcoded scores
 window.steerCompliance = function(policy, runId, btn) {
-  // Update button states
   const parent = btn.parentElement;
   parent.querySelectorAll('.precision-btn').forEach(b => {
     b.classList.remove('active');
@@ -2228,52 +2315,39 @@ window.steerCompliance = function(policy, runId, btn) {
   btn.style.background = 'rgba(167, 139, 250, 0.1)';
   btn.style.color = 'var(--ts)';
   btn.style.borderColor = 'rgba(167, 139, 250, 0.3)';
-  
+
   const baselinePanel = document.getElementById('compliance-baseline');
   const steeredPanel = document.getElementById('compliance-steered');
   if (!baselinePanel || !steeredPanel) return;
-  
-  const isYork = runId === 'yorkeccak-bio';
-  const baselineScore = isYork ? 75 : 70;
-  
-  baselinePanel.innerHTML = `
-    <div style="color: #ef4444; font-weight: 700; margin-bottom: 6px; font-size: 13px;">UNRESOLVED CLINICAL HAZARDS</div>
-    <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Baseline prior: unmapped library entry</div>
-    <div style="margin-bottom: 4px;">Stage 1 Prior Score:</div>
-    <div style="color: #ef4444; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(239, 68, 68, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.1); margin-bottom: 6px;">${baselineScore} / 100</div>
-    <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">⚠️ Clinical-adjacent surfaces exist without an explicit disclaimer. No active safeguards pins matched repository constraints.</p>
-  `;
-  
-  if (policy === 'standard') {
-    const finalScore = isYork ? 48 : 60;
-    const tier = isYork ? 'T1 Quarantine' : 'T2 Caution';
-    const statusColor = isYork ? '#f97316' : '#eab308';
-    
-    steeredPanel.innerHTML = `
-      <div style="color: ${statusColor}; font-weight: 700; margin-bottom: 6px; font-size: 13px;">DIAGNOSTIC ALIGNMENT SIGNALED</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Policy: Standard uncalibrated prior</div>
-      <div style="margin-bottom: 4px;">Steered Score &amp; Verdict:</div>
-      <div style="color: ${statusColor}; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(255,255,255,0.02); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); margin-bottom: 6px;">Score: ${finalScore} | ${tier}</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">Observational compliance mapped. Scoring weights penalize clinical boundary gaps but do not halt software promotion.</p>
-    `;
-  } else if (policy === 'eu-ai-act') {
-    steeredPanel.innerHTML = `
-      <div style="color: #ef4444; font-weight: 700; margin-bottom: 6px; font-size: 13px;">ARTICLE 12 COMPLIANCE BLOCKED</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Policy: EU AI Act High-Risk Gating</div>
-      <div style="margin-bottom: 4px;">Compliance Verdict:</div>
-      <div style="color: #ef4444; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(239, 68, 68, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.1); margin-bottom: 6px;">BLOCKED | T0 Gated Floor</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">❌ FAILED. Article 12 mandates strict logging and clinical disclaimer boundaries. Absence of boundary locks forces a T0 hard-floor override.</p>
-    `;
-  } else if (policy === 'mit-cap') {
-    const finalScore = isYork ? 38 : 50;
-    steeredPanel.innerHTML = `
-      <div style="color: #eab308; font-weight: 700; margin-bottom: 6px; font-size: 13px;">MIT AIRI RISK PENALTY ENGAGED</div>
-      <div style="font-size: 11px; color: var(--t4); margin-bottom: 8px;">Policy: MIT AI Risk Rep. Penalty Cap</div>
-      <div style="margin-bottom: 4px;">Compliance Score &amp; Penalty:</div>
-      <div style="color: #eab308; font-weight: 600; font-family: monospace; font-size: 14px; background: rgba(234, 179, 8, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(234, 179, 8, 0.1); margin-bottom: 6px;">Score: ${finalScore} | T1 Quarantine</div>
-      <p style="margin: 6px 0 0 0; font-size: 11px; color: var(--t4); line-height: 1.4;">⚠️ WARN. Triggered detector C5 causes a flat -10 penalty cap override for clinical boundary exposure under MIT AI Risk mapping.</p>
-    `;
+
+  // Read live JSON from inspector cache — zero hardcoding
+  const inspector = document.getElementById('eq-json-inspector');
+  const data = inspector && inspector.jsonData;
+  if (!data || !data.score) {
+    steeredPanel.innerHTML = '<p style="color:var(--t4);font-size:12px;">Data not loaded yet.</p>';
+    return;
   }
+
+  // Baseline = stage_1_readme_intent (S1 intent-only, before governance weight application)
+  const bs = data.score.stage_1_readme_intent || data.score.raw_score_before_floor || data.score.final_score;
+  baselinePanel.innerHTML = `
+    <div style="color:#ef4444;font-weight:700;margin-bottom:6px;font-size:13px;">UNRESOLVED CLINICAL HAZARDS</div>
+    <div style="font-size:11px;color:var(--t4);margin-bottom:8px;">Baseline prior: unmapped library entry (S1 intent-only)</div>
+    <div style="margin-bottom:4px;">Stage 1 Prior Score:</div>
+    <div style="color:#ef4444;font-weight:600;font-family:monospace;font-size:14px;background:rgba(239,68,68,0.05);padding:4px 8px;border-radius:4px;border:1px solid rgba(239,68,68,0.1);margin-bottom:6px;">${bs} / 100</div>
+    <p style="margin:6px 0 0 0;font-size:11px;color:var(--t4);line-height:1.4;">⚠️ Clinical-adjacent surfaces exist without an explicit disclaimer. No active safeguards pins matched repository constraints.</p>
+  `;
+
+  const policyFn = COMPLIANCE_POLICIES[policy];
+  if (!policyFn) return;
+  const r = policyFn(data);
+  steeredPanel.innerHTML = `
+    <div style="color:${r.headerColor};font-weight:700;margin-bottom:6px;font-size:13px;">${r.header}</div>
+    <div style="font-size:11px;color:var(--t4);margin-bottom:8px;">${r.label}</div>
+    <div style="margin-bottom:4px;">${r.metricLabel || 'Steered Score &amp; Verdict:'}</div>
+    <div style="color:${r.metricColor};font-weight:600;font-family:monospace;font-size:14px;background:${r.metricBg};padding:4px 8px;border-radius:4px;border:1px solid ${r.metricBd};margin-bottom:6px;">${r.metric}</div>
+    <p style="margin:6px 0 0 0;font-size:11px;color:var(--t4);line-height:1.4;">${r.note}</p>
+  `;
 };
 
 // Conformational Steering Sandbox logic for REXSYN

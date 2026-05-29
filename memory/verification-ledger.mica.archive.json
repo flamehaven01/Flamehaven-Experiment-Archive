@@ -133,12 +133,31 @@
       }
     }
   ],
+    {
+      "id": "DI-BSC-001",
+      "label": "data-driven-compliance-sandbox",
+      "statement": "The BSC Compliance Steering Sandbox must derive all scores (baseline, steered, delta) from live report.json data via inspector.jsonData cache. Hardcoded per-report score literals are prohibited. Policy rules must be defined in a COMPLIANCE_POLICIES map; adding a new policy requires only one new map entry. Baseline = stage_1_readme_intent (S1 intent-only, pre-governance). MIT-cap C5 penalty = -10 when has_explicit_clinical_boundary is false. EU AI Act = hard BLOCK when boundary absent.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-061: steerCompliance used isYork binary flag and hardcoded scores (75,70,48,60,38,50). Refactored to COMPLIANCE_POLICIES map reading inspector.jsonData, eliminating all literals."
+      }
+    },
+    {
+      "id": "DI-BSC-002",
+      "label": "bsc-stats-dynamic-count",
+      "statement": "BSC dashboard stats (Reports, Avg Score, T1, T2) must be computed dynamically from DOM via querySelectorAll on data-coll and data-tier attributes. Static literal counts in HTML are prohibited. Collections stat is banned — BSC is a single-lane space; Avg Score (final_score average, displayed as N/100) is the correct replacement.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-062: Stats row had hardcoded literals 2/1/1T1/1T2. Replaced with DOM-counting logic and swapped Collections for Avg Score computed from data-score attributes."
+      }
+    }
+  ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 4,
-    "last_updated": "2026-05-28",
-    "session_count": 3,
+    "update_count": 5,
+    "last_updated": "2026-05-29",
+    "session_count": 4,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }
