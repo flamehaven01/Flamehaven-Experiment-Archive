@@ -41,7 +41,7 @@ async function renderBavArchive() {
     const isGrad = grad.has(r.id);
     const tag = isGrad ? '<span style="font-size:9px;font-family:\'JetBrains Mono\',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">graduated</span>' : '';
     const note = r.note ? `<a href="${esc(r.note)}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:3px 8px;">↗ ${esc(r.note_label || 'Note')}</a>` : '';
-    return `<div class="bav-arch-row" onclick="toggleBavArchiveRow(${i})" style="background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;">
+    return `<div class="bav-arch-row" onclick="toggleBavArchiveRow(${i})" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">▸</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
       </div>
