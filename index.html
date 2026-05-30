@@ -801,7 +801,42 @@
 
     <!-- Vertical Stack for BAV Cards -->
     <div class="bav-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
-      
+
+      <!-- CARD 0: ENGINE OVERVIEW (RExSyn / NNSL governance context) -->
+      <article class="bav-card" id="bav-card-overview" data-status="published" style="display: flex; flex-direction: column; background: rgba(167,139,250,0.03); border: 1px solid rgba(167,139,250,0.18); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #a78bfa; background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">ENGINE OVERVIEW</span>
+            <span style="font-size: 12px; color: var(--t4);">RExSyn + NNSL</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#a78bfa"></span>
+            Context
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          What This Lane Validates: the RExSyn + NNSL Governance Chain
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 16px 0; max-width: 820px;">
+          BAV does not do drug discovery — it validates whether a biomedical AI <em>pipeline</em> deserves trust. Two engines anchor the chain, themselves audited for code health (pipeline-insight Omega):
+        </p>
+        <ul class="dashboard-list" style="margin: 0 0 18px 0;">
+          <li><strong>RExSyn (Nexus)</strong> — trinity hypothesis + multi-validator synthesis. Audited Omega <code>0.665 (Revoked)</code>: runs observer-first, not as an accepted decision-maker.</li>
+          <li><strong>NNSL</strong> — semantic resonance / governance verification (SR9 cross-domain coherence, DI2 logical drift). Audited Omega <code>0.919 (Certified)</code>.</li>
+          <li><strong>LawBinder</strong> — fail-closed policy gate: escalates to human review when uncertain, never silently approves.</li>
+        </ul>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/what-an-ai-reasoning-engine-built-for-alzheimers-metabolic-research-a-code-walkthrough/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
+            RExSyn Walkthrough
+          </a>
+          <a class="eq-slot-btn" href="https://flamehaven.space/writing/when-adding-chai-1-and-boltz-2-exposed-hidden-model-disagreementtrinity-protocol-part/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>
+            Trinity Protocol II
+          </a>
+        </div>
+      </article>
+
       <!-- CARD 4: EXP-034 METHODLOCK-MODAL-EXPANSION (Path Separation) -->
       <article class="bav-card" id="bav-card-0034" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
