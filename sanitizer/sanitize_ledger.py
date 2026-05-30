@@ -30,7 +30,9 @@ REDACT = "[redacted]"
 FLAG = "<flagged>"
 _HANGUL = chr(0xAC00) + "-" + chr(0xD7A3) + chr(0x3130) + "-" + chr(0x318F)
 _HANGUL_RE = re.compile("[" + _HANGUL + "]+(?:\\s+[" + _HANGUL + "]+)*")
-_PATH_RE = re.compile(r"[A-Za-z]:[\\/]+[^\"`<&\r\n]+")
+# Stop before a delimiter (" ` < & newline) and also before an escaped quote
+# (\") so paths embedded inside JSON-encoded strings keep their escaping intact.
+_PATH_RE = re.compile(r"[A-Za-z]:[\\/]+(?:(?!\\\")[^\"`<&\r\n])+")
 # Strict octets (no leading zeros) to avoid matching SVG/coordinate number runs.
 _OCTET = r"(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
 _IPV4_RE = re.compile(r"\b" + _OCTET + r"(?:\." + _OCTET + r"){3}\b")

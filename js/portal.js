@@ -903,6 +903,8 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './bav/exp-032/pass-001-arm-a/payload.json';
   } else if (runId === 'bav-exp-031') {
     jsonPath = './bav/exp-031/arm-a/hybrid_result.json';
+  } else if (runId === 'bav-exp-005') {
+    jsonPath = './bav/exp-005/manifest.json';
   } else if (runId === 'bav-exp-028') {
     jsonPath = './bav/exp-028/post_overlay_report.json';
   } else if (runId === 'bav-exp-033') {
@@ -1258,6 +1260,36 @@ function renderBavExp031Insights(d) {
   `;
 }
 
+// BAV EXP-005 insights: Upadacitinib truthful null. Live from manifest samples.
+function renderBavExp005Insights(d) {
+  const s = (d && d.samples) || [];
+  if (!s.length) return '<p class="empty-state">No EXP-005 data loaded.</p>';
+  const esc = (x) => String(x == null ? '' : x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const thr = (d.guard_thresholds && d.guard_thresholds.sr9_min) || 0.80;
+  const rows = s.map(x => {
+    const sr9 = +(x.sr9_resonance ?? 0);
+    const rej = sr9 < thr;
+    return `<tr><td style="padding:8px 10px;color:var(--ts);font-weight:600;">${esc(x.label || x.id)}</td><td style="padding:8px 10px;color:${rej ? '#ef4444' : '#10b981'};font-weight:600;">${sr9.toFixed(3)}</td><td style="padding:8px 10px;color:${rej ? '#ef4444' : '#10b981'};font-size:11px;">${rej ? 'REJECTED' : 'pass'}</td></tr>`;
+  }).join('');
+  return `
+    <div style="display:flex; align-items:flex-start; gap:10px; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.25); border-radius:var(--r-md); padding:12px 16px; margin-bottom:20px;">
+      <span style="font-size:14px;">🧫</span>
+      <div>
+        <div style="font-size:11px; font-weight:700; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.06em; color:#10b981;">Truthful Null &middot; The Value of Not Building</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:4px; line-height:1.5;">${esc(d.finding || 'SR9 honesty gate rejected all lipid carriers.')}</div>
+      </div>
+    </div>
+    <table style="width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:12px;">
+      <thead><tr style="border-bottom:1px solid var(--border); color:var(--t4); text-transform:uppercase; font-size:10px;">
+        <th style="padding:8px 10px; text-align:left;">Formulation</th><th style="padding:8px 10px; text-align:left;">SR9 resonance</th><th style="padding:8px 10px; text-align:left;">Gate (>= ${thr})</th>
+      </tr></thead><tbody>${rows}</tbody>
+    </table>
+    <p style="font-size:13px; color:var(--t3); line-height:1.6; margin-top:16px; border-top:1px solid var(--border); padding-top:16px; margin-bottom:0;">
+      💡 <strong>Why this matters:</strong> a fast, honest negative is a result, not a failure. Catching incompatibility in 2 hours instead of 8 months is exactly what the SR9 honesty gate is for. See the Analysis tab for the SR9-vs-gate comparison.
+    </p>
+  `;
+}
+
 // BAV EXP-028 insights: the honesty test. Live from phase1/phase2.
 function renderBavExp028Insights(d) {
   if (!d || !d.phase1) return '<p class="empty-state">No EXP-028 data loaded.</p>';
@@ -1389,6 +1421,12 @@ function renderBavChecks(runId, data) {
       const r = (a && a.result) || {};
       gates.push({ label: `arm ${n} · convergence gate`, status: 'OBSERVER', detail: `${r.verification_status || '—'} · drift ${(r.final_drift ?? 0).toFixed(3)} → KEEP_OBSERVER` });
     });
+  } else if (runId === 'bav-exp-005') {
+    const thr = (data.guard_thresholds && data.guard_thresholds.sr9_min) || 0.80;
+    (data.samples || []).forEach(x => {
+      const sr9 = +(x.sr9_resonance ?? 0);
+      gates.push({ label: `SR9 gate · ${x.label || x.id}`, status: sr9 >= thr ? 'PASS' : 'FAIL', detail: `SR9 = ${sr9.toFixed(3)} (gate >= ${thr}) — ${sr9 >= thr ? 'eligible' : 'correctly rejected (do not build)'}` });
+    });
   } else if (runId === 'bav-exp-028') {
     const p1 = data.phase1 || {}, p2 = (data.phase2 && data.phase2.metrics) || {};
     gates.push({ label: 'Calibration · Brier <= 0.01', status: (p2.brier_after ?? 1) <= 0.01 ? 'PASS' : 'FAIL', detail: `Brier (after) = ${(p2.brier_after ?? 0).toFixed(4)}` });
@@ -1434,6 +1472,7 @@ function buildBavReportMarkdown(runId, d) {
   const pct = (v, dp = 1) => (typeof v === 'number' && isFinite(v)) ? (v * 100).toFixed(dp) + '%' : '—';
   const mf = d._manifest || {};
   const titleMap = {
+    'bav-exp-005': 'EXP-005~007 / SEP — Upadacitinib Truthful Null',
     'bav-exp-028': 'EXP-028 Post-Overlay — The Honesty Test',
     'bav-exp-031': 'EXP-031 OOD-Ablation — Multi-Model Disagreement',
     'bav-exp-032': 'EXP-032 Adaptive-Gate — Pipeline Governance',
@@ -1555,6 +1594,24 @@ function buildBavReportMarkdown(runId, d) {
     L.push('');
     L.push('## 3. Interpretation');
     L.push('The system is well-calibrated (Brier ' + n(p2.brier_after, 4) + ', AUC ' + n(p1.overall_auc, 2) + ') yet honestly fails the cross-domain resonance test (SR9 below 0.80, DI2 above 0.20). It reports *"I cannot resolve this"* instead of hallucinating confidence — the correct, safe outcome.');
+  }
+
+  // EXP-005 Upadacitinib truthful null
+  else if (d.samples) {
+    const thr = (d.guard_thresholds && d.guard_thresholds.sr9_min) || 0.80;
+    L.push('## 1. Finding');
+    L.push(d.finding || 'SR9 honesty gate rejected all lipid carriers.');
+    L.push('');
+    L.push('## 2. SR9 Resonance by Formulation (gate >= ' + thr + ')');
+    L.push('| Formulation | SR9 | Gate |');
+    L.push('|---|---|---|');
+    d.samples.forEach(x => {
+      const sr9 = +(x.sr9_resonance || 0);
+      L.push('| ' + (x.label || x.id) + ' | ' + sr9.toFixed(3) + ' | ' + (sr9 >= thr ? 'pass' : '**REJECTED**') + ' |');
+    });
+    L.push('');
+    L.push('## 3. Interpretation');
+    L.push('A fast, honest negative is a result, not a failure. Every lipid carrier fell far below the SR9 honesty gate and was rejected in under 2 hours — replacing roughly 8 months of bench work. The value is in what was *not* built.');
   }
 
   // Reproducibility footer
@@ -1886,6 +1943,8 @@ function renderInspectorData(runId, data, reportText = '') {
     insightHtml = renderBavInsights(data);
   } else if (runId === 'bav-exp-031') {
     insightHtml = renderBavExp031Insights(data);
+  } else if (runId === 'bav-exp-005') {
+    insightHtml = renderBavExp005Insights(data);
   } else if (runId === 'bav-exp-028') {
     insightHtml = renderBavExp028Insights(data);
   } else if (runId === 'bav-exp-033') {
@@ -2182,11 +2241,28 @@ function getChartsForRecord(runId, data) {
   if (runId === 'toe-test-0052') return buildSparCharts(data);
   if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
+  if (runId === 'bav-exp-005') return buildBavExp005Charts(data);
   if (runId === 'bav-exp-028') return buildBavExp028Charts(data);
   if (runId === 'bav-exp-032') return buildBavExp032Charts(data);
   if (runId === 'bav-exp-033') return buildBavExp033Charts(data);
   if (runId === 'bav-exp-034') return buildBavExp034Charts(data);
   return buildGenericCharts(data);
+}
+
+// BAV EXP-005: Upadacitinib truthful null — SR9 gate rejects all lipid carriers. Live from manifest samples.
+function buildBavExp005Charts(data) {
+  const s = (data && data.samples) || [];
+  if (!s.length) return [];
+  const thr = (data.guard_thresholds && data.guard_thresholds.sr9_min) || 0.80;
+  const bars = [];
+  s.forEach(x => { bars.push({ label: x.label || x.id, value: +(x.sr9_resonance ?? 0), color: (x.sr9_resonance ?? 0) >= thr ? '#10b981' : '#ef4444' }); });
+  bars.push({ label: 'SR9 gate', value: thr, color: 'rgba(255,255,255,0.18)' });
+  return [{
+    type: 'bar',
+    title: 'SR9 Resonance by Formulation vs Honesty Gate (>= ' + thr + ')',
+    data: bars,
+    options: { maxValue: 1, caption: 'Every lipid carrier scores far below the SR9 honesty gate and is rejected. The fast, honest null result replaced ~8 months of bench work.' },
+  }];
 }
 
 // BAV EXP-028: honesty test — calibration achieved but cross-domain resonance fails honestly. Live.

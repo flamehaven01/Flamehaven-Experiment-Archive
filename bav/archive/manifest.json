@@ -1,13 +1,16 @@
 {
   "schema_id": "flamehaven_bav_archive_foundational.v1",
   "label": "Foundational Iterations (EXP-001~030)",
-  "note": "Early RExSyn/NNSL iteration sequence establishing the trinity-consensus, multimodal, and governance primitives that later experiments (EXP-028, 031-034) graduated into full ledger cards. Click any entry for its summary. Reproducibility/governance only.",
+  "note": "Early RExSyn/NNSL iteration sequence establishing the trinity-consensus, multimodal, and governance primitives that later experiments (EXP-028, 031-034) graduated into full ledger cards. Click any entry for its summary. Reproducibility/governance only. Note: EXP-005~007 (the SEP/Upadacitinib topical-formulation series) graduated to a dedicated truthful-null card above; the 26 entries here are the remaining foundational runs (005-007 were a separate sub-series, not gaps).",
   "benchmark_targets": {
     "sr9_min": 0.8,
     "di2_max": 0.2
   },
   "count": 26,
   "graduated": [
+    "EXP-005",
+    "EXP-006",
+    "EXP-007",
     "EXP-028",
     "EXP-031",
     "EXP-032",
