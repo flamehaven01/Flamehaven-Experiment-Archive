@@ -57,27 +57,17 @@ async function renderBavArchive() {
     if (typeof m.coherence === 'number') metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">coherence ${m.coherence}</span>`);
     ['status', 'verdict', 'decision', 'grade'].forEach(k => { if (m[k]) metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">${esc(k)}: ${esc(m[k])}</span>`); });
     if (m.report) metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#a78bfa;border:1px solid rgba(167,139,250,0.25);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">report ✓</span>`);
-    return `<div class="bav-arch-row" onclick="toggleBavArchiveRow(${i})" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;">
+    const sr9Chip = (typeof m.sr9_resonance === 'number')
+      ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:${m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308'};border:1px solid var(--border);border-radius:3px;padding:1px 6px;">SR9 ${m.sr9_resonance.toFixed(3)}</span>` : '';
+    return `<div class="bav-arch-row" onclick="openJsonInspector('bav-arch-${esc(r.id)}')" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;" title="Open in Ledger Inspector">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">▸</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
-      </div>
-      <div id="bav-arch-detail-${i}" style="display:none;padding:0 10px 10px 22px;font-size:11.5px;color:var(--t4);line-height:1.55;">
-        ${esc(r.summary || '')}
-        <div>${metricChips.join('')}</div>${note}
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><span style="color:#a78bfa;">⌕</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>
+        <span style="display:flex;align-items:center;gap:6px;flex-shrink:0;">${sr9Chip}${tag}</span>
       </div>
     </div>`;
   }).join('');
 }
 
-// Toggle an archive row's summary detail panel.
-function toggleBavArchiveRow(i) {
-  const d = document.getElementById('bav-arch-detail-' + i);
-  if (!d) return;
-  const open = d.style.display !== 'none';
-  d.style.display = open ? 'none' : 'block';
-  const caret = d.parentElement && d.parentElement.querySelector('span span');
-  if (caret) caret.textContent = open ? '▸' : '▾';
-}
 
 function copyFooterLink() {
   const url = window.location.href;
@@ -864,6 +854,8 @@ async function openJsonInspector(runId, type = 'json') {
       titleNode.textContent = 'BAV · EXP-031 OOD-ABLATION';
     } else if (runId === 'bav-exp-032') {
       titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
+    } else if (runId.startsWith('bav-arch-')) {
+      titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
     } else if (runId.startsWith('eqa-calib-')) {
       titleNode.textContent = 'EQA-' + runId.replace('eqa-calib-', 'CALIB-');
     } else {
@@ -922,6 +914,8 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './bav/exp-031/arm-a/hybrid_result.json';
   } else if (runId === 'bav-exp-005') {
     jsonPath = './bav/exp-005/manifest.json';
+  } else if (runId.startsWith('bav-arch-')) {
+    jsonPath = './bav/archive/manifest.json';
   } else if (runId === 'bav-exp-028') {
     jsonPath = './bav/exp-028/post_overlay_report.json';
   } else if (runId === 'bav-exp-033') {
@@ -947,6 +941,13 @@ async function openJsonInspector(runId, type = 'json') {
     }
   }
   
+  // BAV archive: the fetched file is the manifest; narrow it to the one run record.
+  if (runId.startsWith('bav-arch-') && jsonData && Array.isArray(jsonData.runs)) {
+    const wantId = runId.replace('bav-arch-', '');
+    const run = jsonData.runs.find(x => x.id === wantId);
+    jsonData = run ? Object.assign({ _archive_label: jsonData.label }, run) : jsonData;
+  }
+
   inspector.jsonData = jsonData;
 
   // BAV EXP-031: fetch supplementary structural + per-arm data for charts (live, no hardcoding)
@@ -1390,6 +1391,69 @@ function renderBavExp034Insights(d) {
       💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation.
     </p>
   `;
+}
+
+// ── BAV archive record: thin single-experiment inspector from extracted metrics ──
+function renderBavArchiveInspector(runId, d, panels) {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const m = (d && d.metrics) || {};
+  const hasSr9 = typeof m.sr9_resonance === 'number';
+  const card = (label, value, color) => `<div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);"><div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">${label}</div><div style="font-size:20px;font-weight:600;color:${color || 'var(--ts)'};margin-top:4px;">${value}</div></div>`;
+
+  // Insights
+  const chips = [];
+  ['status', 'verdict', 'decision', 'grade'].forEach(k => { if (m[k]) chips.push('<strong style="color:var(--t4);">' + esc(k) + ':</strong> ' + esc(m[k])); });
+  if (m.report) chips.push('<strong style="color:var(--t4);">report:</strong> ' + esc(m.report) + ' (in source repo)');
+  panels.insInsights.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(107,114,128,0.06);border:1px solid rgba(107,114,128,0.25);border-radius:var(--r-md);padding:12px 16px;margin-bottom:20px;">
+      <span style="font-size:14px;">🗄️</span>
+      <div><div style="font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:#9ca3af;">Archived Foundational Iteration · ${esc(d.id)}</div>
+      <div style="font-size:12px;color:var(--t4);margin-top:4px;line-height:1.5;">${esc(d.theme || '')} — ${esc(d.summary || 'Foundational RExSyn/NNSL iteration.')}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;">
+      ${hasSr9 ? card('SR9 resonance', m.sr9_resonance.toFixed(3), m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308') : ''}
+      ${typeof m.coherence === 'number' ? card('Coherence', String(m.coherence), 'var(--ts)') : ''}
+    </div>
+    ${chips.length ? `<div style="margin-top:16px;font-size:12.5px;color:var(--t3);line-height:1.7;">${chips.map(c => '<div>' + c + '</div>').join('')}</div>` : ''}
+    ${d.note ? `<a href="${esc(d.note)}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:4px 10px;">↗ ${esc(d.note_label || 'Note')}</a>` : ''}
+    <p style="font-size:12px;color:var(--t5);line-height:1.6;margin-top:16px;border-top:1px solid var(--border);padding-top:14px;margin-bottom:0;">Archived experiment — only metrics actually present in the source artifacts are shown (no fabricated values).</p>`;
+
+  // Verified Rules
+  const gates = [];
+  if (hasSr9) gates.push({ label: 'SR9 honesty gate (>= 0.80)', status: m.sr9_resonance >= 0.80 ? 'PASS' : 'FAIL', detail: 'SR9 = ' + m.sr9_resonance.toFixed(3) + (m.sr9_resonance >= 0.80 ? '' : ' (below gate)') });
+  if (m.report) gates.push({ label: 'Human-readable report', status: 'PASS', detail: esc(m.report) });
+  panels.insChecks.innerHTML = gates.length
+    ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Governance signals</div>' +
+      gates.map(g => { const col = g.status === 'PASS' ? '#10b981' : '#eab308'; return `<div style="display:flex;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:8px;font-size:12.5px;color:var(--t3);"><span style="color:${col};font-weight:bold;margin-right:8px;">[${g.status === 'PASS' ? '✓' : '!'}]</span><div style="flex:1;"><div style="font-weight:600;color:var(--ts);font-size:12px;font-family:'JetBrains Mono',monospace;">${esc(g.label)}</div><div style="font-size:12px;color:var(--t4);">${esc(g.detail)}</div></div><span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:${col};">${g.status}</span></div>`; }).join('')
+    : '<p class="empty-state">No structured governance signals for this archived run.</p>';
+
+  // Integrity
+  panels.insIntegrity.innerHTML = `<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Provenance</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Experiment</span><span style="color:var(--ts);">${esc(d.id)} (${esc(d.slug || '')})</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Collection</span><span style="color:var(--ts);">${esc(d._archive_label || 'Foundational Iterations')}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Source</span><span style="color:var(--t4);">Ex1-28 artifacts (metrics extracted, paths sanitized)</span></div>
+    </div>`;
+
+  // Raw JSON
+  if (panels.insRaw) {
+    const raw = JSON.stringify(d, (k, v) => k.startsWith('_') ? undefined : v, 2);
+    panels.insRaw.innerHTML = `<pre style="margin:0;white-space:pre-wrap;word-break:break-word;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;max-height:480px;overflow:auto;">${raw.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</pre>`;
+  }
+
+  // Analysis: a single SR9-vs-gate bar when available.
+  if (panels.insCharts) {
+    panels.insCharts.innerHTML = '';
+    if (hasSr9 && window.ChartEngine) {
+      ChartEngine.render(panels.insCharts, { type: 'bar', title: 'SR9 Resonance vs Honesty Gate', data: [{ label: esc(d.id), value: m.sr9_resonance, color: m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308' }, { label: 'SR9 gate', value: 0.80, color: 'rgba(255,255,255,0.18)' }], options: { maxValue: 1, caption: 'Archived run SR9 resonance against the 0.80 honesty gate.' } });
+    } else {
+      panels.insCharts.innerHTML = '<p class="empty-state">No chartable metrics for this archived run.</p>';
+    }
+  }
+
+  // Archive records have no generated Live Report; hide that tab.
+  const reportTab = document.getElementById('tab-live-report');
+  if (reportTab) reportTab.style.display = 'none';
 }
 
 // ── BAV Integrity tab: provenance & reproducibility (live from manifest) ─────
@@ -2019,6 +2083,12 @@ function renderInspectorData(runId, data, reportText = '') {
   insInsights.innerHTML = insightHtml;
   
   // BAV records: dedicated Integrity (provenance) + Verified Rules (governance gates) tabs
+  // BAV archive record: thin single-experiment view from the extracted metrics.
+  if (runId.startsWith('bav-arch-')) {
+    renderBavArchiveInspector(runId, data, { insInsights, insIntegrity, insChecks, insRaw, insCharts });
+    return;
+  }
+
   if (runId.startsWith('bav-exp-')) {
     insIntegrity.innerHTML = renderBavIntegrity(runId, data);
     insChecks.innerHTML = renderBavChecks(runId, data);
@@ -3261,7 +3331,6 @@ window.closeReport = closeReport;
 window.copyReportLink = copyReportLink;
 window.copyFooterLink = copyFooterLink;
 window.renderBavArchive = renderBavArchive;
-window.toggleBavArchiveRow = toggleBavArchiveRow;
 window.toggleFolder = toggleFolder;
 window.toggleSeries = toggleSeries;
 window.highlightFile = highlightFile;
