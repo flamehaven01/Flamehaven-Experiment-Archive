@@ -24,7 +24,11 @@
       "theme": "Trinity",
       "summary": "Trinity consensus origin. Linked to the Upadacitinib \"truthful null\": the SR9 gate (>0.80) rejected all three lipid carriers (SR9 ~0.23-0.28) in under 2 hours, replacing ~8 months of bench work.",
       "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
-      "note_label": "Truthful Null (Upadacitinib)"
+      "note_label": "Truthful Null (Upadacitinib)",
+      "metrics": {
+        "report": "FINAL_ONE_PAGE_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-002",
@@ -32,151 +36,258 @@
       "theme": "Trinity",
       "summary": "Trinity consensus origin. Linked to the Upadacitinib \"truthful null\": the SR9 gate (>0.80) rejected all three lipid carriers (SR9 ~0.23-0.28) in under 2 hours, replacing ~8 months of bench work.",
       "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
-      "note_label": "Truthful Null (Upadacitinib)"
+      "note_label": "Truthful Null (Upadacitinib)",
+      "metrics": {
+        "report": "OPEN_SOURCE_REPORT_V2.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-003",
       "slug": "GENOMIC-ORIGIN",
       "theme": "Genomic Origin",
-      "summary": "AlphaGenome genomic-origin reasoning probe."
+      "summary": "AlphaGenome genomic-origin reasoning probe.",
+      "metrics": {
+        "report": "OPEN_SOURCE_REPORT_V3.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-004",
       "slug": "TOPOLOGICAL",
       "theme": "Topological",
-      "summary": "Topological data-analysis structure probe."
+      "summary": "Topological data-analysis structure probe.",
+      "metrics": {
+        "report": "FINAL_OPEN_SOURCE_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-008",
       "slug": "RAG-LOGOS-NNSL",
       "theme": "Rag Logos Nnsl",
-      "summary": "RAG + LOGOS + NNSL integration baseline."
+      "summary": "RAG + LOGOS + NNSL integration baseline.",
+      "metrics": {
+        "report": "FINAL_OPEN_SOURCE_REPORT_V4.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-009",
       "slug": "SMILES-DIRECT",
       "theme": "Smiles Direct",
-      "summary": "Direct SMILES chemical-reasoning path."
+      "summary": "Direct SMILES chemical-reasoning path.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-010",
       "slug": "MULTIMODAL",
       "theme": "Multimodal",
-      "summary": "Multimodal (chem + genomic + struct) fusion."
+      "summary": "Multimodal (chem + genomic + struct) fusion.",
+      "metrics": {
+        "sr9_resonance": 0.3398,
+        "coherence": 1.0,
+        "has_summary": true,
+        "report": "EXP_010_MULTIMODAL_BREAKTHROUGH_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-011",
       "slug": "HYPER-RESONANCE",
       "theme": "Hyper Resonance",
-      "summary": "Hyper-resonance SR9 sensitivity tuning."
+      "summary": "Hyper-resonance SR9 sensitivity tuning.",
+      "metrics": {
+        "sr9_resonance": 0.3635,
+        "coherence": 1.0,
+        "has_summary": true,
+        "report": "EXP_011_HYPER_RESONANCE_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-012",
       "slug": "SOVEREIGN-ORIGIN",
       "theme": "Sovereign Origin",
-      "summary": "Sovereign-origin reasoning baseline."
+      "summary": "Sovereign-origin reasoning baseline.",
+      "metrics": {
+        "sr9_resonance": 0.364,
+        "coherence": 1.0,
+        "has_summary": true,
+        "report": "EXP_012_SOVEREIGN_ORIGIN_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-013",
       "slug": "NON-LINEAR-SOVEREIGNTY",
       "theme": "Non Linear Sovereignty",
-      "summary": "Non-linear sovereignty formulation."
+      "summary": "Non-linear sovereignty formulation.",
+      "metrics": {
+        "sr9_resonance": 0.364,
+        "coherence": 1.0,
+        "has_summary": true,
+        "report": "EXP_013_NON_LINEAR_SOVEREIGNTY_REPORT.md"
+      },
+      "has_data": true
     },
     {
       "id": "EXP-014",
       "slug": "ZERO-NOISE",
       "theme": "Zero Noise",
-      "summary": "Zero-noise control condition."
+      "summary": "Zero-noise control condition.",
+      "metrics": {
+        "sr9_resonance": 0.3641,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-015",
       "slug": "SOVEREIGN-AGREEMENT",
       "theme": "Sovereign Agreement",
-      "summary": "Sovereign-agreement consensus test."
+      "summary": "Sovereign-agreement consensus test.",
+      "metrics": {
+        "sr9_resonance": 0.1868,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-016",
       "slug": "CAPSULE-PROXY",
       "theme": "Capsule Proxy",
-      "summary": "Capsule proxy representation."
+      "summary": "Capsule proxy representation.",
+      "metrics": {
+        "sr9_resonance": 0.3185,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-017",
       "slug": "CAPSULE-MERGE",
       "theme": "Capsule Merge",
-      "summary": "Capsule merge representation."
+      "summary": "Capsule merge representation.",
+      "metrics": {
+        "sr9_resonance": 0.1882,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-018",
       "slug": "STRUCT-DIRECT",
       "theme": "Struct Direct",
-      "summary": "Structure-direct prediction path."
+      "summary": "Structure-direct prediction path.",
+      "metrics": {
+        "sr9_resonance": 0.3652,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-019",
       "slug": "STRUCT-CHEM",
       "theme": "Struct Chem",
-      "summary": "Structure + chemistry joint path."
+      "summary": "Structure + chemistry joint path.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-020",
       "slug": "ALIGNED-ROUTING",
       "theme": "Aligned Routing",
-      "summary": "Aligned routing of multi-engine signals."
+      "summary": "Aligned routing of multi-engine signals.",
+      "metrics": {
+        "sr9_resonance": 0.2836,
+        "coherence": 1.0,
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-021",
       "slug": "ANCHOR-STRIKE",
       "theme": "Anchor Strike",
-      "summary": "Anchor-strike evidence grounding."
+      "summary": "Anchor-strike evidence grounding.",
+      "metrics": {
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-022",
       "slug": "TRINITY-STRIKE",
       "theme": "Trinity Strike",
-      "summary": "Trinity-strike consensus stress test."
+      "summary": "Trinity-strike consensus stress test.",
+      "metrics": {
+        "has_summary": true
+      },
+      "has_data": true
     },
     {
       "id": "EXP-023",
       "slug": "AB-TEST",
       "theme": "Ab Test",
-      "summary": "A/B comparison of engine configs."
+      "summary": "A/B comparison of engine configs.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-024",
       "slug": "NOISE-SCAN",
       "theme": "Noise Scan",
-      "summary": "Noise-scan robustness sweep."
+      "summary": "Noise-scan robustness sweep.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-025",
       "slug": "TOGGLE-MATRIX",
       "theme": "Toggle Matrix",
-      "summary": "Feature toggle matrix ablation."
+      "summary": "Feature toggle matrix ablation.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-026",
       "slug": "FOUR-PHASE",
       "theme": "Four Phase",
-      "summary": "Four-phase staged evaluation."
+      "summary": "Four-phase staged evaluation.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-027",
       "slug": "POST-OVERLAY",
       "theme": "Post Overlay",
-      "summary": "Post-overlay calibration pass."
+      "summary": "Post-overlay calibration pass.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-029",
       "slug": "POST-OVERLAY",
       "theme": "Post Overlay",
-      "summary": "Post-overlay calibration pass."
+      "summary": "Post-overlay calibration pass.",
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-030",
       "slug": "ROOT-REFACTOR",
       "theme": "Root Refactor",
-      "summary": "Root pipeline refactor / consolidation."
+      "summary": "Root pipeline refactor / consolidation.",
+      "metrics": {},
+      "has_data": false
     }
-  ]
+  ],
+  "data_count": 17
 }

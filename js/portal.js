@@ -39,14 +39,31 @@ async function renderBavArchive() {
   const grad = new Set(mf.graduated || []);
   list.innerHTML = mf.runs.map((r, i) => {
     const isGrad = grad.has(r.id);
+    const m = r.metrics || {};
+    const hasData = !!r.has_data;
     const tag = isGrad ? '<span style="font-size:9px;font-family:\'JetBrains Mono\',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">graduated</span>' : '';
     const note = r.note ? `<a href="${esc(r.note)}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:3px 8px;">↗ ${esc(r.note_label || 'Note')}</a>` : '';
+    // Closed (no data): plain non-expandable row, dimmed, with a "no record" marker.
+    if (!hasData) {
+      return `<div style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);opacity:0.55;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4);"><span style="color:#3f3f46;">·</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>
+          <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--t5);">no record</span>
+        </div></div>`;
+    }
+    // Open (has data): expandable row with real metrics.
+    const metricChips = [];
+    if (typeof m.sr9_resonance === 'number') metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:${m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308'};border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">SR9 ${m.sr9_resonance.toFixed(3)}</span>`);
+    if (typeof m.coherence === 'number') metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">coherence ${m.coherence}</span>`);
+    ['status', 'verdict', 'decision', 'grade'].forEach(k => { if (m[k]) metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">${esc(k)}: ${esc(m[k])}</span>`); });
+    if (m.report) metricChips.push(`<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#a78bfa;border:1px solid rgba(167,139,250,0.25);border-radius:3px;padding:1px 6px;margin:4px 4px 0 0;">report ✓</span>`);
     return `<div class="bav-arch-row" onclick="toggleBavArchiveRow(${i})" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);"><span style="color:#6b7280;">▸</span> <span style="color:#6b7280;">${esc(r.id)}</span> · ${esc(r.theme)}</span>${tag}
       </div>
       <div id="bav-arch-detail-${i}" style="display:none;padding:0 10px 10px 22px;font-size:11.5px;color:var(--t4);line-height:1.55;">
-        ${esc(r.summary || '')}${note}
+        ${esc(r.summary || '')}
+        <div>${metricChips.join('')}</div>${note}
       </div>
     </div>`;
   }).join('');
