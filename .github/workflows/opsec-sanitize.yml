@@ -1,0 +1,31 @@
+name: OPSEC Sanitize Gate
+
+# Auto-activates risk detection whenever new files / data enter the ledger.
+# The sanitizer dry-run exits non-zero if any absolute-path / locale / PII /
+# secret leak is present, failing the build and blocking publication.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sanitize-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Run ledger sanitizer (dry-run gate)
+        run: python sanitizer/sanitize_ledger.py --root . --no-history
+
+      - name: Result
+        if: success()
+        run: echo "No OPSEC/PII leaks detected in ledger content."

@@ -1,0 +1,38 @@
+# Flamehaven Ledger Sanitizer config (v1.1)
+# Config-first: detectors, workspace markers, ignore globs, and false-positive
+# allowlist live here, not hardcoded. See sanitizer/README.md.
+
+# Detectors to run. "fix" rules rewrite content; "detect" rules only report.
+detectors:
+  abs_path_collapse: fix      # workspace absolute paths -> [workspace]/<basename>
+  hangul_redact: fix          # Korean (Hangul) runs -> [redacted]
+  ipv4_address: detect        # IPv4 exposure (report only; may be legitimate data)
+  email_address: detect       # email / PII exposure
+  secret_token: detect        # API keys / bearer tokens / long hex secrets
+
+# Workspace leak markers that gate abs_path_collapse (case-insensitive contains).
+markers:
+  - Sanctum
+  - STRUCTURA
+  - "Users/dream"
+  - "Users\\dream"
+
+# Glob directories never scanned.
+ignore_dirs:
+  - .git
+  - .claude
+  - node_modules
+  - __pycache__
+  - sanitizer
+
+# File extensions scanned.
+extensions: [json, md, html, js, yaml, yml, cff, txt]
+
+# Known-safe matches (regex). Calibration proposes additions here over time;
+# a human confirms before they suppress a finding.
+allowlist:
+  - '0\.0\.0\.0'            # bind-all placeholder, not a real host
+  - '127\.0\.0\.1'         # loopback
+  - 'example\.(com|org)'   # RFC 2606 example domains
+  - '(?i)your_[a-z_]*api_key_here'   # documentation placeholder, not a real key
+  - '(?i)_api_key_here'              # documentation placeholder

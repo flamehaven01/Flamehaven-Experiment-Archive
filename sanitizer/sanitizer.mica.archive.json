@@ -46,12 +46,30 @@
       "binding": {
         "origin_episode": "EXP-SAN-003: analysis_report.pdf embedded D:\\Sanctum\\... paths in its binary stream; removed from the repo since the sanitized .md/.html equivalents remain."
       }
+    },
+    {
+      "id": "DI-SAN-005",
+      "label": "config-driven-detectors-and-calibration",
+      "statement": "Detectors, workspace markers, ignore globs, and the false-positive allowlist are config-first (.sanconfig.yaml), never hardcoded. Each run appends to scan_history.jsonl and derives calibration.json (rule frequency, recurring files, FP candidates). Detect-mode rules (IP, email, secret) flag-only and run on data files; fix-mode rules (path, locale) rewrite. Allowlist additions require human review before they suppress a finding.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-SAN-004: v1.1 added IP/email/secret detection, a YAML config, and a JSONL scan-history + calibration loop (pattern adapted from AI-SLOP-DETECTOR self-calibration)."
+      }
+    },
+    {
+      "id": "DI-SAN-006",
+      "label": "auto-activation-on-new-ledger-content",
+      "statement": "Risk detection must auto-activate whenever new files or data enter the ledger. A CI gate (.github/workflows/opsec-sanitize.yml) runs the sanitizer dry-run on every push and pull_request to main; a non-zero result (any leak) fails the build and blocks publication. The CI gate runs with --no-history so it does not mutate the calibration DB.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-SAN-005: manual sanitization is insufficient when new experiment data is added continuously; enforcement moved to a standing CI gate so detection is always active on ledger changes."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "LEDGER-SANITIZER-MICA-001",
-    "update_count": 1,
+    "update_count": 2,
     "last_updated": "2026-05-30",
     "session_count": 1,
     "bootstrap_note": "Sanitizer governance initialized after a repo-wide absolute-path/PII disclosure was found in committed experiment JSON. Adapted from AI-SLOP-DETECTOR engine pattern."

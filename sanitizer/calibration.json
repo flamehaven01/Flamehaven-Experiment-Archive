@@ -1,0 +1,8 @@
+{
+  "schema": "flamehaven_sanitizer_calibration.v1",
+  "runs_recorded": 1,
+  "rule_totals": {},
+  "recurring_files": [],
+  "last_run": "2026-05-30T04:46:12Z",
+  "note": "Derived from scan_history.jsonl. recurring_files flag chronic exposure (fix the source) or stable false positives (consider an allowlist entry after human review)."
+}
