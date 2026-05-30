@@ -4,15 +4,27 @@
   "project": {
     "name": "flamehaven-verification-ledger",
     "full_name": "Flamehaven Verification Ledger",
-    "version": "1.1.0",
+    "version": "1.5.0",
     "status": "active",
     "primary_language": "Multi-Environment",
     "repo_path": ".",
     "canonical_statement": "Master verification ledger orchestrating and archiving high-stakes mathematical and physical equation reproductions (Equation-to-Artifact/EQA), biomolecular AI validation reviews, and static bioscience compliance audits (Bioscience Compliance)."
   },
   "scope": {
-    "include": ["index.html", "js/", "css/", "eqa/", "stem-bio-ai/", "README.md"],
-    "exclude": ["__pycache__/", "*.pyc", ".git/", "node_modules/"]
+    "include": [
+      "index.html",
+      "js/",
+      "css/",
+      "eqa/",
+      "stem-bio-ai/",
+      "README.md"
+    ],
+    "exclude": [
+      "__pycache__/",
+      "*.pyc",
+      ".git/",
+      "node_modules/"
+    ]
   },
   "design_invariants": [
     {
@@ -158,14 +170,50 @@
       "binding": {
         "origin_episode": "EXP-063: BioClaw report contained inline fh-brand-bar social icons. Removed and consolidated all share logic into viewer-frame-header and footer-actions, establishing the frame-level share pattern."
       }
+    },
+    {
+      "id": "DI-BAV-001",
+      "label": "live-data-governance-cards",
+      "statement": "Every BAV card derives all displayed values at runtime from verbatim run payloads (DI-EQA-002 provenance, DI-BSC-001 no-hardcoding). The canonical EXP-032 source is the legacy-replay parity anchor (the only accepted path per EXP-034); the diagnostic current-regeneration path must never be shown as an accepted result.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "BAV-0base: a placeholder card showed fabricated numbers (0.84 A RMSD, 94/100) contradicting the real BLOCK/ESCALATE payload. Replaced with live-fetch from bav/exp-0NN/."
+      }
+    },
+    {
+      "id": "DI-BAV-002",
+      "label": "disagreement-is-signal",
+      "statement": "Multi-model structural disagreement is treated as signal, not noise. When independent validators (AF3/AF2/Chai-1/Boltz-2) increase effective drift and fail convergence under OOD stress, the correct disposition is KEEP_OBSERVER (do not target). High drift must be surfaced as honest uncertainty, never smoothed into false confidence.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-031: all arms returned Unverified (Drift Detected); adding validators raised drift, exposing intrinsic disorder. Observer-only decision was safety-aligned."
+      }
+    },
+    {
+      "id": "DI-BAV-003",
+      "label": "governance-gate-fail-go",
+      "statement": "The Verified Rules tab of every BAV record renders the governance gate fitness (fail/go) from live data: honesty guard (SR9>=0.70, DI2<=0.30), clinical/LawBinder fail-closed escalation, end-to-end reliability p_e2e=capture*transfer*model*clinical, and 5-stage gates (G1-G5). The Integrity tab renders provenance (mode, guard, verdict, SHA-256). Empty tabs are prohibited.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-032/033/034: Integrity and Verified Rules tabs were empty for BAV (read EQA-only keys); populated with provenance and governance-gate content."
+      }
+    },
+    {
+      "id": "DI-BAV-004",
+      "label": "bio-sdk-and-live-report",
+      "statement": "Bio structural visualizations (PAE heatmap, contact map, pLDDT track, multi-model drift) must be pure zero-dependency SVG via chart-engine.js (DI-SDK-001). The Live Report tab generates an expert-grade markdown technical report from the live payload (no hardcoding); GFM tables are rendered by parseMarkdownToHtml.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "Phase 2/3: added pae-heatmap/contact-map/plddt-track renderers and buildBavReportMarkdown; removed the fabricated WebGL/THREE.js scene and its CDN dependency."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 6,
-    "last_updated": "2026-05-29",
-    "session_count": 5,
+    "update_count": 7,
+    "last_updated": "2026-05-30",
+    "session_count": 6,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }

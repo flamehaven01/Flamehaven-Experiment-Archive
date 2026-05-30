@@ -4,6 +4,25 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.5.0] - 2026-05-30
+
+Built out the **Biomolecular AI Validation (BAV)** lane from a 0-base placeholder into a live, data-driven governance ledger, and added an OPSEC sanitizer.
+
+### 🧬 BAV Lane (live, no hardcoding)
+- **5 experiment cards + archive**: EXP-028 (honesty test), EXP-031 (multi-model disagreement → KEEP_OBSERVER), EXP-032 (adaptive gate, legacy-replay anchor), EXP-033 (pipeline-level p_e2e), EXP-034 (path separation). Archive EXP-001~030 with expandable per-experiment summaries + Upadacitinib truthful-null note.
+- **All values live-fetched** from verbatim run payloads under `bav/` (DI-BAV-001); removed fabricated placeholder numbers and the THREE.js/WebGL CDN scene.
+- **Bio chart SDK** (`chart-engine.js`): zero-dependency `pae-heatmap`, `contact-map`, `plddt-track` + multi-model drift (DI-BAV-004).
+- **Inspector tabs fully populated** (DI-BAV-003): Integrity (provenance/SHA-256), Verified Rules (governance gate fail/go: SR9/DI2 guard, p_e2e, stage gates G1-G5), and a **Live Report** tab generating an expert markdown report from the payload (GFM tables added to `parseMarkdownToHtml`).
+- Dashboard reframed to the governance thesis; recent-first card order; magnifying-glass Inspect icon; sidebar/badge consistency.
+
+### 🔒 Security / OPSEC
+- **Ledger sanitizer** (`sanitizer/`): MICA-governed tool (DI-SAN-001..006) that scrubs local-workspace absolute paths and locale tokens, flags IP/email/secret exposure, accumulates a scan-history DB + calibration, and runs as a CI gate (`.github/workflows/opsec-sanitize.yml`). Sanitized 27 ledger files; removed a leaked binary PDF.
+
+### 📚 MICA v1.5.0
+- Added DI-BAV-001..004 (live governance cards, disagreement-is-signal, governance gate fail/go, bio SDK + live report). di_count 16 → 20, session_count 6.
+
+---
+
 ## [1.4.0] - 2026-05-29
 
 Social share unification, Methodology & Frameworks portal cleanup, and viewer frame polish.
