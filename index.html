@@ -1704,6 +1704,7 @@
       <button class="inspector-tab" onclick="switchInspectorTab('charts', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📈 Analysis</button>
       <button class="inspector-tab" onclick="switchInspectorTab('integrity', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">🛡️ Integrity</button>
       <button class="inspector-tab" onclick="switchInspectorTab('checks', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">✅ Verified Rules</button>
+      <button class="inspector-tab" id="tab-live-report" onclick="switchInspectorTab('report', this)" style="display: none; background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📑 Live Report</button>
       <button class="inspector-tab" onclick="switchInspectorTab('raw', this)" style="background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--t3); padding: 12px 20px; cursor: pointer; font-size: 12px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; outline: none;">📄 Raw JSON</button>
     </div>
 
@@ -1712,6 +1713,7 @@
     <div class="inspector-panel" id="ins-charts" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-integrity" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-checks" style="padding: 24px; display: none;"></div>
+    <div class="inspector-panel" id="ins-report" style="padding: 24px; display: none;"></div>
     <div class="inspector-panel" id="ins-raw" style="padding: 24px; display: none;"></div>
   </div>
 
