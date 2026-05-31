@@ -4,6 +4,22 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.8.0] - 2026-05-31 (in progress)
+
+Credibility architecture (Pillar 1 of 3): a design spec for treating internal metrics honestly and an enforced understatement posture on the public surface. Principle: **verify facts, not scores** — authority is borrowed from external anchors (public repos, DOIs, standard metrics) or earned through reproducibility, never asserted for self-built metrics.
+
+### 🧭 Design spec
+- **`memory/credibility-architecture.md`**: provenance classes (`EXTERNAL` / `DERIVED` / `ADVISORY-RULE-BASED` / `ADVISORY-HEURISTIC`); honest demotion of SR9/DI2/Omega/SPAR to advisory; external-anchor inventory; reproduction-anchor plan (incl. AlphaFold non-determinism → tolerance bands, not bit-exact claims); a Zenodo-DOI-gated metadata phase. Records its own limitations (what it does NOT achieve).
+
+### 🔇 Tone discipline (Pillar 1a)
+- **`promotional_language` sanitizer detector**: config-driven term list + public-surface scope (`index.html`, `eqa.html`, `README.md`) + HTML/MD content extraction so CSS/attributes/code never false-flag; ambiguous technical words (e.g. "best") excluded by design. CI gate, with a 7-case acceptance test (`sanitizer/tests/test_promotional.py`).
+- **Public-surface tone purge**: the ledger no longer describes itself as "authoritative" or claims "absolute" auditing integrity; BSC "(Authoritative Release)" framing removed. Register is now factual/methods-section.
+
+### ⏳ In progress
+- Pillar 1b (provenance-class chips + ADVISORY-HEURISTIC subordination in the inspector), then Pillars 2 (reproduction anchors) and 3 (scientific-artifact metadata). `[1.8.0]` is tagged only when Pillar 1 is complete.
+
+---
+
 ## [1.7.0] - 2026-05-31
 
 Replaced the fabricated EQA calibration registry with the real TOE-TEST foundational-run reports, and rebuilt the archive inspector to match.
