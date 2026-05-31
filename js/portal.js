@@ -34,6 +34,15 @@ function provChip(cls) {
 function metricCard(label, value, color) {
   return `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div>${provChip(provClassOf(label))}</div>`;
 }
+// Subordinate ADVISORY-HEURISTIC metric cards (SR9/DI2/Omega): collapsed by default,
+// below the external/derived facts — present for audit, never a headline (Pillar 1b).
+function advisoryDetails(cardsHtml) {
+  if (!cardsHtml || !cardsHtml.trim()) return '';
+  return `<details style="margin-top:16px;border:1px solid var(--border);border-radius:var(--r-md);background:rgba(255,255,255,0.01);overflow:hidden;">
+      <summary style="cursor:pointer;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--t4);list-style:none;">Pipeline internals &middot; advisory (Flamehaven metrics, not externally validated)</summary>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:0 14px 14px;">${cardsHtml}</div>
+    </details>`;
+}
 
 // Initialize card array on DOM load
 // BAV archive: populate the foundational-iterations list from manifest (live, no hardcoding).
@@ -1215,16 +1224,19 @@ function renderBavInsights(d) {
       </div>
     </div>
 
-    <!-- Live metrics grid -->
+    <!-- Live metrics grid (summary facts) -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
       ${metric('Viability', (typeof va.percent === 'number' ? va.percent.toFixed(1) + '%' : '—'), '#a78bfa')}
       ${metric('Pipeline Confidence', pct(d.confidence), '#a78bfa')}
       ${metric('Quality Grade', grade, '#10b981')}
-      ${metric('Ω 3-modal', num(pm.omega_3modal, 3))}
-      ${metric('SR9 (tech)', num(pm.sr9_tech, 3))}
-      ${metric('DI2 (tech)', num(pm.di2_tech, 3))}
-      ${metric('SR9 (clinical)', num(pm.sr9_clinical, 3))}
     </div>
+    <!-- Internal resonance metrics: advisory, collapsed -->
+    ${advisoryDetails(
+      metric('Ω 3-modal', num(pm.omega_3modal, 3)) +
+      metric('SR9 (tech)', num(pm.sr9_tech, 3)) +
+      metric('DI2 (tech)', num(pm.di2_tech, 3)) +
+      metric('SR9 (clinical)', num(pm.sr9_clinical, 3))
+    )}
 
     <!-- Runtime / honesty context -->
     <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; font-size: 12.5px; color: var(--t3); line-height: 1.7;">
@@ -1332,10 +1344,12 @@ function renderBavExp028Insights(d) {
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
       ${metric('Brier (after)', num(p2.brier_after, 4), (p2.brier_after ?? 1) <= 0.01 ? '#10b981' : '#ef4444')}
-      ${metric('SR9 (positive)', num(p1.sr9_pos_mean), (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444')}
-      ${metric('DI2 (positive)', num(p1.di2_pos_mean), (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444')}
       ${metric('Discrimination AUC', num(p1.overall_auc, 2), '#10b981')}
     </div>
+    ${advisoryDetails(
+      metric('SR9 (positive)', num(p1.sr9_pos_mean), (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444') +
+      metric('DI2 (positive)', num(p1.di2_pos_mean), (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444')
+    )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
       💡 <strong>Honest calibration beats false confidence:</strong> a model that says "I don't know" when cross-domain signals contradict is more valuable than one that reports high confidence while wrong. Failing the honesty test here is the correct, safe outcome.
     </p>
@@ -1391,10 +1405,12 @@ function renderBavExp034Insights(d) {
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
       ${metric('Accuracy Δ', num(ds.accuracy_delta), (ds.accuracy_delta ? '#f59e0b' : '#10b981'))}
       ${metric('p_e2e Δ', num(ds.ccge_p_e2e_mean_delta), '#8b5cf6')}
-      ${metric('SR9 tech Δ', num(ds.nnsl_sr9_tech_mean_delta), '#60a5fa')}
-      ${metric('DI2 tech Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')}
       ${metric('Regen path', esc(regen), '#eab308')}
     </div>
+    ${advisoryDetails(
+      metric('SR9 tech Δ', num(ds.nnsl_sr9_tech_mean_delta), '#60a5fa') +
+      metric('DI2 tech Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')
+    )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
       💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation.
     </p>

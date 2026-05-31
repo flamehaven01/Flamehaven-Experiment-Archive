@@ -17,7 +17,7 @@ Credibility architecture — **Pillar 1 of 3 complete**: a design spec for treat
 
 ### 🏷️ Provenance classing (Pillar 1b)
 - **4-class metric chips in the inspector**: every named scientific/governance metric is tagged `EXTERNAL` (e.g. AlphaFold pLDDT/PAE — third-party-defined), `DERIVED` (e.g. `p_e2e` — recomputable), or `ADVISORY` (SR9/DI2/Omega/SPAR — Flamehaven internal, not externally validated). Implemented as one module-level `metricCard()` + `provClassOf()`/`provChip()` to which the per-renderer helpers delegate (single source of truth; also de-duplicates the old per-function `metric` copies).
-- **ADVISORY-HEURISTIC subordination**: internal metrics never appear in a card title, banner, or summary — only as secondary cards with a grey "ADVISORY" chip and a tooltip stating they are not externally validated.
+- **ADVISORY-HEURISTIC subordination**: SR9/DI2/Omega are moved out of the main metric grid into a **collapsed "Pipeline internals · advisory" section** (closed by default), below the external/derived facts and verdicts. The main view of every BAV card now reads as external facts + grade + governance verdict; the internal resonance scores are present for audit but never a headline. Each still carries a grey "ADVISORY — not externally validated" chip + tooltip.
 - **Glossary**: the dashboard Metrics glossary now leads with a class legend and tags each term (SR9/DI2/NNSL/RExSyn = ADVISORY, LawBinder = RULE, p_e2e = DERIVED, pLDDT/PAE/pTM + Brier/ECE = EXTERNAL).
 
 ### 🔒 OPSEC
