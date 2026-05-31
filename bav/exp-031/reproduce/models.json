@@ -1,0 +1,57 @@
+{
+  "experiment": "EXP-031",
+  "what": "Models/versions and seeds used per arm. The trinity runs several structure predictors; arms differ in which validators are active.",
+  "input": {
+    "sequence_fasta": "./input.fasta",
+    "sequence_length_aa": 52,
+    "ligand_smiles": "CC(=O)OC1=CC=CC=C1C(=O)O",
+    "input_fasta_sha256": "1fb936d6e65cae626aa0b22dcdb62aa0001a8e5f1bc593de56cfa21e09d58941"
+  },
+  "shared": {
+    "random_seed": 20260208
+  },
+  "arms": {
+    "A": {
+      "validators": [
+        "af2"
+      ],
+      "adapter_versions": {
+        "af3": "alphafold3-server-manual-v1",
+        "af2": "af2-manual-v1",
+        "alphagenome": "alphagenome-grpc-v1",
+        "boltz2": "unavailable",
+        "chai1": "unavailable"
+      },
+      "af3_model_version": "alphafold3-server-manual-v1"
+    },
+    "B": {
+      "validators": [
+        "boltz2",
+        "chai1"
+      ],
+      "adapter_versions": {
+        "af3": "alphafold3-server-manual-v1",
+        "af2": "unknown",
+        "alphagenome": "alphagenome-grpc-v1",
+        "boltz2": "boltz2-manual-v1",
+        "chai1": "chai1-manual-v1"
+      },
+      "af3_model_version": "alphafold3-server-manual-v1"
+    },
+    "C": {
+      "validators": [
+        "af2",
+        "boltz2",
+        "chai1"
+      ],
+      "adapter_versions": {
+        "af3": "alphafold3",
+        "af2": "af2-manual-v1",
+        "alphagenome": "alphagenome-grpc-v1",
+        "boltz2": "boltz2-manual-v1",
+        "chai1": "chai1-manual-v1"
+      },
+      "af3_model_version": null
+    }
+  }
+}

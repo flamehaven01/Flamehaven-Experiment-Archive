@@ -1,0 +1,47 @@
+{
+  "experiment": "EXP-031",
+  "title": "Recorded run (reference) \u2014 NOT a fixed expected output",
+  "input": {
+    "sequence_fasta": "./input.fasta",
+    "input_fasta_sha256": "1fb936d6e65cae626aa0b22dcdb62aa0001a8e5f1bc593de56cfa21e09d58941",
+    "ligand_smiles": "CC(=O)OC1=CC=CC=C1C(=O)O"
+  },
+  "external_structural_metrics": {
+    "arm_A": {
+      "af2": {
+        "plddt_mean": 66.06,
+        "ptm": 0.31,
+        "max_pae": 29.83,
+        "source": "../arm-a/af2_scores_rank1.json"
+      },
+      "af3": {
+        "ptm": 0.4,
+        "ranking_score": 0.9,
+        "has_clash": 0.0,
+        "source": "../arm-a/af3_summary_0.json"
+      }
+    }
+  },
+  "pipeline_level_by_arm": {
+    "A": {
+      "plddt_mean": 40.0,
+      "final_drift": 0.10000000000000003,
+      "engine_status": "trinity_failed_convergence",
+      "determinism_signature": "adf5b4ffe78b617d8090d60f235d28d11d56d37ed8ba7d9ee6eb3dc9db72c5b4"
+    },
+    "B": {
+      "plddt_mean": 40.0,
+      "final_drift": 0.3702,
+      "engine_status": "trinity_failed_convergence",
+      "determinism_signature": "760f004705c8b18f61897c26567bef489d986c860df342317453a6a0101b02ed"
+    },
+    "C": {
+      "plddt_mean": 76.52036498351816,
+      "final_drift": 0.08900364983518161,
+      "engine_status": "trinity_failed_convergence",
+      "determinism_signature": "64a1ab2e61608bc8cd4b9392963cfff9442fb083c2f77cadf4a6f0d79995bf53"
+    }
+  },
+  "reproduction_note": "AlphaFold3 / AF2 / Chai-1 / Boltz-2 are non-deterministic across model version, hardware (GPU/CPU, CUDA), MSA depth and seed. A re-fold will NOT reproduce these numbers exactly. Compare the confidence REGIME (this 52-aa target folds at LOW global confidence: pTM well below 0.5, an N-terminal signal-peptide-like disordered stretch), not exact values. The input_fasta_sha256 anchors the INPUT; the structure outputs are stochastic.",
+  "external_vs_internal": "pLDDT / PAE / pTM are EXTERNAL metrics (AlphaFold, DeepMind/EBI definitions) and are the independently checkable layer. SR9 / DI2 / final_drift are Flamehaven ADVISORY signals and are not part of this external structural check."
+}

@@ -199,10 +199,29 @@ layer with an explicit tolerance, never an equality assertion.
 - Where a payload lacks a usable sequence/model-version, mark that arm "not independently
   re-runnable (input not published)" rather than faking a scaffold.
 
-**Acceptance test:** EQA + BSC each resolve to a public MIT repo + a deterministic repro command
-(exact-match expected). Each of >= 5 BAV experiments has either a `reproduce/` with input sequence
-+ model version + `reference_run.json` carrying a cited tolerance band (input-file hashes only), OR
-an explicit "not re-runnable" marker with the reason. No BAV artifact claims a bit-exact output.
+**Finding (data, not assumption):** a payload scan showed only **EXP-031** actually carries a
+foldable input sequence (52-aa) + external structural metrics (pLDDT/PAE/pTM, AF3/AF2). EXP-005 /
+028 / 032 / 033 / 034 are governance / honesty / methodology experiments with no protein-folding
+input. Per the no-fabrication rule we therefore ship a real scaffold for EXP-031 only and mark the
+rest non-re-runnable, rather than manufacture scaffolds.
+
+**Implemented:**
+- `bav/exp-031/reproduce/`: `input.fasta` (52-aa, SHA-256 anchored), `models.json` (per-arm
+  validators + recorded adapter versions + shared seed 20260208 + AF3 model version),
+  `reference_run.json` (recorded AF2 pLDDT/pTM/PAE + AF3 pTM/ranking + per-arm pipeline pLDDT/drift
+  + determinism signatures; labelled a *reference run*, not a fixed output), and a `README` with
+  the public re-fold procedure (ColabFold / AF3 server) and the regime-level comparison.
+- Wording throughout: *re-runnable, deviations expected (model non-determinism)* — never bit-exact;
+  input hashed, stochastic outputs not hashed.
+- UI: a `Reproduce` link on the EXP-031 card -> the public scaffold folder.
+- EQA card 0055 already links its public MIT repo + DOI (unchanged). BSC cards now carry a
+  `Scanner (MIT)` link to github.com/flamehaven01/STEM-BIO-AI; the BSC `report.json` already records
+  the target repo remote + commit, so a third party reproduces the deterministic tier.
+
+**Acceptance test:** EQA + BSC each resolve to a public MIT repo (EQA also a DOI); EXP-031 ships a
+`reproduce/` (input sequence + model versions + reference run, input-file hash only, explicit
+non-determinism note); the other BAV experiments are explicitly marked non-re-runnable with the
+reason. No artifact claims a bit-exact structural output.
 
 ---
 

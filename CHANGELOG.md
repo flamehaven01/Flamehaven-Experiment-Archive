@@ -4,6 +4,24 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.9.0] - 2026-05-31
+
+Credibility architecture — **Pillar 2 of 3: independent reproduction anchors**. Each lane resolves to something an outside party can check without trusting any Flamehaven metric.
+
+### 🔁 Reproduction anchors
+- **EQA** — unchanged: card 0055 already links the public MIT repo (`Flamehaven-Labs/openai-erdos-eq22-reproduction`) + Zenodo DOI `10.5281/zenodo.15487327`.
+- **BSC** — both audit cards now carry a `Scanner (MIT)` link to the public scanner `github.com/flamehaven01/STEM-BIO-AI` (PyPI `stem-ai`). The `report.json` already records the target repo remote + commit + scanner version, so a third party reproduces the deterministic tier (`pip install stem-ai`; clone the target @ the recorded commit; `stem scan --level 3`). Output artifacts were not modified.
+- **BAV** — a payload scan found only **EXP-031** carries a foldable input (52-aa sequence) + external structural metrics (pLDDT/PAE/pTM across AF3/AF2). It ships `bav/exp-031/reproduce/`: `input.fasta` (SHA-256 anchored), `models.json` (per-arm validators + recorded adapter versions + shared seed + AF3 model version), `reference_run.json` (recorded AF2/AF3 metrics + per-arm pipeline pLDDT/drift + determinism signatures), and a `README` with the public re-fold procedure. A `Reproduce` link on the EXP-031 card points to it.
+
+### 🔬 Honesty
+- **Re-runnable, not bit-exact**: AF3/AF2/Chai-1/Boltz-2 are non-deterministic (version/hardware/MSA/seed); the scaffold hashes the *input* only and asks for a *regime-level* comparison, never a numeric match. The SR9/DI2 governance overlay is explicitly excluded from the external structural check.
+- **No fabricated scaffolds**: EXP-005/028/032/033/034 (governance / honesty / methodology, no foldable input) are marked non-re-runnable rather than given invented reproduction recipes.
+
+### ⏭️ Next
+- Pillar 3 (scientific-artifact metadata + DOI/ORCID/JOSS).
+
+---
+
 ## [1.8.0] - 2026-05-31
 
 Credibility architecture — **Pillar 1 of 3 complete**: a design spec for treating internal metrics honestly, an enforced understatement posture on the public surface, and provenance labelling so an outside reader sees external facts first and internal heuristics as clearly-marked advisory. Principle: **verify facts, not scores** — authority is borrowed from external anchors (public repos, DOIs, standard metrics) or earned through reproducibility, never asserted for self-built metrics.
