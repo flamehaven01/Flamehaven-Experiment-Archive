@@ -4,6 +4,22 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.7.0] - 2026-05-31
+
+Replaced the fabricated EQA calibration registry with the real TOE-TEST foundational-run reports, and rebuilt the archive inspector to match.
+
+### 🔬 EQA Lane — real data replaces synthetic registry (P0 credibility)
+- **Removed the synthetic "Calibration Registry (51 runs)"**: an external evaluator demonstrated the 0001–0051 registry was hallucinated (procedurally generated `prime = 101 + n*4`, `field_degree = 2^(2+n%4)`, synthetic-tagged hash labels, P=105 falsely labelled prime, FAIL-checks shown with PASS verdicts). Deleted `CALIBRATION_TOPICS`, `renderHistoricalRuns`, `openHistoricalRunInspector`, `handleHistoricalRunSearch`, `buildCalibCharts`, and every `eqa-calib-*` code path (~250 lines).
+- **Imported the real archive**: `eqa/archive/manifest.json` + 51 verbatim reports under `eqa/archive/reports/` from Flamehaven-TOE/TOE-TEST (string-theory / topology physics, quantum-biology & protein spin-qubit, and verification-methodology layers). 23 carry real dates, grades surfaced where the source states them.
+- **Korean source content rendered in English (no redaction)**: the two reports containing Korean were made fully English from the source rather than `[redacted]` — 0001 (English report + redundant Korean duplicate) by extracting its existing English section, and 0004 (Korean-primary) by faithful translation that preserves every numeric value, table, data block, and reference. All 51 runs now render their verbatim report.
+- **Generalized archive inspector** (`renderBavArchiveInspector` → `renderArchiveInspector`): one inspector now serves both BAV (`bav-arch-`) and EQA (`eqa-arch-`) records — recent-first list, real run date / grade cards, the verbatim source report rendered inline, governance/provenance tabs, and Raw JSON. No fabricated values.
+- **Cards rebuilt** in `index.html` + `eqa.html`: data-driven `#eqa-archive-list` (counts derived from the manifest, not asserted) replaces the hand-rolled registry; removed dead `[JSON]/[Report]/[Repo]/[Paper]` placeholder buttons.
+
+### 🔒 OPSEC / Credibility
+- **Sanitizer `synthetic_marker` detector**: flags any bracketed synthetic-fabrication tag on all file types (CI gate, exit 1) to prevent the registry regression from recurring.
+
+---
+
 ## [1.6.0] - 2026-05-31
 
 BAV depth (6th card + inspectable archive), an OPSEC/credibility sanitizer, and a repo-wide credibility cleanup.
@@ -145,7 +161,7 @@ Internal code quality pass addressing DRY violations, a rendering performance bo
 - **Batch reflow (P3a)**: Replaced the per-card `c.offsetHeight` forced synchronous layout inside the card sort loop (N reflows) with a single `void document.body.offsetHeight` between two linear passes — eliminates O(N) layout thrashing on every filter/sort operation.
 
 ### 🔒 Data Integrity
-- **Synthetic hash labelling (P3b)**: Fallback SHA256 manifest entries generated for calibration sandbox runs are now prefixed with `[synthetic]` to make their simulation-only status unambiguous in the Cryptographic File Manifest tab.
+- **Synthetic hash labelling (P3b)**: Fallback SHA256 manifest entries generated for calibration sandbox runs are now prefixed with a synthetic-marker tag to make their simulation-only status unambiguous in the Cryptographic File Manifest tab. (Superseded in 1.7.0 — the synthetic calibration registry was removed entirely; see below.)
 
 ### 🛠️ Build Script
 - **Status-driven lane scanning (P4)**: Replaced the hardcoded `laneKey === 'stem-bio-ai'` filter in `build-ledger-summary.mjs` with `laneDefinitions[laneKey].status === 'active'`. Future lanes are automatically included once their `status` is set to `'active'` — no manual filter edits required.

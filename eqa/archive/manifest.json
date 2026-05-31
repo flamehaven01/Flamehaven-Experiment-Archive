@@ -1,0 +1,292 @@
+{
+  "schema_id": "flamehaven_eqa_archive_toe_test.v1",
+  "label": "TOE-TEST Foundational Runs (0001~0051)",
+  "note": "Real Flamehaven-TOE experiment reports: string-theory / topology physics (0001-08), quantum-biology & protein spin-qubit (0009-21), and verification-methodology layers (0022-51). Each English entry renders its actual source report; later runs (0052+) are promoted to full ledger cards.",
+  "source": "Flamehaven-TOE/TOE-TEST (report markdown imported verbatim, paths sanitized)",
+  "count": 51,
+  "report_count": 51,
+  "runs": [
+    {
+      "id": "TOE-TEST-0001",
+      "title": "Ten Case Verification",
+      "date": "2026-03-05",
+      "grade": "A (90%)",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0001.md"
+    },
+    {
+      "id": "TOE-TEST-0002",
+      "title": "3 3 4 Matrix",
+      "date": "2026-03-05",
+      "grade": "S (100%)",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0002.md"
+    },
+    {
+      "id": "TOE-TEST-0003",
+      "title": "4Form Pontryagin",
+      "date": "2026-03-06",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0003.md"
+    },
+    {
+      "id": "TOE-TEST-0004",
+      "title": "Topology and Geometry Do Not Lie",
+      "date": "2026-03-06",
+      "grade": "S (10/10)",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0004.md"
+    },
+    {
+      "id": "TOE-TEST-0005",
+      "title": "Instanton Gs Cancellation",
+      "date": "2026-03-06",
+      "grade": "S",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0005.md"
+    },
+    {
+      "id": "TOE-TEST-0006",
+      "title": "C10 C11 Global Pontryagin",
+      "date": "2026-03-14",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0006.md"
+    },
+    {
+      "id": "TOE-TEST-0007",
+      "title": "Covenant C1 Closure",
+      "date": "2026-03-30",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0007.md"
+    },
+    {
+      "id": "TOE-TEST-0008",
+      "title": "New D02 Fix Doc V499",
+      "date": "2026-03-30",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0008.md"
+    },
+    {
+      "id": "TOE-TEST-0009",
+      "title": "Cyclic Cosmology",
+      "date": "2026-03-31",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0009.md"
+    },
+    {
+      "id": "TOE-TEST-0010",
+      "title": "Quantum Biology Integration",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0010.md"
+    },
+    {
+      "id": "TOE-TEST-0011",
+      "title": "Fisher Information Ageing",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0011.md"
+    },
+    {
+      "id": "TOE-TEST-0012",
+      "title": "Biological Evidence Contracts",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0012.md"
+    },
+    {
+      "id": "TOE-TEST-0013",
+      "title": "Bio Quantum Bridges And Frontend",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0013.md"
+    },
+    {
+      "id": "TOE-TEST-0014",
+      "title": "Spar Bio Reinforcement",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0014.md"
+    },
+    {
+      "id": "TOE-TEST-0015",
+      "title": "Protein Spin Qubit And Result Aware Spar",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0015.md"
+    },
+    {
+      "id": "TOE-TEST-0016",
+      "title": "Protein Odmr Decoherence Witness",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0016.md"
+    },
+    {
+      "id": "TOE-TEST-0017",
+      "title": "Protein Hamiltonian And Readout Operator",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0017.md"
+    },
+    {
+      "id": "TOE-TEST-0018",
+      "title": "Protein Architecture Calibration",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0018.md"
+    },
+    {
+      "id": "TOE-TEST-0019",
+      "title": "Protein Calibration Evidence Dataset",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0019.md"
+    },
+    {
+      "id": "TOE-TEST-0020",
+      "title": "Protein Inverse Fit And Witness Tuning",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0020.md"
+    },
+    {
+      "id": "TOE-TEST-0021",
+      "title": "Bio Governance Patch",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0021.md"
+    },
+    {
+      "id": "TOE-TEST-0022",
+      "title": "Literature Grounded Calibration Anchoring",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0022.md"
+    },
+    {
+      "id": "TOE-TEST-0023",
+      "title": "Citation Mapping Layer",
+      "date": "2026-04-02",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0023.md"
+    },
+    {
+      "id": "TOE-TEST-0024",
+      "title": "Coefficient Level Citation Entries",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0024.md"
+    },
+    {
+      "id": "TOE-TEST-0025",
+      "title": "Inverse Fit Citation Dependency Summary",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0025.md"
+    },
+    {
+      "id": "TOE-TEST-0026",
+      "title": "Dependency Confidence And Conflict",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0026.md"
+    },
+    {
+      "id": "TOE-TEST-0027",
+      "title": "Dependency Family Consistency",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0027.md"
+    },
+    {
+      "id": "TOE-TEST-0028",
+      "title": "Target Sweep Dependency Drift Map",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0028.md"
+    },
+    {
+      "id": "TOE-TEST-0029",
+      "title": "2D Dependency Boundary Map",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0029.md"
+    },
+    {
+      "id": "TOE-TEST-0030",
+      "title": "Boundary Summarization And Hotspot Extraction",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0030.md"
+    },
+    {
+      "id": "TOE-TEST-0031",
+      "title": "Boundary Compression And Report Export",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0031.md"
+    },
+    {
+      "id": "TOE-TEST-0032",
+      "title": "Portable Report Diff Layer",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0032.md"
+    },
+    {
+      "id": "TOE-TEST-0033",
+      "title": "Scenario Ranking Layer",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0033.md"
+    },
+    {
+      "id": "TOE-TEST-0034",
+      "title": "Scenario Robustness Layer",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0034.md"
+    },
+    {
+      "id": "TOE-TEST-0035",
+      "title": "Robustness Explanation And Failure Modes",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0035.md"
+    },
+    {
+      "id": "TOE-TEST-0036",
+      "title": "Metric Attribution Layer",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0036.md"
+    },
+    {
+      "id": "TOE-TEST-0037",
+      "title": "Pairwise Interaction Attribution",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0037.md"
+    },
+    {
+      "id": "TOE-TEST-0038",
+      "title": "Interaction Hotspot Map",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0038.md"
+    },
+    {
+      "id": "TOE-TEST-0039",
+      "title": "Interaction Phase Summary",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0039.md"
+    },
+    {
+      "id": "TOE-TEST-0040",
+      "title": "Interaction Regime Timeline",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0040.md"
+    },
+    {
+      "id": "TOE-TEST-0041",
+      "title": "Meta Verify Layer",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0041.md"
+    },
+    {
+      "id": "TOE-TEST-0042",
+      "title": "Meta Verify Orchestration",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0042.md"
+    },
+    {
+      "id": "TOE-TEST-0043",
+      "title": "Endpoint Level Node Selection",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0043.md"
+    },
+    {
+      "id": "TOE-TEST-0044",
+      "title": "Surface To Node Minimization",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0044.md"
+    },
+    {
+      "id": "TOE-TEST-0045",
+      "title": "Heavy Node Tiering",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0045.md"
+    },
+    {
+      "id": "TOE-TEST-0046",
+      "title": "Lightweight Report Kernel",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0046.md"
+    },
+    {
+      "id": "TOE-TEST-0047",
+      "title": "Request Scoped Interaction Cache Rewiring",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0047.md"
+    },
+    {
+      "id": "TOE-TEST-0048",
+      "title": "Candidate Kernel Caching",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0048.md"
+    },
+    {
+      "id": "TOE-TEST-0049",
+      "title": "Localstore Tempdir Stabilization",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0049.md"
+    },
+    {
+      "id": "TOE-TEST-0050",
+      "title": "Deferred Artifact Replay",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0050.md"
+    },
+    {
+      "id": "TOE-TEST-0051",
+      "title": "Literature Adapter Scaffolding",
+      "report_path": "./eqa/archive/reports/TOE-TEST-0051.md"
+    }
+  ]
+}

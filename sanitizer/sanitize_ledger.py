@@ -60,11 +60,14 @@ _SLOP_MARK_RE = re.compile(
     _ZIGZAG + r"|(?i:sovereign-grade|sovereign threshold|Sovereign Research Asset"
     r"|Sovereign Recovery|Discoverer\s*:)"
 )
+# Fabrication marker: any published content tagged "[synthetic]" is mock/placeholder
+# data and must not ship in a credibility-bearing ledger. Detect-only on all files.
+_SYNTHETIC_RE = re.compile(r"\[synthetic[^\]]*\]", re.IGNORECASE)
 
 DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",
                   "ipv4_address": "detect", "email_address": "detect",
-                  "secret_token": "detect"},
+                  "secret_token": "detect", "synthetic_marker": "detect"},
     "markers": ["Sanctum", "STRUCTURA", "Users/dream", "Users\\dream"],
     "ignore_dirs": [".git", ".claude", "node_modules", "__pycache__", "sanitizer"],
     "extensions": ["json", "md", "html", "js", "yaml", "yml", "cff", "txt"],
@@ -175,6 +178,7 @@ _DETECT["ipv4_address"] = _detect("ipv4_address", _IPV4_RE)
 _DETECT["email_address"] = _detect("email_address", _EMAIL_RE)
 _DETECT["secret_token"] = _detect("secret_token", _SECRET_RE)
 _DETECT["credibility_slop"] = _detect("credibility_slop", _SLOP_MARK_RE)
+_DETECT["synthetic_marker"] = _detect("synthetic_marker", _SYNTHETIC_RE)
 
 
 def load_config(base: Path) -> dict:
@@ -201,7 +205,7 @@ def sanitize_text(text: str, cfg: dict, ext: str = "") -> Tuple[str, List[Findin
             continue
         # detect-mode rules run only on data files to avoid HTML/JS/SVG noise,
         # except credibility_slop (symbol markers are unambiguous on any file).
-        if mode != "fix" and rid != "credibility_slop" and ext and ext.lower() not in DATA_EXTS:
+        if mode != "fix" and rid not in ("credibility_slop", "synthetic_marker") and ext and ext.lower() not in DATA_EXTS:
             continue
         text, f = fn(text, cfg)
         findings.extend(f)

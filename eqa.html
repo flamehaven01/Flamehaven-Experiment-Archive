@@ -400,47 +400,36 @@
           </div>
         </article>
 
-        <!-- CARD 6: EQA-ARCHIVE-0001 (Historical Calibration Registry) -->
+        <!-- CARD 6: EQA-ARCHIVE — TOE-TEST Foundational Runs (real reports) -->
         <article class="eq-card" id="eqa-card-archive" data-status="archived" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:2px 8px;border-radius:var(--r-xs);">EQA-ARCHIVE-0001</span>
-              <span style="font-size:12px;color:var(--t4);">2026-05-20</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--t4);background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:2px 8px;border-radius:var(--r-xs);">EQA-ARCHIVE</span>
+              <span style="font-size:12px;color:var(--t4);">TOE-TEST-0001 ~ 0051</span>
             </div>
             <span class="tier-chip tb-t4" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
               <span class="tier-dot" style="background:#6b7280"></span>Archived
             </span>
           </div>
-          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">Historical Algebraic Number Theory Calibration Runs (0001 ~ 0051)</h3>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">TOE-TEST Foundational Runs (0001 ~ 0051)</h3>
           <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 16px 0;max-width:800px;">
-            An archived registry of 51 deterministic calibration runs verifying fundamental algebraic number theory properties. Click on any run to load its full citable calibration results and verification brief.
+            The foundational Flamehaven-TOE experiment series that preceded the active EQA ledger (0052+): string-theory / topology physics, quantum-biology and protein spin-qubit studies, and the verification-methodology layers themselves. Each entry opens the <strong>verbatim source report</strong> in the Ledger Inspector (local-workspace paths sanitized; report content unedited). Ordered most-recent first.
           </p>
           <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--r-md);background:rgba(0,0,0,0.15);overflow:hidden;display:flex;flex-direction:column;">
             <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);flex-wrap:wrap;gap:8px;">
               <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--ts);display:flex;align-items:center;gap:6px;">
                 <span style="width:6px;height:6px;border-radius:50%;background:#6b7280;display:inline-block;"></span>
-                Calibration Registry (51 runs)
+                Foundational Runs
               </span>
-              <input type="text" id="historical-run-search" placeholder="Search calibration runs..." oninput="handleHistoricalRunSearch()" style="padding:4px 8px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:4px;color:var(--tp);font-family:'Inter',sans-serif;font-size:10.5px;outline:none;width:180px;">
+              <input type="text" id="eqa-archive-search" placeholder="Search runs..." oninput="handleEqaArchiveSearch()" style="padding:4px 8px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:4px;color:var(--tp);font-family:'Inter',sans-serif;font-size:10.5px;outline:none;width:180px;">
             </div>
-            <div id="historical-runs-list" style="max-height:220px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;">
-              <!-- Populated dynamically via JS -->
+            <div id="eqa-archive-list" style="max-height:220px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;">
+              <!-- Populated dynamically via renderEqaArchive() -->
             </div>
           </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;margin-top:20px;">
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
-            </span>
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
-            </span>
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
-            </span>
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
-            </span>
-          </div>
+          <p style="font-size:11.5px;color:var(--t5);line-height:1.5;margin:16px 0 0 0;border-top:1px solid var(--border);padding-top:14px;">
+            Click any run above to open its verbatim report and provenance in the Ledger Inspector.
+          </p>
         </article>
 
       </div><!-- /eq-ledger-list -->

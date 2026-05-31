@@ -24,7 +24,7 @@ The summary file is intentionally narrow. It exists only to route users into the
 ### 1. Equation-to-Artifact (EQA) Verification
 - **Focus**: Translating high-stakes mathematical and physical proofs (such as discrete geometry conjectures) into runnable, CI-tested software artifacts.
 - **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, SPAR scoring, and SIDRCE Omega gate thresholds (GREEN ≥ 0.85 · AMBER [0.75, 0.85) · RED < 0.75).
-- **Scope**: Active EQA ledger spanning runs TOE-TEST-0001~0056. Includes published Zenodo-archived reproduction (0055), gate-rejected hypothesis (0052), optional backend layer experiment (0056/AEFSO), governance gate verification (0054), namespace integrity scan (0053), and 51-run algebraic calibration archive (0001–0051).
+- **Scope**: Active EQA ledger spanning runs TOE-TEST-0001~0056. Includes published Zenodo-archived reproduction (0055), gate-rejected hypothesis (0052), optional backend layer experiment (0056/AEFSO), governance gate verification (0054), namespace integrity scan (0053), and the foundational-run archive (0001–0051) — real Flamehaven-TOE physics and verification-methodology reports imported verbatim (paths sanitized), surfaced through the Ledger Inspector.
 - **Portal**: [`eqa.html`](./eqa.html) — dedicated EQA verification dashboard.
 
 ### 2. Bioscience Repository Compliance Scanner
@@ -56,7 +56,7 @@ flamehaven-verification-ledger/
 │   ├── toe-test-0054/                   # Governance Gate Verification (BLOCK / INHIBIT)
 │   ├── toe-test-0053/                   # Namespace Integrity Scan (DEGRADED SIDECAR)
 │   ├── toe-test-0052/                   # GTE Pedagogy Hypothesis (Gate REJECTED · SPAR 73)
-│   └── [archive 0001–0051]              # 51-run algebraic calibration archive
+│   └── archive/                         # TOE-TEST-0001~0051 foundational runs (real reports + manifest)
 ├── stem-bio-ai/                         # Bioscience Compliance Audits
 │   ├── yorkeccak-bio/2026-05-15/        # yorkeccak/bio — T1 Quarantine · Score 48
 │   └── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60

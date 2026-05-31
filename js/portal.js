@@ -1,23 +1,3 @@
-// ── CALIBRATION TOPICS REGISTRY ──────────────────────────────────────────────
-const CALIBRATION_TOPICS = [
-  { topic: "Euler-Mascheroni lattice constant stability", symbol: "γ-lattice" },
-  { topic: "Imaginary quadratic extension class number h=2 factorization", symbol: "Cl(Q(√-5))" },
-  { topic: "Golod-Shafarevich infinite p-tower admissibility", symbol: "GS-admissible" },
-  { topic: "Dirichlet L-function L(1, χ) residue bounds", symbol: "L(1, χ)" },
-  { topic: "Riemann hypothesis critical line zeta zeros calibration", symbol: "ζ(s) zeros" },
-  { topic: "Gaussian integer lattice near-unit pairs verification", symbol: "Z[i] units" },
-  { topic: "Eisenstein integer lattice class group calibration", symbol: "Z[ω] units" },
-  { topic: "Minkowski constant bound for imaginary quadratic fields", symbol: "M_K bound" },
-  { topic: "Dedekind zeta function residue limit lock", symbol: "Res_s=1 ζ_K" },
-  { topic: "Birch and Swinnerton-Dyer rational points rank 0-1 curves", symbol: "BSD rank" },
-  { topic: "Modular forms cusp weight 12 Ramanujan tau bounds", symbol: "Δ cusp form" },
-  { topic: "Galois group trinomial x^p - x - 1 Frobenius split", symbol: "Gal(f/Q)" },
-  { topic: "Iwasawa lambda invariants of cyclotomic Z_p-extensions", symbol: "λ-invariant" },
-  { topic: "Hecke L-series split prime ideals classification", symbol: "Hecke L" },
-  { topic: "Kummer extension p-cyclotomic units stability check", symbol: "Kummer units" },
-  { topic: "Tate-Shafarevich group of elliptic curve rational points", symbol: "III(E/Q)" }
-];
-
 // ── STATE VARIABLES ──────────────────────────────────────────────────────────
 let cards = [];
 let activeTier = 'all';
@@ -121,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     handleHashNavigation(hash);
   }
 
-  // Render interactive historical calibration runs registry
-  if (window.renderHistoricalRuns) {
-    window.renderHistoricalRuns();
+  // Render the real EQA foundational-run archive (TOE-TEST-0001~0051)
+  if (window.renderEqaArchive) {
+    window.renderEqaArchive();
   }
 
   // ── Sidebar folder tooltips (position:fixed to bypass overflow:hidden) ───
@@ -856,8 +836,8 @@ async function openJsonInspector(runId, type = 'json') {
       titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
     } else if (runId.startsWith('bav-arch-')) {
       titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
-    } else if (runId.startsWith('eqa-calib-')) {
-      titleNode.textContent = 'EQA-' + runId.replace('eqa-calib-', 'CALIB-');
+    } else if (runId.startsWith('eqa-arch-')) {
+      titleNode.textContent = 'EQA ARCHIVE · ' + runId.replace('eqa-arch-', '');
     } else {
       titleNode.textContent = runId.toUpperCase();
     }
@@ -879,9 +859,7 @@ async function openJsonInspector(runId, type = 'json') {
     return text.includes('raw') || text.includes('json') || text.includes('proof') || text.includes('report');
   });
   if (rawTabBtn) {
-    if (runId.startsWith('eqa-calib-')) {
-      rawTabBtn.innerHTML = `📄 Calibration Proof`;
-    } else if (runId === 'toe-test-0054' && type === 'report') {
+    if (runId === 'toe-test-0054' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Intake Report`;
     } else if (runId === 'toe-test-0052' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Analysis Report`;
@@ -916,14 +894,14 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './bav/exp-005/manifest.json';
   } else if (runId.startsWith('bav-arch-')) {
     jsonPath = './bav/archive/manifest.json';
+  } else if (runId.startsWith('eqa-arch-')) {
+    jsonPath = './eqa/archive/manifest.json';
   } else if (runId === 'bav-exp-028') {
     jsonPath = './bav/exp-028/post_overlay_report.json';
   } else if (runId === 'bav-exp-033') {
     jsonPath = './bav/exp-033/governance_multiaxis.json';
   } else if (runId === 'bav-exp-034') {
     jsonPath = './bav/exp-034/cross_parity_multiaxis.json';
-  } else if (runId.startsWith('eqa-calib-')) {
-    jsonPath = ''; // triggers fallback automatically
   }
   
   let jsonData = null;
@@ -941,12 +919,13 @@ async function openJsonInspector(runId, type = 'json') {
     }
   }
   
-  // BAV archive: the fetched file is the manifest; narrow it to the one run record.
-  if (runId.startsWith('bav-arch-') && jsonData && Array.isArray(jsonData.runs)) {
-    const wantId = runId.replace('bav-arch-', '');
+  // Archive (BAV/EQA): the fetched file is the manifest; narrow it to one run record.
+  const archPrefix = runId.startsWith('bav-arch-') ? 'bav-arch-' : (runId.startsWith('eqa-arch-') ? 'eqa-arch-' : null);
+  if (archPrefix && jsonData && Array.isArray(jsonData.runs)) {
+    const wantId = runId.replace(archPrefix, '');
     const run = jsonData.runs.find(x => x.id === wantId);
-    jsonData = run ? Object.assign({ _archive_label: jsonData.label }, run) : jsonData;
-    const rp = jsonData.metrics && jsonData.metrics.report_path;
+    jsonData = run ? Object.assign({ _archive_label: jsonData.label, _lane: archPrefix === 'eqa-arch-' ? 'eqa' : 'bav' }, run) : jsonData;
+    const rp = (jsonData.metrics && jsonData.metrics.report_path) || jsonData.report_path;
     if (rp) {
       try {
         const res = await fetch(rp + '?t=' + new Date().getTime());
@@ -1006,11 +985,9 @@ async function openJsonInspector(runId, type = 'json') {
     } catch (e) { console.warn('BAV manifest fetch failed', e); }
   }
 
-  // Fetch report markdown for 0054 or calibration runs
+  // Fetch report markdown for live EQA reports (archive reports are loaded above).
   let reportText = '';
-  if (runId.startsWith('eqa-calib-')) {
-    reportText = getFallbackReportText(runId);
-  } else if (type === 'report' && runId === 'toe-test-0054') {
+  if (type === 'report' && runId === 'toe-test-0054') {
     try {
       const res = await fetch('./eqa/toe-test-0054/README.md?t=' + new Date().getTime());
       if (res.ok) reportText = await res.text();
@@ -1401,10 +1378,12 @@ function renderBavExp034Insights(d) {
 }
 
 // ── BAV archive record: thin single-experiment inspector from extracted metrics ──
-function renderBavArchiveInspector(runId, d, panels) {
+function renderArchiveInspector(runId, d, panels) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const m = (d && d.metrics) || {};
+  const isEqa = d._lane === 'eqa';
   const hasSr9 = typeof m.sr9_resonance === 'number';
+  const noteIsLink = typeof d.note === 'string' && /^https?:/i.test(d.note);
   const card = (label, value, color) => `<div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);"><div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">${label}</div><div style="font-size:20px;font-weight:600;color:${color || 'var(--ts)'};margin-top:4px;">${value}</div></div>`;
 
   // Insights
@@ -1421,22 +1400,27 @@ function renderBavArchiveInspector(runId, d, panels) {
   panels.insInsights.innerHTML = `
     <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(107,114,128,0.06);border:1px solid rgba(107,114,128,0.25);border-radius:var(--r-md);padding:12px 16px;margin-bottom:20px;">
       <span style="font-size:14px;">🗄️</span>
-      <div><div style="font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:#9ca3af;">Archived Foundational Iteration · ${esc(d.id)}</div>
-      <div style="font-size:12px;color:var(--t4);margin-top:4px;line-height:1.5;">${esc(d.theme || '')} — ${esc(d.summary || 'Foundational RExSyn/NNSL iteration.')}</div></div>
+      <div><div style="font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:#9ca3af;">${isEqa ? 'Archived TOE-TEST Run' : 'Archived Foundational Iteration'} · ${esc(d.id)}</div>
+      <div style="font-size:12px;color:var(--t4);margin-top:4px;line-height:1.5;">${isEqa ? esc(d.title || '') : (esc(d.theme || '') + ' — ' + esc(d.summary || 'Foundational RExSyn/NNSL iteration.'))}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;">
       ${hasSr9 ? card('SR9 resonance', m.sr9_resonance.toFixed(3), m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308') : ''}
       ${typeof m.coherence === 'number' ? card('Coherence', String(m.coherence), 'var(--ts)') : ''}
+      ${isEqa && d.date ? card('Run date', esc(d.date), 'var(--ts)') : ''}
+      ${isEqa && d.grade ? card('Grade', esc(d.grade), 'var(--ts)') : ''}
     </div>
     ${chips.length ? `<div style="margin-top:16px;font-size:12.5px;color:var(--t3);line-height:1.7;">${chips.map(c => '<div>' + c + '</div>').join('')}</div>` : ''}
-    ${d.note ? `<a href="${esc(d.note)}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:4px 10px;">↗ ${esc(d.note_label || 'Note')}</a>` : ''}
+    ${noteIsLink ? `<a href="${esc(d.note)}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:4px 10px;">↗ ${esc(d.note_label || 'Note')}</a>` : ''}
     ${reportBlock}
+    ${(!d._reportText && !noteIsLink && d.note) ? `<p style="font-size:12px;color:var(--t4);line-height:1.6;margin-top:16px;font-style:italic;">${esc(d.note)}</p>` : ''}
     <p style="font-size:12px;color:var(--t5);line-height:1.6;margin-top:16px;border-top:1px solid var(--border);padding-top:14px;margin-bottom:0;">Archived experiment — only metrics and reports actually present in the source artifacts are shown (no fabricated values).</p>`;
 
   // Verified Rules
   const gates = [];
   if (hasSr9) gates.push({ label: 'SR9 honesty gate (>= 0.80)', status: m.sr9_resonance >= 0.80 ? 'PASS' : 'FAIL', detail: 'SR9 = ' + m.sr9_resonance.toFixed(3) + (m.sr9_resonance >= 0.80 ? '' : ' (below gate)') });
   if (m.report) gates.push({ label: 'Human-readable report', status: 'PASS', detail: esc(m.report) });
+  if (isEqa && d.grade) gates.push({ label: 'Recorded gate verdict', status: 'PASS', detail: 'Grade ' + esc(d.grade) + ' (verbatim from source report)' });
+  if (isEqa && d._reportText) gates.push({ label: 'Verbatim source report attached', status: 'PASS', detail: 'Imported from Flamehaven-TOE (paths sanitized, content unedited)' });
   panels.insChecks.innerHTML = gates.length
     ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Governance signals</div>' +
       gates.map(g => { const col = g.status === 'PASS' ? '#10b981' : '#eab308'; return `<div style="display:flex;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:8px;font-size:12.5px;color:var(--t3);"><span style="color:${col};font-weight:bold;margin-right:8px;">[${g.status === 'PASS' ? '✓' : '!'}]</span><div style="flex:1;"><div style="font-weight:600;color:var(--ts);font-size:12px;font-family:'JetBrains Mono',monospace;">${esc(g.label)}</div><div style="font-size:12px;color:var(--t4);">${esc(g.detail)}</div></div><span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:${col};">${g.status}</span></div>`; }).join('')
@@ -1445,9 +1429,9 @@ function renderBavArchiveInspector(runId, d, panels) {
   // Integrity
   panels.insIntegrity.innerHTML = `<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Provenance</div>
     <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
-      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Experiment</span><span style="color:var(--ts);">${esc(d.id)} (${esc(d.slug || '')})</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Experiment</span><span style="color:var(--ts);">${esc(d.id)}${d.slug ? ' (' + esc(d.slug) + ')' : ''}</span></div>
       <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Collection</span><span style="color:var(--ts);">${esc(d._archive_label || 'Foundational Iterations')}</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Source</span><span style="color:var(--t4);">Ex1-28 artifacts (metrics extracted, paths sanitized)</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><span style="color:var(--t4);">Source</span><span style="color:var(--t4);">${isEqa ? 'Flamehaven-TOE/TOE-TEST report (imported verbatim, paths sanitized)' : 'Ex1-28 artifacts (metrics extracted, paths sanitized)'}</span></div>
     </div>`;
 
   // Raw JSON
@@ -2047,60 +2031,13 @@ function renderInspectorData(runId, data, reportText = '') {
     insightHtml = renderBavExp033Insights(data);
   } else if (runId === 'bav-exp-034') {
     insightHtml = renderBavExp034Insights(data);
-  } else if (runId.startsWith('eqa-calib-')) {
-    const obs = data.observations;
-    const calibChecks = Object.values(data.checks ?? {});
-    const calibPass = calibChecks.filter(Boolean).length;
-    const calibTotal = calibChecks.length;
-    const calibIsPartial = calibPass < calibTotal;
-    const calibVerdictLabel = calibIsPartial ? 'PARTIAL' : 'PASS';
-    const calibVerdictColor = calibIsPartial ? '#f59e0b' : '#10b981';
-    const calibVerdictSub = calibIsPartial ? `${calibPass} of ${calibTotal} checks passed` : 'All checks passed';
-    insightHtml = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Run Status</div>
-          <div style="font-size: 20px; font-weight: 600; color: ${calibVerdictColor}; margin-top: 4px;">${calibVerdictLabel}</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">${calibVerdictSub}</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Target Equation</div>
-          <div style="font-size: 14px; font-weight: 600; color: var(--ts); margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${obs.target_equation}">${obs.target_equation}</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Index: Run #${String(obs.calibration_run_index).padStart(4, '0')}</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Galois degree &amp; Prime</div>
-          <div style="font-size: 20px; font-weight: 600; color: var(--ts); margin-top: 4px;">P = ${obs.split_prime_p}</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Galois Degree: [L : Q] = ${obs.field_degree}</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Precision Lock</div>
-          <div style="font-size: 20px; font-weight: 600; color: #a78bfa; margin-top: 4px;">200-bit lock</div>
-          <div style="font-size: 12px; color: #10b981; margin-top: 2px;">Relative Error: ${obs.relative_error}%</div>
-        </div>
-      </div>
-      
-      <div style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
-        <h4 style="margin: 0 0 12px 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ts);">📐 Mathematical Calibration Proof Brief</h4>
-        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 16px 0;">
-          This run verified the algebraic number theory limits under the 200-bit precision budget. Under lower floating budgets, the Galois field generator evaluations collapse due to catastrophic cancellations. EQA locks the proof of correctness successfully.
-        </p>
-        <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; line-height: 1.5;">
-          Verification Proof Ledger Entry:<br>
-          &gt; Target: ${obs.target_equation}<br>
-          &gt; Split prime p = ${obs.split_prime_p} completely splits in compositum L_T.<br>
-          &gt; Galois group rank satisfies Golod-Shafarevich proxy boundaries.<br>
-          &gt; Algebraic-geometric admissibility: verified.
-        </div>
-      </div>
-    `;
   }
   insInsights.innerHTML = insightHtml;
   
-  // BAV records: dedicated Integrity (provenance) + Verified Rules (governance gates) tabs
-  // BAV archive record: thin single-experiment view from the extracted metrics.
-  if (runId.startsWith('bav-arch-')) {
-    renderBavArchiveInspector(runId, data, { insInsights, insIntegrity, insChecks, insRaw, insCharts });
+  // Archive records (BAV/EQA): thin single-experiment view from the manifest entry
+  // plus the verbatim source report rendered inline.
+  if (runId.startsWith('bav-arch-') || runId.startsWith('eqa-arch-')) {
+    renderArchiveInspector(runId, data, { insInsights, insIntegrity, insChecks, insRaw, insCharts });
     return;
   }
 
@@ -2240,49 +2177,7 @@ function renderInspectorData(runId, data, reportText = '') {
   let rawContent = JSON.stringify(data, (k, v) => k.startsWith('_') ? undefined : v, 2);
   let copyButtonId = 'btn-copy-raw-json';
   
-  if (runId.startsWith('eqa-calib-')) {
-    const num = parseInt(runId.split('-')[2]);
-    const numStr = String(num).padStart(4, '0');
-    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
-    const prime = 101 + (num * 4);
-    const fieldDegree = Math.pow(2, 2 + (num % 4));
-    const relativeError = (0.000142685 * (1 + (num % 10) / 10)).toFixed(8);
-    
-    let gridHtml = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
-        <div style="background: rgba(167, 139, 250, 0.03); border: 1px solid rgba(167, 139, 250, 0.15); padding: 12px; border-radius: var(--r-md); text-align: left;">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Calibration Target</div>
-          <div style="font-size: 13px; font-weight: 600; color: #a78bfa; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${topicObj.topic}">${topicObj.topic}</div>
-          <div style="font-size: 11px; color: var(--t4); margin-top: 2px;">Symbol: ${topicObj.symbol}</div>
-        </div>
-        <div style="background: rgba(16, 185, 129, 0.03); border: 1px solid rgba(16, 185, 129, 0.15); padding: 12px; border-radius: var(--r-md); text-align: left;">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Reproduction Error</div>
-          <div style="font-size: 14px; font-weight: 600; color: #10b981; margin-top: 4px;">${relativeError}%</div>
-          <div style="font-size: 11px; color: var(--t4); margin-top: 2px;">Verdict: Deterministic PASS</div>
-        </div>
-        <div style="background: rgba(59, 130, 246, 0.03); border: 1px solid rgba(59, 130, 246, 0.15); padding: 12px; border-radius: var(--r-md); text-align: left;">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Galois Field Extension</div>
-          <div style="font-size: 14px; font-weight: 600; color: #60a5fa; margin-top: 4px;">[L : Q] = ${fieldDegree}</div>
-          <div style="font-size: 11px; color: var(--t4); margin-top: 2px;">Prime Parameter P: ${prime}</div>
-        </div>
-      </div>
-    `;
-    
-    const formattedHtml = parseMarkdownToHtml(reportText);
-    
-    insRaw.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">📄 Verified Calibration Brief (EQA-CALIB-${numStr})</span>
-        <button id="${copyButtonId}" class="eq-slot-btn" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:var(--r-xs);">Copy Markdown</button>
-      </div>
-      <div style="max-height: 480px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; text-align: left;">
-        ${gridHtml}
-        <div class="calibration-markdown-body" style="font-family: 'Inter', sans-serif;">
-          ${formattedHtml}
-        </div>
-      </div>
-    `;
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
+  if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -2313,7 +2208,7 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const isMarkdownReport = runId.startsWith('eqa-calib-') || (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056'));
+      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056');
       const copyVal = isMarkdownReport ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
         copyBtn.textContent = 'Copied!';
@@ -2339,7 +2234,6 @@ function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
   if (runId === 'openai-erdos-eq22') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
-  if (runId.startsWith('eqa-calib-')) return buildCalibCharts(data);
   if (runId === 'toe-test-0052') return buildSparCharts(data);
   if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
@@ -2684,44 +2578,6 @@ function buildGenericCharts(data) {
   ];
 }
 
-function buildCalibCharts(data) {
-  const checks = data.checks ?? {};
-  const vals = Object.values(checks);
-  const passCount = vals.filter(Boolean).length;
-  const failCount = vals.length - passCount;
-  const obs = data.observations ?? {};
-  const errorPct = parseFloat(obs.relative_error ?? '0');
-  const THRESHOLD = 0.03; // EQA Protocol §1 hard ceiling (%)
-  const charts = [];
-
-  if (errorPct > 0) {
-    const pctOfLimit = parseFloat((errorPct / THRESHOLD * 100).toFixed(3));
-    charts.push({
-      type: 'bar',
-      title: 'Precision Lock — Error Budget Consumed',
-      data: [{ label: 'Run Error', value: pctOfLimit, color: '#10b981', note: `${errorPct.toFixed(8)}% raw  |  EQA threshold: 0.03%` }],
-      options: {
-        maxValue: 100, unit: '% of limit',
-        caption: `Run consumed ${pctOfLimit}% of the 0.03% EQA precision budget — well within protocol bounds. [Synthetic calibration data]`,
-      },
-    });
-  }
-
-  if (vals.length) {
-    charts.push({
-      type: 'donut',
-      title: 'Verification Check Results',
-      data: [
-        { label: 'Pass', value: passCount, color: '#10b981' },
-        ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : []),
-      ],
-      options: { centerText: String(passCount), centerSub: `of ${vals.length} checks passed` },
-    });
-  }
-
-  return charts;
-}
-
 function buildSparCharts(data) {
   const spar = data.spar_review ?? {};
   const subj = data.subject ?? {};
@@ -2819,56 +2675,6 @@ function renderAnalysisTab(container, runId, data) {
 }
 
 function getFallbackReportText(runId) {
-  if (runId.startsWith('eqa-calib-')) {
-    const num = parseInt(runId.split('-')[2]);
-    const numStr = String(num).padStart(4, '0');
-    
-    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
-    const prime = 101 + (num * 4);
-    const fieldDegree = Math.pow(2, 2 + (num % 4));
-    const relativeError = (0.000142685 * (1 + (num % 10) / 10)).toFixed(8);
-    
-    return `# EQA-CALIB-${numStr}: Mathematical Calibration Proof Ledger
-
-**Status:** PASS (Deterministic Precision Lock Engaged)
-**Topic:** ${topicObj.topic}
-**Symbol:** ${topicObj.symbol}
-**Prime Parameter P:** ${prime}
-**Galois Extension Degree:** [L : Q] = ${fieldDegree}
-**Reproduction Relative Error:** ${relativeError}%
-
----
-
-## 1. Executive Proof Telemetry
-Under 200-bit arbitrary precision budget, the discrete geometry lattices converge deterministically. Standard 64-bit IEEE floats exhibit catastrophic underflow when calculating exponent excess bounds, yielding a false negative. Engagement of EQA precision-lock prevents cancellation.
-
-## 2. Galois-Geometric Admissibility
-- **Split Prime Behavior:** Prime p = ${prime} completely splits in the Galois compositum field L_T.
-- **Admissibility Rank:** The Galois group rank of L_T/Q satisfies the Golod-Shafarevich inequality bounds:
-  d^2 - 4r >= 0
-  specifically, d = ${fieldDegree} and r = ${num} satisfy the admissibility constraints.
-- **Genus class field K:** K = Q(sqrt(-5)) class number h = 2 extension factorizations are stable.
-
-## 3. Telemetry Log Verification
-\`\`\`json
-{
-  "run_index": ${num},
-  "verdict": "PASS",
-  "checked_at": "2026-05-20",
-  "citable_hash": "calib6a7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef00${numStr}"
-}
-\`\`\`
-
----
-
-## 4. Citation & Independent Reproduction
-To independently verify this algebraic calibration run, build the local EQA solver container and run the verification suite:
-\`\`\`bash
-python -m eqa.verify --run ${num} --precision 200
-\`\`\`
-This ledger entry acts as a citable mathematical proof of correctness.`;
-  }
-  
   return `# TOE-TEST-0054: LOGOS-to-TOE SPAR Intake Gate
 
 **Status:** BLOCK / INHIBIT
@@ -2889,38 +2695,6 @@ Do not promote, tag, or integrate any solver model from this run. Improve eviden
 }
 
 function getFallbackDataset(runId) {
-  if (runId.startsWith('eqa-calib-')) {
-    const num = parseInt(runId.split('-')[2]);
-    const numStr = String(num).padStart(4, '0');
-    
-    const topicObj = CALIBRATION_TOPICS[(num - 1) % CALIBRATION_TOPICS.length];
-    const prime = 101 + (num * 4);
-    
-    return {
-      "schema_id": "flamehaven_eqa_historical_calibration.v1",
-      "verdict": "PASS",
-      "checks": {
-        "euler_mascheroni_lattice_stable": true,
-        "class_number_h_2_verification": num % 2 === 0,
-        "split_primes_p_splitting": true,
-        "golod_shafarevich_inequality_admissible": true,
-        "arbitrary_precision_lock_engaged": true
-      },
-      "observations": {
-        "calibration_run_index": num,
-        "target_equation": topicObj.topic,
-        "symbol": topicObj.symbol,
-        "split_prime_p": prime,
-        "field_degree": Math.pow(2, 2 + (num % 4)),
-        "relative_error": (0.000142685 * (1 + (num % 10) / 10)).toFixed(8)
-      },
-      "source_sha256_manifest": {
-        "src/calibration/euler_lattice.py": "[synthetic] calib6a7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef00" + numStr,
-        "src/calibration/verify_prime.py": "[synthetic] calibcf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a" + numStr
-      }
-    };
-  }
-
   if (runId === 'openai-erdos-eq22') {
     return {
       "schema_id": "flamehaven_toe_test_algebraic_number_theory.v1",
@@ -3250,90 +3024,56 @@ window.steerCompliance = function(policy, runId, btn) {
   `;
 };
 
-// ── HISTORICAL CALIBRATION REGISTRY (1-51) ──────────────────────────────────
-window.renderHistoricalRuns = function() {
-  const container = document.getElementById('historical-runs-list');
+// ── EQA FOUNDATIONAL-RUN ARCHIVE (TOE-TEST-0001~0051, real reports) ───
+window.renderEqaArchive = async function() {
+  const container = document.getElementById('eqa-archive-list');
   if (!container) return;
-  
-  container.innerHTML = '';
-
-  // Inject aggregate stats banner before the run list (outside scroll area)
-  const oldBanner = container.parentElement?.querySelector('.calib-stats-banner');
+  let mf = null;
+  try { mf = await fetch('./eqa/archive/manifest.json?t=' + Date.now()).then(r => r.ok ? r.json() : null); } catch (e) { /* ignore */ }
+  if (!mf || !Array.isArray(mf.runs)) { container.innerHTML = '<div style="color:var(--t4);font-style:italic;padding:8px;">Archive manifest unavailable.</div>'; return; }
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // Aggregate stats banner from the real manifest (counts derived, not asserted).
+  const withReport = mf.runs.filter(r => r.report_path).length;
+  const dated = mf.runs.map(r => r.date).filter(Boolean).sort();
+  const graded = mf.runs.filter(r => r.grade).length;
+  const oldBanner = container.parentElement && container.parentElement.querySelector('.eqa-arch-stats');
   if (oldBanner) oldBanner.remove();
-  const statsBanner = document.createElement('div');
-  statsBanner.className = 'calib-stats-banner';
-  statsBanner.style.cssText = 'display:flex;gap:20px;padding:7px 16px;background:rgba(167,139,250,0.04);border-bottom:1px solid rgba(167,139,250,0.12);flex-wrap:wrap;align-items:center;';
-  statsBanner.innerHTML = `
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">51 runs</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; 25 — all 5 checks passed</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#f59e0b;">&#9651; 26 — 4 of 5 checks passed</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">16 topics</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">err &le; 2.71e&#8722;4%</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t5);margin-left:auto;">[synthetic]</span>
+  const banner = document.createElement('div');
+  banner.className = 'eqa-arch-stats';
+  banner.style.cssText = 'display:flex;gap:18px;padding:7px 16px;background:rgba(167,139,250,0.04);border-bottom:1px solid rgba(167,139,250,0.12);flex-wrap:wrap;align-items:center;';
+  banner.innerHTML = `
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">${mf.runs.length} runs</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a78bfa;">&#9683; ${withReport} with verbatim report</span>
+    ${graded ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; ${graded} graded</span>` : ''}
+    ${dated.length ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">${dated[0]} → ${dated[dated.length-1]}</span>` : ''}
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t5);margin-left:auto;">imported from Flamehaven-TOE</span>
   `;
-  container.parentElement?.insertBefore(statsBanner, container);
-
-  for (let i = 1; i <= 51; i++) {
-    const numStr = String(i).padStart(4, '0');
-    const topicObj = CALIBRATION_TOPICS[(i - 1) % CALIBRATION_TOPICS.length];
-    const prime = 101 + (i * 4);
-    const date = `2026-04-${String((i % 25) + 1).padStart(2, '0')}`;
-    
-    // Create element
-    const item = document.createElement('div');
-    item.className = 'run-item';
-    item.dataset.runNum = i;
-    item.dataset.title = topicObj.topic.toLowerCase();
-    item.dataset.prime = prime;
-    item.dataset.numStr = numStr;
-    
-    item.setAttribute('onclick', `openHistoricalRunInspector(${i})`);
-    item.setAttribute('style', `
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 12px; background: rgba(255,255,255,0.01);
-      border: 1px solid var(--border); border-radius: var(--r-sm);
-      cursor: pointer; transition: all 0.2s ease;
-      font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-      color: var(--t3);
-    `);
-    
-    item.setAttribute('onmouseover', "this.style.borderColor='var(--ts)'; this.style.background='rgba(255,255,255,0.03)'");
-    item.setAttribute('onmouseout', "this.style.borderColor='var(--border)'; this.style.background='rgba(255,255,255,0.01)'");
-    
-    item.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-        <span style="color: #a78bfa; font-weight: 600; flex-shrink:0;">RUN-${numStr}</span>
-        <span style="color: var(--t5); flex-shrink:0;">|</span>
-        <span style="color: var(--ts); font-weight: 500; flex-shrink:0;">P = ${prime}</span>
-        <span style="color: var(--t4); font-size: 11px; font-family: 'Inter', sans-serif; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">(${topicObj.topic})</span>
+  container.parentElement && container.parentElement.insertBefore(banner, container);
+  // Recent-first: TOE-TEST numbering is chronological, so show highest id first.
+  const runs = mf.runs.slice().sort((a, b) => (b.id || '').localeCompare(a.id || ''));
+  container.innerHTML = runs.map(r => {
+    const hasReport = !!r.report_path;
+    const gradeChip = r.grade ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">${esc(r.grade)}</span>` : '';
+    const dateChip = r.date ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t5);">${esc(r.date)}</span>` : '';
+    const reportChip = hasReport
+      ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#a78bfa;border:1px solid rgba(167,139,250,0.25);border-radius:3px;padding:1px 5px;">report ✓</span>`
+      : `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--t5);border:1px solid var(--border);border-radius:3px;padding:1px 5px;">meta only</span>`;
+    return `<div class="bav-arch-row" onclick="openJsonInspector('eqa-arch-${esc(r.id)}')" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;" title="Open in Ledger Inspector">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><span style="color:#a78bfa;">⌕</span> <span style="color:#6b7280;">${esc(r.id)}</span> <span style="font-family:'Inter',sans-serif;color:var(--t4);">${esc(r.title)}</span></span>
+        <span style="display:flex;align-items:center;gap:6px;flex-shrink:0;">${dateChip}${gradeChip}${reportChip}</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px; flex-shrink:0;">
-        ${i % 2 !== 0
-          ? `<span style="color:#f59e0b;font-weight:bold;font-size:10px;background:rgba(245,158,11,0.1);padding:1px 6px;border-radius:3px;">PARTIAL</span>`
-          : `<span style="color:#10b981;font-weight:bold;font-size:10px;background:rgba(16,185,129,0.1);padding:1px 6px;border-radius:3px;">PASS</span>`
-        }
-        <span style="color: var(--t5); font-size: 10.5px;">${date}</span>
-      </div>
-    `;
-    container.appendChild(item);
-  }
+    </div>`;
+  }).join('');
 };
 
-window.handleHistoricalRunSearch = function() {
-  const query = (document.getElementById('historical-run-search')?.value || '').toLowerCase().trim();
-  const items = document.querySelectorAll('#historical-runs-list .run-item');
+window.handleEqaArchiveSearch = function() {
+  const query = (document.getElementById('eqa-archive-search') ? document.getElementById('eqa-archive-search').value : '').toLowerCase().trim();
+  const items = document.querySelectorAll('#eqa-archive-list .bav-arch-row');
   items.forEach(item => {
-    const title = item.dataset.title || '';
-    const prime = item.dataset.prime || '';
-    const numStr = item.dataset.numStr || '';
-    const match = !query || title.includes(query) || prime.includes(query) || numStr.includes(query) || `run-${numStr}`.includes(query);
-    item.style.display = match ? 'flex' : 'none';
+    const txt = item.textContent.toLowerCase();
+    item.style.display = (!query || txt.includes(query)) ? 'flex' : 'none';
   });
-};
-
-window.openHistoricalRunInspector = function(number) {
-  const runId = `eqa-calib-${String(number).padStart(4, '0')}`;
-  openJsonInspector(runId);
 };
 
 // Expose all key UI interaction handlers to window scope explicitly

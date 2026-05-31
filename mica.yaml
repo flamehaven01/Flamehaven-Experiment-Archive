@@ -9,12 +9,13 @@ description: >
   portal wiring standards, and UX/UI rules are fully documented in playbook.
 
 metadata:
-  version: "1.6.0"
+  version: "1.7.0"
   last_updated: "2026-05-31"
   eqa_run_range: "TOE-TEST-0001~0056"
+  eqa_archive: "TOE-TEST-0001~0051 (real reports, data-driven; synthetic registry removed in 1.7.0)"
   bav_experiments: "EXP-001~034 (6 cards + archive)"
   di_count: 22
-  session_count: 7
+  session_count: 8
 
 layers:
   - name: archive

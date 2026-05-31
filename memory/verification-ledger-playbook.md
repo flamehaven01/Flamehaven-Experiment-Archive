@@ -59,7 +59,7 @@ Every EQA run produces one of four gate outcomes. Handle each as follows:
 
 **Score correction rule:** Never edit `internal_data.json` post-commit. If a score is wrong, create a new run with a new run-id and reference the corrected run from the original card.
 
-**Archive boundary:** Runs 0001–0051 are grouped as a single `eqa-archive-0001~0051` card. Do not create individual cards for archival runs unless the run requires standalone citation.
+**Archive boundary:** Runs 0001–0051 are grouped as a single `eqa-card-archive` card backed by `eqa/archive/manifest.json` (real TOE-TEST reports imported verbatim, paths sanitized). Do not create individual cards for archival runs unless the run requires standalone citation. The archive is **data-driven only** — never re-introduce procedurally generated ("synthetic") run data; the sanitizer `synthetic_marker` detector and CI gate enforce this.
 
 ---
 
@@ -237,9 +237,11 @@ Any future visualization, dynamic sandbox, 3D consensus coordinate display, or t
 - **Fixed-Position Tooltips**: Sidebar tooltip overlays must be injected into `document.body` and positioned via `position: fixed` + JS `clientX/clientY` coordinates. CSS `position: absolute` tooltips are silently clipped by the sidebar's `overflow: hidden` scroll context and will not render.
 - **Social Share Frame Pattern (DI-SDK-004)**: Social share buttons (FB / LI / X / Email / Copy Link) must be placed in the portal viewer frame header and footer — never embedded inside individual HTML report files. This applies universally to all reports without requiring per-file modification. Individual report HTMLs must not contain `fh-brand-bar` or equivalent share UI.
 
-### 4.1 BAV Archive Inspectability (data-driven)
-- Foundational-iteration archive rows are **expandable / inspector-linked only when real data exists** (an SR9 metric or a showable report). Rows with no structured artifact render dimmed as `no record` — never fabricated.
-- Reports that exist are copied into `bav/archive/reports/` (sanitized) and rendered **inline in the inspector Insights panel** so the actual content is visible, not a filename.
+### 4.1 Archive Inspectability (data-driven, both lanes)
+- A single function `renderArchiveInspector(runId, d, panels)` serves **both** archives, routed by run-id prefix: `bav-arch-<id>` (lane `bav`) and `eqa-arch-<id>` (lane `eqa`). It reads the manifest entry, fetches the verbatim report (`report_path` at top level or under `metrics`), and renders it **inline in the Insights panel** so the actual content is visible, not a filename.
+- **BAV** archive rows are expandable / inspector-linked only when real data exists (an SR9 metric or a showable report); data-less rows render dimmed as `no record`. Reports live in `bav/archive/reports/` (sanitized).
+- **EQA** archive rows are populated by `renderEqaArchive()` from `eqa/archive/manifest.json`, ordered most-recent first; each shows the real run date / grade (only where the source states them) and opens the verbatim `eqa/archive/reports/TOE-TEST-NNNN.md`. **Korean policy**: the ledger is English, but Korean source content is **converted to English, not `[redacted]`** — bilingual reports (English body + Korean duplicate) keep their English section; Korean-primary reports are faithfully translated, preserving every number / table / data block / reference. Titles are filename-derived (always English) or set from the translated heading. A metadata-only stub is the last resort only when no faithful English rendering is possible.
+- **Never fabricate** archive data. Banner counts are derived from the manifest at render time, not asserted.
 
 ---
 
@@ -250,6 +252,7 @@ Every published file MUST pass the MICA-governed sanitizer (`sanitizer/`, govern
 - **No local-workspace paths** (DI-SAN-001): absolute paths (drive / home / workspace codenames `Sanctum`/`STRUCTURA` / username) are collapsed to `[workspace]/<basename>`; dangling `[workspace]/...` references must not be displayed as data (strip metadata lines; reduce internal fields to basename).
 - **No locale-PII** (DI-SAN-002): Hangul / locale-revealing folder names are redacted.
 - **No pseudo-scientific slop** (DI-SAN-007): symbol-soup credentials (e.g. `CLI <zigzag/sigma/therefore>`), grandiose personal attribution lines, and `Sovereign` used as a **claim** qualifier (grade / threshold / asset framing) are prohibited and CI-flagged. Experiment **codename slugs** (e.g. `EXP-012-SOVEREIGN-ORIGIN`) are retained as historical identifiers — names are not claims.
+- **No fabricated data** (`synthetic_marker` detector): any bracketed synthetic-fabrication tag is CI-flagged on all file types. Ledger content must trace to real artifacts — procedurally generated "registries" are prohibited (see the 0001–0051 calibration-registry removal in 1.7.0).
 - **Define, don't mystify**: internal metric acronyms (SR9, DI2, NNSL, Ω, p_e2e) are kept but must carry an external-readable definition / glossary so any outside researcher can read the ledger.
 
 ### 5.1 Metrics Glossary (external-facing)
