@@ -4,7 +4,7 @@
   "project": {
     "name": "flamehaven-verification-ledger",
     "full_name": "Flamehaven Verification Ledger",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "status": "active",
     "primary_language": "Multi-Environment",
     "repo_path": ".",
@@ -206,14 +206,32 @@
       "binding": {
         "origin_episode": "Phase 2/3: added pae-heatmap/contact-map/plddt-track renderers and buildBavReportMarkdown; removed the fabricated WebGL/THREE.js scene and its CDN dependency."
       }
+    },
+    {
+      "id": "DI-OPS-001",
+      "label": "opsec-sanitize-before-publish",
+      "statement": "Every published ledger file must pass the MICA-governed sanitizer (sanitizer/, DI-SAN-001..007) before publish; a CI gate (.github/workflows/opsec-sanitize.yml) fails the build on any local-workspace path, locale-PII, or secret/IP/email exposure. No drive letters, OS, workspace codenames (Sanctum/STRUCTURA), username, or Hangul may appear in public files.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-SAN-001..006: committed experiment JSON leaked local-workspace absolute paths, username, and locale folder names across EQA/BAV/BSC; sanitized repo-wide and enforced via CI."
+      }
+    },
+    {
+      "id": "DI-OPS-002",
+      "label": "external-credibility-no-slop",
+      "statement": "The public ledger must read credibly to outside scientists/developers: no pseudo-scientific symbol-soup credentials, no grandiose personal attribution lines, and no Sovereign-as-claim qualifiers. Experiment codename slugs are kept as identifiers. Internal metric acronyms (SR9/DI2/NNSL/Omega/p_e2e) are retained only with an external-readable glossary/definition.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-SAN-006/007: archive reports exposed CLI symbol-soup credentials, a personal-attribution line, and grade/threshold claim qualifiers; neutralized, glossary added, sanitizer credibility rule added."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 7,
-    "last_updated": "2026-05-30",
-    "session_count": 6,
+    "update_count": 8,
+    "last_updated": "2026-05-31",
+    "session_count": 7,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }

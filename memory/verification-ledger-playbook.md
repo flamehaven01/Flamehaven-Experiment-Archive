@@ -236,3 +236,27 @@ Any future visualization, dynamic sandbox, 3D consensus coordinate display, or t
 - **Strict HTML Tag Balancing**: All custom dashboard layouts, ledger lists, and structural container blocks must maintain balanced start and end tags. A missing closing element can compromise downstream browser DOM tree parsing, which may inadvertently nest unrelated dashboards inside hidden containers and cause rendering failure.
 - **Fixed-Position Tooltips**: Sidebar tooltip overlays must be injected into `document.body` and positioned via `position: fixed` + JS `clientX/clientY` coordinates. CSS `position: absolute` tooltips are silently clipped by the sidebar's `overflow: hidden` scroll context and will not render.
 - **Social Share Frame Pattern (DI-SDK-004)**: Social share buttons (FB / LI / X / Email / Copy Link) must be placed in the portal viewer frame header and footer — never embedded inside individual HTML report files. This applies universally to all reports without requiring per-file modification. Individual report HTMLs must not contain `fh-brand-bar` or equivalent share UI.
+
+### 4.1 BAV Archive Inspectability (data-driven)
+- Foundational-iteration archive rows are **expandable / inspector-linked only when real data exists** (an SR9 metric or a showable report). Rows with no structured artifact render dimmed as `no record` — never fabricated.
+- Reports that exist are copied into `bav/archive/reports/` (sanitized) and rendered **inline in the inspector Insights panel** so the actual content is visible, not a filename.
+
+---
+
+## 5. OPSEC, PII & Credibility (P0, CI-enforced)
+
+Every published file MUST pass the MICA-governed sanitizer (`sanitizer/`, governed by `sanitizer/sanitizer.mica.archive.json`, DI-SAN-001..007) before publish. A CI gate (`.github/workflows/opsec-sanitize.yml`) runs it on every push / PR and fails the build on any leak.
+
+- **No local-workspace paths** (DI-SAN-001): absolute paths (drive / home / workspace codenames `Sanctum`/`STRUCTURA` / username) are collapsed to `[workspace]/<basename>`; dangling `[workspace]/...` references must not be displayed as data (strip metadata lines; reduce internal fields to basename).
+- **No locale-PII** (DI-SAN-002): Hangul / locale-revealing folder names are redacted.
+- **No pseudo-scientific slop** (DI-SAN-007): symbol-soup credentials (e.g. `CLI <zigzag/sigma/therefore>`), grandiose personal attribution lines, and `Sovereign` used as a **claim** qualifier (grade / threshold / asset framing) are prohibited and CI-flagged. Experiment **codename slugs** (e.g. `EXP-012-SOVEREIGN-ORIGIN`) are retained as historical identifiers — names are not claims.
+- **Define, don't mystify**: internal metric acronyms (SR9, DI2, NNSL, Ω, p_e2e) are kept but must carry an external-readable definition / glossary so any outside researcher can read the ledger.
+
+### 5.1 Metrics Glossary (external-facing)
+- **SR9** (Scientific Resonance): cross-domain consistency across chemistry / genomics / proteomics (guard >= 0.70).
+- **DI2** (Dimensional Integrity): reasoning drift / internal contradiction (guard <= 0.30, lower better).
+- **NNSL**: semantic-resonance verification engine computing SR9 / DI2.
+- **RExSyn**: hypothesis-synthesis engine (observer-first).
+- **LawBinder**: fail-closed governance gate (escalates when uncertain).
+- **p_e2e**: end-to-end reliability = capture x transfer x model x clinical.
+- **pLDDT / PAE / pTM**: standard AlphaFold confidence metrics.

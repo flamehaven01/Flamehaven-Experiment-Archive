@@ -32,10 +32,12 @@ The summary file is intentionally narrow. It exists only to route users into the
 - **Methodology**: Maps observables (README intent, dependency safety, exception handling, data-provenance, clinical disclaimers) directly to structured evidence-readiness tiers (T0 Quarantine to T3 Clear), mapped to the **MIT AI Risk Repository (AIRI)**. Interactive Compliance Steering Sandbox applies Standard Prior / EU AI Act Art. 12 / MIT AI Risk Cap policy rules against live report JSON — no hardcoded scores.
 - **Scope**: 2 active reports · Avg Score 54/100 · 1 T1 Quarantine · 1 T2 Caution. Each report links to a companion flamehaven.space article.
 
-### 3. Biomolecular AI Validation
-- **Focus**: Governing structural alignment and structural consensus integrity for biomedical model fine-tunes.
-- **Methodology**: Integrates multi-model 3D structure prediction consensus validation (AF3, AF2, Boltz-2, Chai-1) combined with strict reasoning and governance layers.
-- **Scope**: Consensus briefings and structural prediction validation records (pre-release review).
+### 3. Biomolecular AI Validation (BAV)
+- **Focus**: Validating whether an entire biomedical AI **pipeline** (RExSyn reasoning + NNSL resonance + LawBinder governance) deserves trust — not just whether one model looks confident. Model disagreement is treated as signal.
+- **Methodology**: Multi-model structural consensus/drift (AF3, AF2, Chai-1, Boltz-2), honesty gating (SR9 cross-domain consistency >= 0.70, DI2 reasoning drift <= 0.30), end-to-end reliability `p_e2e = capture x transfer x model x clinical`, and fail-closed LawBinder escalation. All card values are live-fetched from verbatim run payloads (no hardcoding); a metrics glossary defines every acronym.
+- **Scope**: 6 live experiment cards (EXP-005 Upadacitinib truthful-null, EXP-028 honesty test, EXP-031 OOD disagreement, EXP-032 adaptive gate, EXP-033 pipeline-level, EXP-034 path separation) + a foundational-iteration archive (EXP-001~030, real metrics/reports surfaced via the inspector). Pipeline-reliability heuristics only — not clinical efficacy.
+
+> **OPSEC & credibility:** every published file passes the MICA-governed sanitizer (`sanitizer/`, CI gate) which scrubs local-workspace paths / locale-PII and flags pseudo-scientific symbol-soup or grandiose attribution before publication.
 
 ---
 

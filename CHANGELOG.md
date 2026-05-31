@@ -4,6 +4,26 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.6.0] - 2026-05-31
+
+BAV depth (6th card + inspectable archive), an OPSEC/credibility sanitizer, and a repo-wide credibility cleanup.
+
+### 🧬 BAV Lane
+- **EXP-005~007 Upadacitinib truthful-null card**: real NNSL outputs for three lipid carriers (SLN 0.278, NLC 0.227, Liposomal Gel 0.258), all rejected by the SR9 gate (>= 0.80) — "the value of not building". Fills the skipped 005-007 numbering.
+- **Engine Overview card**: RExSyn (Ω 0.665, observer-first) / NNSL (Ω 0.919) / LawBinder context + remaining notes.
+- **Archive made usable**: foundational runs (EXP-001~030) now surface real extracted metrics (SR9/coherence) and render their full source reports inline in the inspector; data-less rows close as `no record` (no fabrication). 15 inspectable / 11 closed.
+
+### 🔒 OPSEC / Credibility (P0, CI-enforced)
+- **Sanitizer v1.2** (`sanitizer/`, DI-SAN-001..007): config-driven detectors (paths, locale, IP/email/secret, pseudo-science slop), scan-history + calibration, and a GitHub Actions gate that blocks publication on any leak.
+- **Disclosure patch**: scrubbed local-workspace absolute paths / username / Korean folder names across 27+ files; removed a leaked binary PDF.
+- **Credibility patch**: removed pseudo-scientific symbol-soup credentials and grandiose personal attribution; neutralized `Sovereign` claim-slop (codename slugs kept as identifiers); stripped dangling `[workspace]/` path references from display + data; added a **Metrics & Engines glossary** (SR9/DI2/NNSL/Ω/p_e2e/AlphaFold metrics).
+
+### 📚 MICA v1.6.0
+- Main archive: + DI-BAV-001..004 (BAV lane), DI-OPS-001 (OPSEC-before-publish), DI-OPS-002 (external-credibility-no-slop). di_count -> 22.
+- Sanitizer MICA v1.2.0 (DI-SAN-007 credibility). Playbook gains §4.1 archive inspectability and §5 OPSEC/Credibility + glossary.
+
+---
+
 ## [1.5.0] - 2026-05-30
 
 Built out the **Biomolecular AI Validation (BAV)** lane from a 0-base placeholder into a live, data-driven governance ledger, and added an OPSEC sanitizer.
