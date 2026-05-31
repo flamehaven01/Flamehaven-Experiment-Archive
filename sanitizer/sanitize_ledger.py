@@ -67,7 +67,8 @@ _SYNTHETIC_RE = re.compile(r"\[synthetic[^\]]*\]", re.IGNORECASE)
 DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",
                   "ipv4_address": "detect", "email_address": "detect",
-                  "secret_token": "detect", "synthetic_marker": "detect"},
+                  "secret_token": "detect", "synthetic_marker": "detect",
+                  "promotional_language": "detect"},
     "markers": ["Sanctum", "STRUCTURA", "Users/dream", "Users\\dream"],
     "ignore_dirs": [".git", ".claude", "node_modules", "__pycache__", "sanitizer"],
     "extensions": ["json", "md", "html", "js", "yaml", "yml", "cff", "txt"],
@@ -171,6 +172,58 @@ def _detect(rule_id: str, rx: re.Pattern):
     return fn
 
 
+# ----- promotional_language detector (scope-gated, content-aware) -----------
+# Default superlative / strong-appeal list (config-overridable via promo_terms).
+# Deliberately excludes ambiguous technical words (e.g. "best candidate",
+# "position:absolute") by content extraction + allowlist, not by listing them.
+_PROMO_TERMS_DEFAULT = [
+    "revolutionary", "ultimate", "world-class", "breakthrough", "cutting-edge",
+    "state-of-the-art", "first-ever", "unprecedented", "authoritative", "absolute",
+    "groundbreaking", "game-changing", "industry-leading", "unparalleled",
+]
+_PROMO_SCOPE_DEFAULT = ["index.html", "eqa.html", "README.md"]
+_PROMO_ALLOW_DEFAULT = [r"(?i)absolute\s+path"]  # technical, not promotional
+_HTML_DROP_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.I | re.S)
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
+_MD_FENCE_RE = re.compile(r"```.*?```", re.S)
+_MD_INLINE_RE = re.compile(r"`[^`]*`")
+
+
+def _visible_text(text: str, ext: str) -> str:
+    """Reduce a shipped file to human-visible prose so CSS/attrs/code never flag."""
+    e = (ext or "").lower()
+    if e == "html":
+        import html as _html
+        t = _HTML_DROP_RE.sub(" ", text)   # drop <script>/<style> bodies
+        t = _HTML_TAG_RE.sub(" ", t)        # drop tags + their attributes
+        return _html.unescape(t)
+    if e in ("md", "markdown"):
+        t = _MD_FENCE_RE.sub(" ", text)     # drop fenced code
+        t = _MD_INLINE_RE.sub(" ", t)       # drop inline code
+        return t
+    return text
+
+
+def detect_promotional(text: str, cfg: dict, ext: str = "", relpath: str = ""):
+    """Flag superlative / self-promotional wording in our authored public surface."""
+    scope = cfg.get("promo_scope", _PROMO_SCOPE_DEFAULT)
+    rel = (relpath or "").replace("\\", "/")
+    if scope and rel not in scope:
+        return text, []
+    terms = cfg.get("promo_terms", _PROMO_TERMS_DEFAULT)
+    allow = [re.compile(a) for a in cfg.get("promo_allowlist", _PROMO_ALLOW_DEFAULT)]
+    rx = re.compile(r"(?i)\b(" + "|".join(re.escape(t) for t in terms) + r")\b")
+    visible = _visible_text(text, ext)
+    found = []
+    for m in rx.finditer(visible):
+        s, e = max(0, m.start() - 24), m.end() + 24
+        ctx = visible[s:e]
+        if any(a.search(ctx) for a in allow):
+            continue
+        found.append(Finding("promotional_language", m.group(0), FLAG))
+    return text, found
+
+
 _FIX["abs_path_collapse"] = fix_abs_path
 _FIX["hangul_redact"] = fix_hangul
 _FIX["credibility_clean"] = fix_credibility
@@ -196,15 +249,20 @@ def load_config(base: Path) -> dict:
         return dict(DEFAULT_CONFIG)
 
 
-def sanitize_text(text: str, cfg: dict, ext: str = "") -> Tuple[str, List[Finding]]:
+def sanitize_text(text: str, cfg: dict, ext: str = "", relpath: str = "") -> Tuple[str, List[Finding]]:
     det = cfg.get("detectors", DEFAULT_CONFIG["detectors"])
     findings: List[Finding] = []
     for rid, mode in det.items():
+        # promotional_language is path/content-aware; it self-scopes (html/md only).
+        if rid == "promotional_language" and mode != "fix":
+            _, f = detect_promotional(text, cfg, ext, relpath)
+            findings.extend(f)
+            continue
         fn = _FIX.get(rid) if mode == "fix" else _DETECT.get(rid)
         if not fn:
             continue
         # detect-mode rules run only on data files to avoid HTML/JS/SVG noise,
-        # except credibility_slop (symbol markers are unambiguous on any file).
+        # except credibility_slop / synthetic_marker (unambiguous on any file).
         if mode != "fix" and rid not in ("credibility_slop", "synthetic_marker") and ext and ext.lower() not in DATA_EXTS:
             continue
         text, f = fn(text, cfg)
@@ -241,7 +299,7 @@ def main() -> int:
             text = f.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
             continue
-        new_text, findings = sanitize_text(text, cfg, f.suffix.lstrip("."))
+        new_text, findings = sanitize_text(text, cfg, f.suffix.lstrip("."), f.relative_to(root).as_posix())
         if findings:
             results.append(FileResult(str(f.relative_to(root)), findings))
             if args.apply and new_text != text:

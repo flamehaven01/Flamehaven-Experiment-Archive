@@ -1,6 +1,6 @@
 # 🛡️ Flamehaven Verification Ledger
 
-> Public, transparent, and authoritative public ledger of AI safety audits, mathematical and physical verification runs, bioscience repository compliance audits, and independent auditor review templates from **Flamehaven**.
+> Public, transparent, reproducible, and independently checkable ledger of AI safety audits, mathematical and physical verification runs, bioscience repository compliance audits, and independent auditor review templates from **Flamehaven**.
 
 [![Flamehaven Space](https://img.shields.io/badge/Flamehaven-space-000000?style=flat&logo=target&logoColor=white)](https://flamehaven.space/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Flamehaven--Verification--Ledger-181717?style=flat&logo=github)](https://github.com/flamehaven01/Flamehaven-Verification-Ledger)

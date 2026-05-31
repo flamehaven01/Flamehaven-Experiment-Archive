@@ -12,6 +12,31 @@ detectors:
   secret_token: detect        # API keys / bearer tokens / long hex secrets
   credibility_slop: detect    # residual pseudo-science symbol markers (runs on all files)
   synthetic_marker: detect    # fabrication tag "[synthetic]" / mock data (runs on all files)
+  promotional_language: detect  # superlatives / self-promotion in public surface (scope-gated)
+
+# promotional_language: enforce the understatement posture on the public-facing
+# surface only. Scope, term list, and allowlist are config (not hardcoded).
+promo_scope:                  # only these authored files are checked (verbatim reports excluded)
+  - index.html
+  - eqa.html
+  - README.md
+promo_terms:                  # superlative / strong-appeal words; ambiguous tech words excluded
+  - revolutionary
+  - ultimate
+  - world-class
+  - breakthrough
+  - cutting-edge
+  - state-of-the-art
+  - first-ever
+  - unprecedented
+  - authoritative
+  - absolute
+  - groundbreaking
+  - game-changing
+  - industry-leading
+  - unparalleled
+promo_allowlist:              # legitimate technical usages (regex, checked in +/-24 char context)
+  - '(?i)absolute\s+path'     # "absolute path(s)" is a file-system term, not promotion
 
 # Workspace leak markers that gate abs_path_collapse (case-insensitive contains).
 markers:
