@@ -58,7 +58,7 @@
   ],
   "benchmark": "./bav/exp-032/benchmark.json",
   "go_no_go": "./bav/exp-032/go_no_go.json",
-  "source": "[workspace]/parity_20260416_batch_reports_wrapper",
+  "source": "parity_20260416_batch_reports_wrapper",
   "provenance_note": "Payloads copied verbatim from certified legacy-replay batch (DI-EQA-002). SHA256 enables integrity verification. Card values are live-fetched, never hardcoded (DI-BSC-001).",
   "disclaimer": "Pipeline reliability heuristics only. NOT clinical efficacy."
 }

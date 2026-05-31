@@ -53,8 +53,13 @@ _ZIGZAG = chr(0x21AF)
 _SLOP_CRED_RE = re.compile(r"`[^`\n]*" + _ZIGZAG + r"[^`\n]*`")
 # Grandiose / PII attribution line.
 _DISCOVERER_RE = re.compile(r"[^\n]*\*\*Discoverer:\*\*[^\n]*\n?")
-# Detect-only marker for any residual symbol-soup credential.
-_SLOP_MARK_RE = re.compile(_ZIGZAG)
+# Detect-only markers for residual credibility slop: pseudo-science symbol,
+# grandiose attribution, and 'sovereign' used as a claim qualifier (the experiment
+# codename slugs like SOVEREIGN-ORIGIN are not claims and are not matched here).
+_SLOP_MARK_RE = re.compile(
+    _ZIGZAG + r"|(?i:sovereign-grade|sovereign threshold|Sovereign Research Asset"
+    r"|Sovereign Recovery|Discoverer\s*:)"
+)
 
 DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",

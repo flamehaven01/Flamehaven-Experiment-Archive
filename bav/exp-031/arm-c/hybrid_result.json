@@ -22,7 +22,7 @@
           "mode": "manual",
           "model_version": "af2-manual-v1",
           "source": "af2_unzip_scan",
-          "source_path": "[workspace]/exp031_arm_a_af2_0f979_scores_rank_004_alphafold2_ptm_model_5_seed_000.json",
+          "source_path": "exp031_arm_a_af2_0f979_scores_rank_004_alphafold2_ptm_model_5_seed_000.json",
           "ranking_score": 0.33
         },
         {
@@ -30,7 +30,7 @@
           "mode": "manual",
           "model_version": "af2-manual-v1",
           "source": "af2_unzip_scan",
-          "source_path": "[workspace]/exp031_arm_a_af2_0f979_scores_rank_001_alphafold2_ptm_model_1_seed_000.json",
+          "source_path": "exp031_arm_a_af2_0f979_scores_rank_001_alphafold2_ptm_model_1_seed_000.json",
           "ranking_score": 0.31
         },
         {
@@ -38,7 +38,7 @@
           "mode": "manual",
           "model_version": "af2-manual-v1",
           "source": "af2_unzip_scan",
-          "source_path": "[workspace]/exp031_arm_a_af2_0f979_scores_rank_005_alphafold2_ptm_model_3_seed_000.json",
+          "source_path": "exp031_arm_a_af2_0f979_scores_rank_005_alphafold2_ptm_model_3_seed_000.json",
           "ranking_score": 0.3
         }
       ],

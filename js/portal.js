@@ -1978,11 +1978,11 @@ function renderInspectorData(runId, data, reportText = '') {
         🔍 <strong>Auditing Scope:</strong> ${scopeStr}
       </p>
 
-      <!-- Sovereign Bio-Audit Compliance Steering Sandbox -->
+      <!-- Bio-Audit Compliance Steering Sandbox -->
       <div style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ts); display: flex; align-items: center; gap: 6px;">
-            <span>🛡️ Sovereign Bio-Audit Compliance Steering Sandbox</span>
+            <span>🛡️ Bio-Audit Compliance Steering Sandbox</span>
           </h4>
           <span style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: var(--r-xs);">Compliance Engine · Simulation</span>
         </div>
@@ -3202,7 +3202,7 @@ const COMPLIANCE_POLICIES = {
   },
 };
 
-// Sovereign Bio-Audit Compliance Steering Sandbox — data-driven, no hardcoded scores
+// Bio-Audit Compliance Steering Sandbox — data-driven, no hardcoded scores
 window.steerCompliance = function(policy, runId, btn) {
   const parent = btn.parentElement;
   parent.querySelectorAll('.precision-btn').forEach(b => {

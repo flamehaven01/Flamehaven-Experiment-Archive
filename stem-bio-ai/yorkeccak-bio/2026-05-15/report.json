@@ -5,7 +5,7 @@
   "execution_mode": "LOCAL_ANALYSIS",
   "target": {
     "name": "yorkeccak/bio",
-    "local_path": "[workspace]/bio",
+    "local_path": "bio",
     "remote": "https://github.com/yorkeccak/bio.git",
     "branch": "main",
     "commit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99",

@@ -1,8 +1,8 @@
 {
   "schema_id": "flamehaven_toe_test_algebraic_number_theory.v1",
   "generated_at": "2026-05-24T07:49:47.797859+00:00",
-  "test_root": "[workspace]/TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
-  "repo_root": "[workspace]/Flamehaven-TOE(Theory of Everything)",
+  "test_root": "TOE_TEST_ Integrating Algebraic Number Theory Breakthroughs (Erdős-OpenAI)",
+  "repo_root": "Flamehaven-TOE(Theory of Everything)",
   "verdict": "PASS",
   "checks": {
     "square_unit_pairs_is_4": true,
@@ -269,7 +269,7 @@
     }
   },
   "pytest": {
-    "command": "[workspace]/test_landscape_scanner.py -q",
+    "command": "test_landscape_scanner.py -q",
     "returncode": 0,
     "stdout": "......................................                                   [100%]\n38 passed, 46 deselected in 0.47s",
     "stderr": "",

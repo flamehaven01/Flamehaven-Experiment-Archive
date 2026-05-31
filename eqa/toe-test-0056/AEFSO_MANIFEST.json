@@ -4,10 +4,10 @@
   "short_name": "AEFSO",
   "status": "phase7_toe_update_docs_ready",
   "date_initialized": "2026-04-16",
-  "location": "[workspace]/TOE-TEST-AEFSO",
+  "location": "TOE-TEST-AEFSO",
   "paper_sources": [
-    "[workspace]/All elementary functions from a single operator.pdf",
-    "[workspace]/All elementary functions from a single operator.txt"
+    "All elementary functions from a single operator.pdf",
+    "All elementary functions from a single operator.txt"
   ],
   "validation_stack": [
     "SPAR paper review",

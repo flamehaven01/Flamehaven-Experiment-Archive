@@ -13,7 +13,7 @@
     "legacy_replay_benchmark": "a6abdafd8ac59f72de552ef0c050e16ec257177ee55b7fb96d2e65d24399e8c5"
   },
   "finding": "Cross-cycle parity held (accuracy_delta 0.0) while governance surface became more measurable (p_e2e +0.0445, sr9_tech +0.0469, di2_tech -0.0367). Non-degradation, not repair. Current-regeneration held at G1 (HOLD).",
-  "source": "[workspace]/artifacts",
+  "source": "artifacts",
   "provenance_note": "Verbatim artifacts (DI-EQA-002). Live-fetched, no hardcoding (DI-BSC-001).",
   "disclaimer": "Methodology / governance / reproducibility only. No efficacy or causal claim."
 }

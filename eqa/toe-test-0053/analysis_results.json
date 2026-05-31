@@ -5,7 +5,7 @@
   "baseline_comparison": [
     {
       "name": "TOE-TEST-0051",
-      "path": "[workspace]/TOE-TEST-0051",
+      "path": "TOE-TEST-0051",
       "exists": true,
       "file_count": 1,
       "suffix_counts": {
@@ -21,7 +21,7 @@
     },
     {
       "name": "TOE-TEST-0052",
-      "path": "[workspace]/TOE-TEST-0052",
+      "path": "TOE-TEST-0052",
       "exists": true,
       "file_count": 9,
       "suffix_counts": {
@@ -49,7 +49,7 @@
     },
     {
       "name": "TOE-TEST-AEFSO",
-      "path": "[workspace]/TOE-TEST-AEFSO",
+      "path": "TOE-TEST-AEFSO",
       "exists": true,
       "file_count": 28,
       "suffix_counts": {
@@ -95,32 +95,32 @@
   ],
   "logos_source_compile": [
     {
-      "path": "[workspace]/runner.py",
+      "path": "runner.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "[workspace]/evidence.py",
+      "path": "evidence.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "[workspace]/pipeline.py",
+      "path": "pipeline.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "[workspace]/symbolic_verifier.py",
+      "path": "symbolic_verifier.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "[workspace]/psi_field.py",
+      "path": "psi_field.py",
       "exists": true,
       "status": "pass"
     },
     {
-      "path": "[workspace]/manifold_bridge.py",
+      "path": "manifold_bridge.py",
       "exists": true,
       "status": "pass"
     }
@@ -128,7 +128,7 @@
   "logos_runtime_probe": {
     "package_name_resolution": {
       "args": [
-        "[workspace]/python.exe",
+        "python.exe",
         "-c",
         "import importlib.util; spec=importlib.util.find_spec('logos'); print(None if spec is None else spec.origin)"
       ],
@@ -137,14 +137,14 @@
       "duration_s": 0.105,
       "returncode": 0,
       "status": "pass",
-      "stdout": "[workspace]/n",
+      "stdout": "n",
       "stderr": ""
     },
     "direct_import": {
       "args": [
-        "[workspace]/python.exe",
+        "python.exe",
         "-c",
-        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
+        "import sys; sys.path.insert(0, 'Flamehaven-LOGOS'); import aats.pipeline, bridge.manifold_bridge, missing_link.runner; print('flamehaven_logos_direct_import_ok')"
       ],
       "cwd": "[workspace]",
       "timeout_s": 20,
@@ -156,9 +156,9 @@
     },
     "aats_smoke": {
       "args": [
-        "[workspace]/python.exe",
+        "python.exe",
         "-c",
-        "import sys; sys.path.insert(0, '[workspace]/Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
+        "import sys; sys.path.insert(0, 'Flamehaven-LOGOS'); from aats.pipeline import AATSPipeline; result=AATSPipeline().run('bounded TOE candidate sidecar test','physics',{}); print(result.to_dict())"
       ],
       "cwd": "[workspace]",
       "timeout_s": 20,
@@ -171,14 +171,14 @@
   },
   "toe_contract_probe": {
     "args": [
-      "[workspace]/python.exe",
+      "python.exe",
       "-m",
       "pytest",
       "tests/unit/test_logos_sidecar_contract.py",
       "tests/unit/test_research_run_export_contract.py",
       "-q"
     ],
-    "cwd": "[workspace]/Flamehaven-TOE(Theory of Everything)",
+    "cwd": "Flamehaven-TOE(Theory of Everything)",
     "timeout_s": 60,
     "duration_s": 2.317,
     "returncode": 0,

@@ -3,19 +3,19 @@
   "generated_at_utc": "2026-04-19T03:13:56.182056+00:00",
   "status": "ok",
   "blocking_reasons": [],
-  "manifest_path": "[workspace]/exp032_labeled_validation_manifest.json",
+  "manifest_path": "exp032_labeled_validation_manifest.json",
   "payload_search": {
     "roots": [
-      "[workspace]/exp034_trackA_legacy_replay_20260419_101344"
+      "exp034_trackA_legacy_replay_20260419_101344"
     ],
     "pattern": "rexsyn_bio_report_payload.json",
     "payload_files_found": [
-      "[workspace]/rexsyn_bio_report_payload.json",
-      "[workspace]/rexsyn_bio_report_payload.json",
-      "[workspace]/rexsyn_bio_report_payload.json",
-      "[workspace]/rexsyn_bio_report_payload.json",
-      "[workspace]/rexsyn_bio_report_payload.json",
-      "[workspace]/rexsyn_bio_report_payload.json"
+      "rexsyn_bio_report_payload.json",
+      "rexsyn_bio_report_payload.json",
+      "rexsyn_bio_report_payload.json",
+      "rexsyn_bio_report_payload.json",
+      "rexsyn_bio_report_payload.json",
+      "rexsyn_bio_report_payload.json"
     ]
   },
   "summary": {
@@ -187,7 +187,7 @@
       "critic_shadow_bounded_escalation_eligible": true,
       "critic_shadow_soft_discord_only": true,
       "critic_shadow_strict_recheck_pass": false,
-      "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+      "source_payload": "rexsyn_bio_report_payload.json"
     },
     {
       "sample_id": "EXP032-BLOCK-001",
@@ -214,7 +214,7 @@
       "critic_shadow_bounded_escalation_eligible": false,
       "critic_shadow_soft_discord_only": true,
       "critic_shadow_strict_recheck_pass": false,
-      "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+      "source_payload": "rexsyn_bio_report_payload.json"
     }
   ],
   "arm_level": {
@@ -385,7 +385,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-BLOCK-001",
@@ -414,7 +414,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-BLOCK-001",
@@ -443,7 +443,7 @@
         "critic_shadow_bounded_escalation_eligible": false,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -472,7 +472,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -501,7 +501,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       },
       {
         "sample_id": "EXP032-PASS-001",
@@ -530,7 +530,7 @@
         "critic_shadow_bounded_escalation_eligible": true,
         "critic_shadow_soft_discord_only": true,
         "critic_shadow_strict_recheck_pass": false,
-        "source_payload": "[workspace]/rexsyn_bio_report_payload.json"
+        "source_payload": "rexsyn_bio_report_payload.json"
       }
     ]
   }

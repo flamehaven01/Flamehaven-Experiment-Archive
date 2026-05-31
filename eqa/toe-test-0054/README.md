@@ -19,9 +19,9 @@ tools/logos_toe_pipeline.py
 
 Inputs:
 
-- evidence pack: `[workspace]/evidence_pack.md`
-- LOGOS root: `[workspace]/Flamehaven-LOGOS`
-- LawBinder root: `[workspace]/Flamehaven-LawBinder`
+- evidence pack: `evidence_pack.md`
+- LOGOS root: `Flamehaven-LOGOS`
+- LawBinder root: `Flamehaven-LawBinder`
 - TOE test id: `TOE-TEST-0054`
 
 ## Result

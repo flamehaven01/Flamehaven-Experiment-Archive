@@ -115,7 +115,7 @@
       "id": "EXP-012",
       "slug": "SOVEREIGN-ORIGIN",
       "theme": "Sovereign Origin",
-      "summary": "Sovereign-origin reasoning baseline.",
+      "summary": "Origin-stage reasoning baseline.",
       "metrics": {
         "sr9_resonance": 0.364,
         "coherence": 1.0,
@@ -128,7 +128,7 @@
       "id": "EXP-013",
       "slug": "NON-LINEAR-SOVEREIGNTY",
       "theme": "Non Linear Sovereignty",
-      "summary": "Non-linear sovereignty formulation.",
+      "summary": "Non-linear amplification formulation.",
       "metrics": {
         "sr9_resonance": 0.364,
         "coherence": 1.0,
@@ -152,7 +152,7 @@
       "id": "EXP-015",
       "slug": "SOVEREIGN-AGREEMENT",
       "theme": "Sovereign Agreement",
-      "summary": "Sovereign-agreement consensus test.",
+      "summary": "Multi-validator agreement consensus test.",
       "metrics": {
         "sr9_resonance": 0.1868,
         "coherence": 1.0
