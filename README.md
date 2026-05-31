@@ -110,3 +110,11 @@ To interactively browse this repository, run the local dev server and open the p
 
 > [!NOTE]
 > These reports are archival evidence-surface and experiment-review artifacts. They do not automatically imply certification, compliance, efficacy, or deployment approval.
+
+---
+
+## 📄 Citation & License
+
+- **Cite**: see [`CITATION.cff`](./CITATION.cff) and [`codemeta.json`](./codemeta.json). Pages expose schema.org `Dataset` JSON-LD for indexing.
+- **Dual license**: the repository **code** (portal, sanitizer, chart engine, build scripts) is **MIT** (see [`LICENSE`](./LICENSE)); the **verification runs and static evidence artifacts** are **CC BY-NC 4.0**.
+- **Provenance honesty**: internal metrics (SR9, DI2, Omega, SPAR) are labelled *advisory — not externally validated*. Verification weight rests on external anchors (public MIT repos, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT/PAE), not on internal scores.

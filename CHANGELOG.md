@@ -4,6 +4,26 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.10.0] - 2026-05-31
+
+Credibility architecture — **Pillar 3a: scientific-artifact metadata** (the in-repo, no-external-dependency part). Makes the ledger machine-readable and citable as a serious artifact rather than a personal page.
+
+### 🪪 Metadata
+- **`CITATION.cff`** (CFF 1.2.0) — citable metadata; organizational author with a commented ORCID slot; the real Erdos reproduction DOI as a related reference; a commented whole-ledger DOI slot.
+- **`codemeta.json`** — software metadata (SPDX MIT) for the repository code.
+- **schema.org `Dataset` JSON-LD** embedded in `index.html` + `eqa.html` for indexing / citation.
+
+### ⚖️ License clarified (dual)
+- Resolved the LICENSE-vs-footer conflict: **repository code = MIT** (`LICENSE`); **verification runs / evidence artifacts = CC BY-NC 4.0**. Made it consistent across LICENSE, footer, README, CITATION (data → `CC-BY-NC-4.0`), codemeta (software → MIT), and the Dataset JSON-LD.
+
+### 🚧 Limitations made explicit
+- Footer + README now state plainly that internal metrics (SR9/DI2/Omega) are advisory and not externally validated, and that the reports do not imply certification, clinical efficacy, or deployment approval.
+
+### ⏭️ Pending (3b — external)
+- Wiring a **whole-ledger Zenodo DOI** and an **ORCID iD** (slots are in place; values needed). JOSS/arXiv status added honestly when a submission is opened. No identifiers are fabricated in the meantime.
+
+---
+
 ## [1.9.0] - 2026-05-31
 
 Credibility architecture — **Pillar 2 of 3: independent reproduction anchors**. Each lane resolves to something an outside party can check without trusting any Flamehaven metric.

@@ -255,10 +255,19 @@ the DOI is not minted, 3b stays open as a tracked TODO and the footer shows no D
 than a fake one). The DOI is the single prerequisite that converts the EQA repro-deviation value
 to fully DERIVED status (see section 2) and unlocks the citable-snapshot claim.
 
-**Acceptance test (3a):** `codemeta.json` validates; JSON-LD parses (schema.org validator); every
-lane page shows a limitations block; CITATION.cff has DOI + ORCID slots (may be empty).
-**Acceptance test (3b):** once the DOI exists, it resolves, appears in CITATION.cff + codemeta +
-footer, and no badge/status is shown for anchors not yet delivered.
+**Implemented (3a):** `CITATION.cff` + `codemeta.json` created; index.html + eqa.html carry
+schema.org `Dataset` JSON-LD; footer + README state limitations and the advisory status of
+internal metrics. **License clarified (user decision): dual** — repository code MIT (`LICENSE`),
+verification runs / evidence artifacts CC BY-NC 4.0. So codemeta (software) = MIT; CITATION +
+Dataset JSON-LD (data) = CC-BY-NC-4.0; README documents the split. ORCID + whole-ledger DOI remain
+commented slots in CITATION pending the actual strings (3b).
+
+**Acceptance test (3a):** `codemeta.json` validates; both JSON-LD blocks parse; CITATION.cff is
+valid CFF with DOI + ORCID slots present; license is internally consistent (code MIT / data CC
+BY-NC 4.0) across LICENSE, footer, README, CITATION, codemeta, JSON-LD. [met]
+**Acceptance test (3b):** once the user supplies the whole-ledger Zenodo DOI + ORCID iD, they
+resolve and appear in CITATION.cff + codemeta + footer; no badge/status is shown for anchors not
+yet delivered (no fabricated identifiers).
 
 ---
 

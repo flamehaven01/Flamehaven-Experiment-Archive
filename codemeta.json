@@ -1,0 +1,30 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Flamehaven Verification Ledger",
+  "description": "Public, transparent, reproducible ledger of AI-safety audits, mathematical and physical verification runs (EQA), biomolecular AI pipeline-governance validations (BAV), and bioscience repository compliance audits (BSC). Internal metrics (SR9, DI2, Omega) are labelled advisory and not externally validated; verification weight rests on external anchors (public MIT repositories, DOIs, and standard third-party metrics such as AlphaFold pLDDT/PAE).",
+  "codeRepository": "https://github.com/flamehaven01/Flamehaven-Verification-Ledger",
+  "url": "https://flamehaven.space/",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "version": "1.9.0",
+  "dateModified": "2026-05-31",
+  "author": [
+    {
+      "@type": "Organization",
+      "name": "Flamehaven Labs"
+    }
+  ],
+  "keywords": [
+    "AI safety",
+    "reproducibility",
+    "verification",
+    "AlphaFold",
+    "bioscience compliance"
+  ],
+  "referencePublication": {
+    "@type": "SoftwareSourceCode",
+    "name": "OpenAI Erdos Conjecture Disproof: Equation (2.2) Executable Reproduction",
+    "identifier": "https://doi.org/10.5281/zenodo.15487327",
+    "codeRepository": "https://github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction"
+  }
+}

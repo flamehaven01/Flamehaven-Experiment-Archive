@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flamehaven — Verification Ledger</title>
 <meta name="description" content="Public ledger of static safety audits, mathematical physics verification runs, and biomedical AI pipeline verification logs from Flamehaven Labs.">
+<!-- Machine-readable provenance (schema.org Dataset) for indexing / citation -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Flamehaven Verification Ledger",
+  "description": "Public, transparent, reproducible ledger of AI-safety audits, mathematical and physical verification runs (EQA), biomolecular AI pipeline-governance validations (BAV), and bioscience repository compliance audits (BSC). Internal metrics (SR9, DI2, Omega) are labelled advisory and not externally validated; verification weight rests on external anchors (public MIT repositories, DOIs, and standard third-party metrics such as AlphaFold pLDDT/PAE).",
+  "url": "https://flamehaven.space/",
+  "sameAs": "https://github.com/flamehaven01/Flamehaven-Verification-Ledger",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "isAccessibleForFree": true,
+  "creator": { "@type": "Organization", "name": "Flamehaven Labs" },
+  "keywords": ["AI safety", "reproducibility", "verification", "AlphaFold", "bioscience compliance"],
+  "citation": "https://doi.org/10.5281/zenodo.15487327"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  <link rel="stylesheet" href="./css/tokens.css">
@@ -1834,8 +1850,8 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-note">
-        © 2026 Flamehaven Labs. All verification runs and static evidence artifacts are licensed under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).<br>
-        These reports are archival evidence-surface and experiment-review artifacts. They do not imply certification, regulatory clearance, clinical efficacy, or commercial deployment approval.
+        © 2026 Flamehaven Labs. Verification runs and static evidence artifacts are licensed CC BY-NC 4.0; the repository code is MIT (see LICENSE).<br>
+        These reports are archival evidence-surface and experiment-review artifacts. They do not imply certification, regulatory clearance, clinical efficacy, or commercial deployment approval. Internal metrics (SR9, DI2, Omega) are advisory and not externally validated; verification rests on external anchors (public repositories, DOIs, and standard third-party metrics).
       </div>
       <div class="footer-actions" style="display:flex;align-items:center;gap:6px;">
         <a id="footer-share-fb" href="#" target="_blank" rel="noopener" title="Share on Facebook"

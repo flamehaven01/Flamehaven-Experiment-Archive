@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "Flamehaven Verification Ledger"
+message: "If you reference this ledger, please cite it using these metadata."
+type: dataset
+authors:
+  - name: "Flamehaven Labs"
+    # To credit a named maintainer with an ORCID, add a person author here, e.g.:
+    # - family-names: "<family>"
+    #   given-names: "<given>"
+    #   orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/flamehaven01/Flamehaven-Verification-Ledger"
+url: "https://flamehaven.space/"
+abstract: >-
+  Public, transparent, reproducible ledger of AI-safety audits, mathematical and
+  physical verification runs (EQA), biomolecular AI pipeline-governance
+  validations (BAV), and bioscience repository compliance audits (BSC). Internal
+  metrics (SR9, DI2, Omega) are labelled advisory and not externally validated;
+  verification weight rests on external anchors (public MIT repositories, DOIs,
+  and standard third-party metrics such as AlphaFold pLDDT/PAE).
+# Dual-licensed: the verification runs / static evidence artifacts (this dataset)
+# are CC BY-NC 4.0; the repository code (portal, sanitizer, chart engine, build
+# scripts) is MIT (see the LICENSE file).
+license: CC-BY-NC-4.0
+version: "1.9.0"
+date-released: "2026-05-31"
+keywords:
+  - AI safety
+  - reproducibility
+  - verification
+  - AlphaFold
+  - bioscience compliance
+# A whole-ledger archive DOI can be added once minted on Zenodo:
+# doi: "10.5281/zenodo.XXXXXXXX"
+references:
+  - type: software
+    title: "OpenAI Erdos Conjecture Disproof: Equation (2.2) Executable Reproduction"
+    doi: "10.5281/zenodo.15487327"
+    repository-code: "https://github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction"
+    license: MIT
