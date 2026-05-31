@@ -64,12 +64,21 @@
       "binding": {
         "origin_episode": "EXP-SAN-005: manual sanitization is insufficient when new experiment data is added continuously; enforcement moved to a standing CI gate so detection is always active on ledger changes."
       }
+    },
+    {
+      "id": "DI-SAN-007",
+      "label": "credibility-no-pseudoscience-slop",
+      "statement": "A public verification ledger must not display pseudo-scientific symbol-soup credentials (e.g. CLI + zigzag/sigma/therefore symbols) or grandiose/PII attribution (Discoverer: <name>); these erode external trust. The sanitizer credibility_clean rule neutralizes them (data and results untouched) and credibility_slop flags residual symbol markers on any file as a CI gate. Internal metric acronyms (SR9, DI2, NNSL, Omega, p_e2e) are retained but must carry an external-readable definition / glossary.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-SAN-006: imported archive reports exposed Verified by: CLI <symbol-soup> and Discoverer: Yoon, plus bare NNSL/SR9/DI2 acronyms -- credibility-destroying slop on a public ledger. Cleaned + glossary added."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "LEDGER-SANITIZER-MICA-001",
-    "update_count": 2,
+    "update_count": 3,
     "last_updated": "2026-05-30",
     "session_count": 1,
     "bootstrap_note": "Sanitizer governance initialized after a repo-wide absolute-path/PII disclosure was found in committed experiment JSON. Adapted from AI-SLOP-DETECTOR engine pattern."

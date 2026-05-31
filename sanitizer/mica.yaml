@@ -9,11 +9,11 @@ description: >
   scan on demand (dry-run) and before every commit that touches published data.
 
 metadata:
-  version: "1.1.0"
-  last_updated: "2026-05-30"
+  version: "1.2.0"
+  last_updated: "2026-05-31"
   tool: sanitizer/sanitize_ledger.py
-  di_count: 6
-  session_count: 1
+  di_count: 7
+  session_count: 2
   ci_gate: .github/workflows/opsec-sanitize.yml
   config: sanitizer/.sanconfig.yaml
 

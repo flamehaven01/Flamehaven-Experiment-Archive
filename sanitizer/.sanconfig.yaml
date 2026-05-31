@@ -6,9 +6,11 @@
 detectors:
   abs_path_collapse: fix      # workspace absolute paths -> [workspace]/<basename>
   hangul_redact: fix          # Korean (Hangul) runs -> [redacted]
+  credibility_clean: fix      # pseudo-science symbol-soup credentials + grandiose attribution -> neutral
   ipv4_address: detect        # IPv4 exposure (report only; may be legitimate data)
   email_address: detect       # email / PII exposure
   secret_token: detect        # API keys / bearer tokens / long hex secrets
+  credibility_slop: detect    # residual pseudo-science symbol markers (runs on all files)
 
 # Workspace leak markers that gate abs_path_collapse (case-insensitive contains).
 markers:

@@ -46,6 +46,15 @@ _SECRET_RE = re.compile(
     r"(?i)(?:api[_-]?key|secret|password|passwd|access[_-]?token|bearer|private[_-]?key)"
     r"\s*[:=]\s*[\"']?[A-Za-z0-9_\-./+]{12,}"
 )
+# Credibility: pseudo-scientific symbol soup destroys external trust on a public
+# verification ledger. _ZIGZAG (U+21AF) is an unambiguous slop marker here.
+_ZIGZAG = chr(0x21AF)
+# A backticked pseudo-credential containing the zigzag symbol, e.g. `CLI <symbols>`.
+_SLOP_CRED_RE = re.compile(r"`[^`\n]*" + _ZIGZAG + r"[^`\n]*`")
+# Grandiose / PII attribution line.
+_DISCOVERER_RE = re.compile(r"[^\n]*\*\*Discoverer:\*\*[^\n]*\n?")
+# Detect-only marker for any residual symbol-soup credential.
+_SLOP_MARK_RE = re.compile(_ZIGZAG)
 
 DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",
@@ -122,6 +131,25 @@ def fix_hangul(text: str, cfg: dict):
     return _HANGUL_RE.sub(repl, text), found
 
 
+def fix_credibility(text: str, cfg: dict):
+    """Remove pseudo-scientific symbol-soup credentials and grandiose/PII
+    attribution that erode external trust (data and results are untouched)."""
+    found: List[Finding] = []
+
+    def cred(m):
+        found.append(Finding("credibility_clean", m.group(0), "`Flamehaven local CLI`"))
+        return "`Flamehaven local CLI`"
+
+    text = _SLOP_CRED_RE.sub(cred, text)
+
+    def disc(m):
+        found.append(Finding("credibility_clean", m.group(0).strip(), "(removed)"))
+        return ""
+
+    text = _DISCOVERER_RE.sub(disc, text)
+    return text, found
+
+
 def _detect(rule_id: str, rx: re.Pattern):
     def fn(text: str, cfg: dict):
         allow = [re.compile(a) for a in cfg.get("allowlist", [])]
@@ -137,9 +165,11 @@ def _detect(rule_id: str, rx: re.Pattern):
 
 _FIX["abs_path_collapse"] = fix_abs_path
 _FIX["hangul_redact"] = fix_hangul
+_FIX["credibility_clean"] = fix_credibility
 _DETECT["ipv4_address"] = _detect("ipv4_address", _IPV4_RE)
 _DETECT["email_address"] = _detect("email_address", _EMAIL_RE)
 _DETECT["secret_token"] = _detect("secret_token", _SECRET_RE)
+_DETECT["credibility_slop"] = _detect("credibility_slop", _SLOP_MARK_RE)
 
 
 def load_config(base: Path) -> dict:
@@ -164,8 +194,9 @@ def sanitize_text(text: str, cfg: dict, ext: str = "") -> Tuple[str, List[Findin
         fn = _FIX.get(rid) if mode == "fix" else _DETECT.get(rid)
         if not fn:
             continue
-        # detect-mode rules run only on data files to avoid HTML/JS/SVG noise.
-        if mode != "fix" and ext and ext.lower() not in DATA_EXTS:
+        # detect-mode rules run only on data files to avoid HTML/JS/SVG noise,
+        # except credibility_slop (symbol markers are unambiguous on any file).
+        if mode != "fix" and rid != "credibility_slop" and ext and ext.lower() not in DATA_EXTS:
             continue
         text, f = fn(text, cfg)
         findings.extend(f)
