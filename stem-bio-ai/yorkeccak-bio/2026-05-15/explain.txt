@@ -1,12 +1,13 @@
 STEM BIO-AI Explain Report
 Target  : yorkeccak/bio
 Policy  : default [ca-policy-1.0; mirror_only; authoritative_release]
-Policy Mode: mirror-only in 1.7.8 — selected profile metadata is surfaced in artifacts, but authoritative scan scoring still follows deterministic runtime constants. Preview-only posture changes, including Stage 4 replication emphasis, do not change the formal score until a future read-through phase. Use `stem policy simulate` to preview governed score deltas and posture changes.
+Policy Mode: mirror-only in 1.7.9 — selected profile metadata is surfaced in artifacts, but authoritative scan scoring still follows deterministic runtime constants. Preview-only posture changes, including Stage 4 replication emphasis, do not change the formal score until a future read-through phase. Use `stem policy simulate` to preview governed score deltas and posture changes.
 Score   : 48 / 100  (T1 Quarantine)
 Replic  : 30 / 100  (R1)
+Surface : repeated same-file evidence may be compacted in narrative output; JSON remains canonical.
 ========================================================================
 
-S1_readme_bio_terms  [DETECTED]  (37 findings)
+S1_readme_bio_terms  [DETECTED]  (1 finding)
   [001]  README.md:2
          finding_id: S1_readme_bio_terms:README.md:2:001
          pattern : bio_terms_v1
@@ -15,294 +16,13 @@ S1_readme_bio_terms  [DETECTED]  (37 findings)
          snippet : "<a href="https://github.com/yorkeccak/bio/stargazers"><img src="https://img.shields.io/github/stars/yorkeccak/bio?style=flat&color=yellow" alt="GitHub Stars"></a>"
          reason  : README exposes bio/medical vocabulary.
          match      : bio
-  [002]  README.md:2
-         finding_id: S1_readme_bio_terms:README.md:2:002
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/stargazers"><img src="https://img.shields.io/github/stars/yorkeccak/bio?style=flat&color=yellow" alt="GitHub Stars"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [003]  README.md:3
-         finding_id: S1_readme_bio_terms:README.md:3:003
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/blob/main/LICENSE"><img src="https://img.shields.io/github/license/yorkeccak/bio" alt="License"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [004]  README.md:3
-         finding_id: S1_readme_bio_terms:README.md:3:004
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/blob/main/LICENSE"><img src="https://img.shields.io/github/license/yorkeccak/bio" alt="License"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [005]  README.md:4
-         finding_id: S1_readme_bio_terms:README.md:4:005
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/network/members"><img src="https://img.shields.io/github/forks/yorkeccak/bio?style=flat" alt="Forks"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [006]  README.md:4
-         finding_id: S1_readme_bio_terms:README.md:4:006
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/network/members"><img src="https://img.shields.io/github/forks/yorkeccak/bio?style=flat" alt="Forks"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [007]  README.md:5
-         finding_id: S1_readme_bio_terms:README.md:5:007
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/graphs/contributors"><img src="https://img.shields.io/github/contributors/yorkeccak/bio" alt="Contributors"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [008]  README.md:5
-         finding_id: S1_readme_bio_terms:README.md:5:008
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio/graphs/contributors"><img src="https://img.shields.io/github/contributors/yorkeccak/bio" alt="Contributors"></a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [009]  README.md:8
-         finding_id: S1_readme_bio_terms:README.md:8:009
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "# Bio"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [010]  README.md:10
-         finding_id: S1_readme_bio_terms:README.md:10:010
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "Try the hosted version [here](https://bio.valyu.ai) 🙌"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [011]  README.md:14
-         finding_id: S1_readme_bio_terms:README.md:14:011
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "> **Enterprise-grade biomedical research behind a chat interface** - Access PubMed, clinical trials, FDA drug labels, and run complex Python analyses through natural language. P..."
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [012]  README.md:16
-         finding_id: S1_readme_bio_terms:README.md:16:012
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "![Bio](public/bio-screenshot.png)"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [013]  README.md:16
-         finding_id: S1_readme_bio_terms:README.md:16:013
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "![Bio](public/bio-screenshot.png)"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [014]  README.md:18
-         finding_id: S1_readme_bio_terms:README.md:18:014
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "## Why Bio?"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [015]  README.md:20
-         finding_id: S1_readme_bio_terms:README.md:20:015
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "Traditional biomedical research and data is fragmented across dozens of databases and platforms. Bio changes everything by providing:"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [016]  README.md:22
-         finding_id: S1_readme_bio_terms:README.md:22:016
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Comprehensive Medical Data** - PubMed articles, ClinicalTrials.gov data, FDA drug labels, and more"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Medical
-  [017]  README.md:25
-         finding_id: S1_readme_bio_terms:README.md:25:017
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Interactive Visualizations** - Beautiful charts and dashboards for clinical data"
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [018]  README.md:26
-         finding_id: S1_readme_bio_terms:README.md:26:018
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Real-Time Intelligence** - Web search integration for breaking medical news"
-         reason  : README exposes bio/medical vocabulary.
-         match      : medical
-  [019]  README.md:35
-         finding_id: S1_readme_bio_terms:README.md:35:019
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Clinical Trials Database** - Search ClinicalTrials.gov for active and completed trials"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Clinical
-  [020]  README.md:38
-         finding_id: S1_readme_bio_terms:README.md:38:020
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Interactive Charts** - Visualize clinical data, drug efficacy, patient outcomes"
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [021]  README.md:38
-         finding_id: S1_readme_bio_terms:README.md:38:021
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Interactive Charts** - Visualize clinical data, drug efficacy, patient outcomes"
-         reason  : README exposes bio/medical vocabulary.
-         match      : patient
-  [022]  README.md:44
-         finding_id: S1_readme_bio_terms:README.md:44:022
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Interactive Charts** - Create publication-ready visualizations of clinical data"
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [023]  README.md:50
-         finding_id: S1_readme_bio_terms:README.md:50:023
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "Self-hosted mode is the recommended way to run Bio. It provides a complete local environment with:"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [024]  README.md:68
-         finding_id: S1_readme_bio_terms:README.md:68:024
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "git clone https://github.com/yorkeccak/bio.git"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [025]  README.md:69
-         finding_id: S1_readme_bio_terms:README.md:69:025
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "cd bio"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [026]  README.md:165
-         finding_id: S1_readme_bio_terms:README.md:165:026
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- That's it! Bio will automatically detect and use it"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [027]  README.md:167
-         finding_id: S1_readme_bio_terms:README.md:167:027
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "3. **Use in Bio**"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [028]  README.md:216
-         finding_id: S1_readme_bio_terms:README.md:216:028
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "Try these powerful queries to see what Bio can do:"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [029]  README.md:218
-         finding_id: S1_readme_bio_terms:README.md:218:029
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- "What are the latest clinical trials for CAR-T therapy in melanoma?""
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [030]  README.md:222
-         finding_id: S1_readme_bio_terms:README.md:222:030
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- "Analyze Phase 3 clinical trial data for immunotherapy drugs""
-         reason  : README exposes bio/medical vocabulary.
-         match      : clinical
-  [031]  README.md:227
-         finding_id: S1_readme_bio_terms:README.md:227:031
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- Keep all your medical research completely private"
-         reason  : README exposes bio/medical vocabulary.
-         match      : medical
-  [032]  README.md:228
-         finding_id: S1_readme_bio_terms:README.md:228:032
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- Perfect for sensitive patient data analysis"
-         reason  : README exposes bio/medical vocabulary.
-         match      : patient
-  [033]  README.md:243
-         finding_id: S1_readme_bio_terms:README.md:243:033
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "The quickest way to get Bio running in production:"
-         reason  : README exposes bio/medical vocabulary.
-         match      : Bio
-  [034]  README.md:260
-         finding_id: S1_readme_bio_terms:README.md:260:034
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- No storage of sensitive medical data"
-         reason  : README exposes bio/medical vocabulary.
-         match      : medical
-  [035]  README.md:279
-         finding_id: S1_readme_bio_terms:README.md:279:035
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "For bugs or feature requests, [open an issue](https://github.com/yorkeccak/bio/issues) or start a [discussion](https://github.com/yorkeccak/bio/discussions)."
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [036]  README.md:279
-         finding_id: S1_readme_bio_terms:README.md:279:036
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "For bugs or feature requests, [open an issue](https://github.com/yorkeccak/bio/issues) or start a [discussion](https://github.com/yorkeccak/bio/discussions)."
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
-  [037]  README.md:296
-         finding_id: S1_readme_bio_terms:README.md:296:037
-         pattern : bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "<a href="https://github.com/yorkeccak/bio">GitHub</a>"
-         reason  : README exposes bio/medical vocabulary.
-         match      : bio
+         match_count      : 37
+         matched_terms      : ['bio', 'Bio', 'clinical', 'Medical', 'medical']
+         matched_lines      : [2, 3, 4, 5, 8, 10, 14, 16]
+         aggregate_scope      : same_file_regex_presence
+         aggregate_count      : 1
+         aggregate_lines      : [2]
+         aggregate_surface      : explain_same_file_reason
 
 S1_clinical_boundary  [NOT_DETECTED]  (1 finding)
   [001]  (repository)
@@ -385,6 +105,13 @@ S1_R2_weak_regulatory_self_assertion  [DETECTED]  (1 finding)
          snippet : "- HIPAA-compliant architecture (when self-hosted)"
          reason  : Self-asserted privacy/compliance language detected without stronger regulatory-framework evidence.
          match      : HIPAA-compliant
+         match_count      : 1
+         matched_terms      : ['HIPAA-compliant']
+         matched_lines      : [262]
+         aggregate_scope      : same_file_regex_presence
+         aggregate_count      : 1
+         aggregate_lines      : [262]
+         aggregate_surface      : explain_same_file_reason
 
 S1_R2_unsupported_legal_or_compliance_claim  [DETECTED]  (1 finding)
   [001]  README.md:262
@@ -396,6 +123,9 @@ S1_R2_unsupported_legal_or_compliance_claim  [DETECTED]  (1 finding)
          reason  : Legal, privacy, or compliance claim detected without supporting governance or security-grounding evidence in reviewed sources.
          claim      : HIPAA-compliant
          grounding_present      : False
+         aggregate_count      : 1
+         aggregate_lines      : [262]
+         aggregate_surface      : explain_same_file_reason
 
 S1_R4_demographic_bias_boundary  [NOT_DETECTED]  (1 finding)
   [001]  (repository)
@@ -453,6 +183,9 @@ S3_B1_dependency_manifest  [DETECTED]  (3 findings)
          conf    : high
          snippet : "package-lock.json"
          reason  : Dependency or environment manifest exists.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
   [001]  package.json
          finding_id: S3_B1_dependency_manifest:package.json:0:001
          pattern : dependency_manifest_presence_v1
@@ -460,6 +193,9 @@ S3_B1_dependency_manifest  [DETECTED]  (3 findings)
          conf    : high
          snippet : "package.json"
          reason  : Dependency or environment manifest exists.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
   [001]  pnpm-lock.yaml
          finding_id: S3_B1_dependency_manifest:pnpm-lock.yaml:0:001
          pattern : dependency_manifest_presence_v1
@@ -467,8 +203,11 @@ S3_B1_dependency_manifest  [DETECTED]  (3 findings)
          conf    : high
          snippet : "pnpm-lock.yaml"
          reason  : Dependency or environment manifest exists.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
 
-S3_B1_data_source_language  [DETECTED]  (2 findings)
+S3_B1_data_source_language  [DETECTED]  (1 finding)
   [001]  README.md:22
          finding_id: S3_B1_data_source_language:README.md:22:001
          pattern : data_source_terms_v1
@@ -477,14 +216,13 @@ S3_B1_data_source_language  [DETECTED]  (2 findings)
          snippet : "- **Comprehensive Medical Data** - PubMed articles, ClinicalTrials.gov data, FDA drug labels, and more"
          reason  : Data source, dataset citation, IRB, or provenance language detected.
          match      : ClinicalTrials
-  [002]  README.md:35
-         finding_id: S3_B1_data_source_language:README.md:35:002
-         pattern : data_source_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **Clinical Trials Database** - Search ClinicalTrials.gov for active and completed trials"
-         reason  : Data source, dataset citation, IRB, or provenance language detected.
-         match      : ClinicalTrials
+         match_count      : 2
+         matched_terms      : ['ClinicalTrials']
+         matched_lines      : [22, 35]
+         aggregate_scope      : same_file_regex_presence
+         aggregate_count      : 1
+         aggregate_lines      : [22]
+         aggregate_surface      : explain_same_file_reason
 
 S3_B2_bias_limitations  [NOT_DETECTED]  (1 finding)
   [001]  (repository)
@@ -511,8 +249,15 @@ S3_B3_coi_funding  [DETECTED]  (1 finding)
          snippet : "## Acknowledgments"
          reason  : COI, funding, sponsor, or acknowledgement language detected.
          match      : Acknowledgments
+         match_count      : 1
+         matched_terms      : ['Acknowledgments']
+         matched_lines      : [281]
+         aggregate_scope      : same_file_regex_presence
+         aggregate_count      : 1
+         aggregate_lines      : [281]
+         aggregate_surface      : explain_same_file_reason
 
-S2_package_bio_terms  [DETECTED]  (2 findings)
+S2_package_bio_terms  [DETECTED]  (1 finding)
   [001]  package.json:2
          finding_id: S2_package_bio_terms:package.json:2:001
          pattern : package_bio_terms_v1
@@ -521,147 +266,73 @@ S2_package_bio_terms  [DETECTED]  (2 findings)
          snippet : ""name": "bio","
          reason  : Package metadata exposes bio/medical vocabulary.
          match      : bio
-  [002]  package.json:5
-         finding_id: S2_package_bio_terms:package.json:5:002
-         pattern : package_bio_terms_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : ""description": "Enterprise-grade biomedical research AI chatbot with access to PubMed, clinical trials, FDA drug labels, and Python code execution","
-         reason  : Package metadata exposes bio/medical vocabulary.
-         match      : clinical
+         match_count      : 2
+         matched_terms      : ['bio', 'clinical']
+         matched_lines      : [2, 5]
+         aggregate_scope      : same_file_regex_presence
+         aggregate_count      : 1
+         aggregate_lines      : [2]
+         aggregate_surface      : explain_same_file_reason
 
-R2R_D5_single_external_service_dependency  [DETECTED]  (8 findings)
+R2R_D5_single_external_service_dependency  [DETECTED]  (8 findings)  -> compacted to 3 rows
   [001]  .env.example:24
          finding_id: R2R_D5_single_external_service_dependency:.env.example:24:001
          pattern : single_external_service_dependency_v1
          evidence: confirmed_present
          conf    : medium
-         snippet : "VALYU_API_KEY=valyu_your_api_key_here"
-         reason  : Required external service API key detected for a named workflow dependency.
+         reason  : Required external service API key detected for a named workflow dependency. Aggregated 2 similar findings from one file (lines: 24, 38).
          provider      : Valyu
          env_var      : VALYU_API_KEY
          required_signal      : True
-  [002]  .env.example:38
-         finding_id: R2R_D5_single_external_service_dependency:.env.example:38:002
-         pattern : single_external_service_dependency_v1
-         evidence: confirmed_present
-         conf    : medium
-         snippet : "DAYTONA_API_KEY=your_daytona_api_key_here"
-         reason  : Required external service API key detected for a named workflow dependency.
-         provider      : Daytona
-         env_var      : DAYTONA_API_KEY
-         required_signal      : True
+         aggregate_count      : 2
+         aggregate_lines      : [24, 38]
+         aggregate_surface      : explain_same_file_reason
   [001]  README.md:23
          finding_id: R2R_D5_single_external_service_dependency:README.md:23:001
          pattern : single_external_service_dependency_v1
          evidence: confirmed_present
          conf    : high
-         snippet : "- **One Unified Search** - Powered by Valyu's specialized biomedical data API"
-         reason  : Named external service provider is presented as part of the core repository workflow.
+         reason  : Named external service provider is presented as part of the core repository workflow. Aggregated 3 similar findings from one file (lines: 23, 60, 61).
          provider      : Valyu
          line_role      : provider_dependency_claim
-  [002]  README.md:60
-         finding_id: R2R_D5_single_external_service_dependency:README.md:60:002
-         pattern : single_external_service_dependency_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- Valyu API key (get one at [platform.valyu.ai](https://platform.valyu.ai))"
-         reason  : Named external service provider is presented as part of the core repository workflow.
-         provider      : Valyu
-         line_role      : provider_dependency_claim
-  [003]  README.md:61
-         finding_id: R2R_D5_single_external_service_dependency:README.md:61:003
-         pattern : single_external_service_dependency_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- [Daytona](https://www.daytona.io) API key - used for secure sandboxed Python code execution (get one at [app.daytona.io](https://app.daytona.io))"
-         reason  : Named external service provider is presented as part of the core repository workflow.
-         provider      : Daytona
-         line_role      : provider_dependency_claim
+         aggregate_count      : 3
+         aggregate_lines      : [23, 60, 61]
+         aggregate_surface      : explain_same_file_reason
   [004]  README.md:48
          finding_id: R2R_D5_single_external_service_dependency:README.md:48:004
          pattern : single_external_service_dependency_v1
          evidence: confirmed_present
          conf    : high
-         snippet : "## Quick Start (Self-Hosted)"
-         reason  : Local or self-host claims coexist with required external service dependencies.
+         reason  : Local or self-host claims coexist with required external service dependencies. Aggregated 3 similar findings from one file (lines: 48, 50, 51).
          providers      : ['Daytona', 'Valyu']
          line_role      : local_or_self_host_claim
          provider_count      : 2
-  [005]  README.md:50
-         finding_id: R2R_D5_single_external_service_dependency:README.md:50:005
-         pattern : single_external_service_dependency_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "Self-hosted mode is the recommended way to run Bio. It provides a complete local environment with:"
-         reason  : Local or self-host claims coexist with required external service dependencies.
-         providers      : ['Daytona', 'Valyu']
-         line_role      : local_or_self_host_claim
-         provider_count      : 2
-  [006]  README.md:51
-         finding_id: R2R_D5_single_external_service_dependency:README.md:51:006
-         pattern : single_external_service_dependency_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- **No authentication required** - Auto-login as dev user"
-         reason  : Local or self-host claims coexist with required external service dependencies.
-         providers      : ['Daytona', 'Valyu']
-         line_role      : local_or_self_host_claim
-         provider_count      : 2
+         aggregate_count      : 3
+         aggregate_lines      : [48, 50, 51]
+         aggregate_surface      : explain_same_file_reason
 
-C6_mock_auth_or_fail_open_boundary  [DETECTED]  (6 findings)
+C6_mock_auth_or_fail_open_boundary  [DETECTED]  (6 findings)  -> compacted to 2 rows
   [001]  README.md:51
          finding_id: C6_mock_auth_or_fail_open_boundary:README.md:51:001
          pattern : mock_auth_fail_open_boundary_v1
          evidence: confirmed_present
          conf    : high
-         snippet : "- **No authentication required** - Auto-login as dev user"
-         reason  : Mock-auth, auto-login, or no-auth local/self-host boundary surfaced in reviewed sources.
+         reason  : Mock-auth, auto-login, or no-auth local/self-host boundary surfaced in reviewed sources. Aggregated 4 similar findings from one file (lines: 51, 110, 134, 135).
          match      : No authentication required
          local_claim_context      : True
-  [002]  README.md:110
-         finding_id: C6_mock_auth_or_fail_open_boundary:README.md:110:002
-         pattern : mock_auth_fail_open_boundary_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "You'll be automatically logged in as `dev@localhost` with full access to all features."
-         reason  : Mock-auth, auto-login, or no-auth local/self-host boundary surfaced in reviewed sources.
-         match      : dev@localhost
-         local_claim_context      : True
-  [003]  README.md:134
-         finding_id: C6_mock_auth_or_fail_open_boundary:README.md:134:003
-         pattern : mock_auth_fail_open_boundary_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "2. **Mock Authentication**"
-         reason  : Mock-auth, auto-login, or no-auth local/self-host boundary surfaced in reviewed sources.
-         match      : Mock Authentication
-         local_claim_context      : True
-  [004]  README.md:135
-         finding_id: C6_mock_auth_or_fail_open_boundary:README.md:135:004
-         pattern : mock_auth_fail_open_boundary_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "- Auto-login as dev user (`dev@localhost`)"
-         reason  : Mock-auth, auto-login, or no-auth local/self-host boundary surfaced in reviewed sources.
-         match      : Auto-login
-         local_claim_context      : True
+         aggregate_count      : 4
+         aggregate_lines      : [51, 110, 134, 135]
+         aggregate_surface      : explain_same_file_reason
   [001]  .env.example:11
          finding_id: C6_mock_auth_or_fail_open_boundary:.env.example:11:001
          pattern : mock_auth_fail_open_boundary_v1
          evidence: confirmed_present
          conf    : high
-         snippet : "# Set to 'self-hosted' or 'valyu'"
-         reason  : Local or self-host claims coexist with mock-auth or auto-login boundary signals.
+         reason  : Local or self-host claims coexist with mock-auth or auto-login boundary signals. Aggregated 2 similar findings from one file (lines: 11, 12).
          line_role      : local_or_self_host_claim
-  [002]  .env.example:12
-         finding_id: C6_mock_auth_or_fail_open_boundary:.env.example:12:002
-         pattern : mock_auth_fail_open_boundary_v1
-         evidence: confirmed_present
-         conf    : high
-         snippet : "# self-hosted = no auth, local SQLite, unlimited queries, Ollama/LM Studio support"
-         reason  : Local or self-host claims coexist with mock-auth or auto-login boundary signals.
-         line_role      : local_or_self_host_claim
+         aggregate_count      : 2
+         aggregate_lines      : [11, 12]
+         aggregate_surface      : explain_same_file_reason
 
 C1_hardcoded_credentials  [NOT_DETECTED]  (1 finding)
   [001]  (repository)
@@ -752,6 +423,9 @@ S4_container_environment  [DETECTED]  (1 finding)
          conf    : high
          snippet : "Dockerfile"
          reason  : Container or compose file exists.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
 
 S4_make_reproduce_target  [ABSENT]  (1 finding)
   [001]  (repository)
@@ -769,6 +443,9 @@ S4_environment_lock_evidence  [DETECTED]  (2 findings)
          conf    : high
          snippet : "package-lock.json"
          reason  : Environment, dependency, or lock manifest detected.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
   [001]  pnpm-lock.yaml
          finding_id: S4_environment_lock_evidence:pnpm-lock.yaml:0:001
          pattern : environment_lock_file_v1
@@ -776,6 +453,9 @@ S4_environment_lock_evidence  [DETECTED]  (2 findings)
          conf    : high
          snippet : "pnpm-lock.yaml"
          reason  : Environment, dependency, or lock manifest detected.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
 
 S4_exact_dependency_pins_or_hashes  [DETECTED]  (2 findings)
   [001]  package-lock.json
@@ -785,6 +465,9 @@ S4_exact_dependency_pins_or_hashes  [DETECTED]  (2 findings)
          conf    : high
          snippet : "package-lock.json"
          reason  : Lock manifest with exact dependency resolution detected.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
   [001]  pnpm-lock.yaml
          finding_id: S4_exact_dependency_pins_or_hashes:pnpm-lock.yaml:0:001
          pattern : exact_pin_or_hash_v1
@@ -792,6 +475,9 @@ S4_exact_dependency_pins_or_hashes  [DETECTED]  (2 findings)
          conf    : high
          snippet : "pnpm-lock.yaml"
          reason  : Lock manifest with exact dependency resolution detected.
+         aggregate_count      : 1
+         aggregate_lines      : []
+         aggregate_surface      : explain_same_file_reason
 
 S4_readme_reproducibility_section  [NOT_DETECTED]  (1 finding)
   [001]  (repository)
@@ -900,7 +586,7 @@ Regulatory Traceability Assistant
   summary                         Structural signals partially align with traceability scaffolding. This remains a pre-audit traceability aid, not a compliance determination.
 
 ========================================================================
-AIRI Coverage
+AIRI Risk Triggers
 
   covered_count                  7
   detector_scope_total           32
@@ -909,19 +595,20 @@ AIRI Coverage
   upstream_snapshot              2026-04-23
 
   covered examples:
-    - 24.01.03 | Safe exploration problem with widely deployed AI assistants | covered_by=C5_compliance_boundary_integrity | why=C5_compliance_boundary_integrity: Unsupported legal/compliance claim surfaced in boundary-integrity lane.
-    - 24.04.01 | Physical and Psychological Harms | covered_by=C2_dependency_pinning | why=C2_dependency_pinning: External operational dependency signal surfaced in code-integrity lane.
-    - 33.01.05 | Privacy and security | covered_by=C2_dependency_pinning | why=C2_dependency_pinning: External operational dependency signal surfaced in code-integrity lane.
+    - 24.01.03 | Safe exploration problem with widely deployed AI assistants | primary: C5_compliance_boundary_integrity | why=C5_compliance_boundary_integrity: Unsupported legal/compliance claim surfaced in boundary-integrity lane.
+    - 24.04.01 | Physical and Psychological Harms | primary: C2_dependency_pinning | why=C2_dependency_pinning: External operational dependency signal surfaced in code-integrity lane.
+    - 33.01.05 | Privacy and security | primary: C2_dependency_pinning | why=C2_dependency_pinning: External operational dependency signal surfaced in code-integrity lane.
 
   known gaps in bundle:
     - 65.03.03 | Reidentification
     - 70.02.02 | Misinformation — hallucination of clinical knowledge
+    - 39.25.00 | Verifiability — black-box AI in medical healthcare
 
 ========================================================================
 Audit Freshness
 
   review_after_days               45
-  expires_on                      2026-07-02
+  expires_on                      2026-07-15
   freshness_basis                 clinical_adjacent_short_cycle
   change_triggered_reaudit_now    False
   change_triggered_reasons        none
@@ -976,6 +663,8 @@ Reasoning Diagnostics
   lane_coherence                  heuristic_mixed
   uncertainty_budget              review_advised
   evidence_risk_gate              within_heuristic_gate
+  interpretation                  mixed lane coherence; review Stage 2R and Stage 3 evidence manually
+  review_note                     uncertainty band elevated; manual review advised
 
 ========================================================================
 DISCLAIMER: Evidence-surface pre-screen only.
