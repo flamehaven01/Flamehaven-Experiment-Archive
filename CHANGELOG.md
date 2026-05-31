@@ -4,9 +4,9 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
-## [1.8.0] - 2026-05-31 (in progress)
+## [1.8.0] - 2026-05-31
 
-Credibility architecture (Pillar 1 of 3): a design spec for treating internal metrics honestly and an enforced understatement posture on the public surface. Principle: **verify facts, not scores** — authority is borrowed from external anchors (public repos, DOIs, standard metrics) or earned through reproducibility, never asserted for self-built metrics.
+Credibility architecture — **Pillar 1 of 3 complete**: a design spec for treating internal metrics honestly, an enforced understatement posture on the public surface, and provenance labelling so an outside reader sees external facts first and internal heuristics as clearly-marked advisory. Principle: **verify facts, not scores** — authority is borrowed from external anchors (public repos, DOIs, standard metrics) or earned through reproducibility, never asserted for self-built metrics.
 
 ### 🧭 Design spec
 - **`memory/credibility-architecture.md`**: provenance classes (`EXTERNAL` / `DERIVED` / `ADVISORY-RULE-BASED` / `ADVISORY-HEURISTIC`); honest demotion of SR9/DI2/Omega/SPAR to advisory; external-anchor inventory; reproduction-anchor plan (incl. AlphaFold non-determinism → tolerance bands, not bit-exact claims); a Zenodo-DOI-gated metadata phase. Records its own limitations (what it does NOT achieve).
@@ -15,8 +15,16 @@ Credibility architecture (Pillar 1 of 3): a design spec for treating internal me
 - **`promotional_language` sanitizer detector**: config-driven term list + public-surface scope (`index.html`, `eqa.html`, `README.md`) + HTML/MD content extraction so CSS/attributes/code never false-flag; ambiguous technical words (e.g. "best") excluded by design. CI gate, with a 7-case acceptance test (`sanitizer/tests/test_promotional.py`).
 - **Public-surface tone purge**: the ledger no longer describes itself as "authoritative" or claims "absolute" auditing integrity; BSC "(Authoritative Release)" framing removed. Register is now factual/methods-section.
 
-### ⏳ In progress
-- Pillar 1b (provenance-class chips + ADVISORY-HEURISTIC subordination in the inspector), then Pillars 2 (reproduction anchors) and 3 (scientific-artifact metadata). `[1.8.0]` is tagged only when Pillar 1 is complete.
+### 🏷️ Provenance classing (Pillar 1b)
+- **4-class metric chips in the inspector**: every named scientific/governance metric is tagged `EXTERNAL` (e.g. AlphaFold pLDDT/PAE — third-party-defined), `DERIVED` (e.g. `p_e2e` — recomputable), or `ADVISORY` (SR9/DI2/Omega/SPAR — Flamehaven internal, not externally validated). Implemented as one module-level `metricCard()` + `provClassOf()`/`provChip()` to which the per-renderer helpers delegate (single source of truth; also de-duplicates the old per-function `metric` copies).
+- **ADVISORY-HEURISTIC subordination**: internal metrics never appear in a card title, banner, or summary — only as secondary cards with a grey "ADVISORY" chip and a tooltip stating they are not externally validated.
+- **Glossary**: the dashboard Metrics glossary now leads with a class legend and tags each term (SR9/DI2/NNSL/RExSyn = ADVISORY, LawBinder = RULE, p_e2e = DERIVED, pLDDT/PAE/pTM + Brier/ECE = EXTERNAL).
+
+### 🔒 OPSEC
+- Collapsed a workspace path leak (`local_path` absolute path) in the yorkeccak/bio BSC `report.json` to `[workspace]/...` (was present in a local, un-pushed commit; caught by the sanitizer gate before publication).
+
+### ⏭️ Next
+- Pillar 2 (independent reproduction anchors: EQA done, BSC link to STEM-BIO-AI, BAV scaffold) and Pillar 3 (scientific-artifact metadata + DOI/ORCID/JOSS) — tracked as future releases.
 
 ---
 

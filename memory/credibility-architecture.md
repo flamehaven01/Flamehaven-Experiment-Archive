@@ -154,10 +154,14 @@ just one word. Target register = methods section.
   flagged, and (ii) blockquote / code / external-title context -> zero flagged; plus a curated
   allowlist phrase -> zero flagged. The test ships under `sanitizer/tests/`.
 
-**Acceptance test:** every metric rendered in any inspector has a `class`; no card title / banner /
-summary contains an ADVISORY-HEURISTIC metric (ADVISORY-RULE-BASED may show its cited external
-basis only); the `promotional_language` detector returns zero flags on shipped HTML/README/reports
-(allowlist only for legitimate quoted usage).
+**Acceptance test:** every **named scientific / governance metric** rendered in any inspector
+carries a class chip (SR9/DI2/Omega/coherence/SPAR -> ADVISORY; p_e2e/capture/transfer -> DERIVED;
+pLDDT/PAE/pTM/Brier/AUC/ECE -> EXTERNAL). Incidental values (counts, dates, grades) carry none.
+No card title / banner / summary contains an ADVISORY-HEURISTIC metric (ADVISORY-RULE-BASED may show
+its cited external basis only). The `promotional_language` detector returns zero flags on the
+public surface. Implementation: one module-level `metricCard()` + `provClassOf()`/`provChip()` in
+portal.js, to which the per-renderer `metric`/`card` helpers delegate (single source of truth);
+the dashboard glossary tags each term with its class + legend.
 
 ---
 

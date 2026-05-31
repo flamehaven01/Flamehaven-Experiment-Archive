@@ -7,6 +7,34 @@ let activeSort  = 'date-desc';
 let activeEqStatus = 'all';
 let activeBavStatus = 'all';
 
+// ── Provenance classing (credibility Pillar 1b) ──────────────────────────────
+// Every shown scientific/governance metric is labelled by where its authority
+// comes from. Internal Flamehaven metrics (SR9/DI2/Omega/SPAR) are ADVISORY and
+// never presented as external authority. See memory/credibility-architecture.md.
+function provClassOf(label) {
+  const s = String(label == null ? '' : label).toLowerCase();
+  if (/(plddt|\bpae\b|ptm|contact|brier|\bauc\b|\bece\b)/.test(s)) return 'EXTERNAL';
+  if (/(p_e2e|e2e|capture|transfer)/.test(s)) return 'DERIVED';
+  if (/(sr9|di2|sidrce|coherence|spar|nnsl|resonance|drift|omega|ω)/.test(s)) return 'ADVISORY-HEURISTIC';
+  return null;  // incidental values (counts, dates, grades) carry no class chip
+}
+function provChip(cls) {
+  if (!cls) return '';
+  const M = {
+    'EXTERNAL': ['#10b981', 'EXTERNAL', 'Defined by a third party (e.g. AlphaFold / DeepMind, a published result) and externally checkable.'],
+    'DERIVED': ['#60a5fa', 'DERIVED', 'Computed by Flamehaven from external inputs via a published, recomputable formula.'],
+    'ADVISORY-RULE-BASED': ['#eab308', 'RULE', 'Deterministic rule output that cites an external basis (statute / taxonomy).'],
+    'ADVISORY-HEURISTIC': ['#9ca3af', 'ADVISORY', 'Flamehaven internal metric — not externally validated; shown for transparency, not as a claim.'],
+  };
+  const [c, txt, tip] = M[cls];
+  return `<span title="${tip}" style="display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.04em;text-transform:uppercase;color:${c};border:1px solid ${c}55;border-radius:3px;padding:0 4px;">${txt}</span>`;
+}
+// Shared metric card: label + value + an auto-derived provenance chip. The BAV
+// inspector renderers delegate their local `metric` to this (one source of truth).
+function metricCard(label, value, color) {
+  return `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div>${provChip(provClassOf(label))}</div>`;
+}
+
 // Initialize card array on DOM load
 // BAV archive: populate the foundational-iterations list from manifest (live, no hardcoding).
 async function renderBavArchive() {
@@ -1163,11 +1191,7 @@ function renderBavInsights(d) {
   const seqLen = rt.input_sequence_length_aa != null ? rt.input_sequence_length_aa + ' aa' : '—';
   const grade = d.quality_grade || '—';
 
-  const metric = (label, value, color) => `
-    <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-      <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div>
-      <div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div>
-    </div>`;
+  const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
 
   return `
     <!-- Honesty banner -->
@@ -1297,7 +1321,7 @@ function renderBavExp028Insights(d) {
   if (!d || !d.phase1) return '<p class="empty-state">No EXP-028 data loaded.</p>';
   const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
   const p1 = d.phase1 || {}, p2 = (d.phase2 && d.phase2.metrics) || {};
-  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🧪</span>
@@ -1325,7 +1349,7 @@ function renderBavExp033Insights(d) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
   const g = base.governance || {}, c = base.classification || {};
-  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 20px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🔗</span>
@@ -1355,7 +1379,7 @@ function renderBavExp034Insights(d) {
   const ds = d.delta_summary || {};
   const gov = d._gov || {};
   const regen = (gov.stage_gate && gov.stage_gate.overall_status) || 'HOLD';
-  const metric = (label, value, color) => `<div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);"><div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">${label}</div><div style="font-size: 18px; font-weight: 600; color: ${color || 'var(--ts)'}; margin-top: 4px;">${value}</div></div>`;
+  const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🛡️</span>
@@ -1384,7 +1408,7 @@ function renderArchiveInspector(runId, d, panels) {
   const isEqa = d._lane === 'eqa';
   const hasSr9 = typeof m.sr9_resonance === 'number';
   const noteIsLink = typeof d.note === 'string' && /^https?:/i.test(d.note);
-  const card = (label, value, color) => `<div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);"><div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">${label}</div><div style="font-size:20px;font-weight:600;color:${color || 'var(--ts)'};margin-top:4px;">${value}</div></div>`;
+  const card = metricCard;  // shared card + provenance chip (Pillar 1b)
 
   // Insights
   const chips = [];
