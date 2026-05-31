@@ -946,6 +946,13 @@ async function openJsonInspector(runId, type = 'json') {
     const wantId = runId.replace('bav-arch-', '');
     const run = jsonData.runs.find(x => x.id === wantId);
     jsonData = run ? Object.assign({ _archive_label: jsonData.label }, run) : jsonData;
+    const rp = jsonData.metrics && jsonData.metrics.report_path;
+    if (rp) {
+      try {
+        const res = await fetch(rp + '?t=' + new Date().getTime());
+        if (res.ok) jsonData._reportText = await res.text();
+      } catch (e) { /* report optional */ }
+    }
   }
 
   inspector.jsonData = jsonData;
@@ -1030,7 +1037,7 @@ async function openJsonInspector(runId, type = 'json') {
   
   // Render
   renderInspectorData(runId, jsonData, reportText);
-  
+
   // Smooth scroll with layout reflow protection
   requestAnimationFrame(() => {
     setTimeout(() => {
@@ -1403,7 +1410,14 @@ function renderBavArchiveInspector(runId, d, panels) {
   // Insights
   const chips = [];
   ['status', 'verdict', 'decision', 'grade'].forEach(k => { if (m[k]) chips.push('<strong style="color:var(--t4);">' + esc(k) + ':</strong> ' + esc(m[k])); });
-  if (m.report) chips.push('<strong style="color:var(--t4);">report:</strong> ' + esc(m.report) + ' (in source repo)');
+  // The full source report (when present) is rendered inline below the metrics so
+  // it is visible immediately on open — no tab switching required.
+  const reportBlock = d._reportText
+    ? `<div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Source Report${m.report ? ' · ' + esc(m.report) : ''}</div>
+         <div class="calibration-markdown-body" style="font-family:'Inter',sans-serif;">${parseMarkdownToHtml(d._reportText)}</div>
+       </div>`
+    : '';
   panels.insInsights.innerHTML = `
     <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(107,114,128,0.06);border:1px solid rgba(107,114,128,0.25);border-radius:var(--r-md);padding:12px 16px;margin-bottom:20px;">
       <span style="font-size:14px;">🗄️</span>
@@ -1416,7 +1430,8 @@ function renderBavArchiveInspector(runId, d, panels) {
     </div>
     ${chips.length ? `<div style="margin-top:16px;font-size:12.5px;color:var(--t3);line-height:1.7;">${chips.map(c => '<div>' + c + '</div>').join('')}</div>` : ''}
     ${d.note ? `<a href="${esc(d.note)}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid rgba(167,139,250,0.25);border-radius:4px;padding:4px 10px;">↗ ${esc(d.note_label || 'Note')}</a>` : ''}
-    <p style="font-size:12px;color:var(--t5);line-height:1.6;margin-top:16px;border-top:1px solid var(--border);padding-top:14px;margin-bottom:0;">Archived experiment — only metrics actually present in the source artifacts are shown (no fabricated values).</p>`;
+    ${reportBlock}
+    <p style="font-size:12px;color:var(--t5);line-height:1.6;margin-top:16px;border-top:1px solid var(--border);padding-top:14px;margin-bottom:0;">Archived experiment — only metrics and reports actually present in the source artifacts are shown (no fabricated values).</p>`;
 
   // Verified Rules
   const gates = [];
@@ -1451,7 +1466,7 @@ function renderBavArchiveInspector(runId, d, panels) {
     }
   }
 
-  // Archive records have no generated Live Report; hide that tab.
+  // Archive records render their report inline in Insights; hide the Live Report tab.
   const reportTab = document.getElementById('tab-live-report');
   if (reportTab) reportTab.style.display = 'none';
 }

@@ -26,7 +26,8 @@
       "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
       "note_label": "Truthful Null (Upadacitinib)",
       "metrics": {
-        "report": "FINAL_ONE_PAGE_REPORT.md"
+        "report": "FINAL_ONE_PAGE_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-001.md"
       },
       "has_data": true
     },
@@ -38,7 +39,8 @@
       "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
       "note_label": "Truthful Null (Upadacitinib)",
       "metrics": {
-        "report": "OPEN_SOURCE_REPORT_V2.md"
+        "report": "OPEN_SOURCE_REPORT_V2.md",
+        "report_path": "./bav/archive/reports/EXP-002.md"
       },
       "has_data": true
     },
@@ -48,7 +50,8 @@
       "theme": "Genomic Origin",
       "summary": "AlphaGenome genomic-origin reasoning probe.",
       "metrics": {
-        "report": "OPEN_SOURCE_REPORT_V3.md"
+        "report": "OPEN_SOURCE_REPORT_V3.md",
+        "report_path": "./bav/archive/reports/EXP-003.md"
       },
       "has_data": true
     },
@@ -58,7 +61,8 @@
       "theme": "Topological",
       "summary": "Topological data-analysis structure probe.",
       "metrics": {
-        "report": "FINAL_OPEN_SOURCE_REPORT.md"
+        "report": "FINAL_OPEN_SOURCE_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-004.md"
       },
       "has_data": true
     },
@@ -68,7 +72,8 @@
       "theme": "Rag Logos Nnsl",
       "summary": "RAG + LOGOS + NNSL integration baseline.",
       "metrics": {
-        "report": "FINAL_OPEN_SOURCE_REPORT_V4.md"
+        "report": "FINAL_OPEN_SOURCE_REPORT_V4.md",
+        "report_path": "./bav/archive/reports/EXP-008.md"
       },
       "has_data": true
     },
@@ -88,8 +93,8 @@
       "metrics": {
         "sr9_resonance": 0.3398,
         "coherence": 1.0,
-        "has_summary": true,
-        "report": "EXP_010_MULTIMODAL_BREAKTHROUGH_REPORT.md"
+        "report": "EXP_010_MULTIMODAL_BREAKTHROUGH_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-010.md"
       },
       "has_data": true
     },
@@ -101,8 +106,8 @@
       "metrics": {
         "sr9_resonance": 0.3635,
         "coherence": 1.0,
-        "has_summary": true,
-        "report": "EXP_011_HYPER_RESONANCE_REPORT.md"
+        "report": "EXP_011_HYPER_RESONANCE_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-011.md"
       },
       "has_data": true
     },
@@ -114,8 +119,8 @@
       "metrics": {
         "sr9_resonance": 0.364,
         "coherence": 1.0,
-        "has_summary": true,
-        "report": "EXP_012_SOVEREIGN_ORIGIN_REPORT.md"
+        "report": "EXP_012_SOVEREIGN_ORIGIN_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-012.md"
       },
       "has_data": true
     },
@@ -127,8 +132,8 @@
       "metrics": {
         "sr9_resonance": 0.364,
         "coherence": 1.0,
-        "has_summary": true,
-        "report": "EXP_013_NON_LINEAR_SOVEREIGNTY_REPORT.md"
+        "report": "EXP_013_NON_LINEAR_SOVEREIGNTY_REPORT.md",
+        "report_path": "./bav/archive/reports/EXP-013.md"
       },
       "has_data": true
     },
@@ -139,8 +144,7 @@
       "summary": "Zero-noise control condition.",
       "metrics": {
         "sr9_resonance": 0.3641,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -151,8 +155,7 @@
       "summary": "Sovereign-agreement consensus test.",
       "metrics": {
         "sr9_resonance": 0.1868,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -163,8 +166,7 @@
       "summary": "Capsule proxy representation.",
       "metrics": {
         "sr9_resonance": 0.3185,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -175,8 +177,7 @@
       "summary": "Capsule merge representation.",
       "metrics": {
         "sr9_resonance": 0.1882,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -187,8 +188,7 @@
       "summary": "Structure-direct prediction path.",
       "metrics": {
         "sr9_resonance": 0.3652,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -207,8 +207,7 @@
       "summary": "Aligned routing of multi-engine signals.",
       "metrics": {
         "sr9_resonance": 0.2836,
-        "coherence": 1.0,
-        "has_summary": true
+        "coherence": 1.0
       },
       "has_data": true
     },
@@ -217,20 +216,16 @@
       "slug": "ANCHOR-STRIKE",
       "theme": "Anchor Strike",
       "summary": "Anchor-strike evidence grounding.",
-      "metrics": {
-        "has_summary": true
-      },
-      "has_data": true
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-022",
       "slug": "TRINITY-STRIKE",
       "theme": "Trinity Strike",
       "summary": "Trinity-strike consensus stress test.",
-      "metrics": {
-        "has_summary": true
-      },
-      "has_data": true
+      "metrics": {},
+      "has_data": false
     },
     {
       "id": "EXP-023",
@@ -289,5 +284,6 @@
       "has_data": false
     }
   ],
-  "data_count": 17
+  "data_count": 15,
+  "report_count": 9
 }
