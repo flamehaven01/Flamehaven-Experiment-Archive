@@ -12,7 +12,8 @@
   "author": [
     {
       "@type": "Organization",
-      "name": "Flamehaven Labs"
+      "name": "Flamehaven Labs",
+      "@id": "https://orcid.org/0009-0009-2641-4280"
     }
   ],
   "keywords": [

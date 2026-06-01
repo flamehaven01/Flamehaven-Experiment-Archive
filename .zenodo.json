@@ -5,7 +5,7 @@
   "license": "cc-by-nc-4.0",
   "description": "Public, transparent, reproducible ledger of AI-safety audits, mathematical and physical verification runs (EQA), biomolecular AI pipeline-governance validations (BAV), and bioscience repository compliance audits (BSC). Internal metrics (SR9, DI2, Omega) are labelled advisory and not externally validated; verification weight rests on external anchors (public MIT repositories, DOIs, and standard third-party metrics such as AlphaFold pLDDT/PAE). Dual-licensed: the repository code is MIT; the verification runs and static evidence artifacts (this deposition) are CC BY-NC 4.0.",
   "creators": [
-    { "name": "Flamehaven Labs" }
+    { "name": "Flamehaven Labs", "orcid": "0009-0009-2641-4280" }
   ],
   "keywords": [
     "AI safety",

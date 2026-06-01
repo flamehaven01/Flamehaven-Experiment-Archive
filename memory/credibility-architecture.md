@@ -265,10 +265,10 @@ commented slots in CITATION pending the actual strings (3b).
 **Acceptance test (3a):** `codemeta.json` validates; both JSON-LD blocks parse; CITATION.cff is
 valid CFF with DOI + ORCID slots present; license is internally consistent (code MIT / data CC
 BY-NC 4.0) across LICENSE, footer, README, CITATION, codemeta, JSON-LD. [met]
-**3b status:** `.zenodo.json` is in place, so the whole-ledger DOI is **turnkey** — minted when the
-repo is connected to Zenodo and a GitHub release is cut (license cc-by-nc-4.0; Erdos component DOI
-linked). ORCID iD: awaiting the real string (added to `.zenodo.json` creators + CITATION + JSON-LD
-on receipt). JOSS/arXiv: deferred (arXiv endorsement; AI-assisted manuscripts hard to post) — no
+**3b status — COMPLETE (except deferred JOSS/arXiv):** whole-ledger Zenodo DOI
+`10.5281/zenodo.20483364` minted from the v1.11.0 release and wired everywhere; maintainer ORCID
+`0009-0009-2641-4280` wired into CITATION + .zenodo.json + codemeta/JSON-LD `@id` + README badge +
+footer. JOSS/arXiv remain deferred (arXiv endorsement; AI-assisted manuscripts hard to post) — no
 badge until a real submission exists.
 
 **Acceptance test (3b):** once the DOI is minted / the ORCID iD supplied, each resolves and appears

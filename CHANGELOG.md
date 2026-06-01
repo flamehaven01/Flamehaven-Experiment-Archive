@@ -4,6 +4,16 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.11.3] - 2026-06-01
+
+Pillar 3b complete — wired the maintainer ORCID; external anchors fully in place.
+
+### 🆔 ORCID
+- **`0009-0009-2641-4280`** wired into `CITATION.cff` (author orcid), `.zenodo.json` (creator), `codemeta.json` + schema.org JSON-LD (`@id`), the README citation line + ORCID badge, and the footer.
+- With the Zenodo DOI (1.11.1) + ORCID now both wired, **Pillar 3b is complete**; only JOSS/arXiv remains deferred (arXiv endorsement constraints).
+
+---
+
 ## [1.11.2] - 2026-06-01
 
 Fixed broken mobile layout (the main page did not load — only the menu layer showed).

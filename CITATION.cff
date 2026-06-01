@@ -3,11 +3,9 @@ title: "Flamehaven Verification Ledger"
 message: "If you reference this ledger, please cite it using these metadata."
 type: dataset
 authors:
-  - name: "Flamehaven Labs"
-    # To credit a named maintainer with an ORCID, add a person author here, e.g.:
-    # - family-names: "<family>"
-    #   given-names: "<given>"
-    #   orcid: "https://orcid.org/0000-0000-0000-0000"
+  - given-names: "Flamehaven"
+    family-names: "Labs"
+    orcid: "https://orcid.org/0009-0009-2641-4280"
 repository-code: "https://github.com/flamehaven01/Flamehaven-Verification-Ledger"
 url: "https://flamehaven.space/"
 abstract: >-
