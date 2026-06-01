@@ -9,7 +9,7 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 External-readability: defined the EQA-lane engine codenames so outside readers can decode `LOGOS-to-TOE` (card 0054) without guessing.
 
 ### 📖 Glossary
-- Added **LOGOS** (Flamehaven's internal reasoning / candidate-generation engine, under LawBinder governance) and **TOE** (the mathematical-model verification engine; run IDs `TOE-TEST-NNNN`) to the Metrics & Engines glossary, both tagged `ADVISORY` (internal). Definitions are function-first and drop the upstream "Sovereign" epithet (a buzzword that implies self-authority — out of place on a public ledger; LOGOS is described by what it does, not a grandiose name). "TOE" is the physics term it tests against, explicitly not a claim to be one.
+- Added **LOGOS** (Flamehaven's internal **multi-engine reasoning orchestrator** — candidate generation under LawBinder governance) and **TOE** (the mathematical-model verification engine; run IDs `TOE-TEST-NNNN`) to the Metrics & Engines glossary, both tagged `ADVISORY` (internal). Definitions are function-first and drop the upstream "Sovereign" epithet (a buzzword that implies self-authority — out of place on a public ledger; LOGOS is described by what it does, not a grandiose name). "TOE" is the physics term it tests against, explicitly not a claim to be one.
 - Historical BAV archive codenames containing "Sovereign" (EXP-012/013 slugs + report filenames) are retained as identifiers per DI-OPS-002 (names are not claims; renaming would break report links and rewrite the record).
 
 ---
