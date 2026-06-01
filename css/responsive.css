@@ -1,0 +1,66 @@
+/* ── RESPONSIVE / MOBILE ─────────────────────────────────────────────────────
+   Loaded LAST so these rules win over the base .sidebar / .sb-toggle declarations
+   in sidebar.css (which otherwise override the mobile rules by source order).
+   Fixes: off-canvas sidebar + working top-left hamburger so the main page (not
+   just the menu layer) is what loads on a phone. */
+
+@media (max-width: 768px) {
+  /* Single-column page; main content is full width and starts at the top. */
+  .page-layout { display: block !important; grid-template-columns: 1fr !important; }
+
+  /* Sidebar becomes an off-canvas drawer (hidden until the hamburger opens it). */
+  .sidebar {
+    position: fixed !important;
+    top: 0; left: -88vw;
+    width: 84vw; max-width: 320px;
+    height: 100vh; height: 100dvh;
+    z-index: 160;
+    padding-top: 64px;
+    background: var(--s0);
+    border-right: 1px solid var(--border);
+    box-shadow: 4px 0 26px rgba(0,0,0,.5);
+    transition: left .28s cubic-bezier(.22,1,.36,1);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar.mobile-open { left: 0 !important; }
+
+  /* Top-left hamburger (override the base bottom-left floating toggle). */
+  .sb-toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: 9px; left: 12px; bottom: auto !important; right: auto;
+    width: 38px; height: 38px;
+    z-index: 210;
+    align-items: center; justify-content: center;
+  }
+
+  /* Top nav: leave room for the hamburger; keep brand readable, trim extras. */
+  .nav { padding-left: 60px; padding-right: 14px; }
+  .nav-sub { display: none; }
+  .nav-right { gap: 10px; }
+  .nav-link { font-size: 0; gap: 0; }          /* icon-only links to save width */
+  .nav-link svg { width: 18px; height: 18px; }
+
+  /* Main content reflow. */
+  .wrap { padding: 0 16px 64px !important; }
+  .hero { padding: 36px 0 28px; }
+  .hero h1 { font-size: 26px; line-height: 1.2; }
+  .cards-grid { grid-template-columns: 1fr !important; }
+  .eq-ledger-list { grid-template-columns: 1fr !important; }
+  .stats-row, .stat-grid { flex-wrap: wrap; }
+  .toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .search-wrap { max-width: none; }
+  .sort-select { margin-left: 0; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .card-downloads { flex-wrap: wrap; }
+
+  /* Backdrop sits under the drawer but over the page. */
+  .sb-backdrop { z-index: 150; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 22px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .sidebar { width: 90vw; }
+}

@@ -4,6 +4,17 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.11.2] - 2026-06-01
+
+Fixed broken mobile layout (the main page did not load — only the menu layer showed).
+
+### 📱 Mobile / responsive
+- **Root cause**: `sidebar.css` (loaded after `layout.css`) re-declared base `.sidebar { position: sticky }` and `.sb-toggle { display: none }`, which overrode the `@media (max-width:768px)` rules by source order — so on phones the sidebar stayed in flow (covering/pushing the page) and the hamburger never appeared.
+- **Fix**: new `css/responsive.css`, loaded **last** on `index.html` + `eqa.html`, with authoritative mobile rules: off-canvas drawer `.sidebar` (hidden until opened, slides in via `.mobile-open`), a working **top-left hamburger** (`.sb-toggle`), single-column content reflow, icon-only top-nav links, and footer/card grid adjustments.
+- Verified at 375px: main page loads full-width at top, hamburger toggles the drawer + backdrop, report viewer fits, no horizontal overflow — on both `index.html` and `eqa.html`.
+
+---
+
 ## [1.11.1] - 2026-06-01
 
 Wired the minted whole-ledger Zenodo DOI.
