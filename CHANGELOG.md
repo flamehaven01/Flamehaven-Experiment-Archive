@@ -4,6 +4,22 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.11.0] - 2026-06-01
+
+Repository presentation + CI for external readers, and the Zenodo archival path.
+
+### 🧪 CI / CD
+- New **`CI`** workflow (`ci.yml`): JS syntax check (`portal.js`, `chart-engine.js`), the `promotional_language` detector tests, and JSON/metadata validity — deterministic, no network, no LLM.
+- **OPSEC Gate** workflow now installs from `sanitizer/requirements.txt` (added; PyYAML).
+
+### 📛 README badges
+- Removed the generic "GitHub Repo" badge; added functional badges: **CI** status, **OPSEC Gate** status, **Python 3.12**, and **dual-license** (code MIT / data CC BY-NC 4.0). A Zenodo **DOI** badge is staged (commented) and enabled once the DOI is minted.
+
+### 📦 Archival (Zenodo)
+- A whole-ledger Zenodo DOI is minted from a GitHub **release** (webhook enabled; `.zenodo.json` supplies the metadata, license cc-by-nc-4.0, Erdos component DOI linked). The minted DOI and an ORCID iD are wired into CITATION / codemeta / footer + the DOI badge on receipt — no placeholder identifiers until then.
+
+---
+
 ## [1.10.0] - 2026-05-31
 
 Credibility architecture — **Pillar 3a: scientific-artifact metadata** (the in-repo, no-external-dependency part). Makes the ledger machine-readable and citable as a serious artifact rather than a personal page.

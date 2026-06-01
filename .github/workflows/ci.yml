@@ -1,0 +1,40 @@
+name: CI
+
+# Deterministic verification of the ledger: JS syntax, the promotional-language
+# detector tests, and JSON/metadata validity. No network, no LLM in the path.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: JS syntax check
+        run: |
+          node --check js/portal.js
+          node --check js/chart-engine.js
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install -r sanitizer/requirements.txt
+
+      - name: promotional_language detector tests
+        run: python sanitizer/tests/test_promotional.py
+
+      - name: JSON / metadata validity
+        run: >-
+          python -c "import json;[json.load(open(f,encoding='utf-8')) for f in
+          ['codemeta.json','.zenodo.json','eqa/archive/manifest.json',
+          'bav/archive/manifest.json','bav/exp-031/reproduce/models.json',
+          'bav/exp-031/reproduce/reference_run.json']];print('json/metadata ok')"

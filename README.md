@@ -3,7 +3,13 @@
 > Public, transparent, reproducible, and independently checkable ledger of AI safety audits, mathematical and physical verification runs, bioscience repository compliance audits, and independent auditor review templates from **Flamehaven**.
 
 [![Flamehaven Space](https://img.shields.io/badge/Flamehaven-space-000000?style=flat&logo=target&logoColor=white)](https://flamehaven.space/)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Flamehaven--Verification--Ledger-181717?style=flat&logo=github)](https://github.com/flamehaven01/Flamehaven-Verification-Ledger)
+[![CI](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/actions/workflows/ci.yml/badge.svg)](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/actions/workflows/ci.yml)
+[![OPSEC Gate](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/actions/workflows/opsec-sanitize.yml/badge.svg)](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/actions/workflows/opsec-sanitize.yml)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![Code: MIT](https://img.shields.io/badge/code-MIT-green.svg)](./LICENSE)
+[![Data: CC BY-NC 4.0](https://img.shields.io/badge/data-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+<!-- DOI badge added after the whole-ledger Zenodo DOI is minted from a release:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXXX) -->
 
 This repository serves as the official public ledger of all experimental verification runs, capability evaluations, and static safety scans executed by Flamehaven core systems. All artifacts contained here represent static, offline, deterministic results.
 
