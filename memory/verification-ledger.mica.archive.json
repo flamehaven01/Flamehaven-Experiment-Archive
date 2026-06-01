@@ -17,7 +17,13 @@
       "css/",
       "eqa/",
       "stem-bio-ai/",
-      "README.md"
+      "README.md",
+      "bav/",
+      "eqa.html",
+      "sanitizer/",
+      "memory/",
+      "codemeta.json",
+      "CITATION.cff"
     ],
     "exclude": [
       "__pycache__/",
@@ -224,14 +230,54 @@
       "binding": {
         "origin_episode": "EXP-SAN-006/007: archive reports exposed CLI symbol-soup credentials, a personal-attribution line, and grade/threshold claim qualifiers; neutralized, glossary added, sanitizer credibility rule added."
       }
+    },
+    {
+      "id": "DI-CRED-001",
+      "label": "provenance-classing-and-advisory-subordination",
+      "severity": "critical",
+      "statement": "Every named scientific/governance metric carries a provenance class: EXTERNAL (third-party-defined, e.g. AlphaFold pLDDT/PAE), DERIVED (recomputable from external inputs, e.g. p_e2e), ADVISORY-RULE-BASED (deterministic rule citing an external basis, e.g. LawBinder), or ADVISORY-HEURISTIC (Flamehaven internal, e.g. SR9/DI2/Omega/SPAR). A card headline must be EXTERNAL or DERIVED; ADVISORY-HEURISTIC metrics never appear in a title/banner/summary and render in a collapsed advisory section. Implemented via one metricCard()+provClassOf()+provChip() in portal.js.",
+      "binding": {
+        "origin_episode": "Credibility Pillar 1b (v1.8.0): external review found SR9/DI2 displayed as headline-equal cards read as slop; classed + subordinated.",
+        "enforced_by": "portal.js metricCard/advisoryDetails; glossary class legend"
+      }
+    },
+    {
+      "id": "DI-CRED-002",
+      "label": "understatement-posture",
+      "severity": "high",
+      "statement": "The public surface (index.html, eqa.html, README) uses a restrained, fact-only register: no superlatives or self-promotion (best/revolutionary/authoritative/absolute/etc.). Internal methods are internalized, not promoted. The sanitizer promotional_language detector (config-driven term list + public-surface scope + HTML/MD content extraction) enforces this as a CI gate.",
+      "binding": {
+        "origin_episode": "Credibility Pillar 1a (v1.8.0): a small independent lab promoting self-built methods reads as slop; demote and refine wording.",
+        "enforced_by": "sanitizer promotional_language detector + tests/test_promotional.py"
+      }
+    },
+    {
+      "id": "DI-CRED-003",
+      "label": "independent-reproduction-anchors",
+      "severity": "critical",
+      "statement": "Each lane resolves to an independently checkable anchor without trusting any Flamehaven metric: EQA = public MIT repo + Zenodo DOI; BSC = public scanner repo (STEM-BIO-AI) + the target repo remote/commit recorded in report.json; BAV = a re-run scaffold (bav/exp-031/reproduce/) only where a foldable input exists. No fabricated scaffolds. AlphaFold/Chai-1/Boltz-2 non-determinism is stated explicitly: re-runnable not bit-exact, input hashed, stochastic outputs not hashed, regime-level comparison.",
+      "binding": {
+        "origin_episode": "Credibility Pillar 2 (v1.9.0): payload scan showed only EXP-031 has a foldable input; scaffold it, mark the rest non-re-runnable.",
+        "enforced_by": "bav/exp-031/reproduce/ + BSC Scanner links + EQA card 0055"
+      }
+    },
+    {
+      "id": "DI-CRED-004",
+      "label": "citable-metadata-and-dual-license",
+      "severity": "high",
+      "statement": "The ledger ships citable, machine-readable metadata (CITATION.cff, codemeta.json, schema.org Dataset JSON-LD on index.html + eqa.html) and is license-consistent: repository CODE is MIT (LICENSE), verification runs / evidence ARTIFACTS are CC BY-NC 4.0. No identifiers are fabricated: a whole-ledger Zenodo DOI and an ORCID iD remain commented slots until real values are supplied.",
+      "binding": {
+        "origin_episode": "Credibility Pillar 3a (v1.10.0): resolved the LICENSE(MIT)-vs-footer(CC BY-NC) conflict to an explicit dual scheme; added metadata.",
+        "enforced_by": "CITATION.cff/codemeta.json/JSON-LD; README License section"
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 8,
+    "update_count": 9,
     "last_updated": "2026-05-31",
-    "session_count": 7,
+    "session_count": 9,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }

@@ -19,6 +19,10 @@ Credibility architecture — **Pillar 3a: scientific-artifact metadata** (the in
 ### 🚧 Limitations made explicit
 - Footer + README now state plainly that internal metrics (SR9/DI2/Omega) are advisory and not externally validated, and that the reports do not imply certification, clinical efficacy, or deployment approval.
 
+### 🔤 Also
+- Relabeled the BSC `Scanner (MIT)` button to `Scanner (source)` (tooltip: *open-source, MIT-licensed*) so it no longer reads as if MIT (the institution) built the scanner. The footer's genuine **MIT AI Risk Repository** link is unchanged.
+- MICA sync: `mica.yaml` -> 1.10.0; added design invariants **DI-CRED-001..004** (provenance classing, understatement posture, reproduction anchors, citable metadata + dual license); registered `credibility-architecture.md` as a memory layer; refreshed scope.
+
 ### ⏭️ Pending (3b — external)
 - Wiring a **whole-ledger Zenodo DOI** and an **ORCID iD** (slots are in place; values needed). JOSS/arXiv status added honestly when a submission is opened. No identifiers are fabricated in the meantime.
 
