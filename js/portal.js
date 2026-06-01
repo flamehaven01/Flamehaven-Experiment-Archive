@@ -1,7 +1,7 @@
 // ── STATE VARIABLES ──────────────────────────────────────────────────────────
 let cards = [];
 let activeTier = 'all';
-let activeColl = 'stem-bio-ai';
+let activeColl = 'all';
 let activeQuery = '';
 let activeSort  = 'date-desc';
 let activeEqStatus = 'all';
@@ -136,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.substring(1);
   if (hash) {
     handleHashNavigation(hash);
+  } else {
+    goHome();
   }
 
   // Render the real EQA foundational-run archive (TOE-TEST-0001~0051)
