@@ -24,7 +24,9 @@ Credibility architecture — **Pillar 3a: scientific-artifact metadata** (the in
 - MICA sync: `mica.yaml` -> 1.10.0; added design invariants **DI-CRED-001..004** (provenance classing, understatement posture, reproduction anchors, citable metadata + dual license); registered `credibility-architecture.md` as a memory layer; refreshed scope.
 
 ### ⏭️ Pending (3b — external)
-- Wiring a **whole-ledger Zenodo DOI** and an **ORCID iD** (slots are in place; values needed). JOSS/arXiv status added honestly when a submission is opened. No identifiers are fabricated in the meantime.
+- **Zenodo DOI — turnkey ready**: added `.zenodo.json` so a whole-ledger DOI is minted automatically when the repo is connected to Zenodo and a GitHub release is created (license cc-by-nc-4.0; the Erdos component DOI linked as `isSupplementedBy`). The minted DOI is then wired into CITATION.cff + codemeta + footer.
+- **ORCID iD** — awaiting the actual iD string; will be added to `.zenodo.json` creators + CITATION.cff + JSON-LD on receipt. No placeholder iD is committed.
+- **JOSS / arXiv** — deferred (arXiv endorsement requirement; AI-assisted manuscripts are hard to post). No submission badge is shown until a real submission exists.
 
 ---
 
