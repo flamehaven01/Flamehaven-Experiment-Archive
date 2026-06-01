@@ -29,8 +29,7 @@ keywords:
   - verification
   - AlphaFold
   - bioscience compliance
-# A whole-ledger archive DOI can be added once minted on Zenodo:
-# doi: "10.5281/zenodo.XXXXXXXX"
+doi: "10.5281/zenodo.20483364"
 references:
   - type: software
     title: "OpenAI Erdos Conjecture Disproof: Equation (2.2) Executable Reproduction"

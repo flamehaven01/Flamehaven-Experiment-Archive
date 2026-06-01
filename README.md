@@ -8,8 +8,7 @@
 [![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-green.svg)](./LICENSE)
 [![Data: CC BY-NC 4.0](https://img.shields.io/badge/data-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-<!-- DOI badge added after the whole-ledger Zenodo DOI is minted from a release:
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXXX) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20483364.svg)](https://doi.org/10.5281/zenodo.20483364)
 
 This repository serves as the official public ledger of all experimental verification runs, capability evaluations, and static safety scans executed by Flamehaven core systems. All artifacts contained here represent static, offline, deterministic results.
 
@@ -121,6 +120,6 @@ To interactively browse this repository, run the local dev server and open the p
 
 ## 📄 Citation & License
 
-- **Cite**: see [`CITATION.cff`](./CITATION.cff) and [`codemeta.json`](./codemeta.json). Pages expose schema.org `Dataset` JSON-LD for indexing.
+- **Cite**: archived on Zenodo — DOI [`10.5281/zenodo.20483364`](https://doi.org/10.5281/zenodo.20483364). See [`CITATION.cff`](./CITATION.cff) and [`codemeta.json`](./codemeta.json); pages expose schema.org `Dataset` JSON-LD for indexing.
 - **Dual license**: the repository **code** (portal, sanitizer, chart engine, build scripts) is **MIT** (see [`LICENSE`](./LICENSE)); the **verification runs and static evidence artifacts** are **CC BY-NC 4.0**.
 - **Provenance honesty**: internal metrics (SR9, DI2, Omega, SPAR) are labelled *advisory — not externally validated*. Verification weight rests on external anchors (public MIT repos, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT/PAE), not on internal scores.

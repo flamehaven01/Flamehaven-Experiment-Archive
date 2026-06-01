@@ -4,6 +4,15 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.11.1] - 2026-06-01
+
+Wired the minted whole-ledger Zenodo DOI.
+
+- **DOI `10.5281/zenodo.20483364`** added to `CITATION.cff` (top-level `doi`), `codemeta.json` (`identifier`), the schema.org `Dataset` JSON-LD (`identifier`), the README **DOI badge** + Citation line, and the footer "Trust & Licensing".
+- ORCID iD still pending (slot in place); JOSS/arXiv deferred. Pillar 3b otherwise complete.
+
+---
+
 ## [1.11.0] - 2026-06-01
 
 Repository presentation + CI for external readers, and the Zenodo archival path.
