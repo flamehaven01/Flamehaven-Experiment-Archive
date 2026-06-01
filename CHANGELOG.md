@@ -4,6 +4,24 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.12.0] - 2026-06-01
+
+Response to an independent audit's P0-P4 patch list. Each item was assessed for whether the claimed problem actually exists in this repo before any change (critical-thinking triage, not blind application).
+
+### ✅ Implemented (real gaps)
+- **Path sanitizer — POSIX + UNC coverage** (audit P0.2): `fix_abs_path` now also matches `\\server\share` and `/home|/mnt`-style absolute paths, still **marker-gated** so URLs and relative paths are never collapsed (the audit's proposed `//` regex would have corrupted every URL — not used). Added `sanitizer/tests/test_paths.py` (6 cases: marker paths collapse; URLs / relative / non-marker POSIX untouched).
+- **CI HTML tag-balance check** (audit P0.4): `scripts/check_html_balance.py` + a CI step fail the build on unbalanced structural tags in `index.html` / `eqa.html`.
+- **Markdown XSS guard comment** (audit P0.3): documented that `parseMarkdownToHtml` already escapes `&<>` up front and never emits `<a href>` from markdown, so the claimed injection path does not exist; added a guard comment so the escape is not removed.
+
+### 🧪 Assessed and intentionally NOT applied (problem already handled / out of scope)
+- **P0.3 sanitizer fn**: redundant — raw HTML is already escaped; a second sanitizer would guard an impossible path.
+- **P3.1 (left -> transform)** and **P3.2 (tooltip clamp)**: their premises are false here — mobile drawer already has zero horizontal overflow, and `positionSbTip` already clamps to the viewport.
+- **P4.2 (glossary)**: NNSL is already in the glossary; AEFSO is an experiment (defined on its card), not a metric/engine, so it does not belong in the Metrics glossary.
+- **P0.1 (window namespace encapsulation)**: deferred — marginal security value (the real XSS guard is the escape above), high-risk refactor of hundreds of inline handlers.
+- **P1.1/P1.2/P1.3, P2.1/P2.2**: out of scope for this static ledger — they target upstream engines (Flamehaven-TOE, SPAR-Framework, LOGOS), which live in other repositories.
+
+---
+
 ## [1.11.3] - 2026-06-01
 
 Pillar 3b complete — wired the maintainer ORCID; external anchors fully in place.

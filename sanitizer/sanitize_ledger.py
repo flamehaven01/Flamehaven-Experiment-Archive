@@ -33,6 +33,12 @@ _HANGUL_RE = re.compile("[" + _HANGUL + "]+(?:\\s+[" + _HANGUL + "]+)*")
 # Stop before a delimiter (" ` < & newline) and also before an escaped quote
 # (\") so paths embedded inside JSON-encoded strings keep their escaping intact.
 _PATH_RE = re.compile(r"[A-Za-z]:[\\/]+(?:(?!\\\")[^\"`<&\r\n])+")
+# UNC network paths (\\server\share\...) and POSIX absolute paths (/home/.., /mnt/..).
+# Both are only *collapsed* when they contain a workspace marker (see _is_path_leak),
+# so URLs and ordinary relative paths (./eqa/..) are never touched even though the
+# POSIX pattern may match a URL's path component.
+_UNC_RE = re.compile(r"\\\\(?:(?!\\\")[^\"`<&\r\n])+")
+_POSIX_RE = re.compile(r"/(?:[A-Za-z0-9._\-]+/)+[A-Za-z0-9._\-]*")
 # Strict octets (no leading zeros) to avoid matching SVG/coordinate number runs.
 _OCTET = r"(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
 _IPV4_RE = re.compile(r"\b" + _OCTET + r"(?:\." + _OCTET + r"){3}\b")
@@ -127,7 +133,11 @@ def fix_abs_path(text: str, cfg: dict):
         found.append(Finding("abs_path_collapse", tok, new))
         return new
 
-    return _PATH_RE.sub(repl, text), found
+    # Windows drive, then UNC, then POSIX — each gated by _is_path_leak in repl,
+    # so only marker-bearing paths collapse (URLs / relative paths stay intact).
+    for rx in (_PATH_RE, _UNC_RE, _POSIX_RE):
+        text = rx.sub(repl, text)
+    return text, found
 
 
 def fix_hangul(text: str, cfg: dict):

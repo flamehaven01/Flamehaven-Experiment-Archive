@@ -1093,7 +1093,11 @@ function switchInspectorTab(tabId, btn) {
 
 function parseMarkdownToHtml(md) {
   let html = md;
-  // Escapes for HTML safety
+  // SECURITY GUARD (do not remove): escape &,<,> up front so any raw HTML in a
+  // fetched .md report (incl. imported external reports) renders as inert text,
+  // not live markup. Combined with the fact that this parser never emits <a href>
+  // from markdown link syntax, there is no script/href XSS path. If you ever add
+  // link rendering, sanitize the href scheme (allow http/https/mailto/# only).
   html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   
   const blocks = [];

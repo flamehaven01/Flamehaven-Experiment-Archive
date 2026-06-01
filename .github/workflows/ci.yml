@@ -38,3 +38,6 @@ jobs:
           ['codemeta.json','.zenodo.json','eqa/archive/manifest.json',
           'bav/archive/manifest.json','bav/exp-031/reproduce/models.json',
           'bav/exp-031/reproduce/reference_run.json']];print('json/metadata ok')"
+
+      - name: HTML structural tag balance
+        run: python scripts/check_html_balance.py
