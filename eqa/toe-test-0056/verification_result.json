@@ -1,6 +1,12 @@
 {
   "schema_id": "erdos_ant_verification.v1",
   "schema_version": "1.0.0",
+  "canonical_run_id": "toe-test-0056",
+  "legacy_aliases": [
+    "openai-erdos-eq22"
+  ],
+  "artifact_class": "executable_research_proxy_verification",
+  "review_path": "finite_reproduction_and_ci_verification",
   "generated_at_utc": "2026-05-25T15:50:22.295815+00:00",
   "verdict": "PASS",
   "checks": {

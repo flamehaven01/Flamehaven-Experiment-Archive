@@ -30,7 +30,7 @@ The summary file is intentionally narrow. It exists only to route users into the
 ### 1. Equation-to-Artifact (EQA) Verification
 - **Focus**: Translating high-stakes mathematical and physical proofs (such as discrete geometry conjectures) into runnable, CI-tested software artifacts.
 - **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, SPAR scoring, and SIDRCE Omega gate thresholds (GREEN ≥ 0.85 · AMBER [0.75, 0.85) · RED < 0.75).
-- **Scope**: Active EQA ledger spanning records TOE-TEST-0001~0056. Includes published Zenodo-archived reproduction (0055), gate-rejected hypothesis (0052), optional backend layer experiment (0056/AEFSO), governance gate verification (0054), namespace integrity scan (0053), and the reconstructed 0001–0051 archive. That archive is classified by provenance into **7 verification runs (0001–0007)** and **44 non-run artifacts (0008–0051)** — governance / integration / bio-quantum sidecar / `meta_verify` infrastructure, which are excluded from the verification-run count. Real Flamehaven-TOE reports, imported **append-only** (paths sanitized) with per-record point-of-use reconstruction notes (errata / parser-sensitivity / ground-truth-sensitivity), surfaced through the Ledger Inspector. Engine outputs are deterministic and locally reproducible (verified by re-running the engine); the inspector shows imported reports, it does not re-verify them. See [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).
+- **Scope**: Active EQA ledger spanning records TOE-TEST-0001~0056. Includes optional backend layer experiment (0055/AEFSO), published Zenodo-archived executable reproduction (0056), gate-rejected hypothesis (0052), governance gate verification (0054), namespace integrity scan (0053), and the reconstructed 0001–0051 archive. That archive is classified by provenance into **7 verification runs (0001–0007)** and **44 non-run artifacts (0008–0051)** — governance / integration / bio-quantum sidecar / `meta_verify` infrastructure, which are excluded from the verification-run count. Real Flamehaven-TOE reports, imported **append-only** (paths sanitized) with per-record point-of-use reconstruction notes (errata / parser-sensitivity / ground-truth-sensitivity), surfaced through the Ledger Inspector. Engine outputs are deterministic and locally reproducible (verified by re-running the engine); the inspector shows imported reports, it does not re-verify them. See [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).
 - **Portal**: [`eqa.html`](./eqa.html) — dedicated EQA verification dashboard.
 
 ### 2. Bioscience Repository Compliance Scanner
@@ -57,8 +57,8 @@ flamehaven-verification-ledger/
 ├── eqa.html                             # EQA-Dedicated Dashboard Portal
 ├── index.md                             # Markdown Archive Directory
 ├── eqa/                                 # Equation-to-Artifact Run Artifacts
-│   ├── toe-test-0056/                   # AEFSO — Optional Backend Layer (SPAR: ACCEPT WITH BOUNDS)
-│   ├── toe-test-0055/ → openai-erdos-eq22/  # Erdős Eq.(2.2) Reproduction (Zenodo published)
+│   ├── toe-test-0055/                   # AEFSO — Optional Backend Layer (SPAR: ACCEPT WITH BOUNDS)
+│   ├── toe-test-0056/                   # Erdős Eq.(2.2) Reproduction (Zenodo published)
 │   ├── toe-test-0054/                   # Governance Gate Verification (BLOCK / INHIBIT)
 │   ├── toe-test-0053/                   # Namespace Integrity Scan (DEGRADED SIDECAR)
 │   ├── toe-test-0052/                   # GTE Pedagogy Hypothesis (Gate REJECTED · SPAR 73)
@@ -86,9 +86,9 @@ To interactively browse this repository, run the local dev server and open the p
 
 ### 🔢 EQA — Equation-to-Artifact Runs
 - **[EQA · 0055] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`
-  - [EQA Portal](./eqa.html#toe-test-0056) · 7-phase experiment · DO NOT PROMOTE TO CORE
+  - [EQA Portal](./eqa.html#toe-test-0055) · staged paper-to-TOE research dossier · DO NOT PROMOTE TO CORE
 - **[EQA · 0056] OpenAI Erdős Unit-Distance Disproof Eq.(2.2)** `PASS · Zenodo Published`
-  - [EQA Portal](./eqa.html#openai-erdos-eq22) | [Zenodo DOI](https://doi.org/10.5281/zenodo.15487327)
+  - [EQA Portal](./eqa.html#toe-test-0056) | [Zenodo DOI](https://doi.org/10.5281/zenodo.15487327)
 - **[EQA · 0054] Governance Gate Verification** `BLOCK / INHIBIT`
   - [EQA Portal](./eqa.html#toe-test-0054)
 - **[EQA · 0053] Namespace Integrity Scan** `DEGRADED SIDECAR`

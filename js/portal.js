@@ -178,13 +178,21 @@ function handleHashNavigation(hash) {
     openReportViewer('bioclaw', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf', 'Runchuan-BU/BioClaw', 'Bioscience Compliance · 2026-05-21');
   } else if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
-  } else if (hash === 'openai-erdos-eq22') {
+  } else if (hash === 'toe-test-0055' || hash === 'toe-test-0056-legacy-aefso' || hash === 'toe-test-aefso' || hash === 'aefso') {
     activeColl = 'toe';
     applyFilters();
     setTimeout(() => {
       const card = document.getElementById('eqa-card-0055');
       if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('openai-erdos-eq22');
+      openJsonInspector('toe-test-0055');
+    }, 150);
+  } else if (hash === 'toe-test-0056' || hash === 'openai-erdos-eq22') {
+    activeColl = 'toe';
+    applyFilters();
+    setTimeout(() => {
+      const card = document.getElementById('eqa-card-0056');
+      if (card) card.scrollIntoView({ behavior: 'smooth' });
+      openJsonInspector('toe-test-0056');
     }, 150);
   } else if (hash === 'toe-test-0054') {
     activeColl = 'toe';
@@ -209,14 +217,6 @@ function handleHashNavigation(hash) {
       const card = document.getElementById('eqa-card-0052');
       if (card) card.scrollIntoView({ behavior: 'smooth' });
       openJsonInspector('toe-test-0052');
-    }, 150);
-  } else if (hash === 'toe-test-0056') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0056');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0056');
     }, 150);
   }
 }
@@ -858,7 +858,14 @@ window.handleLocalSearch = function(type) {
 };
 
 // ── INTERACTIVE JSON INSIGHT INSPECTOR ───────────────────────────────────────
+function normalizeLiveEqaRunId(runId) {
+  if (runId === 'openai-erdos-eq22') return 'toe-test-0056';
+  if (runId === 'toe-test-0056-legacy-aefso' || runId === 'toe-test-aefso' || runId === 'aefso') return 'toe-test-0055';
+  return runId;
+}
+
 async function openJsonInspector(runId, type = 'json') {
+  runId = normalizeLiveEqaRunId(runId);
   const inspector = document.getElementById('eq-json-inspector');
   if (!inspector) return;
   // Hide any open report viewer so a prior report (e.g. a BSC report) does not bleed into this inspector view.
@@ -873,6 +880,10 @@ async function openJsonInspector(runId, type = 'json') {
       titleNode.textContent = 'BAV · EXP-031 OOD-ABLATION';
     } else if (runId === 'bav-exp-032') {
       titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
+    } else if (runId === 'toe-test-0055') {
+      titleNode.textContent = 'EQA · TOE-TEST-0055 AEFSO';
+    } else if (runId === 'toe-test-0056') {
+      titleNode.textContent = 'EQA · TOE-TEST-0056 OPENAI ERDOS EQ.2.2';
     } else if (runId.startsWith('bav-arch-')) {
       titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
     } else if (runId.startsWith('eqa-arch-')) {
@@ -902,8 +913,10 @@ async function openJsonInspector(runId, type = 'json') {
       rawTabBtn.innerHTML = `📄 Intake Report`;
     } else if (runId === 'toe-test-0052' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Analysis + Comparison`;
+    } else if (runId === 'toe-test-0055' && type === 'report') {
+      rawTabBtn.innerHTML = `📄 Research Dossier`;
     } else if (runId === 'toe-test-0056' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Interim Decision`;
+      rawTabBtn.innerHTML = `📄 Verification Note`;
     } else {
       rawTabBtn.innerHTML = `📄 Raw JSON`;
     }
@@ -911,16 +924,16 @@ async function openJsonInspector(runId, type = 'json') {
   
   // Fetch unedited raw JSON from our local workspace paths
   let jsonPath = '';
-  if (runId === 'openai-erdos-eq22') {
-    jsonPath = './eqa/openai-erdos-eq22/verification_result.json';
+  if (runId === 'toe-test-0056') {
+    jsonPath = './eqa/toe-test-0056/verification_result.json';
   } else if (runId === 'toe-test-0054') {
     jsonPath = './eqa/toe-test-0054/logos_toe_contract_inspection.json';
   } else if (runId === 'toe-test-0053') {
     jsonPath = './eqa/toe-test-0053/analysis_results.json';
   } else if (runId === 'toe-test-0052') {
     jsonPath = './eqa/toe-test-0052/internal_data.json';
-  } else if (runId === 'toe-test-0056') {
-    jsonPath = './eqa/toe-test-0056/AEFSO_MANIFEST.json';
+  } else if (runId === 'toe-test-0055') {
+    jsonPath = './eqa/toe-test-0055/AEFSO_MANIFEST.json';
   } else if (runId === 'yorkeccak-bio') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
@@ -1049,9 +1062,14 @@ async function openJsonInspector(runId, type = 'json') {
       const comparisonText = comparisonRes.ok ? await comparisonRes.text() : '';
       reportText = [analysisText, comparisonText].filter(Boolean).join('\n\n---\n\n');
     } catch (e) {}
+  } else if (type === 'report' && runId === 'toe-test-0055') {
+    try {
+      const res = await fetch('./eqa/toe-test-0055/analysis_report.md?t=' + new Date().getTime());
+      if (res.ok) reportText = await res.text();
+    } catch (e) {}
   } else if (type === 'report' && runId === 'toe-test-0056') {
     try {
-      const res = await fetch('./eqa/toe-test-0056/AEFSO_INTERIM_DECISION.md?t=' + new Date().getTime());
+      const res = await fetch('./eqa/toe-test-0056/analysis_report.md?t=' + new Date().getTime());
       if (res.ok) reportText = await res.text();
     } catch (e) {}
   }
@@ -1791,7 +1809,7 @@ function renderInspectorData(runId, data, reportText = '') {
 
   // 1. Insights Tab Contents
   let insightHtml = '';
-  if (runId === 'openai-erdos-eq22') {
+  if (runId === 'toe-test-0056') {
     const sawin = data.observations.phase3_sawin_multiquadratic || {};
     const evalData = data.observations.phase3_eq_2_2_evaluation || {};
     
@@ -2031,33 +2049,53 @@ function renderInspectorData(runId, data, reportText = '') {
         💡 <strong>Auditing Insight:</strong> <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">TOE-TEST-0052</code> is not a frozen computation run. It is a <strong>framework-sensitive review artifact</strong>: the same manually encoded subject and critique text produced a historical <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">73 / MINOR REVISION</code>, a current TOE legacy replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">76 / MINOR REVISION</code>, and a current external toe-spar replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">98 / ACCEPT</code>. The drift is policy-layer drift, not new physics output.
       </p>
     `;
-  } else if (runId === 'toe-test-0056') {
+  } else if (runId === 'toe-test-0055') {
+    const summary = data.screen_summary ?? {};
     const phaseVerdict = data.current_phase_verdict ?? {};
+    const boundary = data.promotion_boundary ?? {};
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Classification</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Paper Verdict</div>
+          <div style="font-size: 16px; font-weight: 600; color: #10b981; margin-top: 4px;">${esc(summary.paper_verdict || 'ACCEPT WITH BOUNDS')}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Representation claim survived bounded review</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">TOE Classification</div>
           <div style="font-size: 16px; font-weight: 600; color: #eab308; margin-top: 4px;">OPTIONAL LAYER</div>
           <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Not promoted to core</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">SPAR Verdict</div>
-          <div style="font-size: 16px; font-weight: 600; color: #10b981; margin-top: 4px;">ACCEPT W/ BOUNDS</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Representation sufficiency confirmed</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Phase Status</div>
-          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">Phase 7</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">TOE update docs ready</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Current Phase</div>
+          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">${esc(String(phaseVerdict.status || 'AEFSO_INSIGHT_CONVERGES_TO_TOE_UPDATE').replace(/_/g, ' '))}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">${esc(String(phaseVerdict.toe_scope || 'optional_backend_representation_layer').replace(/_/g, ' '))}</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Dogfood Runs</div>
-          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">4 completed</div>
+          <div style="font-size: 16px; font-weight: 600; color: var(--ts); margin-top: 4px;">${esc(String(summary.dogfood_runs ?? 4))} completed</div>
           <div style="font-size: 12px; color: #10b981; margin-top: 2px;">Missing-link discovered</div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px;">
+        <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What survived</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((summary.what_it_proved || []).join(' · '))}</div>
+        </div>
+        <div style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;">Promotion blockers</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((summary.promotion_blockers || []).join(' · '))}</div>
+        </div>
+        <div style="background:rgba(96,165,250,0.04);border:1px solid rgba(96,165,250,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">Missing-link IR</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((summary.missing_link_properties || []).join(' · '))}</div>
+        </div>
+        <div style="background:rgba(167,139,250,0.04);border:1px solid rgba(167,139,250,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-transform:uppercase;margin-bottom:8px;">Allowed now</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((boundary.approved_now || []).join(' · '))}</div>
+        </div>
+      </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
-        💡 <strong>Auditing Insight:</strong> AEFSO (All Elementary Functions from a Single Operator) was evaluated as a potential TOE core component using operator <code>eml(x,y) = exp(x) − ln(y)</code>. After SPAR review, fhval validation, and 4 dogfood runs, it was classified as an <strong>optional backend representation layer</strong>. Its most significant contribution: exposing the missing-link gap — the ideal TOE intermediate representation that balances search uniformity with governance readability.
+        💡 <strong>Auditing Insight:</strong> AEFSO is a <strong>paper-driven staged research artifact</strong>. The paper claim survived bounded review, but TOE-facing promotion failed on readability, guard transparency, and governance-surface clarity. The experiment still succeeded architecturally by making the missing IR requirements explicit.
       </p>
     `;
   } else if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
@@ -2212,7 +2250,34 @@ function renderInspectorData(runId, data, reportText = '') {
   };
 
   // 2. Integrity Tab Contents
-  if (runId === 'toe-test-0052') {
+  if (runId === 'toe-test-0054') {
+    const summary = data.screen_summary ?? {};
+    const law = data.lawbinder_governance ?? {};
+    const boundary = data.operational_boundary ?? {};
+    const conns = data.connections ?? {};
+    insIntegrity.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Gate Provenance</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Record type</span><span style="color:var(--ts);">${esc(data.artifact_class || 'pre_spar_intake_governance_audit')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'contract_and_governance_gate')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Schema</span><span style="color:var(--ts);">${esc(data.contract_inspection_schema_id || '')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">LawBinder root</span><span style="color:var(--ts);">${esc(law.lawbinder_root || '')}</span></div>
+        <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(summary.what_passed || '')}</div>
+      </div>`;
+    let checksHtml = `<div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Gate Boundary Checks</div>`;
+    checksHtml += renderSignalRow('Candidate generated', 'FAIL', 'LOGOS produced zero candidate results, so SPAR had nothing to review.');
+    checksHtml += renderSignalRow('Pipeline contract score usable', (data.pipeline_contract_score ?? 0) >= 0.85 ? 'PASS' : 'FAIL', `score = ${Number(data.pipeline_contract_score ?? 0).toFixed(3)} (threshold 0.850).`);
+    Object.entries(conns).forEach(([key, val]) => {
+      const status = (val.contract_score ?? 0) >= 0.85 ? 'PASS' : 'WARN';
+      checksHtml += renderSignalRow(`Connection · ${key.replace(/_/g, ' ')}`, status, `score ${Number(val.contract_score ?? 0).toFixed(3)} · issues: ${(val.issues || []).join('; ') || 'none'}`);
+    });
+    (law.constraint_results || []).forEach(c => {
+      const status = c.passed ? 'PASS' : (c.violation_score >= 1 ? 'FAIL' : 'WARN');
+      checksHtml += renderSignalRow(`LawBinder · ${c.name}`, status, c.message || 'passed');
+    });
+    checksHtml += renderSignalRow('Offline-only boundary', 'PASS', (boundary.blocked_now || []).join('; ') || 'promotion remains blocked until a real candidate exists');
+    insChecks.innerHTML = checksHtml;
+  } else if (runId === 'toe-test-0052') {
     const hist = data.historical_snapshot ?? {};
     const replays = data.current_replays ?? {};
     const summary = data.screen_summary ?? {};
@@ -2237,6 +2302,32 @@ function renderInspectorData(runId, data, reportText = '') {
       else if (f.status === 'WARN') status = 'WARN';
       else status = 'DERIVED';
       checksHtml += renderSignalRow(`${f.layer || '?'} · ${f.check_id || ''}`, status, f.detail || '');
+    });
+    insChecks.innerHTML = checksHtml;
+  } else if (runId === 'toe-test-0055') {
+    const summary = data.screen_summary ?? {};
+    const phaseVerdict = data.current_phase_verdict ?? {};
+    const stages = Array.isArray(data.stage_outputs) ? data.stage_outputs : [];
+    const boundary = data.promotion_boundary ?? {};
+    insIntegrity.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Research Provenance</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Record type</span><span style="color:var(--ts);">${esc(data.artifact_class || 'paper_driven_staged_research_artifact')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Canonical run</span><span style="color:var(--ts);">${esc(data.canonical_run_id || 'toe-test-0055')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Legacy aliases</span><span style="color:var(--ts);">${esc((data.legacy_aliases || []).join(', '))}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'paper_review_to_fhval_to_dogfood')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Current phase</span><span style="color:var(--ts);">${esc(String(phaseVerdict.status || '').replace(/_/g, ' '))}</span></div>
+        <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(summary.why_it_matters || '')}</div>
+      </div>`;
+    let checksHtml = `<div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Stage and Boundary Checks</div>`;
+    stages.forEach(s => {
+      checksHtml += renderSignalRow(s.name || 'stage', s.status || 'DERIVED', s.detail || '');
+    });
+    (boundary.approved_now || []).forEach(v => {
+      checksHtml += renderSignalRow(`Allowed now · ${v}`, 'PASS', 'Bounded AEFSO use that remains inside research-only backend scope.');
+    });
+    (boundary.blocked_now || []).forEach(v => {
+      checksHtml += renderSignalRow(`Blocked now · ${v}`, 'FAIL', 'Core promotion remains blocked because the representation loses too much reviewability on TOE-facing surfaces.');
     });
     insChecks.innerHTML = checksHtml;
   } else if (runId === 'toe-test-0053') {
@@ -2374,8 +2465,10 @@ function renderInspectorData(runId, data, reportText = '') {
   let rawContent = JSON.stringify(data, (k, v) => k.startsWith('_') ? undefined : v, 2);
   let copyButtonId = 'btn-copy-raw-json';
   
-  if ((runId === 'toe-test-0052' || runId === 'toe-test-0053') && reportText) {
-    const reportTitle = runId === 'toe-test-0052'
+  if ((runId === 'toe-test-0054' || runId === 'toe-test-0052' || runId === 'toe-test-0053') && reportText) {
+    const reportTitle = runId === 'toe-test-0054'
+      ? '📄 Governance Gate Report (TOE-TEST-0054)'
+      : runId === 'toe-test-0052'
       ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
       : '📄 Namespace Audit Report (TOE-TEST-0053)';
     insRaw.innerHTML = `
@@ -2405,14 +2498,16 @@ function renderInspectorData(runId, data, reportText = '') {
         });
       };
     }
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
       ? '📄 Namespace Audit Report (TOE-TEST-0053)'
       : runId === 'toe-test-0052'
       ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
-      : '📄 Interim Decision (TOE-TEST-0056)';
+      : runId === 'toe-test-0055'
+      ? '📄 AEFSO Research Dossier (TOE-TEST-0055)'
+      : '📄 Verification Note (TOE-TEST-0056)';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>
@@ -2436,8 +2531,8 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056');
-      const prefersJson = (runId === 'toe-test-0052' || runId === 'toe-test-0053');
+      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056');
+      const prefersJson = (runId === 'toe-test-0054' || runId === 'toe-test-0052' || runId === 'toe-test-0053');
       const copyVal = (isMarkdownReport && !prefersJson) ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
         copyBtn.textContent = 'Copied!';
@@ -2461,11 +2556,11 @@ function renderInspectorData(runId, data, reportText = '') {
 
 function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
-  if (runId === 'openai-erdos-eq22') return buildErdosCharts(data);
+  if (runId === 'toe-test-0056') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
   if (runId === 'toe-test-0053') return buildLogosRuntimeCharts(data);
   if (runId === 'toe-test-0052') return buildSparCharts(data);
-  if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
+  if (runId === 'toe-test-0055') return buildAEFSOCharts(data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
   if (runId === 'bav-exp-005') return buildBavExp005Charts(data);
   if (runId === 'bav-exp-028') return buildBavExp028Charts(data);
@@ -2947,6 +3042,8 @@ function buildLogosRuntimeCharts(data) {
 
 function buildAEFSOCharts(data) {
   const stack = data.validation_stack ?? [];
+  const stages = data.stage_outputs ?? [];
+  const summary = data.screen_summary ?? {};
   const stackColors = ['#10b981', '#3b82f6', '#a78bfa'];
   return [
     {
@@ -2965,13 +3062,74 @@ function buildAEFSOCharts(data) {
       ],
       options: { centerText: 'ORL', centerSub: 'classification', caption: 'AEFSO received OPTIONAL_REPRESENTATION_LAYER classification. Core candidate rejected; missing-link discovery approved for continued research.' },
     },
+    {
+      type: 'bar',
+      title: 'Stage Outcomes',
+      data: stages.map(s => ({
+        label: s.name,
+        value: s.status === 'PASS' ? 100 : s.status === 'WARN' ? 60 : 20,
+        color: s.status === 'PASS' ? '#10b981' : s.status === 'WARN' ? '#eab308' : '#ef4444',
+        note: s.detail
+      })),
+      options: { maxValue: 100, unit: '% confidence', caption: 'AEFSO survives as a bounded research candidate, but the core-promotion step fails on readability and governance-surface criteria.' },
+    },
+    {
+      type: 'bar',
+      title: 'Architectural Yield Mix',
+      data: [
+        { label: 'What survived', value: (summary.what_it_proved || []).length, color: '#10b981' },
+        { label: 'Promotion blockers', value: (summary.promotion_blockers || []).length, color: '#ef4444' },
+        { label: 'Missing-link properties', value: (summary.missing_link_properties || []).length, color: '#60a5fa' },
+      ],
+      options: { maxValue: 5, unit: 'signals', caption: '0055 is not a clean fail. The missing-link output is part of the result, not post-hoc spin.' },
+    },
   ];
 }
 
 function renderAnalysisTab(container, runId, data) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // Source claims provenance table (EQA-specific — kept as structured table)
-  if (runId === 'openai-erdos-eq22') {
+  if (runId === 'toe-test-0055') {
+    const stages = data.stage_outputs ?? [];
+    const boundary = data.promotion_boundary ?? {};
+    if (stages.length) {
+      const section = document.createElement('div');
+      section.style.cssText = 'margin-bottom:28px;';
+      section.innerHTML = `
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:12px;">Staged Research Flow</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          ${stages.map(s => `
+            <div style="padding:12px 14px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-md);">
+              <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;">${esc(s.name || '')}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${s.status === 'PASS' ? '#10b981' : s.status === 'WARN' ? '#eab308' : '#ef4444'};">${esc(s.status || 'DERIVED')}</span>
+              </div>
+              <div style="font-size:12.5px;color:var(--t3);line-height:1.6;">${esc(s.detail || '')}</div>
+            </div>
+          `).join('')}
+        </div>`;
+      container.appendChild(section);
+    }
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:28px;';
+    section.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:12px;">Boundary and Missing-Link Read</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
+        <div style="padding:12px 14px;background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">Allowed now</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((boundary.approved_now || []).join(' · '))}</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-md);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Blocked now</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((boundary.blocked_now || []).join(' · '))}</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(96,165,250,0.04);border:1px solid rgba(96,165,250,0.18);border-radius:var(--r-md);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">Missing-link target</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((boundary.missing_link || []).join(' · '))}</div>
+        </div>
+      </div>`;
+    container.appendChild(section);
+  } else if (runId === 'toe-test-0056') {
     const srcClaims = data.observations?.density_metrics?.source_claims ?? [];
     if (srcClaims.length) {
       const section = document.createElement('div');

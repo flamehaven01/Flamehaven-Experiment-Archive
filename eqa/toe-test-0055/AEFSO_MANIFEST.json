@@ -1,0 +1,119 @@
+{
+  "experiment_id": "TOE-TEST-AEFSO",
+  "title": "All Elementary Functions from a Single Operator",
+  "short_name": "AEFSO",
+  "status": "phase7_toe_update_docs_ready",
+  "date_initialized": "2026-04-16",
+  "location": "TOE-TEST-AEFSO",
+  "paper_sources": [
+    "All elementary functions from a single operator.pdf",
+    "All elementary functions from a single operator.txt"
+  ],
+  "validation_stack": [
+    "SPAR paper review",
+    "fhval validation",
+    "TOE dogfood"
+  ],
+  "working_hypothesis": "AEFSO is more likely to be a representation-layer or symbolic-search primitive than a direct replacement for TOE core physics models.",
+  "canonical_run_id": "toe-test-0055",
+  "legacy_aliases": [
+    "toe-test-0056-legacy-aefso",
+    "toe-test-aefso",
+    "aefso"
+  ],
+  "artifact_class": "paper_driven_staged_research_artifact",
+  "review_path": "paper_review_to_fhval_to_dogfood",
+  "current_phase_verdict": {
+    "phase": "toe_design_update_diagnostic",
+    "status": "AEFSO_INSIGHT_CONVERGES_TO_TOE_UPDATE",
+    "toe_scope": "optional_backend_representation_layer",
+    "next_gate": "closed"
+  },
+  "target_outcomes": [
+    "core_candidate",
+    "possible_area_candidate",
+    "missing_link_discovery"
+  ],
+  "source_documents": [
+    "AEFSO_SPAR_REVIEW_v1.md",
+    "AEFSO_INTERIM_DECISION.md",
+    "AEFSO_MISSING_LINK_SYNTHESIS.md"
+  ],
+  "screen_summary": {
+    "paper_verdict": "ACCEPT WITH BOUNDS",
+    "toe_classification": "optional_backend_representation_layer",
+    "core_promotion": "blocked",
+    "dogfood_runs": 4,
+    "what_it_proved": [
+      "Single-operator representation sufficiency is a real mathematical claim worth bounded testing.",
+      "AEFSO remains viable as a backend normalization and symbolic-search surface.",
+      "The experiment exposed the missing intermediate-representation layer TOE actually needs."
+    ],
+    "promotion_blockers": [
+      "Does not preserve native readability on governance-facing or geometry-facing contracts.",
+      "Handles multiplication-heavy and sign-sensitive helper math too opaquely.",
+      "Does not improve reviewability of threshold, guard, or branch-carrying expressions."
+    ],
+    "missing_link_properties": [
+      "Search-uniform backend normalization",
+      "First-class multiplication / ratio / sign handling",
+      "Guard-carrying domain metadata",
+      "Review-surface preservation for beta, omega, and EFT inequalities"
+    ],
+    "recommended_scope": [
+      "experimental symbolic representation layer",
+      "compiler / search / IR investigation",
+      "backend-only normalization experiments"
+    ],
+    "next_actions": [
+      "test hybrid IR rather than full AEFSO replacement",
+      "carry positivity and branch metadata explicitly",
+      "retest only if bounded complexity and reviewability improve"
+    ],
+    "why_it_matters": "AEFSO did not become TOE core math, but it produced a more valuable output than a binary fail: a concrete specification for the missing IR between search-uniform syntax and governance-readable equations."
+  },
+  "stage_outputs": [
+    {
+      "name": "Paper admissibility",
+      "status": "PASS",
+      "detail": "SPAR paper review accepted the bounded representation-sufficiency claim."
+    },
+    {
+      "name": "fhval validation",
+      "status": "PASS",
+      "detail": "The claim survived bounded validation wording without silent TOE core promotion."
+    },
+    {
+      "name": "TOE dogfood contact",
+      "status": "WARN",
+      "detail": "Primitive and helper-level contact survived, but front-facing clarity degraded on stronger contracts."
+    },
+    {
+      "name": "Core promotion",
+      "status": "FAIL",
+      "detail": "AEFSO is not clearer, cheaper, or more reviewable than native TOE contracts on governance-facing surfaces."
+    },
+    {
+      "name": "Missing-link discovery",
+      "status": "PASS",
+      "detail": "The experiment converged on the shape of the IR TOE actually needs."
+    }
+  ],
+  "promotion_boundary": {
+    "approved_now": [
+      "research-only backend normalization",
+      "symbolic search and compiler experiments",
+      "IR discovery scaffolding"
+    ],
+    "blocked_now": [
+      "canonical TOE mathematical form",
+      "default evaluator representation",
+      "human-facing governance or score surfaces"
+    ],
+    "missing_link": [
+      "hybrid frontend/backend IR",
+      "guard-carrying tree metadata",
+      "uniform search without sacrificing sector readability"
+    ]
+  ]
+}

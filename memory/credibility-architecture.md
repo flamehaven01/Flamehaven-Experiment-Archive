@@ -46,7 +46,7 @@ This rule overrides any wording choice elsewhere in this spec.
 
 ## 1. The exemplar (already shipped): EQA card 0055
 
-`eqa-card-0055` (OpenAI Erdos Eq. 2.2 reproduction) is the model every serious claim should follow:
+`eqa-card-0056` (OpenAI Erdos Eq. 2.2 reproduction) is the model every serious claim should follow:
 
 | Button | Target | Credibility role |
 |--------|--------|------------------|
@@ -105,7 +105,7 @@ ADVISORY-HEURISTIC metrics never appear in a headline, title, banner, or summary
 
 | Lane | Public anchor | Status | Integration |
 |------|---------------|--------|-------------|
-| EQA | github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction (MIT) + Zenodo 15487327 | **live, linked on 0055** | extend pattern; keep |
+| EQA | github.com/Flamehaven-Labs/openai-erdos-eq22-reproduction (MIT) + Zenodo 15487327 | **live, linked on 0056** | extend pattern; keep |
 | BSC | github.com/flamehaven01/STEM-BIO-AI (MIT, local clone present) | exists, **not yet linked from BSC cards** | add `[Repo]` + reproduction commit |
 | BAV | none public yet | **gap** | build scaffold-able repro pipeline (recent 5 exps) |
 | tooling | github.com/flamehaven01/SPAR-Framework (PyPI `spar-framework`) | exists | cite as ADVISORY engine, link for transparency |

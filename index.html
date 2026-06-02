@@ -97,11 +97,11 @@
         </div>
         <div class="sb-children" id="child-toe">
           <div class="sb-files" style="padding-left: 8px;">
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0056').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#eab308"></span>
               <span class="sb-file-name">eqa-test-0055 <span style="font-size:10px;color:var(--t5);">(AEFSO)</span></span>
             </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0056').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#10b981"></span>
               <span class="sb-file-name">eqa-test-0056 <span style="font-size:10px;color:var(--t5);">(openai-erdos)</span></span>
             </div>
@@ -443,7 +443,7 @@
     <div class="eq-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
       
       <!-- CARD 1: EQA-TEST-0055 (AEFSO) -->
-      <article class="eq-card" id="eqa-card-0056" data-status="verified" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+      <article class="eq-card" id="eqa-card-0055" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #3b82f6; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EQA-TEST-0055</span>
@@ -458,17 +458,17 @@
           All Elementary Functions from a Single Operator (AEFSO)
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          We evaluated whether the AEFSO operator <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">eml(x,y) = exp(x) − ln(y)</code> could serve as a TOE core component — a single binary primitive sufficient to reconstruct all elementary functions. Assessed via SPAR paper review, fhval validation, and 4 dogfood runs.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: SPAR ACCEPT WITH BOUNDS. Classified as OPTIONAL_REPRESENTATION_LAYER — approved for symbolic normalization and IR research, not promoted to core. Key contribution: missing-link IR discovery.</strong>
+          We evaluated whether the AEFSO operator <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">eml(x,y) = exp(x) − ln(y)</code> could serve as a TOE core component through a staged paper-to-TOE research stack: SPAR paper review, fhval validation, and 4 dogfood runs.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: ACCEPT WITH BOUNDS at paper level, blocked for TOE core promotion, retained as OPTIONAL_REPRESENTATION_LAYER. The durable output is the missing-link IR discovery, not a core PASS.</strong>
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0056'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+          <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0055'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
             </svg>
             [JSON]
           </button>
-          <a class="eq-slot-btn" href="#" onclick="openJsonInspector('toe-test-0056', 'report'); return false;" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+          <a class="eq-slot-btn" href="#" onclick="openJsonInspector('toe-test-0055', 'report'); return false;" style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <rect x="2" y="2" width="8" height="8" rx="1"/>
               <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
@@ -491,7 +491,7 @@
       </article>
 
       <!-- CARD 2: EQA-TEST-0056 (OpenAI Erdos Eq 2.2) -->
-      <article class="eq-card" id="eqa-card-0055" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+      <article class="eq-card" id="eqa-card-0056" data-status="verified" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EQA-TEST-0056</span>
@@ -511,7 +511,7 @@
         </p>
         
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-          <button class="eq-slot-btn" onclick="openJsonInspector('openai-erdos-eq22'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+          <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0056'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
             </svg>
@@ -540,7 +540,7 @@
       </article>
 
       <!-- CARD 3: EQA-TEST-0054 (Governance Gate) -->
-      <article class="eq-card" id="eqa-card-0054" data-status="verified" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+      <article class="eq-card" id="eqa-card-0054" data-status="published" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #3b82f6; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EQA-TEST-0054</span>
@@ -556,7 +556,7 @@
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
           We evaluated whether the offline reasoning sidecar pipeline could safely ingest theoretical math solver candidates without bypassing mandatory governance review. The system was presented with an incomplete research dossier lacking a concrete algebraic model candidate.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: The intake contract engine correctly identified the gaps, issued a hard 'BLOCK' recommendation to inhibit candidate promotion, and successfully protected the ledger registry.</strong>
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: this is a pre-SPAR intake governance audit, not a math verdict. LOGOS returned zero candidate results, so the contract score fell to <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">0.625</code>, dangerous pass risk stayed at <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;">1.0</code>, and LawBinder issued <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;">INHIBIT</code>. The useful outcome is that the boundary held: no candidate, no promotion, SPAR still mandatory.</strong>
         </p>
         
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -1790,7 +1790,7 @@
           <rect x="2" y="2" width="12" height="12" rx="1.5"/>
           <path d="M5 5h6M5 8h6M5 11h4" stroke-linecap="round"/>
         </svg>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ts);">Ledger Inspector: <span id="inspector-run-id">openai-erdos-eq22</span></span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ts);">Ledger Inspector: <span id="inspector-run-id">toe-test-0056</span></span>
       </div>
       <button onclick="closeJsonInspector()" style="background: transparent; border: none; color: var(--t4); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: var(--r-xs); transition: all 0.15s;" onmouseover="this.style.color='var(--ts)'" onmouseout="this.style.color='var(--t4)'">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">

@@ -1,5 +1,30 @@
 {
   "contract_inspection_schema_id": "flamehaven_toe.logos_toe_contract_inspection.v1",
+  "artifact_class": "pre_spar_intake_governance_audit",
+  "non_run_artifact": true,
+  "review_path": "contract_and_governance_gate",
+  "screen_summary": {
+    "record_type": "pre-SPAR intake governance audit",
+    "decisive_issue": "LOGOS completed the intake call but produced zero candidate results, so there is nothing for SPAR to review.",
+    "what_passed": "The trust boundary held: SPAR remains mandatory, runtime promotion is blocked, and LawBinder correctly inhibited registry advancement.",
+    "next_actions": [
+      "improve the evidence/query surface so LOGOS can emit at least one candidate",
+      "rerun the same intake gate before any SPAR review",
+      "keep LOGOS as generator-only until a real candidate exists"
+    ]
+  },
+  "operational_boundary": {
+    "allowed_now": [
+      "offline LOGOS candidate generation attempts",
+      "artifact capture and contract inspection",
+      "LawBinder arbitration before SPAR"
+    ],
+    "blocked_now": [
+      "registry promotion without a candidate",
+      "treating LOGOS as a TOE verifier or PASS source",
+      "bypassing SPAR after a no-candidate run"
+    ]
+  },
   "pipeline_contract_score": 0.625,
   "dangerous_pass_risk": 1.0,
   "gate_recommendation": "BLOCK",

@@ -15,6 +15,12 @@
     "dashboard production build"
   ],
   "working_hypothesis": "The OpenAI/Erdos algebraic number theory result is useful as a TOE representation-layer research proxy, not as a direct core physics gate.",
+  "canonical_run_id": "toe-test-0056",
+  "legacy_aliases": [
+    "openai-erdos-eq22"
+  ],
+  "artifact_class": "executable_research_proxy_verification",
+  "review_path": "finite_reproduction_and_ci_verification",
   "expected_outputs": [
     "analysis_result.json",
     "analysis_report.md"
@@ -23,5 +29,21 @@
   "authoritative_gap_id": "ANT1",
   "legacy_gap_ids_not_owned": [
     "C9"
+  ],
+  "screen_summary": {
+    "verdict": "PASS",
+    "research_scope": "executable_research_only_proxy_verified",
+    "what_was_verified": [
+      "finite lattice cases",
+      "genus-theory class-field construction",
+      "finite part of the Sawin multi-quadratic path",
+      "Equation (2.2) lower-bound evaluation",
+      "targeted pytest and API endpoint checks"
+    ],
+    "not_claimed": [
+      "full OpenAI proof reproduction",
+      "infinite class field tower construction",
+      "TOE core-physics PASS"
+    ]
   ]
 }

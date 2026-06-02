@@ -6,10 +6,11 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ## [1.13.2] - 2026-06-02
 
-EQA display-number swap for 0055/0056 (chronology). AEFSO (`2026-04-18`) now shows as **EQA-TEST-0055**, and the OpenAI Erdős reproduction (`2026-05-25` — the more recent, Zenodo-published run) shows as **EQA-TEST-0056**, so the two read in date order.
+EQA canonical renumber correction for `0055/0056`. AEFSO (`2026-04-18`) is now the canonical **TOE-TEST-0055** record, and the OpenAI Erdős reproduction (`2026-05-25`) is the canonical **TOE-TEST-0056** record.
 
-- **Display labels only**, changed in `index.html`, `eqa.html`, and the README cards. Underlying identifiers are **unchanged**: AEFSO stays slug/folder/runId `toe-test-0056` (DOM `eqa-card-0056`); Erdős stays `openai-erdos-eq22` (DOM `eqa-card-0055`, Zenodo DOI). No folders renamed, no deep-link hashes (`#toe-test-0056`, `#openai-erdos-eq22`) or `openJsonInspector(...)` calls touched — nothing external (DOI / repo links) breaks.
-- Follows the ledger's existing convention that the `EQA-TEST-NNNN` badge is a **display label** while the slug is the stable identifier (Erdős already had label≠slug). TOE-TEST numbers are assignment-order labels, not strict chronology.
+- **Canonical identifiers updated** in `index.html`, `eqa.html`, `portal.js`, the live EQA paths, and surfaced summaries. AEFSO now resolves through folder/runId `toe-test-0055` (DOM `eqa-card-0055`); the Erdős reproduction now resolves through canonical runId/folder `toe-test-0056`, with legacy alias `openai-erdos-eq22` retained for compatibility.
+- **Hash reassignment is intentional**: canonical `#toe-test-0056` now opens the OpenAI Erdős reproduction. AEFSO legacy entry points are `#toe-test-aefso`, `#aefso`, and `#toe-test-0056-legacy-aefso`, all routed to canonical `toe-test-0055`.
+- **Single-source cleanup**: legacy duplicate folders were removed after canonical parity checks. Backward compatibility is provided by hash/runId aliasing, not by keeping dead data copies in the ledger tree.
 
 ---
 
@@ -160,7 +161,7 @@ Credibility architecture — **Pillar 3a: scientific-artifact metadata** (the in
 Credibility architecture — **Pillar 2 of 3: independent reproduction anchors**. Each lane resolves to something an outside party can check without trusting any Flamehaven metric.
 
 ### 🔁 Reproduction anchors
-- **EQA** — unchanged: card 0055 already links the public MIT repo (`Flamehaven-Labs/openai-erdos-eq22-reproduction`) + Zenodo DOI `10.5281/zenodo.15487327`.
+- **EQA** — card 0056 now links the public MIT repo (`Flamehaven-Labs/openai-erdos-eq22-reproduction`) + Zenodo DOI `10.5281/zenodo.15487327`.
 - **BSC** — both audit cards now carry a `Scanner (MIT)` link to the public scanner `github.com/flamehaven01/STEM-BIO-AI` (PyPI `stem-ai`). The `report.json` already records the target repo remote + commit + scanner version, so a third party reproduces the deterministic tier (`pip install stem-ai`; clone the target @ the recorded commit; `stem scan --level 3`). Output artifacts were not modified.
 - **BAV** — a payload scan found only **EXP-031** carries a foldable input (52-aa sequence) + external structural metrics (pLDDT/PAE/pTM across AF3/AF2). It ships `bav/exp-031/reproduce/`: `input.fasta` (SHA-256 anchored), `models.json` (per-arm validators + recorded adapter versions + shared seed + AF3 model version), `reference_run.json` (recorded AF2/AF3 metrics + per-arm pipeline pLDDT/drift + determinism signatures), and a `README` with the public re-fold procedure. A `Reproduce` link on the EXP-031 card points to it.
 
@@ -316,11 +317,11 @@ EQA lane expansion adding two new verification cards (0052, 0056/AEFSO), portal 
 
 ### ➕ New EQA Content
 - **TOE-TEST-0052 — GTE Pedagogy Hypothesis**: Gate REJECTED verdict card. SPAR 73/100, SIDRCE Omega 0.697 (RED band). Wired to inspector with SPAR sub-score bar and Omega gauge. Raw data: `eqa/toe-test-0052/internal_data.json` + `analysis_report.md`.
-- **TOE-TEST-0056 — AEFSO Optional Backend Representation Layer**: 7-phase experiment card. SPAR ACCEPT WITH BOUNDS. Classified `optional_backend_representation_layer`; DO NOT PROMOTE TO CORE, KEEP ALIVE. Wired with phase progression chart. Raw data: `eqa/toe-test-0056/AEFSO_MANIFEST.json` + decision/synthesis/review documents.
+- **TOE-TEST-0055 — AEFSO Optional Backend Representation Layer**: staged research dossier. SPAR ACCEPT WITH BOUNDS. Classified `optional_backend_representation_layer`; DO NOT PROMOTE TO CORE, KEEP ALIVE. Canonical raw data now lives at `eqa/toe-test-0055/AEFSO_MANIFEST.json` + dossier / decision / synthesis / review documents.
 
 ### 📐 Navigation & Sidebar
-- **Descending run-code ordering**: EQA sidebar and card list reordered 0056 → 0055 → 0054 → 0053 → 0052 → archive (code-order, not time-order).
-- **Sidebar rename**: `openai-erdos-eq22 (0055)` → `eqa-test-0055 (openai-erdos)` for run-code-first consistency.
+- **Descending run-code ordering**: EQA sidebar and card list now follow canonical numbering 0056 → 0055 → 0054 → 0053 → 0052 → archive.
+- **Canonical live mapping**: `eqa-test-0055` = AEFSO, `eqa-test-0056` = OpenAI Erdős reproduction, with legacy alias support preserved in the inspector router.
 - **📁/📂 Emoji folder icons**: Replaced SVG path chevron with `::before` content-toggling emoji (📁 closed / 📂 open on `.open` class).
 
 ### 📱 Mobile Responsiveness
