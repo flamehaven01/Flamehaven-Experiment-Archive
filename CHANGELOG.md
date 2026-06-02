@@ -4,6 +4,15 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.13.2] - 2026-06-02
+
+EQA display-number swap for 0055/0056 (chronology). AEFSO (`2026-04-18`) now shows as **EQA-TEST-0055**, and the OpenAI Erdős reproduction (`2026-05-25` — the more recent, Zenodo-published run) shows as **EQA-TEST-0056**, so the two read in date order.
+
+- **Display labels only**, changed in `index.html`, `eqa.html`, and the README cards. Underlying identifiers are **unchanged**: AEFSO stays slug/folder/runId `toe-test-0056` (DOM `eqa-card-0056`); Erdős stays `openai-erdos-eq22` (DOM `eqa-card-0055`, Zenodo DOI). No folders renamed, no deep-link hashes (`#toe-test-0056`, `#openai-erdos-eq22`) or `openJsonInspector(...)` calls touched — nothing external (DOI / repo links) breaks.
+- Follows the ledger's existing convention that the `EQA-TEST-NNNN` badge is a **display label** while the slug is the stable identifier (Erdős already had label≠slug). TOE-TEST numbers are assignment-order labels, not strict chronology.
+
+---
+
 ## [1.13.1] - 2026-06-02
 
 Forensic-audit response. An external forensic audit (Antigravity: Opus 4.7 + Gemini 3 Flash) raised five issues; each was verified against the repo before any action.

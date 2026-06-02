@@ -85,9 +85,9 @@ To interactively browse this repository, run the local dev server and open the p
 2. Open `http://localhost:8080` in your browser.
 
 ### 🔢 EQA — Equation-to-Artifact Runs
-- **[EQA · 0056] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`
+- **[EQA · 0055] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`
   - [EQA Portal](./eqa.html#toe-test-0056) · 7-phase experiment · DO NOT PROMOTE TO CORE
-- **[EQA · 0055] OpenAI Erdős Unit-Distance Disproof Eq.(2.2)** `PASS · Zenodo Published`
+- **[EQA · 0056] OpenAI Erdős Unit-Distance Disproof Eq.(2.2)** `PASS · Zenodo Published`
   - [EQA Portal](./eqa.html#openai-erdos-eq22) | [Zenodo DOI](https://doi.org/10.5281/zenodo.15487327)
 - **[EQA · 0054] Governance Gate Verification** `BLOCK / INHIBIT`
   - [EQA Portal](./eqa.html#toe-test-0054)
