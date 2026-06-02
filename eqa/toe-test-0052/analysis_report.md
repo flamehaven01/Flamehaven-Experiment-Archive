@@ -4,6 +4,16 @@
 **Trace ID**: `toe-test-0052`
 **Source**: LinkedIn Academic Discussion (Ben Said Mosbah et al.)
 
+> **Archive reconstruction note**
+> This markdown preserves the historical `REJECTED / MINOR REVISION / 73` snapshot that shipped with the first 0052 ledger card. It should not be read as the current replay result. Re-running the same manually encoded `subject` and `report_text` on `2026-06-02` yields `MINOR REVISION / 76` under current TOE legacy SPAR and `ACCEPT / 98` under current external `toe-spar` / `spar-framework`. See `comparison_2025_2026.md` for the detailed side-by-side analysis.
+
+## Key Takeaways
+
+- The reviewed mathematical core is bounded-valid, not universally pedagogical.
+- The decisive problem is claim scope, not arithmetic incoherence.
+- The same encoded review payload now yields three different review outcomes (`73`, `76`, `98`) across policy surfaces.
+- This record is therefore best read as a framework-sensitive review artifact.
+
 ---
 
 ## Phase 1: HARVEST

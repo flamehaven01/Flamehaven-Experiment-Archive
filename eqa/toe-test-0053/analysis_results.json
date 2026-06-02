@@ -1,5 +1,32 @@
 {
   "test_id": "TOE-TEST-0053",
+  "artifact_class": "runtime_integration_audit",
+  "non_run_artifact": true,
+  "review_path": "executable_runtime_probe",
+  "comparison_note": "This record is a replay-stable runtime integration audit, not a TOE physics verification run. The key finding is a namespace collision plus direct-import/runtime timeout, so the honest reading is offline sidecar only.",
+  "screen_summary": {
+    "record_type": "runtime integration audit",
+    "decisive_issue": "The active Python environment resolves `logos` to the RExSyn package path while direct Flamehaven-LOGOS import and AATS smoke both time out.",
+    "safe_boundary_preserved": "LOGOS remains generator-only; TOE contract tests pass and no verifier/promotion boundary is breached.",
+    "next_actions": [
+      "isolate the `logos` namespace so Flamehaven-LOGOS resolves first",
+      "reduce direct-import latency below timeout budget",
+      "rerun the same probe after namespace and latency fixes",
+      "only then test candidate generation inside the guarded intake path"
+    ]
+  },
+  "operational_boundary": {
+    "allowed_now": [
+      "offline candidate ideation",
+      "artifact-first review preparation",
+      "TOE contract and export validation"
+    ],
+    "blocked_now": [
+      "dashboard/request-path direct runtime import",
+      "AATS smoke execution in the active environment",
+      "any use of LOGOS as a TOE verifier or PASS source"
+    ]
+  },
   "created_at": "2026-05-24T09:56:27+00:00",
   "question": "Can Flamehaven-LOGOS safely act as an offline TOE candidate sidecar?",
   "baseline_comparison": [
@@ -137,7 +164,7 @@
       "duration_s": 0.105,
       "returncode": 0,
       "status": "pass",
-      "stdout": "n",
+      "stdout": "[workspace]/RExSyn-Nexus-main/src/logos/__init__.py\n",
       "stderr": ""
     },
     "direct_import": {

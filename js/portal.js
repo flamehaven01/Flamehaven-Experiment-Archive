@@ -1897,26 +1897,43 @@ function renderInspectorData(runId, data, reportText = '') {
       if (defaultBtn) steerPrecision(64, defaultBtn);
     }, 50);
   } else if (runId === 'toe-test-0054') {
+    const summary = data.screen_summary ?? {};
+    const law = data.lawbinder_governance ?? {};
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Gating Verdict</div>
-          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">BLOCK / INHIBIT</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Pre-intake promote barrier</div>
+          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">${esc(data.gate_recommendation ?? 'BLOCK')} / ${esc(law.decision ?? 'INHIBIT')}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Pre-SPAR intake governance barrier</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Pipeline Contract Score</div>
-          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">0.625</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Min Required: 0.850</div>
+          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${Number(data.pipeline_contract_score ?? 0).toFixed(3)}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Min required: 0.850</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">LawBinder Action</div>
-          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">Hard Inhibit</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">No candidate math generated</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Candidate Generation</div>
+          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">0 candidates</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">The decisive blocker before SPAR</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Dangerous Pass Risk</div>
+          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">${Number(data.dangerous_pass_risk ?? 0).toFixed(1)}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Registry promotion must stay blocked</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px;">
+        <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Decisive issue</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.decisive_issue || 'No candidate existed for SPAR to review.')}</div>
+        </div>
+        <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What held correctly</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.what_passed || 'SPAR remained mandatory and promotion stayed blocked.')}</div>
         </div>
       </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
-        💡 <strong>Auditing Insight:</strong> This was a pre-SPAR intake gate test. The automated reasoning model did not generate an explicit, checkable math candidate. The gate correctly executed its safety mandate by halting promotion and locking the registry.
+        💡 <strong>Auditing Insight:</strong> This was a <strong>pre-SPAR intake governance audit</strong>. The useful result is not merely that the run was blocked. The useful result is that the system distinguished between <em>no candidate generated</em> and <em>bad candidate approved</em>, then held the promotion boundary exactly where it should: before SPAR, before registry change, and before any PASS interpretation.
       </p>
     `;
   } else if (runId === 'toe-test-0053') {
@@ -1926,6 +1943,7 @@ function renderInspectorData(runId, data, reportText = '') {
     const aats = runtime.aats_smoke ?? {};
     const contract = data.toe_contract_probe ?? {};
     const packageOrigin = (pkg.stdout || '').trim() || '[unknown]';
+    const summary = data.screen_summary ?? {};
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
@@ -1949,6 +1967,16 @@ function renderInspectorData(runId, data, reportText = '') {
           <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Sidecar/report export tests replay cleanly</div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px;">
+        <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Decisive Issue</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.decisive_issue || 'The namespace resolves to the wrong logos package and both runtime probes time out.')}</div>
+        </div>
+        <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">Safe Boundary Preserved</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.safe_boundary_preserved || 'TOE-side contract and export rules still hold, so the sidecar stays offline-only rather than silently promoting anything.')}</div>
+        </div>
+      </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
         💡 <strong>Auditing Insight:</strong> This record is a <strong>runtime integration audit</strong>. The verdict is stable on replay, but the key evidence is operational: the active Python environment resolves <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">logos</code> to the RExSyn package path, while direct Flamehaven-LOGOS imports and the AATS smoke run both time out. That is enough to keep the sidecar offline-only without treating this as a verified physics experiment.
       </p>
@@ -1960,6 +1988,8 @@ function renderInspectorData(runId, data, reportText = '') {
     const replays = data.current_replays ?? {};
     const legacyReplay = replays.toe_legacy_2026_06_02 ?? {};
     const frameworkReplay = replays.toe_spar_framework_2026_06_02 ?? {};
+    const summary = data.screen_summary ?? {};
+    const ladder = data.finding_ladder ?? {};
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
@@ -1981,6 +2011,20 @@ function renderInspectorData(runId, data, reportText = '') {
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Stable Inputs</div>
           <div style="font-size: 20px; font-weight: 600; color: #a78bfa; margin-top: 4px;">Omega ${subj.sidrce_omega ?? 0.697}</div>
           <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">SR9 ${subj.sr9_resonance ?? 0.549} / DI2 ${subj.di2_drift ?? 0.548}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px;">
+        <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What remains valid</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((ladder.math_valid_but_bounded || [summary.core_read || '']).join(' '))}</div>
+        </div>
+        <div style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;">Why the claim fails</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((ladder.claim_overreach || [summary.decisive_issue || '']).join(' '))}</div>
+        </div>
+        <div style="background:rgba(96,165,250,0.04);border:1px solid rgba(96,165,250,0.18);border-radius:var(--r-md);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">What to do next</div>
+          <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc((summary.next_actions || []).join(' · '))}</div>
         </div>
       </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
@@ -2156,119 +2200,212 @@ function renderInspectorData(runId, data, reportText = '') {
   const _reportTab = document.getElementById('tab-live-report');
   if (_reportTab) _reportTab.style.display = 'none';
 
+  const signalMeta = (status) => {
+    if (status === 'PASS') return { icon: '✓', color: '#10b981' };
+    if (status === 'WARN' || status === 'DERIVED') return { icon: '!', color: '#eab308' };
+    if (status === 'IMPORTED') return { icon: '·', color: '#9ca3af' };
+    return { icon: '✗', color: '#ef4444' };
+  };
+  const renderSignalRow = (label, status, detail) => {
+    const meta = signalMeta(status);
+    return `<div style="display:flex;align-items:flex-start;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:8px;font-size:12.5px;color:var(--t3);"><span style="color:${meta.color};font-weight:bold;margin-right:8px;">[${meta.icon}]</span><div style="flex:1;"><div style="font-weight:600;color:var(--ts);font-size:12px;font-family:'JetBrains Mono',monospace;">${esc(label)}</div><div style="font-size:12px;color:var(--t4);line-height:1.55;">${esc(detail)}</div></div><span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:${meta.color};margin-left:12px;">${status}</span></div>`;
+  };
+
   // 2. Integrity Tab Contents
-  let manifest = data.source_sha256_manifest || data.file_hashes_sha256 || {};
-  let integrityHtml = `
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border); padding-bottom:12px; margin-bottom:16px;">
-      <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">Cryptographic File Manifest</span>
-      <span style="color:#10b981; font-family:'JetBrains Mono', monospace; font-size:11px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); padding:2px 8px; border-radius:var(--r-xs);">🛡️ CRYPTO LOCKED</span>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px;">
-  `;
-  
-  const manifestKeys = Object.keys(manifest);
-  if (manifestKeys.length === 0) {
-    integrityHtml += `<div style="color:var(--t4); font-style:italic;">No files tracked in manifest for this run.</div>`;
-  } else {
-    manifestKeys.forEach(k => {
-      integrityHtml += `
-        <div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); flex-wrap:wrap; gap:8px;">
-          <span style="color:var(--ts);">${k}</span>
-          <span style="color:var(--t4);">${manifest[k].substring(0, 32)}...</span>
-        </div>
-      `;
+  if (runId === 'toe-test-0052') {
+    const hist = data.historical_snapshot ?? {};
+    const replays = data.current_replays ?? {};
+    const summary = data.screen_summary ?? {};
+    const findings = Array.isArray(data.spar_review?.findings) ? data.spar_review.findings : [];
+    insIntegrity.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Review Provenance</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Record type</span><span style="color:var(--ts);">${esc(data.artifact_class || 'framework_sensitive_review_artifact')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'manual_subject_encoding')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Historical era</span><span style="color:var(--ts);">${esc(hist.era_label || '')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Replay surfaces</span><span style="color:var(--ts);">${Object.keys(replays).length} captured</span></div>
+        <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(data.comparison_note || summary.why_it_matters || '')}</div>
+      </div>`;
+    let checksHtml = `<div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Finding Ladder</div>`;
+    checksHtml += renderSignalRow('Historical snapshot captured', 'IMPORTED', `Stored as ${hist.spar_verdict || data.spar_review?.verdict || 'MINOR REVISION'} / ${hist.score ?? data.spar_review?.score ?? 73}.`);
+    Object.values(replays).forEach(r => {
+      checksHtml += renderSignalRow(r.label || 'Replay surface', 'DERIVED', `${r.engine_family || ''} → ${r.verdict || ''} / ${r.score ?? ''}.`);
     });
-  }
-  integrityHtml += `</div>`;
-  insIntegrity.innerHTML = integrityHtml;
-  
-  // 3. Checks Tab Contents
-  let checks = data.checks || {};
-  
-  // Bridge BRC code_integrity checks to checks tab!
-  if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
-    checks = {};
-    if (data.code_integrity) {
-      Object.keys(data.code_integrity).forEach(k => {
-        checks[k] = data.code_integrity[k].status;
+    findings.forEach(f => {
+      let status = 'WARN';
+      if (f.status === 'ANOMALY') status = 'FAIL';
+      else if (f.status === 'WARN') status = 'WARN';
+      else status = 'DERIVED';
+      checksHtml += renderSignalRow(`${f.layer || '?'} · ${f.check_id || ''}`, status, f.detail || '');
+    });
+    insChecks.innerHTML = checksHtml;
+  } else if (runId === 'toe-test-0053') {
+    const runtime = data.logos_runtime_probe ?? {};
+    const summary = data.screen_summary ?? {};
+    const packageOrigin = (runtime.package_name_resolution?.stdout || '').trim() || '[unknown]';
+    insIntegrity.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Runtime Provenance</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Record type</span><span style="color:var(--ts);">${esc(data.artifact_class || 'runtime_integration_audit')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'executable_runtime_probe')}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Created at</span><span style="color:var(--ts);">${esc(data.created_at || '')}</span></div>
+        <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Resolved package path:</strong> ${esc(packageOrigin)}</div>
+        <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(data.comparison_note || summary.safe_boundary_preserved || '')}</div>
+      </div>`;
+    let checksHtml = `<div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Operational Boundary Checks</div>`;
+    const compile = Array.isArray(data.logos_source_compile) ? data.logos_source_compile : [];
+    checksHtml += renderSignalRow('Key source files compile', 'PASS', `${compile.filter(x => x.status === 'pass').length}/${compile.length} Flamehaven-LOGOS files compile.`);
+    checksHtml += renderSignalRow('Package resolution collision observed', 'WARN', packageOrigin);
+    checksHtml += renderSignalRow('Direct Flamehaven-LOGOS import', runtime.direct_import?.status === 'pass' ? 'PASS' : 'FAIL', `status = ${runtime.direct_import?.status || 'unknown'} at ${runtime.direct_import?.duration_s ?? '?'}s.`);
+    checksHtml += renderSignalRow('AATS smoke execution', runtime.aats_smoke?.status === 'pass' ? 'PASS' : 'FAIL', `status = ${runtime.aats_smoke?.status || 'unknown'} at ${runtime.aats_smoke?.duration_s ?? '?'}s.`);
+    checksHtml += renderSignalRow('TOE sidecar contract tests', data.toe_contract_probe?.status === 'pass' ? 'PASS' : 'FAIL', `status = ${data.toe_contract_probe?.status || 'unknown'} in ${data.toe_contract_probe?.duration_s ?? '?'}s.`);
+    checksHtml += renderSignalRow('Offline-only safety boundary', 'PASS', summary.safe_boundary_preserved || 'The runtime remains degraded, so LOGOS is not promoted into a verifier or request-path role.');
+    insChecks.innerHTML = checksHtml;
+  } else {
+    let manifest = data.source_sha256_manifest || data.file_hashes_sha256 || {};
+    let integrityHtml = `
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border); padding-bottom:12px; margin-bottom:16px;">
+        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">Cryptographic File Manifest</span>
+        <span style="color:#10b981; font-family:'JetBrains Mono', monospace; font-size:11px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); padding:2px 8px; border-radius:var(--r-xs);">🛡️ CRYPTO LOCKED</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px;">
+    `;
+    
+    const manifestKeys = Object.keys(manifest);
+    if (manifestKeys.length === 0) {
+      integrityHtml += `<div style="color:var(--t4); font-style:italic;">No files tracked in manifest for this run.</div>`;
+    } else {
+      manifestKeys.forEach(k => {
+        integrityHtml += `
+          <div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); flex-wrap:wrap; gap:8px;">
+            <span style="color:var(--ts);">${k}</span>
+            <span style="color:var(--t4);">${manifest[k].substring(0, 32)}...</span>
+          </div>
+        `;
       });
     }
-  }
-  
-  let checksHtml = `
-    <div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Active Test Case Verdict Logs</div>
-    <div style="display:flex; flex-direction:column; gap:8px;">
-  `;
-  
-  const checkKeys = Object.keys(checks);
-  if (checkKeys.length === 0) {
-    checksHtml += `<div style="color:var(--t4); font-style:italic;">No verification checks recorded.</div>`;
-  } else {
-    checkKeys.forEach(k => {
-      const status = checks[k];
-      const isPass = status === true || status === 'PASS';
-      const isWarn = status === 'WARN';
-      
-      let statusIcon = `<span style="color:#10b981; font-weight:bold; margin-right:8px;">[✓]</span>`;
-      let statusLabel = 'PASS';
-      let labelColor = '#10b981';
-      
-      if (!isPass) {
-        if (isWarn) {
-          statusIcon = `<span style="color:#eab308; font-weight:bold; margin-right:8px;">[!]</span>`;
-          statusLabel = 'WARN';
-          labelColor = '#eab308';
-        } else {
-          statusIcon = `<span style="color:#ef4444; font-weight:bold; margin-right:8px;">[✗]</span>`;
-          statusLabel = 'FAIL';
-          labelColor = '#ef4444';
+    integrityHtml += `</div>`;
+    insIntegrity.innerHTML = integrityHtml;
+    
+    // 3. Checks Tab Contents
+    let checks = data.checks || {};
+    
+    // Bridge BRC code_integrity checks to checks tab!
+    if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
+      checks = {};
+      if (data.code_integrity) {
+        Object.keys(data.code_integrity).forEach(k => {
+          checks[k] = data.code_integrity[k].status;
+        });
+      }
+    }
+    
+    let checksHtml = `
+      <div style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">Active Test Case Verdict Logs</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+    `;
+    
+    const checkKeys = Object.keys(checks);
+    if (checkKeys.length === 0) {
+      checksHtml += `<div style="color:var(--t4); font-style:italic;">No verification checks recorded.</div>`;
+    } else {
+      checkKeys.forEach(k => {
+        const status = checks[k];
+        const isPass = status === true || status === 'PASS';
+        const isWarn = status === 'WARN';
+        
+        let statusIcon = `<span style="color:#10b981; font-weight:bold; margin-right:8px;">[✓]</span>`;
+        let statusLabel = 'PASS';
+        let labelColor = '#10b981';
+        
+        if (!isPass) {
+          if (isWarn) {
+            statusIcon = `<span style="color:#eab308; font-weight:bold; margin-right:8px;">[!]</span>`;
+            statusLabel = 'WARN';
+            labelColor = '#eab308';
+          } else {
+            statusIcon = `<span style="color:#ef4444; font-weight:bold; margin-right:8px;">[✗]</span>`;
+            statusLabel = 'FAIL';
+            labelColor = '#ef4444';
+          }
         }
-      }
-      
-      let humanDesc = k.replace(/_/g, ' ');
-      if (k === 'phase3_matches_remarks_pdf_eq_2_2_624e_minus_38') {
-        humanDesc = "Calculated Equation excess matches Remarks Equation 2.2 exactly (< 0.1% rel. err)";
-      } else if (k === 'phase3_golod_shafarevich_admissible') {
-        humanDesc = "Multi-quadratic field galois rank satisfies Golod-Shafarevich admissibility (d² - 4r >= 0)";
-      } else if (k === 'phase2_h2_genus_theory_hcf_is_Q_i_sqrt5') {
-        humanDesc = "Hilbert class field of K=Q(√-5) matches K(i, √5) predicted by genus theory";
-      } else if (k === 'square_unit_pairs_is_4') {
-        humanDesc = "Gaussian lattice coefficient boundary returns exact baseline near-unit pairs";
-      } else if (k === 'phase3_101_splits_in_L_T_compositum') {
-        humanDesc = "Split prime p=101 splits completely in multi-quadratic compositum L_T";
-      } else if (k === 'AF3_coordinate_clash_ratio_less_than_0.02') {
-        humanDesc = "AlphaFold 3 in-silico prediction returns structure clash margin < 0.02";
-      } else if (k === 'Boltz2_binding_affinity_threshold_matched') {
-        humanDesc = "Boltz-2 binding-affinity consensus overlaps model parameters";
-      } else if (k === 'AlphaGenome_enhancer_regulatory_conformance') {
-        humanDesc = "AlphaGenome epigenomic variant impact modeling conforms to literature";
-      } else if (k === 'NNSL_clinical_safety_exception_boundary') {
-        humanDesc = "NNSL reasoning checks strictly enforce patient-adjacent disclaimer barriers";
-      } else if (data.code_integrity && data.code_integrity[k]) {
-        humanDesc = data.code_integrity[k].evidence.join('; ');
-      }
-      
-      checksHtml += `
-        <div style="display:flex; align-items:center; padding:8px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); font-size:12.5px; color:var(--t3);">
-          ${statusIcon}
-          <div style="flex:1;">
-            <div style="font-weight:600; color:var(--ts); font-size:12px; font-family:'JetBrains Mono',monospace; margin-bottom:2px;">${k}</div>
-            <div style="font-size:12px; color:var(--t4);">${humanDesc}</div>
+        
+        let humanDesc = k.replace(/_/g, ' ');
+        if (k === 'phase3_matches_remarks_pdf_eq_2_2_624e_minus_38') {
+          humanDesc = "Calculated Equation excess matches Remarks Equation 2.2 exactly (< 0.1% rel. err)";
+        } else if (k === 'phase3_golod_shafarevich_admissible') {
+          humanDesc = "Multi-quadratic field galois rank satisfies Golod-Shafarevich admissibility (d² - 4r >= 0)";
+        } else if (k === 'phase2_h2_genus_theory_hcf_is_Q_i_sqrt5') {
+          humanDesc = "Hilbert class field of K=Q(√-5) matches K(i, √5) predicted by genus theory";
+        } else if (k === 'square_unit_pairs_is_4') {
+          humanDesc = "Gaussian lattice coefficient boundary returns exact baseline near-unit pairs";
+        } else if (k === 'phase3_101_splits_in_L_T_compositum') {
+          humanDesc = "Split prime p=101 splits completely in multi-quadratic compositum L_T";
+        } else if (k === 'AF3_coordinate_clash_ratio_less_than_0.02') {
+          humanDesc = "AlphaFold 3 in-silico prediction returns structure clash margin < 0.02";
+        } else if (k === 'Boltz2_binding_affinity_threshold_matched') {
+          humanDesc = "Boltz-2 binding-affinity consensus overlaps model parameters";
+        } else if (k === 'AlphaGenome_enhancer_regulatory_conformance') {
+          humanDesc = "AlphaGenome epigenomic variant impact modeling conforms to literature";
+        } else if (k === 'NNSL_clinical_safety_exception_boundary') {
+          humanDesc = "NNSL reasoning checks strictly enforce patient-adjacent disclaimer barriers";
+        } else if (data.code_integrity && data.code_integrity[k]) {
+          humanDesc = data.code_integrity[k].evidence.join('; ');
+        }
+        
+        checksHtml += `
+          <div style="display:flex; align-items:center; padding:8px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); font-size:12.5px; color:var(--t3);">
+            ${statusIcon}
+            <div style="flex:1;">
+              <div style="font-weight:600; color:var(--ts); font-size:12px; font-family:'JetBrains Mono',monospace; margin-bottom:2px;">${k}</div>
+              <div style="font-size:12px; color:var(--t4);">${humanDesc}</div>
+            </div>
+            <span style="font-size:11px; font-family:'JetBrains Mono',monospace; color:${labelColor}; margin-left:12px;">${statusLabel}</span>
           </div>
-          <span style="font-size:11px; font-family:'JetBrains Mono',monospace; color:${labelColor}; margin-left:12px;">${statusLabel}</span>
-        </div>
-      `;
-    });
+        `;
+      });
+    }
+    checksHtml += `</div>`;
+    insChecks.innerHTML = checksHtml;
   }
-  checksHtml += `</div>`;
-  insChecks.innerHTML = checksHtml;
   
   // 4. Raw JSON Tab Contents
   // Exclude UI-internal merge keys (e.g. _bav) so Raw shows the canonical record and avoids circular refs.
   let rawContent = JSON.stringify(data, (k, v) => k.startsWith('_') ? undefined : v, 2);
   let copyButtonId = 'btn-copy-raw-json';
   
-  if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
+  if ((runId === 'toe-test-0052' || runId === 'toe-test-0053') && reportText) {
+    const reportTitle = runId === 'toe-test-0052'
+      ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
+      : '📄 Namespace Audit Report (TOE-TEST-0053)';
+    insRaw.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:8px; flex-wrap:wrap;">
+        <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button id="btn-copy-raw-report" class="eq-slot-btn" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:var(--r-xs);">Copy Markdown</button>
+          <button id="${copyButtonId}" class="eq-slot-btn" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--t3); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:var(--r-xs);">Copy JSON</button>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:16px;">
+        <div style="max-height: 480px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; text-align: left;">
+          <div class="calibration-markdown-body" style="font-family: 'Inter', sans-serif;">${parseMarkdownToHtml(reportText)}</div>
+        </div>
+        <div style="max-height: 480px; overflow-y: auto; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 16px; text-align: left;">
+          <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--t4); margin-bottom:8px;">Canonical JSON snapshot</div>
+          <pre style="margin:0; white-space:pre-wrap; word-break:break-word; font-family:'JetBrains Mono',monospace; font-size:11px; color:#a78bfa;">${rawContent.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</pre>
+        </div>
+      </div>
+    `;
+    const copyReportBtn = document.getElementById('btn-copy-raw-report');
+    if (copyReportBtn) {
+      copyReportBtn.onclick = function() {
+        navigator.clipboard.writeText(reportText).then(() => {
+          copyReportBtn.textContent = 'Copied!';
+          setTimeout(() => { copyReportBtn.textContent = 'Copy Markdown'; }, 2000);
+        });
+      };
+    }
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -2300,11 +2437,12 @@ function renderInspectorData(runId, data, reportText = '') {
   if (copyBtn) {
     copyBtn.onclick = function() {
       const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0056');
-      const copyVal = isMarkdownReport ? reportText : rawContent;
+      const prefersJson = (runId === 'toe-test-0052' || runId === 'toe-test-0053');
+      const copyVal = (isMarkdownReport && !prefersJson) ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
         copyBtn.textContent = 'Copied!';
         setTimeout(() => {
-          copyBtn.textContent = isMarkdownReport ? 'Copy Markdown' : 'Copy JSON';
+          copyBtn.textContent = (isMarkdownReport && !prefersJson) ? 'Copy Markdown' : 'Copy JSON';
         }, 2000);
       });
     };
@@ -2325,6 +2463,7 @@ function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
   if (runId === 'openai-erdos-eq22') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
+  if (runId === 'toe-test-0053') return buildLogosRuntimeCharts(data);
   if (runId === 'toe-test-0052') return buildSparCharts(data);
   if (runId === 'toe-test-0056') return buildAEFSOCharts(data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
@@ -2622,13 +2761,23 @@ function buildErdosCharts(data) {
 function buildGovGateCharts(data) {
   const conns = data.connections ?? {};
   const entries = Object.entries(conns);
-  const chartData = entries.map(([key, val], i) => {
+  const chartData = entries.map(([key, val]) => {
     const score = val.contract_score ?? 0;
     const color = score >= 0.9 ? '#10b981' : score >= 0.7 ? '#eab308' : '#ef4444';
-    return { label: key.replace(/_/g, ' '), value: score, color };
+    return { label: key.replace(/_/g, ' '), value: score, color, note: `discord ${(val.discord_score ?? 0).toFixed(3)} · risk ${(val.dangerous_pass_risk ?? 0).toFixed(4)}` };
   });
-
   const passCount = entries.filter(([, v]) => (v.contract_score ?? 0) >= 0.85).length;
+  const law = data.lawbinder_governance ?? {};
+  const constraints = Array.isArray(law.constraint_results) ? law.constraint_results : [];
+  const hard = Number(law.hard_violations ?? 0);
+  const soft = Number(law.soft_violations ?? 0);
+  const clean = Math.max(0, constraints.length - hard - soft);
+  const connRisk = entries.map(([key, val]) => ({
+    label: key.replace(/_/g, ' '),
+    value: +(val.dangerous_pass_risk ?? 0),
+    color: (val.dangerous_pass_risk ?? 0) > 0 ? '#ef4444' : '#10b981',
+    note: (val.issues || []).join('; ') || 'no recorded issue',
+  }));
 
   return [
     {
@@ -2638,13 +2787,29 @@ function buildGovGateCharts(data) {
         { label: 'Above threshold (≥0.85)', value: passCount, color: '#10b981' },
         { label: 'Below threshold (<0.85)', value: entries.length - passCount, color: '#ef4444' },
       ],
-      options: { centerText: String(passCount), centerSub: `of ${entries.length} gates` },
+      options: { centerText: String(passCount), centerSub: `of ${entries.length} gates`, caption: 'Only the promotion-boundary connection clears the threshold. The other two surfaces are intentionally blocked because no candidate exists yet.' },
     },
     {
       type: 'bar',
       title: 'Pipeline Contract Scores',
       data: chartData,
       options: { maxValue: 1, caption: 'Minimum threshold for pipeline promotion: 0.850. INHIBIT gate triggered by hard constraint violation.' },
+    },
+    {
+      type: 'bar',
+      title: 'Dangerous Pass Risk by Connection',
+      data: connRisk,
+      options: { maxValue: 1, caption: 'The system is not just saying no. It localizes where a false promotion would be dangerous, with the global intake surface correctly pinned at risk 1.0.' },
+    },
+    {
+      type: 'donut',
+      title: 'LawBinder Constraint Outcomes',
+      data: [
+        { label: 'Clean constraints', value: clean, color: '#10b981' },
+        { label: 'Soft violations', value: soft, color: '#f59e0b' },
+        { label: 'Hard violations', value: hard, color: '#ef4444' },
+      ].filter(x => x.value > 0),
+      options: { centerText: String(hard), centerSub: 'hard', caption: 'LawBinder distinguishes one hard blocker from one softer usability blocker. That distinction is the real governance insight of 0054.' },
     },
   ];
 }
@@ -2677,6 +2842,17 @@ function buildSparCharts(data) {
   const legacyReplay = replays.toe_legacy_2026_06_02 ?? {};
   const frameworkReplay = replays.toe_spar_framework_2026_06_02 ?? {};
   const historicalScore = hist.score ?? spar.score ?? 0;
+  const findings = Array.isArray(spar.findings) ? spar.findings : [];
+  const statusCounts = findings.reduce((acc, finding) => {
+    const key = finding.status || 'UNKNOWN';
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+  const layerCounts = findings.reduce((acc, finding) => {
+    const key = finding.layer || '?';
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
   return [
     {
       type: 'bar',
@@ -2697,6 +2873,74 @@ function buildSparCharts(data) {
         { label: 'Omega (SIDRCE)', value: Math.round((subj.sidrce_omega ?? 0) * 100), color: '#eab308', note: `${subj.sidrce_omega ?? 0} — composite adjudication` },
       ],
       options: { maxValue: 100, unit: '%', caption: 'SR9 Resonance measures theoretical alignment. DI2 Drift measures claim-to-math deviation. Omega is the composite SIDRCE adjudication score.' },
+    },
+    {
+      type: 'donut',
+      title: 'Finding Severity Mix',
+      data: [
+        { label: 'ANOMALY', value: statusCounts.ANOMALY || 0, color: '#ef4444' },
+        { label: 'WARN', value: statusCounts.WARN || 0, color: '#f59e0b' },
+        { label: 'APPROXIMATION', value: statusCounts.APPROXIMATION || 0, color: '#eab308' },
+        { label: 'GAPPED', value: statusCounts.GAPPED || 0, color: '#60a5fa' },
+        { label: 'HEURISTIC', value: statusCounts.HEURISTIC || 0, color: '#a78bfa' },
+      ].filter(x => x.value > 0),
+      options: { centerText: String(findings.length), centerSub: 'findings', caption: 'The verdict is driven by one scope anomaly, one scope-honesty warning, and three bounded-domain/model-gap findings.' },
+    },
+    {
+      type: 'bar',
+      title: 'Finding Layers',
+      data: [
+        { label: 'Layer A', value: layerCounts.A || 0, color: '#ef4444', note: 'math / claim mismatch' },
+        { label: 'Layer B', value: layerCounts.B || 0, color: '#f59e0b', note: 'scope honesty' },
+        { label: 'Layer C', value: layerCounts.C || 0, color: '#60a5fa', note: 'domain limits and evidence gaps' },
+      ],
+      options: { maxValue: Math.max(3, ...Object.values(layerCounts), 1), caption: '0052 is not failing because the symbolic story collapses everywhere. It fails because the reviewed claim outruns a bounded, domain-specific mathematical construction.' },
+    },
+  ];
+}
+
+function buildLogosRuntimeCharts(data) {
+  const runtime = data.logos_runtime_probe ?? {};
+  const compile = Array.isArray(data.logos_source_compile) ? data.logos_source_compile : [];
+  const contract = data.toe_contract_probe ?? {};
+  const probes = [
+    { label: 'Package resolution', status: runtime.package_name_resolution?.status || 'unknown', duration: runtime.package_name_resolution?.duration_s ?? 0.0, color: '#10b981', note: (runtime.package_name_resolution?.stdout || '').trim() || 'no path recorded' },
+    { label: 'Direct import', status: runtime.direct_import?.status || 'unknown', duration: runtime.direct_import?.duration_s ?? 0.0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'imports aats.pipeline, bridge.manifold_bridge, missing_link.runner' },
+    { label: 'AATS smoke', status: runtime.aats_smoke?.status || 'unknown', duration: runtime.aats_smoke?.duration_s ?? 0.0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'runs AATSPipeline().run(...) in the active environment' },
+    { label: 'TOE contracts', status: contract.status || 'unknown', duration: contract.duration_s ?? 0.0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'tests/unit/test_logos_sidecar_contract.py + export contract' },
+  ];
+  const passCount = probes.filter(p => p.status === 'pass').length + compile.filter(x => x.status === 'pass').length;
+  const timeoutCount = probes.filter(p => p.status === 'timeout').length;
+  const failCount = probes.filter(p => p.status === 'fail').length + compile.filter(x => x.status === 'fail').length;
+  const compileRatio = compile.length ? Math.round((compile.filter(x => x.status === 'pass').length / compile.length) * 100) : 0;
+  return [
+    {
+      type: 'bar',
+      title: 'Probe Duration Profile',
+      data: probes.map(p => ({ label: p.label, value: +(p.duration || 0), color: p.color, note: `${p.status} — ${p.note}` })),
+      options: { maxValue: Math.max(25, ...probes.map(p => +(p.duration || 0))), unit: 's', caption: 'Two probes hit the 20-second timeout ceiling. The sidecar boundary is operational, not speculative: import and smoke execution are too slow for guarded runtime use.' },
+    },
+    {
+      type: 'donut',
+      title: 'Operational Outcome Mix',
+      data: [
+        { label: 'Pass', value: passCount, color: '#10b981' },
+        { label: 'Timeout', value: timeoutCount, color: '#ef4444' },
+        { label: 'Fail', value: failCount, color: '#f59e0b' },
+      ].filter(x => x.value > 0),
+      options: { centerText: String(passCount), centerSub: 'passes', caption: 'The audit is not empty: compile checks and TOE contract tests pass. The decisive blockers are the two runtime timeouts.' },
+    },
+    {
+      type: 'bar',
+      title: 'Boundary Readiness Matrix',
+      data: [
+        { label: 'Source compile', value: compileRatio, color: '#10b981', note: `${compile.filter(x => x.status === 'pass').length}/${compile.length} key files compile` },
+        { label: 'Package resolution', value: runtime.package_name_resolution?.status === 'pass' ? 100 : 0, color: '#10b981', note: 'Path resolved, but not to Flamehaven-LOGOS' },
+        { label: 'Direct import', value: runtime.direct_import?.status === 'pass' ? 100 : 0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: `status = ${runtime.direct_import?.status || 'unknown'}` },
+        { label: 'AATS smoke', value: runtime.aats_smoke?.status === 'pass' ? 100 : 0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: `status = ${runtime.aats_smoke?.status || 'unknown'}` },
+        { label: 'TOE contracts', value: contract.status === 'pass' ? 100 : 0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: `status = ${contract.status || 'unknown'}` },
+      ],
+      options: { maxValue: 100, unit: '%', caption: '0053 preserves the safe boundary because runtime execution is still degraded even though compile and TOE contract checks are healthy.' },
     },
   ];
 }
@@ -2725,6 +2969,7 @@ function buildAEFSOCharts(data) {
 }
 
 function renderAnalysisTab(container, runId, data) {
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // Source claims provenance table (EQA-specific — kept as structured table)
   if (runId === 'openai-erdos-eq22') {
     const srcClaims = data.observations?.density_metrics?.source_claims ?? [];
@@ -2759,6 +3004,158 @@ function renderAnalysisTab(container, runId, data) {
       divider.style.cssText = 'border-top:1px solid var(--border);margin-bottom:28px;';
       container.appendChild(divider);
     }
+  }
+
+  if (runId === 'toe-test-0052') {
+    const spar = data.spar_review ?? {};
+    const hist = data.historical_snapshot ?? {};
+    const replays = data.current_replays ?? {};
+    const summary = data.screen_summary ?? {};
+    const ladder = data.finding_ladder ?? {};
+    const findings = Array.isArray(spar.findings) ? spar.findings : [];
+
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:28px;';
+    section.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Decision Surfaces</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">same input · different policy layers</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:grid;grid-template-columns:160px 1fr auto auto;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Historical snapshot</div>
+          <div style="font-size:12px;color:var(--t4);">${esc(hist.engine_family || 'historical TOE + legacy SPAR')}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(hist.spar_verdict || spar.verdict || 'MINOR REVISION')}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(hist.score ?? spar.score ?? 73)}/100</div>
+        </div>
+        ${Object.values(replays).map(r => `
+          <div style="display:grid;grid-template-columns:160px 1fr auto auto;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(r.label || 'Replay')}</div>
+            <div style="font-size:12px;color:var(--t4);">${esc(r.engine_family || '')}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:${r.verdict === 'ACCEPT' ? '#10b981' : '#eab308'};">${esc(r.verdict || '')}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(r.score ?? '')}/100</div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:12px;font-size:12.5px;color:var(--t3);line-height:1.6;">${esc(summary.decisive_issue || '')}</div>
+    `;
+    container.appendChild(section);
+
+    const section2 = document.createElement('div');
+    section2.style.cssText = 'margin-bottom:28px;';
+    section2.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Finding Ladder</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">math validity · overclaim · open gaps</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px;">
+        <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">Math valid but bounded</div>${(ladder.math_valid_but_bounded || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('') || '<div style="font-size:12px;color:var(--t4);">No note recorded.</div>'}</div>
+        <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;">Claim overreach</div>${(ladder.claim_overreach || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('') || '<div style="font-size:12px;color:var(--t4);">No note recorded.</div>'}</div>
+        <div style="background:rgba(96,165,250,0.05);border:1px solid rgba(96,165,250,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">Open gaps</div>${(ladder.open_gaps || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('') || '<div style="font-size:12px;color:var(--t4);">No note recorded.</div>'}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${findings.map(f => `<div style="display:grid;grid-template-columns:72px 72px 1fr;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(f.layer || '')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:${f.status === 'ANOMALY' ? '#ef4444' : f.status === 'WARN' ? '#f59e0b' : '#60a5fa'};">${esc(f.status || '')}</div><div style="font-size:12px;color:var(--t3);line-height:1.55;"><strong style="color:var(--ts);">${esc(f.check_id || '')}</strong> — ${esc(f.detail || '')}</div></div>`).join('')}
+      </div>
+      <div style="margin-top:12px;font-size:12.5px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Next actions:</strong> ${(summary.next_actions || []).map(x => esc(x)).join(' · ')}</div>
+    `;
+    container.appendChild(section2);
+  }
+
+  if (runId === 'toe-test-0054') {
+    const summary = data.screen_summary ?? {};
+    const law = data.lawbinder_governance ?? {};
+    const conns = data.connections ?? {};
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:28px;';
+    section.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Connection Matrix</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">where the intake succeeded · where it must stop</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${Object.entries(conns).map(([key, val]) => {
+          const checks = Array.isArray(val.checks) ? val.checks : [];
+          const pass = checks.filter(c => c.passed).length;
+          const fail = checks.filter(c => !c.passed).length;
+          return `<div style="display:grid;grid-template-columns:170px 80px 80px 1fr;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(key.replace(/_/g, ' '))}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:${(val.contract_score ?? 0) >= 0.85 ? '#10b981' : '#ef4444'};">${Number(val.contract_score ?? 0).toFixed(3)}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${pass} pass / ${fail} fail</div>
+            <div style="font-size:12px;color:var(--t3);line-height:1.55;">${esc((val.issues || []).join('; ') || 'No recorded issue.')}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="margin-top:12px;font-size:12.5px;color:var(--t3);line-height:1.6;">${esc(summary.decisive_issue || '')}</div>
+    `;
+    container.appendChild(section);
+
+    const section2 = document.createElement('div');
+    section2.style.cssText = 'margin-bottom:28px;';
+    section2.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Boundary and Remediation</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">what held · what changes next</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+        <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What passed structurally</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(summary.what_passed || 'SPAR remained mandatory and promotion stayed blocked.')}</div>
+        </div>
+        <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-sm);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">LawBinder rationale</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(law.rationale || 'INHIBIT')}</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:12px 14px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-sm);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.38);text-transform:uppercase;margin-bottom:8px;">Next actions</div>
+        ${(summary.next_actions || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('')}
+      </div>
+    `;
+    container.appendChild(section2);
+  }
+
+  if (runId === 'toe-test-0053') {
+    const runtime = data.logos_runtime_probe ?? {};
+    const compile = Array.isArray(data.logos_source_compile) ? data.logos_source_compile : [];
+    const contract = data.toe_contract_probe ?? {};
+    const summary = data.screen_summary ?? {};
+    const boundary = data.operational_boundary ?? {};
+    const compilePass = compile.filter(x => x.status === 'pass').length;
+
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:28px;';
+    section.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Operational Evidence Matrix</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">replay-stable runtime audit</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Source compile</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">pass</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${compilePass}/${compile.length}</div><div style="font-size:12px;color:var(--t3);">Key Flamehaven-LOGOS files compile successfully.</div></div>
+        <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Package resolution</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">${esc(runtime.package_name_resolution?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.package_name_resolution?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);word-break:break-all;">${esc((runtime.package_name_resolution?.stdout || '').trim() || 'no path recorded')}</div></div>
+        <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Direct import</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(runtime.direct_import?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.direct_import?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">Importing <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">aats.pipeline</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">bridge.manifold_bridge</code>, and <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">missing_link.runner</code> exceeds the timeout budget.</div></div>
+        <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">AATS smoke</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(runtime.aats_smoke?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.aats_smoke?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">Minimal sidecar execution cannot complete within the operational budget.</div></div>
+        <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">TOE contracts</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">${esc(contract.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(contract.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">The guarded sidecar/report export contract still replays cleanly.</div></div>
+      </div>
+      <div style="margin-top:12px;font-size:12.5px;color:var(--t3);line-height:1.6;">${esc(summary.decisive_issue || '')}</div>
+    `;
+    container.appendChild(section);
+
+    const section2 = document.createElement('div');
+    section2.style.cssText = 'margin-bottom:28px;';
+    section2.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.38);border-left:2px solid rgba(255,255,255,0.12);padding-left:8px;">Boundary and Remediation</div>
+        <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">what is safe now · what must change</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+        <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">Allowed now</div>${(boundary.allowed_now || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('') || '<div style="font-size:12px;color:var(--t4);">No item recorded.</div>'}</div>
+        <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Blocked now</div>${(boundary.blocked_now || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('') || '<div style="font-size:12px;color:var(--t4);">No item recorded.</div>'}</div>
+      </div>
+      <div style="margin-top:12px;padding:12px 14px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-sm);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.38);text-transform:uppercase;margin-bottom:8px;">Next actions</div>
+        ${(summary.next_actions || []).map(x => `<div style="font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:6px;">• ${esc(x)}</div>`).join('')}
+      </div>
+    `;
+    container.appendChild(section2);
   }
 
   // SVG charts from registry

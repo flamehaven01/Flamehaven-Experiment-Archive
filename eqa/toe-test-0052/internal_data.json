@@ -1,11 +1,69 @@
 {
   "trace_id": "toe-test-0052",
+  "artifact_class": "framework_sensitive_review_artifact",
+  "framework_sensitive": true,
+  "review_path": "manual_subject_encoding",
+  "comparison_scope": "Historical snapshot preserved; current replays rerun with the same manually encoded subject and report_text.",
+  "comparison_note": "The archived 73-point result belongs to an earlier TOE + legacy-SPAR policy state. Current replays diverge across TOE legacy and external toe-spar policies, so this artifact should be read as a versioned review record rather than a frozen computational experiment.",
+  "screen_summary": {
+    "record_type": "framework-sensitive review artifact",
+    "core_read": "The PDE unification idea is mathematically coherent in a bounded domain, but the universal pedagogy claim overreaches the encoded evidence.",
+    "decisive_issue": "The same manually encoded subject remains stable while SPAR policy surfaces drift from historical 73 to current 76 and 98.",
+    "why_it_matters": "This is evidence about review-policy sensitivity, not fresh physics output.",
+    "next_actions": [
+      "bound the claim explicitly to incompressible Newtonian flow",
+      "separate PDE unification from curriculum inversion rhetoric",
+      "add independent pedagogical evidence before any stronger educational claim"
+    ]
+  },
+  "finding_ladder": {
+    "math_valid_but_bounded": [
+      "The substitution framework is internally coherent inside its encoded domain."
+    ],
+    "claim_overreach": [
+      "The universal pedagogical foundation claim exceeds the mathematical scope actually reviewed."
+    ],
+    "open_gaps": [
+      "pressure forces are not naturally absorbed into the claimed universal form",
+      "non-Newtonian rheology is not covered",
+      "temperature is not a strictly conserved quantity",
+      "pedagogical superiority is asserted without reproducible educational evidence"
+    ]
+  },
   "subject": {
     "hypothesis_id": "pedagogical-hierarchy-gte",
     "gate": "REJECTED",
     "sidrce_omega": 0.697,
     "sr9_resonance": 0.549,
     "di2_drift": 0.548
+  },
+  "historical_snapshot": {
+    "era_label": "2025/early-2026 historical archive era",
+    "engine_family": "TOE + legacy SPAR (exact historical commit/date not pinned in the published artifact)",
+    "gate": "REJECTED",
+    "spar_verdict": "MINOR REVISION",
+    "score": 73,
+    "sidrce_omega": 0.697,
+    "sr9_resonance": 0.549,
+    "di2_drift": 0.548
+  },
+  "current_replays": {
+    "toe_legacy_2026_06_02": {
+      "label": "Current TOE legacy replay",
+      "date": "2026-06-02",
+      "engine_family": "toe.spar.run_spar -> _run_spar_legacy",
+      "verdict": "MINOR REVISION",
+      "score": 76,
+      "grade": "PASS"
+    },
+    "toe_spar_framework_2026_06_02": {
+      "label": "Current toe-spar replay",
+      "date": "2026-06-02",
+      "engine_family": "external spar-framework / toe-spar policy surface",
+      "verdict": "ACCEPT",
+      "score": 98,
+      "grade": "PASS"
+    }
   },
   "spar_review": {
     "verdict": "MINOR REVISION",

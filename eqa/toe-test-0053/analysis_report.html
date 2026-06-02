@@ -30,6 +30,16 @@
 <br>
 **Verdict:** `DEGRADED_SIDECAR_ONLY`<br>
 <br>
+&gt; **Archive reconstruction note**<br>
+&gt; This report is a replay-stable runtime integration audit, not a TOE physics verification run. The decisive finding is that Python package resolution for `logos` lands on `[workspace]/RExSyn-Nexus-main/src/logos/__init__.py`, while direct Flamehaven-LOGOS imports and the AATS smoke run both time out.<br>
+<br>
+## Key Takeaways<br>
+<br>
+- Flamehaven-LOGOS source files compile and TOE sidecar contract tests pass.<br>
+- The active environment still resolves `logos` to the RExSyn package path.<br>
+- Direct Flamehaven-LOGOS import and AATS smoke both hit the timeout budget.<br>
+- This record is a runtime integration audit that preserves the offline-only safety boundary.<br>
+<br>
 ## Baseline Comparison<br>
 <br>
 | Baseline | Method | Files | Python | Manifest |<br>
@@ -41,7 +51,7 @@
 ## LOGOS Detection<br>
 <br>
 - Source syntax: `6/6` key files compile.<br>
-- Python package name `logos` resolves to: `__init__.py`<br>
+- Python package name `logos` resolves to: `[workspace]/RExSyn-Nexus-main/src/logos/__init__.py`<br>
 - Direct Flamehaven-LOGOS import status: `timeout`<br>
 - AATS smoke status: `timeout`<br>
 - TOE sidecar/report contract tests: `pass`<br>
