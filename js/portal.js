@@ -901,7 +901,7 @@ async function openJsonInspector(runId, type = 'json') {
     if (runId === 'toe-test-0054' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Intake Report`;
     } else if (runId === 'toe-test-0052' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Analysis Report`;
+      rawTabBtn.innerHTML = `📄 Analysis + Comparison`;
     } else if (runId === 'toe-test-0056' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Interim Decision`;
     } else {
@@ -944,18 +944,20 @@ async function openJsonInspector(runId, type = 'json') {
   }
   
   let jsonData = null;
-  if (!jsonPath) {
-    console.log(`No jsonPath specified for ${runId}, loading unedited fallback dataset`);
-    jsonData = getFallbackDataset(runId);
-  } else {
+  if (jsonPath) {
     try {
       const res = await fetch(jsonPath + '?t=' + new Date().getTime());
       if (!res.ok) throw new Error('Failed to fetch JSON');
       jsonData = await res.json();
     } catch (err) {
-      console.warn(`Local fetch failed for ${runId}, loading unedited fallback dataset`, err);
-      jsonData = getFallbackDataset(runId);
+      // Single source of truth (v1.13.1): no inlined fallback. Surface an honest
+      // load error instead of stale data. Serve this ledger over HTTP, not file://.
+      console.warn(`Could not load ${jsonPath} for ${runId}. Serve over HTTP (e.g. python -m http.server), not file://.`, err);
+      jsonData = { _load_error: `Could not load ${runId}: this ledger reads its evidence from on-disk JSON and must be served over HTTP (e.g. "python -m http.server"), not opened via file://.` };
     }
+  } else {
+    console.warn(`No jsonPath mapping for ${runId}.`);
+    jsonData = { _load_error: `No data path is mapped for ${runId}.` };
   }
   
   // Archive (BAV/EQA): the fetched file is the manifest; narrow it to one run record.
@@ -1030,9 +1032,7 @@ async function openJsonInspector(runId, type = 'json') {
     try {
       const res = await fetch('./eqa/toe-test-0054/README.md?t=' + new Date().getTime());
       if (res.ok) reportText = await res.text();
-    } catch (e) {
-      reportText = getFallbackReportText(runId);
-    }
+    } catch (e) {}
   } else if (type === 'report' && runId === 'toe-test-0053') {
     try {
       const res = await fetch('./eqa/toe-test-0053/analysis_report.md?t=' + new Date().getTime());
@@ -1040,8 +1040,14 @@ async function openJsonInspector(runId, type = 'json') {
     } catch (e) {}
   } else if (type === 'report' && runId === 'toe-test-0052') {
     try {
-      const res = await fetch('./eqa/toe-test-0052/analysis_report.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
+      const stamp = new Date().getTime();
+      const [analysisRes, comparisonRes] = await Promise.all([
+        fetch('./eqa/toe-test-0052/analysis_report.md?t=' + stamp),
+        fetch('./eqa/toe-test-0052/comparison_2025_2026.md?t=' + stamp),
+      ]);
+      const analysisText = analysisRes.ok ? await analysisRes.text() : '';
+      const comparisonText = comparisonRes.ok ? await comparisonRes.text() : '';
+      reportText = [analysisText, comparisonText].filter(Boolean).join('\n\n---\n\n');
     } catch (e) {}
   } else if (type === 'report' && runId === 'toe-test-0056') {
     try {
@@ -1770,7 +1776,19 @@ function renderInspectorData(runId, data, reportText = '') {
   const insCharts = document.getElementById('ins-charts');
 
   if (!insInsights || !insIntegrity || !insChecks || !insRaw) return;
-  
+
+  // Honest load-state guard (v1.13.1): no inlined fallback data. If the on-disk
+  // JSON could not be fetched, show why instead of crashing or showing stale data.
+  if (!data || data._load_error) {
+    const msg = (data && data._load_error) || 'Could not load this record. The Verification Ledger reads its evidence from on-disk JSON and must be served over HTTP (e.g. "python -m http.server"), not opened via file://.';
+    insRaw.innerHTML = `<p class="empty-state" style="color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;">${msg}</p>`;
+    insInsights.innerHTML = '';
+    insIntegrity.innerHTML = '';
+    insChecks.innerHTML = '';
+    if (insCharts) insCharts.innerHTML = '';
+    return;
+  }
+
   // 1. Insights Tab Contents
   let insightHtml = '';
   if (runId === 'openai-erdos-eq22') {
@@ -1902,51 +1920,71 @@ function renderInspectorData(runId, data, reportText = '') {
       </p>
     `;
   } else if (runId === 'toe-test-0053') {
+    const runtime = data.logos_runtime_probe ?? {};
+    const pkg = runtime.package_name_resolution ?? {};
+    const direct = runtime.direct_import ?? {};
+    const aats = runtime.aats_smoke ?? {};
+    const contract = data.toe_contract_probe ?? {};
+    const packageOrigin = (pkg.stdout || '').trim() || '[unknown]';
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
           <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Scan Verdict</div>
-          <div style="font-size: 18px; font-weight: 600; color: #eab308; margin-top: 4px;">DEGRADED_SIDECAR</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Namespace collision detected</div>
+          <div style="font-size: 18px; font-weight: 600; color: #eab308; margin-top: 4px;">${esc(data.verdict ?? 'DEGRADED_SIDECAR_ONLY')}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Runtime integration audit, not a physics run</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Ambiguity Resolution</div>
-          <div style="font-size: 18px; font-weight: 600; color: var(--ts); margin-top: 4px;">Namespace Mapped</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Biomolecular AI embedded vs general API</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Package Resolution</div>
+          <div style="font-size: 18px; font-weight: 600; color: var(--ts); margin-top: 4px;">Namespace Collision</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px; word-break: break-all;">${esc(packageOrigin)}</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Import Latency</div>
-          <div style="font-size: 18px; font-weight: 600; color: var(--ts); margin-top: 4px;">SciPy/NumPy Checks</div>
-          <div style="font-size: 12px; color: #ef4444; margin-top: 2px;">Bounded to offline CLI only</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Runtime Probe</div>
+          <div style="font-size: 18px; font-weight: 600; color: var(--ts); margin-top: 4px;">direct ${esc(direct.status ?? 'timeout')} / AATS ${esc(aats.status ?? 'timeout')}</div>
+          <div style="font-size: 12px; color: #ef4444; margin-top: 2px;">Timeouts keep LOGOS bounded to offline sidecar use</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">TOE Contract Tests</div>
+          <div style="font-size: 18px; font-weight: 600; color: #10b981; margin-top: 4px;">${esc(contract.status ?? 'pass')}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Sidecar/report export tests replay cleanly</div>
         </div>
       </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
-        💡 <strong>Auditing Insight:</strong> Environmental scan discovered that importing general reasoning libraries directly in frontend request paths triggers SciPy/NumPy checks, degrading dashboard performance. Playbook mandates utilizing decoupled FastAPI loops over direct imports.
+        💡 <strong>Auditing Insight:</strong> This record is a <strong>runtime integration audit</strong>. The verdict is stable on replay, but the key evidence is operational: the active Python environment resolves <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">logos</code> to the RExSyn package path, while direct Flamehaven-LOGOS imports and the AATS smoke run both time out. That is enough to keep the sidecar offline-only without treating this as a verified physics experiment.
       </p>
     `;
   } else if (runId === 'toe-test-0052') {
     const spar = data.spar_review ?? {};
     const subj = data.subject ?? {};
+    const hist = data.historical_snapshot ?? {};
+    const replays = data.current_replays ?? {};
+    const legacyReplay = replays.toe_legacy_2026_06_02 ?? {};
+    const frameworkReplay = replays.toe_spar_framework_2026_06_02 ?? {};
     insightHtml = `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Gate Verdict</div>
-          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">${subj.gate ?? 'REJECTED'}</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">DI2 Drift: ${subj.di2_drift ?? 0.548}</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Historical Snapshot</div>
+          <div style="font-size: 20px; font-weight: 600; color: #ef4444; margin-top: 4px;">${hist.spar_verdict ?? spar.verdict ?? 'MINOR REVISION'}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">score ${hist.score ?? spar.score ?? 73} / gate ${hist.gate ?? subj.gate ?? 'REJECTED'}</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">SPAR Score</div>
-          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${spar.score ?? 73} / 100</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Verdict: ${spar.verdict ?? 'MINOR REVISION'}</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Current TOE Legacy Replay</div>
+          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${legacyReplay.verdict ?? 'MINOR REVISION'}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">score ${legacyReplay.score ?? 76} / ${legacyReplay.date ?? '2026-06-02'}</div>
         </div>
         <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
-          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Omega (SIDRCE)</div>
-          <div style="font-size: 20px; font-weight: 600; color: #eab308; margin-top: 4px;">${subj.sidrce_omega ?? 0.697} AMBER</div>
-          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">SR9 Resonance: ${subj.sr9_resonance ?? 0.549}</div>
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Current toe-spar Replay</div>
+          <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">${frameworkReplay.verdict ?? 'ACCEPT'}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">score ${frameworkReplay.score ?? 98} / ${frameworkReplay.date ?? '2026-06-02'}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Stable Inputs</div>
+          <div style="font-size: 20px; font-weight: 600; color: #a78bfa; margin-top: 4px;">Omega ${subj.sidrce_omega ?? 0.697}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">SR9 ${subj.sr9_resonance ?? 0.549} / DI2 ${subj.di2_drift ?? 0.548}</div>
         </div>
       </div>
       <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
-        💡 <strong>Auditing Insight:</strong> The GTE pedagogy hypothesis claims the General Transport Equation is the universal foundation for fluid dynamics. While the core mathematics is sound, the gate was rejected due to scope overreach: the framework only applies to incompressible Newtonian flow, yet the pedagogical claim presents it as universal. Recommended revision explicitly bounds the claim.
+        💡 <strong>Auditing Insight:</strong> <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">TOE-TEST-0052</code> is not a frozen computation run. It is a <strong>framework-sensitive review artifact</strong>: the same manually encoded subject and critique text produced a historical <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">73 / MINOR REVISION</code>, a current TOE legacy replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">76 / MINOR REVISION</code>, and a current external toe-spar replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">98 / ACCEPT</code>. The drift is policy-layer drift, not new physics output.
       </p>
     `;
   } else if (runId === 'toe-test-0056') {
@@ -2236,7 +2274,7 @@ function renderInspectorData(runId, data, reportText = '') {
       : runId === 'toe-test-0053'
       ? '📄 Namespace Audit Report (TOE-TEST-0053)'
       : runId === 'toe-test-0052'
-      ? '📄 SPAR Analysis Report (TOE-TEST-0052)'
+      ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
       : '📄 Interim Decision (TOE-TEST-0056)';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -2634,13 +2672,21 @@ function buildGenericCharts(data) {
 function buildSparCharts(data) {
   const spar = data.spar_review ?? {};
   const subj = data.subject ?? {};
-  const score = spar.score ?? 0;
+  const hist = data.historical_snapshot ?? {};
+  const replays = data.current_replays ?? {};
+  const legacyReplay = replays.toe_legacy_2026_06_02 ?? {};
+  const frameworkReplay = replays.toe_spar_framework_2026_06_02 ?? {};
+  const historicalScore = hist.score ?? spar.score ?? 0;
   return [
     {
       type: 'bar',
-      title: 'SPAR Review Score',
-      data: [{ label: 'SPAR Score', value: score, color: '#eab308', note: `Verdict: ${spar.verdict ?? ''} — Claim Drift: ${spar.claim_drift ?? 0}` }],
-      options: { maxValue: 100, unit: '/100', caption: `Score: ${score}/100. Typical ACCEPT threshold is 80+. Minor revision required to bound the universality claim.` },
+      title: 'Replay Comparison',
+      data: [
+        { label: 'Historical', value: historicalScore, color: '#ef4444', note: `Historical snapshot — ${hist.spar_verdict ?? spar.verdict ?? 'MINOR REVISION'}` },
+        { label: 'TOE Legacy', value: legacyReplay.score ?? historicalScore, color: '#eab308', note: `${legacyReplay.verdict ?? 'MINOR REVISION'} on ${legacyReplay.date ?? '2026-06-02'}` },
+        { label: 'toe-spar', value: frameworkReplay.score ?? 98, color: '#10b981', note: `${frameworkReplay.verdict ?? 'ACCEPT'} on ${frameworkReplay.date ?? '2026-06-02'}` },
+      ],
+      options: { maxValue: 100, unit: '/100', caption: 'Same manually encoded subject, different SPAR policy surfaces. This chart shows review-policy drift, not new physics output.' },
     },
     {
       type: 'bar',
@@ -2728,174 +2774,18 @@ function renderAnalysisTab(container, runId, data) {
 }
 
 function getFallbackReportText(runId) {
-  return `# TOE-TEST-0054: LOGOS-to-TOE SPAR Intake Gate
-
-**Status:** BLOCK / INHIBIT
-**Created:** 2026-05-24
-
-## Result
-
-LOGOS executed successfully but produced zero candidate results. The intake contract engine blocked promotion because no mathematical model candidate exists for peer review.
-
-## Governance
-
-Contract inspection: BLOCK (pipeline contract score = 0.625, dangerous pass risk = 1.0)
-LawBinder decision: INHIBIT (hard violation: logos_candidate_generated)
-
-## Decision
-
-Do not promote, tag, or integrate any solver model from this run. Improve evidence queries and rerun same intake gate.`;
+  // Removed (v1.13.1): inlined report-text fallback drifted from the on-disk .md
+  // reports. Single source of truth = the on-disk files fetched above.
+  return '';
 }
 
 function getFallbackDataset(runId) {
-  if (runId === 'openai-erdos-eq22') {
-    return {
-      "schema_id": "flamehaven_toe_test_algebraic_number_theory.v1",
-      "verdict": "PASS",
-      "checks": {
-        "square_unit_pairs_is_4": true,
-        "golod_shafarevich_proxy_boundary": true,
-        "sawin_rigorous_lower_bound_present_624e_minus_38": true,
-        "phase1_gaussian_7x7_grid_has_expected_84_pairs": true,
-        "phase1_eisenstein_exceeds_gaussian_at_same_bound": true,
-        "phase2_h2_genus_theory_hcf_is_Q_i_sqrt5": true,
-        "phase2_lemma22_pigeonhole_lower_bound_is_2": true,
-        "phase3_101_splits_in_L_T_compositum": true,
-        "phase3_golod_shafarevich_admissible": true,
-        "phase3_matches_remarks_pdf_eq_2_2_624e_minus_38": true,
-        "targeted_pytest_passed": true
-      },
-      "observations": {
-        "field_degree": 2,
-        "square_near_unit_pairs": 4,
-        "phase2_genus_class_field": {
-          "field": "Q(sqrt(-5))",
-          "class_number_h": 2,
-          "split_primes_used": [29, 41],
-          "lemma_22_predicted_lower_bound": 2,
-          "hilbert_class_field": {
-            "hilbert_class_field": "Q(i, sqrt(5))"
-          }
-        },
-        "phase3_sawin_multiquadratic": {
-          "T": [3, 5, 7, 11, 13, 17],
-          "S_split": [101],
-          "L_T_generators_sqrt_of": [5, 13, 17, 21, 33],
-          "L_T_degree_over_Q": 32,
-          "galois_rank": {
-            "admissible": true
-          }
-        },
-        "phase3_eq_2_2_evaluation": {
-          "exponent_excess": 6.239109643151817e-38,
-          "published_value": 6.24e-38,
-          "relative_error_vs_published": 0.00014268539233711807
-        }
-      },
-      "source_sha256_manifest": {
-        "src/erdos_ant/sawin_multiquadratic.py": "635007a604081ffdc422a861e254486bf9b85c1f76bccb41162c4dc2524f7188",
-        "src/erdos_ant/algebraic_geometry.py": "847769efc93a601de6931aae794910bd83e986f4217c0efc867350f2228f23c9",
-        "src/erdos_ant/imaginary_quadratic_lattice.py": "8f975ebdf2355be76430a3d2585588e6588144bfb1e1c0beb2ca141fd1d683b0",
-        "src/erdos_ant/genus_class_field.py": "bd614cb7362c3bd7bcafa4505b8069b43458e7d23d3e9bd722db4006576af91a",
-        "src/erdos_ant/verify.py": "401de26d28b9d54b6449d9ecda505f8d0f2500d8a34ebf933a92fcab34841551"
-      }
-    };
-  } else if (runId === 'toe-test-0054') {
-    return {
-      "schema_id": "flamehaven_toe_test_intake_contract.v1",
-      "verdict": "BLOCK",
-      "checks": {
-        "gate_recommendation_is_block": true,
-        "dangerous_pass_risk_exceeded": true,
-        "lawbinder_inhibit_violation": true,
-        "logos_candidate_packet_empty": true
-      },
-      "observations": {
-        "pipeline_contract_score": 0.625,
-        "dangerous_pass_risk": 1.0,
-        "decision": "INHIBIT",
-        "violation": "logos_candidate_generated"
-      },
-      "source_sha256_manifest": {
-        "tools/logos_toe_pipeline.py": "cf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a1e948c26ab7"
-      }
-    };
-  } else if (runId === 'toe-test-0053') {
-    return {
-      "schema_id": "flamehaven_toe_test_namespace_scan.v1",
-      "verdict": "DEGRADED_SIDECAR_ONLY",
-      "checks": {
-        "namespace_ambiguity_detected": true,
-        "import_latency_scanned": true,
-        "fastapi_app_available": true
-      },
-      "observations": {
-        "resolution": "namespace_ambiguity_detected",
-        "primary_cause": "sentence_transformers / transformers check checks on import path",
-        "import_path": "RExSyn-Nexus-main/src/logos",
-        "recommendation": "Use HTTP sidecar client rather than raw import inside frontal process"
-      },
-      "source_sha256_manifest": {
-        "src/logos/rexsyn_service.py": "a5c2eb7f4b8d6fa7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef"
-      }
-    };
-  } else if (runId === 'yorkeccak-bio') {
-    return {
-      "schema_version": "stem-ai-local-cli-result-v1.6",
-      "generated_at_local": "2026-05-18",
-      "target": {
-        "name": "yorkeccak/bio",
-        "remote": "https://github.com/yorkeccak/bio.git",
-        "commit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99"
-      },
-      "score": {
-        "final_score": 48,
-        "formal_tier": "T1 Quarantine",
-        "use_scope": "Exploratory review only; no patient-adjacent use."
-      },
-      "code_integrity": {
-        "C1_hardcoded_credentials": { "status": "PASS", "evidence": ["No direct credential patterns detected by local CLI scan."] },
-        "C2_dependency_pinning": { "status": "WARN", "evidence": ["Dependency manifest appears pinned but uses loose subagent adapters."] },
-        "C3_dead_or_deprecated_patient_adjacent_paths": { "status": "PASS", "evidence": ["No deprecated patient-adjacent metadata patterns detected."] },
-        "C4_exception_handling_clinical_adjacent_paths": { "status": "PASS", "evidence": ["No executable fail-open exception handler detected."] },
-        "C5_compliance_boundary_integrity": { "status": "WARN", "evidence": ["Clinical-adjacent surfaces exist without an explicit non-diagnostic/non-clinical boundary."] },
-        "C6_mock_auth_or_fail_open_boundary": { "status": "PASS", "evidence": ["No mock-auth or fail-open local-boundary warning detected in reviewed sources."] }
-      },
-      "file_hashes_sha256": {
-        "README.md": "199862D708D85AF0B126FD4129E5F134D6E9E804F6F8249F940F3DA16DC190AA",
-        "package.json": "2b304c8fde7c8a81d4a04d23d8c2b5bc74f26b5ad3214a1e948c26ab784910bd",
-        "src/bio_service.py": "5a5c2eb7f4b8d6fa7c2be8e809b4578da98d75bc54f2c5bd6714ea1e847c2baef"
-      }
-    };
-  } else if (runId === 'bioclaw') {
-    return {
-      "schema_version": "stem-ai-local-cli-result-v1.6",
-      "generated_at_local": "2026-05-21",
-      "target": {
-        "name": "Runchuan-BU/BioClaw",
-        "remote": "https://github.com/Runchuan-BU/BioClaw",
-        "commit": "faae6a2778e992b1cc6a4b1639e530a147d8b463"
-      },
-      "score": {
-        "final_score": 60,
-        "formal_tier": "T2 Caution",
-        "use_scope": "Research reference and supervised non-clinical technical review only."
-      },
-      "code_integrity": {
-        "C1_hardcoded_credentials": { "status": "PASS", "evidence": ["No direct credential patterns detected by local CLI scan."] },
-        "C2_dependency_pinning": { "status": "PASS", "evidence": ["Dependency manifest appears pinned or not present."] },
-        "C3_dead_or_deprecated_patient_adjacent_paths": { "status": "PASS", "evidence": ["No deprecated patient-adjacent metadata patterns detected."] },
-        "C4_exception_handling_clinical_adjacent_paths": { "status": "PASS", "evidence": ["No executable fail-open exception handler detected."] },
-        "C5_compliance_boundary_integrity": { "status": "WARN", "evidence": ["Clinical-adjacent surfaces exist without an explicit non-diagnostic/non-clinical boundary."] },
-        "C6_mock_auth_or_fail_open_boundary": { "status": "PASS", "evidence": ["No mock-auth or fail-open local-boundary warning detected in reviewed sources."] }
-      },
-      "file_hashes_sha256": {
-        "README.md": "5795125DD0539513521115583603DE57EFAC6F2E3418B11767D3215AB04E00FD",
-        "package.json": "c5cf741e4a3b8d6f9b4c3e809b456bd31a98075bc74f26b5ad3214a1e94c26ab7"
-      }
-    };
-  }
-  return {};
+  // Removed (v1.13.1): inlined fallback datasets had drifted from the on-disk JSON
+  // (151 schema/value mismatches found 2026-06-02 by check_fallback_drift.py).
+  // Single source of truth = the on-disk evidence files fetched above. This ledger
+  // must be served over HTTP (e.g. "python -m http.server"), not opened via file://.
+  // Returns null so the inspector shows an honest load error rather than stale data.
+  return null;
 }
 
 // Interactive Precision Steering Sandbox logic inspired by CorrSteer

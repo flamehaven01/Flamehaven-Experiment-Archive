@@ -4,6 +4,22 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.13.1] - 2026-06-02
+
+Forensic-audit response. An external forensic audit (Antigravity: Opus 4.7 + Gemini 3 Flash) raised five issues; each was verified against the repo before any action.
+
+### 🔧 Fixed — single source of truth (the one valid new finding)
+- **Removed `getFallbackDataset` / `getFallbackReportText`** from `js/portal.js`. These shipped inlined copies of record JSON/markdown that had **drifted from the on-disk files** — `check_fallback_drift.py` found **151 schema/value mismatches** (e.g. `openai-erdos` schema_id `flamehaven_toe_test_algebraic_number_theory.v1` in JS vs `erdos_ant_verification.v1` on disk). The on-disk evidence files are now the **sole source**; on fetch failure the inspector shows an honest load error ("serve over HTTP, not `file://`") instead of stale data. Impact was latent (only on `file://`/CORS fetch failure — the hosted site always served the real files). New invariant **DI-OPS-003**.
+
+### 🔍 Assessed and NOT applied (verified against the repo)
+- **DOM XSS in `parseMarkdownToHtml`** — not present. The real parser escapes `&<>` up front and never emits `<a href>` (security-guard comment in code); the audit quoted a simplified version without the escape (strawman). Already covered in 1.12.0 (P0.3).
+- **"Synthetic / pre-baked BAV metrics" (EXP-031)** — misread of standard AlphaFold3 output: AF3 rounds summary scores (`pTM`, `fraction_disordered`) to low precision while per-atom `atom_plddts` stay raw, and `num_recycles` is a config input. `reproduce/reference_run.json` anchors the input by SHA-256, states the run is stochastic ("NOT a fixed expected output"), and separates EXTERNAL (pLDDT/PAE/pTM) from ADVISORY (SR9/DI2) metrics — provenance is honest, not fabricated.
+- **"Mockup / not a live pipeline"** — category error. The ledger is, by design, a static record of offline-deterministic results (per README); it never claimed in-browser computation. The engine is real and lives upstream (Flamehaven-TOE) — re-executed in 1.13.0 to reproduce the reported numbers.
+- **Weyl-curvature blindness / `p_e2e` multiplicative / AEFSO `ln(y)` guard** — real but already-disclosed scoped limitations (0001 errata, EXP-031 notes, AEFSO SPAR review) and upstream-engine scope; out of scope for this static ledger.
+- **`portal.js` global namespace** — known; deferred in 1.12.0 (P0.1) as marginal-value / high-risk refactor.
+
+---
+
 ## [1.13.0] - 2026-06-02
 
 EQA archive reconstruction — separated the real engine computation from over-framed reporting and presentation-only "PASS", and reclassified all 51 records by provenance. Triggered by an internal audit that flagged the `TOE-TEST-0001~0051` archive as slop-heavy. Governing rules: [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).

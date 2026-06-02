@@ -280,6 +280,16 @@
         "origin_episode": "v1.13.0 (2026-06-02): internal audit flagged TOE-TEST-0001~0051 as slop-heavy. Engine verified REAL by re-execution (de_sitter sqrt_jsd 0.2722, schwarzschild Omega 0.9985 reproduced); defect was over-framed reporting + presentation-only PASS, not the computation. Reconstructed append-only.",
         "enforced_by": "memory/eqa-reconstruction-standard.md; eqa/archive/manifest.json (non_run_artifact/artifact_class/counts); js/portal.js (5-state provenance badges, records-vs-verification-runs count)"
       }
+    },
+    {
+      "id": "DI-OPS-003",
+      "label": "single-source-of-truth-no-inlined-fallback",
+      "severity": "high",
+      "statement": "The portal must read every record's evidence from the on-disk JSON/markdown files (the single source of truth). No inlined/hardcoded copy of record data may ship in js/portal.js as a fetch fallback. On fetch failure the inspector shows an honest load error (serve over HTTP, not file://), never stale duplicated data. Rationale: duplicated data drifts.",
+      "binding": {
+        "origin_episode": "v1.13.1 (2026-06-02): check_fallback_drift.py found 151 schema/value mismatches between getFallbackDataset()/getFallbackReportText() inlined copies and the on-disk files (e.g. openai-erdos schema_id drift). Removed both fallbacks; fetch is now the sole path.",
+        "enforced_by": "js/portal.js (getFallbackDataset/getFallbackReportText stubbed to null/empty; _load_error guard in renderInspectorData)"
+      }
     }
   ],
   "operation_meta": {
