@@ -4,6 +4,32 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.13.0] - 2026-06-02
+
+EQA archive reconstruction — separated the real engine computation from over-framed reporting and presentation-only "PASS", and reclassified all 51 records by provenance. Triggered by an internal audit that flagged the `TOE-TEST-0001~0051` archive as slop-heavy. Governing rules: [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).
+
+### 🔬 Engine verified real (not lookup)
+- Re-ran `toe.engine.background.run_background_verify` and reproduced the reported numbers **deterministically**: `de_sitter` √JSD `0.2722` / Ω `0`, `schwarzschild` Ω `0.9985` (Ricci-flat), `wzw_s3` Ω `0.9949`, `heterotic_gs` GS-residual `2.0`. The EQA engine computes β-residual / Ricci / Ω / GS on analytic metrics — it is **not** a preset→canned-value table. Engine code and computed numbers were **not changed**.
+
+### 🗂️ Provenance reclassification (all 51 records)
+- **7 verification runs**: `TOE-TEST-0001~0007`.
+- **44 non-run artifacts**: `TOE-TEST-0008~0051` (regression/integration/evidence-governance `0008–0010`; bio-quantum sidecar chain `0011–0040`; `meta_verify` infrastructure `0041–0050`; literature-adapter scaffolding `0051`) — each tagged `non_run_artifact` + `artifact_class` in the manifest and **excluded from the verification-run count**.
+- The headline "51 verification runs" was an overclaim; the portal banner now reads **`N records / 7 verification runs`**.
+
+### 🏷️ Point-of-use honesty (append-only notes, no report bodies edited)
+- **0001** — imported source **Errata v1**: `de_sitter` preset reused ×4 (one FAIL mechanism, not four), and the first record of the `HypothesisParser` preset-collision.
+- **0002** — `parser_sensitive`: the adversarial natural-language hypotheses (T07 `"no dilaton"` false-positive, T08 `"anti-de-Sitter"` hyphen miss, T10 `"positive Lambda"` miss) do **not** route to the recorded presets under the current parser; results are preset-direct, not a narrative-immunity proof.
+- **0007** — `ground_truth_sensitive`: SPAR ground-truth table had no `schwarzschild_dilaton` entry (engine result correct; meta layer incomplete).
+- **0003–0006** — historical-scope notes bounding over-read claims (e.g. T02 read as v4.2.0 no-F5 scope; `p1_R ≈ -1.6` as local proxy, not exact topological charge).
+
+### 🖥️ Inspector / UI
+- Existence-based green **`PASS`** badges (report present, recorded grade, attached report) downgraded to provenance states **`IMPORTED` / `DERIVED`** in a 5-state model (`Verified / Imported / Derived / Unverified / Errata`); only the SR9 threshold check remains a real `PASS/FAIL`. 3-state icons; archive list shows `errata` / `parser-sensitive` / `ground-truth-sensitive` / `non-run` chips.
+
+### ⏭️ Deferred
+- Per-card category badge from `run_type` / `artifact_class` (standard §14); Phase-3 body framing cleanup for the 7 runs; canonical artifact + reproduction receipt to promote runs to `Verified`.
+
+---
+
 ## [1.12.1] - 2026-06-01
 
 External-readability: defined the EQA-lane engine codenames so outside readers can decode `LOGOS-to-TOE` (card 0054) without guessing.

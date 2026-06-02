@@ -11,16 +11,16 @@ description: >
   reproduction anchors, citable metadata) is documented in credibility-architecture.
 
 metadata:
-  version: "1.11.3"
-  last_updated: "2026-06-01"
+  version: "1.13.0"
+  last_updated: "2026-06-02"
   eqa_run_range: "TOE-TEST-0001~0056"
-  eqa_archive: "TOE-TEST-0001~0051 (real reports, data-driven; synthetic registry removed in 1.7.0)"
+  eqa_archive: "TOE-TEST-0001~0051 reconstructed by provenance (v1.13.0): 7 verification runs (0001~0007) + 44 non_run_artifact (0008~0051); engine verified real by re-execution; append-only point-of-use notes; governed by memory/eqa-reconstruction-standard.md"
   bav_experiments: "EXP-001~034 (6 cards + archive)"
   zenodo_doi: "10.5281/zenodo.20483364"
   orcid: "0009-0009-2641-4280"
   credibility_architecture: "Pillars 1-2-3 complete (provenance classing, understatement, reproduction anchors, metadata; DOI 10.5281/zenodo.20483364 + ORCID wired); JOSS/arXiv deferred (endorsement constraints)"
-  di_count: 26
-  session_count: 9
+  di_count: 27
+  session_count: 10
 
 layers:
   - name: archive

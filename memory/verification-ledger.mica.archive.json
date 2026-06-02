@@ -270,6 +270,16 @@
         "origin_episode": "Credibility Pillar 3a (v1.10.0): resolved the LICENSE(MIT)-vs-footer(CC BY-NC) conflict to an explicit dual scheme; added metadata.",
         "enforced_by": "CITATION.cff/codemeta.json/JSON-LD; README License section"
       }
+    },
+    {
+      "id": "DI-EQA-006",
+      "label": "archive-provenance-classification",
+      "severity": "critical",
+      "statement": "EQA archive records (TOE-TEST-NNNN) must be classified by provenance. Only genuine engine verification runs are counted as verification runs (currently 0001-0007); governance/integration/sidecar/meta records are tagged non_run_artifact + artifact_class in the manifest and excluded from the verification-run count (no '51 verification runs' headline). Report presence, attached source text, or a source-recorded grade must NOT be rendered as a PASS/governance verdict -- they are IMPORTED/DERIVED provenance, not re-verification (only real threshold checks, e.g. SR9, may show PASS/FAIL). Natural-language HypothesisParser output is non-canonical evidence; verdicts derive from preset-direct engine execution. Source errata/scope/parser/ground-truth limitations must be surfaced at point of use, not buried.",
+      "binding": {
+        "origin_episode": "v1.13.0 (2026-06-02): internal audit flagged TOE-TEST-0001~0051 as slop-heavy. Engine verified REAL by re-execution (de_sitter sqrt_jsd 0.2722, schwarzschild Omega 0.9985 reproduced); defect was over-framed reporting + presentation-only PASS, not the computation. Reconstructed append-only.",
+        "enforced_by": "memory/eqa-reconstruction-standard.md; eqa/archive/manifest.json (non_run_artifact/artifact_class/counts); js/portal.js (5-state provenance badges, records-vs-verification-runs count)"
+      }
     }
   ],
   "operation_meta": {

@@ -1,9 +1,11 @@
 {
   "schema_id": "flamehaven_eqa_archive_toe_test.v1",
-  "label": "TOE-TEST Foundational Runs (0001~0051)",
-  "note": "Real Flamehaven-TOE experiment reports: string-theory / topology physics (0001-08), quantum-biology & protein spin-qubit (0009-21), and verification-methodology layers (0022-51). Each English entry renders its actual source report; later runs (0052+) are promoted to full ledger cards.",
-  "source": "Flamehaven-TOE/TOE-TEST (report markdown imported verbatim, paths sanitized)",
+  "label": "TOE-TEST Historical Records (0001~0051)",
+  "note": "Historical TOE-TEST archive imported from Flamehaven-TOE. Records 0001-0007 are historical verification runs; records 0008-0051 are non-run artifacts spanning regression notes, integration/governance layers, biological sidecars, and meta-verify/runtime infrastructure. Each entry renders the source report with paths sanitized and point-of-use reconstruction notes where needed; promoted full ledger cards begin at 0052+.",
+  "source": "Flamehaven-TOE/TOE-TEST (report markdown imported, paths sanitized, point-of-use notes may be appended for scope/errata/status clarity)",
   "count": 51,
+  "verification_run_count": 7,
+  "non_run_artifact_count": 44,
   "report_count": 51,
   "runs": [
     {
