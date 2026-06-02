@@ -6,6 +6,13 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_citation_mapping`.
+>
+> - It maps calibration profiles to bounded citation-cluster families.
+> - Exclude it from verification-run counts. This is a traceability layer for
+>   sidecar interpretation, not a direct verification result.
+
 ---
 
 ## 1. Objective

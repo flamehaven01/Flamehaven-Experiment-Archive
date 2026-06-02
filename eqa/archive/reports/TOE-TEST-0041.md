@@ -1,5 +1,12 @@
 # TOE-TEST-0041 -- Flamehaven-TOE Meta Verify Layer
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_foundation`.
+>
+> - It introduces a change-aware verification selector above plain pytest.
+> - Exclude it from verification-run counts. This is verification-governance
+>   infrastructure, not a direct EQA physics-verification result.
+
 ## Scope
 
 This entry records the first change-aware verification layer added on top of

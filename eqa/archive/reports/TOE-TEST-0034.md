@@ -1,5 +1,12 @@
 # TOE-TEST-0034: Scenario Robustness Layer
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_scenario_robustness`.
+>
+> - It audits bounded perturbation sensitivity of current scenario rankings.
+> - Exclude it from verification-run counts. Its stable value is robustness
+>   interpretation within the present surrogate stack, not a physical estimate.
+
 ## Goal
 
 Audit whether current portable-report scenario rankings remain stable under bounded perturbations of target witness metrics.

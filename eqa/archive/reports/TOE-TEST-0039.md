@@ -1,5 +1,12 @@
 # TOE-TEST-0039: Interaction Phase Summary
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_interaction_phase_summary`.
+>
+> - It compresses hotspot output into a bounded phase-style summary.
+> - Exclude it from verification-run counts. This remains a present-model
+>   interpretation layer, not a physical phase summary.
+
 ## Goal
 
 Compress interaction-hotspot output into a bounded phase-style summary that is easier to read than the full hotspot listing.

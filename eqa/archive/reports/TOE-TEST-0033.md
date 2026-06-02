@@ -1,5 +1,12 @@
 # TOE-TEST-0033: Scenario Ranking Layer
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_scenario_ranking`.
+>
+> - It ranks bounded inverse-fit report scenarios by present-model stability.
+> - Exclude it from verification-run counts. This is a scenario-ranking layer
+>   over sidecar diagnostics, not a core verification result.
+
 ## Goal
 
 Rank multiple portable inverse-fit reports instead of evaluating each scenario in isolation.

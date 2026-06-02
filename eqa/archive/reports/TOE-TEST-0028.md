@@ -3,6 +3,13 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_dependency_drift_map`.
+>
+> - It extends inverse-fit diagnostics into a 1D target-sweep drift map.
+> - Exclude it from verification-run counts. This is a bounded explanation-map
+>   layer, not an empirical phase diagram or a core verification result.
+
 ## Goal
 
 Extend inverse-fit governance from single-target analysis to target-space

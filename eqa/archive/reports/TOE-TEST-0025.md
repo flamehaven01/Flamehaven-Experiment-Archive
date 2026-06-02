@@ -3,6 +3,14 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_inverse_fit_traceability`.
+>
+> - It adds citation-dependency summaries to inverse-fit outputs and SPAR
+>   traceability.
+> - Exclude it from verification-run counts. This is a bounded interpretability
+>   layer over sidecar inference, not a core-physics verification result.
+
 ## Goal
 
 Expose which coefficient-level citation entries dominate the current

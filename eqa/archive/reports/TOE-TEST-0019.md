@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_evidence_dataset`.
+>
+> - It adds evidence metadata and ranking structure to protein calibration
+>   profiles.
+> - Exclude it from verification-run counts. This is an evidence-traceability
+>   layer for sidecar calibration, not a new EQA verification run.
+
 ## Objective
 
 TOE-TEST-0018 made the protein spin-qubit bridge architecture-sensitive.

@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_architecture_calibration`.
+>
+> - It calibrates sidecar coefficients from architecture profiles, not from a
+>   core TOE verification contract.
+> - Exclude it from verification-run counts. Its stable value is structured
+>   profile-dependent calibration under explicit assumptions.
+
 ## Objective
 
 After TOE-TEST-0017, the protein spin-qubit sidecar already had:

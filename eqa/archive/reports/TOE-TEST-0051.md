@@ -5,6 +5,14 @@
 **Scope:** Biological calibration provenance / literature-grounding governance  
 **Type:** Governance and adapter scaffolding update
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_literature_adapter_scaffolding`.
+>
+> - It adds a bounded local-only literature-adapter interface under existing
+>   governance controls.
+> - Exclude it from verification-run counts. This is provenance/adapter
+>   scaffolding, not stronger physical calibration or a new core run.
+
 ---
 
 ## Goal

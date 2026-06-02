@@ -282,3 +282,32 @@ The EQA archive is considered reconstructed when:
 - the archive no longer overclaims independence, novelty, or scientific strength
 
 This standard prefers auditable restraint over persuasive narration.
+
+## 14. Deferred UI: Category Badge (post-51)
+
+After all of `TOE-TEST-0001..0051` are triaged, surface each record's
+classification as a first-class badge in the card header (top-right),
+mirroring the existing per-run badge (e.g. the green `OPTIONAL LAYER` badge
+on `EQA-TEST-0056`).
+
+Badge content by record kind:
+
+- verification run -> primary `run_type`
+  (`reproduction` / `robustness` / `adversarial` / `open_gap_probe`),
+  or an existing physics classification where one is already recorded
+  (e.g. `OPTIONAL LAYER`).
+- `non_run_artifact` -> its `artifact_class`
+  (e.g. `sidecar_analysis_module`, `evidence_governance_implementation`,
+  `bio_quantum_*`, `regression_doc_validation`).
+
+Rules:
+
+- badge text must derive from manifest fields (`run_type` / `artifact_class`),
+  not be hardcoded per card (OSOT / config-first).
+- verification runs and non-run artifacts must be visually distinguishable.
+- sensitivity flags (`errata`, `parser_sensitive`, `ground_truth_sensitive`)
+  remain as their own separate chips; the category badge does not replace them.
+- implement only AFTER the full `0001..0051` triage is complete, to avoid
+  re-churning the badge taxonomy mid-pass.
+
+Recorded 2026-06-02 as a deferred requirement; not yet implemented.

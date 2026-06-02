@@ -4,6 +4,14 @@
 - Target: `Flamehaven-TOE v4.10.0`
 - Scope: `tests/unit/test_pipeline_wiring.py`
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_environment_stabilization`.
+>
+> - It removes environment-specific tempdir instability from the current delta
+>   loop.
+> - Exclude it from verification-run counts. This is test-environment
+>   stabilization, not a new verification result.
+
 ## Goal
 
 Remove the remaining environment-specific noise from the meta-verify delta loop.

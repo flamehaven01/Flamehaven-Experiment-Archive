@@ -4,6 +4,14 @@ Date: 2026-04-02
 Engine: Flamehaven-TOE v4.10.0
 Scope: Meta-verify selector refinement
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_surface_minimization`.
+>
+> - It suppresses broad fallback API bundles when narrower affected surfaces are
+>   already known.
+> - Exclude it from verification-run counts. This is selector minimization
+>   infrastructure, not a direct EQA run.
+
 ## Objective
 
 `0043` already moved heavy API verification from whole-file selection to

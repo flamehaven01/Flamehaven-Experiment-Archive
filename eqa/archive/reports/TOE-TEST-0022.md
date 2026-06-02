@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_calibration_anchoring`.
+>
+> - It adds bounded anchor-window alignment for calibration coefficients and
+>   inverse-fit outputs.
+> - Exclude it from verification-run counts. The stable claim is admissible
+>   anchoring discipline, not direct experimental calibration or a core TOE run.
+
 ---
 
 ## 1. Objective

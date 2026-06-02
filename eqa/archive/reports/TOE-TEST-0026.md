@@ -3,6 +3,14 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_dependency_conflict`.
+>
+> - It adds bounded confidence/conflict scoring to inverse-fit dependency
+>   summaries.
+> - Exclude it from verification-run counts. This is a governance diagnostic
+>   over sidecar inference, not a core-physics verification result.
+
 ## Goal
 
 Extend inverse-fit citation dependency disclosure so the result not only lists

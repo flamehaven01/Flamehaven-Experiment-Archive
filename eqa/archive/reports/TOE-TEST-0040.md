@@ -1,5 +1,13 @@
 # TOE-TEST-0040: Interaction Regime Timeline
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_interaction_timeline`.
+>
+> - It stacks attribution, hotspot, and phase outputs into one bounded
+>   progression artifact.
+> - Exclude it from verification-run counts. This is a compact interpretation
+>   layer over the inverse-fit stack, not a physical regime history.
+
 ## Goal
 
 Stack the current single-axis, pairwise, hotspot, and phase interaction

@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_governance_patch`.
+>
+> - It implements provenance, tier, budget, adapter, and session-log controls
+>   for biological sidecars and inverse-fit surfaces.
+> - Exclude it from verification-run counts. Its stable claim is stronger
+>   governance traceability, not a new core EQA physics-verification result.
+
 ---
 
 ## 1. Objective

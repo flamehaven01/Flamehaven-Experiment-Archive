@@ -1,5 +1,12 @@
 # TOE-TEST-0036: Metric Attribution Layer
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_metric_attribution`.
+>
+> - It ranks single target metrics by bounded destabilizing effect.
+> - Exclude it from verification-run counts. This is a diagnostic attribution
+>   layer over sidecar inference, not a core-physics verification result.
+
 ## Goal
 
 Identify which target witness metrics destabilize the current scenario ensemble most strongly under bounded perturbation.

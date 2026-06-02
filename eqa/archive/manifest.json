@@ -123,188 +123,260 @@
       "id": "TOE-TEST-0016",
       "title": "Protein Odmr Decoherence Witness",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_witness_refinement",
       "report_path": "./eqa/archive/reports/TOE-TEST-0016.md"
     },
     {
       "id": "TOE-TEST-0017",
       "title": "Protein Hamiltonian And Readout Operator",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_measurement_model",
       "report_path": "./eqa/archive/reports/TOE-TEST-0017.md"
     },
     {
       "id": "TOE-TEST-0018",
       "title": "Protein Architecture Calibration",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_architecture_calibration",
       "report_path": "./eqa/archive/reports/TOE-TEST-0018.md"
     },
     {
       "id": "TOE-TEST-0019",
       "title": "Protein Calibration Evidence Dataset",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_evidence_dataset",
       "report_path": "./eqa/archive/reports/TOE-TEST-0019.md"
     },
     {
       "id": "TOE-TEST-0020",
       "title": "Protein Inverse Fit And Witness Tuning",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_inverse_fit",
       "report_path": "./eqa/archive/reports/TOE-TEST-0020.md"
     },
     {
       "id": "TOE-TEST-0021",
       "title": "Bio Governance Patch",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_governance_patch",
       "report_path": "./eqa/archive/reports/TOE-TEST-0021.md"
     },
     {
       "id": "TOE-TEST-0022",
       "title": "Literature Grounded Calibration Anchoring",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_calibration_anchoring",
       "report_path": "./eqa/archive/reports/TOE-TEST-0022.md"
     },
     {
       "id": "TOE-TEST-0023",
       "title": "Citation Mapping Layer",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_citation_mapping",
       "report_path": "./eqa/archive/reports/TOE-TEST-0023.md"
     },
     {
       "id": "TOE-TEST-0024",
       "title": "Coefficient Level Citation Entries",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_coefficient_citations",
       "report_path": "./eqa/archive/reports/TOE-TEST-0024.md"
     },
     {
       "id": "TOE-TEST-0025",
       "title": "Inverse Fit Citation Dependency Summary",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_inverse_fit_traceability",
       "report_path": "./eqa/archive/reports/TOE-TEST-0025.md"
     },
     {
       "id": "TOE-TEST-0026",
       "title": "Dependency Confidence And Conflict",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_dependency_conflict",
       "report_path": "./eqa/archive/reports/TOE-TEST-0026.md"
     },
     {
       "id": "TOE-TEST-0027",
       "title": "Dependency Family Consistency",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_dependency_consensus",
       "report_path": "./eqa/archive/reports/TOE-TEST-0027.md"
     },
     {
       "id": "TOE-TEST-0028",
       "title": "Target Sweep Dependency Drift Map",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_dependency_drift_map",
       "report_path": "./eqa/archive/reports/TOE-TEST-0028.md"
     },
     {
       "id": "TOE-TEST-0029",
       "title": "2D Dependency Boundary Map",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_dependency_boundary_map",
       "report_path": "./eqa/archive/reports/TOE-TEST-0029.md"
     },
     {
       "id": "TOE-TEST-0030",
       "title": "Boundary Summarization And Hotspot Extraction",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_boundary_interpretation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0030.md"
     },
     {
       "id": "TOE-TEST-0031",
       "title": "Boundary Compression And Report Export",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_portable_report",
       "report_path": "./eqa/archive/reports/TOE-TEST-0031.md"
     },
     {
       "id": "TOE-TEST-0032",
       "title": "Portable Report Diff Layer",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_report_diff",
       "report_path": "./eqa/archive/reports/TOE-TEST-0032.md"
     },
     {
       "id": "TOE-TEST-0033",
       "title": "Scenario Ranking Layer",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_scenario_ranking",
       "report_path": "./eqa/archive/reports/TOE-TEST-0033.md"
     },
     {
       "id": "TOE-TEST-0034",
       "title": "Scenario Robustness Layer",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_scenario_robustness",
       "report_path": "./eqa/archive/reports/TOE-TEST-0034.md"
     },
     {
       "id": "TOE-TEST-0035",
       "title": "Robustness Explanation And Failure Modes",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_robustness_explanation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0035.md"
     },
     {
       "id": "TOE-TEST-0036",
       "title": "Metric Attribution Layer",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_metric_attribution",
       "report_path": "./eqa/archive/reports/TOE-TEST-0036.md"
     },
     {
       "id": "TOE-TEST-0037",
       "title": "Pairwise Interaction Attribution",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_pair_attribution",
       "report_path": "./eqa/archive/reports/TOE-TEST-0037.md"
     },
     {
       "id": "TOE-TEST-0038",
       "title": "Interaction Hotspot Map",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_interaction_hotspots",
       "report_path": "./eqa/archive/reports/TOE-TEST-0038.md"
     },
     {
       "id": "TOE-TEST-0039",
       "title": "Interaction Phase Summary",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_interaction_phase_summary",
       "report_path": "./eqa/archive/reports/TOE-TEST-0039.md"
     },
     {
       "id": "TOE-TEST-0040",
       "title": "Interaction Regime Timeline",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_interaction_timeline",
       "report_path": "./eqa/archive/reports/TOE-TEST-0040.md"
     },
     {
       "id": "TOE-TEST-0041",
       "title": "Meta Verify Layer",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_foundation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0041.md"
     },
     {
       "id": "TOE-TEST-0042",
       "title": "Meta Verify Orchestration",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_orchestration",
       "report_path": "./eqa/archive/reports/TOE-TEST-0042.md"
     },
     {
       "id": "TOE-TEST-0043",
       "title": "Endpoint Level Node Selection",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_node_selection",
       "report_path": "./eqa/archive/reports/TOE-TEST-0043.md"
     },
     {
       "id": "TOE-TEST-0044",
       "title": "Surface To Node Minimization",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_surface_minimization",
       "report_path": "./eqa/archive/reports/TOE-TEST-0044.md"
     },
     {
       "id": "TOE-TEST-0045",
       "title": "Heavy Node Tiering",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_heavy_node_tiering",
       "report_path": "./eqa/archive/reports/TOE-TEST-0045.md"
     },
     {
       "id": "TOE-TEST-0046",
       "title": "Lightweight Report Kernel",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_report_kernel_optimization",
       "report_path": "./eqa/archive/reports/TOE-TEST-0046.md"
     },
     {
       "id": "TOE-TEST-0047",
       "title": "Request Scoped Interaction Cache Rewiring",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_request_cache_rewire",
       "report_path": "./eqa/archive/reports/TOE-TEST-0047.md"
     },
     {
       "id": "TOE-TEST-0048",
       "title": "Candidate Kernel Caching",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_candidate_kernel_cache",
       "report_path": "./eqa/archive/reports/TOE-TEST-0048.md"
     },
     {
       "id": "TOE-TEST-0049",
       "title": "Localstore Tempdir Stabilization",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_environment_stabilization",
       "report_path": "./eqa/archive/reports/TOE-TEST-0049.md"
     },
     {
       "id": "TOE-TEST-0050",
       "title": "Deferred Artifact Replay",
+      "non_run_artifact": true,
+      "artifact_class": "meta_verify_deferred_replay",
       "report_path": "./eqa/archive/reports/TOE-TEST-0050.md"
     },
     {
       "id": "TOE-TEST-0051",
       "title": "Literature Adapter Scaffolding",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_literature_adapter_scaffolding",
       "report_path": "./eqa/archive/reports/TOE-TEST-0051.md"
     }
   ]

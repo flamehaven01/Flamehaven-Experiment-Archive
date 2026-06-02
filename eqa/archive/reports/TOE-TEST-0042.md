@@ -1,5 +1,13 @@
 # TOE-TEST-0042 -- Meta Verify Orchestration
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_orchestration`.
+>
+> - It layers preflight, selected execution, and lightweight post-analysis on
+>   top of meta-verify selection.
+> - Exclude it from verification-run counts. This is bounded orchestration
+>   infrastructure, not a new verification result.
+
 ## Scope
 
 This entry records the first orchestration layer above the delta-manifest

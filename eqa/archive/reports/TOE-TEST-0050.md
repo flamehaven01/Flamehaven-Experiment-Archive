@@ -4,6 +4,13 @@ Date: 2026-04-03
 Scope: meta verification governance patch
 Status: PASS
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_deferred_replay`.
+>
+> - It adds bounded replay for unchanged deferred heavy-node evidence.
+> - Exclude it from verification-run counts. This is meta-verification
+>   governance and execution reuse, not a direct EQA physics result.
+
 ## Objective
 
 Add bounded artifact replay to the deferred heavy-node tier so identical slow

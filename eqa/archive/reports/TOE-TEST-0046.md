@@ -17,6 +17,14 @@ Flamehaven-TOE v4.10.0
 This patch does not add a new physics model. It reduces internal overhead in
 the protein inverse-fit report stack used by delta verification.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_report_kernel_optimization`.
+>
+> - It introduces artifact-first report builders and a lightweight scenario
+>   kernel for delta verification.
+> - Exclude it from verification-run counts. This is internal optimization of
+>   verification/report infrastructure, not a direct EQA result.
+
 Target path:
 
 - `protein_inverse_fit_report`

@@ -3,6 +3,14 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_coefficient_citations`.
+>
+> - It refines calibration grounding from profile-level clusters to
+>   coefficient-level citation entries.
+> - Exclude it from verification-run counts. Its stable value is bounded
+>   coefficient provenance, not a new EQA verification run.
+
 ## Goal
 
 Refine biological calibration grounding from profile-level citation clusters to

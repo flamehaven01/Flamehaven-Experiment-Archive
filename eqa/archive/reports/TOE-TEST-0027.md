@@ -3,6 +3,14 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_dependency_consensus`.
+>
+> - It adds family-level consensus/stability analysis across inverse-fit
+>   candidates.
+> - Exclude it from verification-run counts. Its stable value is bounded
+>   governance over candidate-family interpretation, not a new EQA run.
+
 ## Goal
 
 Extend inverse-fit governance from single-candidate dependency traceability to

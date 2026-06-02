@@ -1,5 +1,13 @@
 # TOE-TEST-0031: Boundary Compression and Report Export
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_portable_report`.
+>
+> - It packages existing inverse-fit diagnostics into bounded portable report
+>   artifacts.
+> - Exclude it from verification-run counts. This is an export/compression
+>   layer over sidecar interpretation, not a new verification result.
+
 ## Goal
 
 Package the current protein inverse-fit diagnostic stack into a portable review artifact instead of requiring direct inspection of separate inverse-fit, drift-map, and boundary-map payloads.

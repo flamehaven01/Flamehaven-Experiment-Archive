@@ -4,6 +4,14 @@
 - Target: `Flamehaven-TOE v4.10.0`
 - Scope: `src/toe/bio_quantum/protein_inverse_fit.py`
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_candidate_kernel_cache`.
+>
+> - It caches target-independent candidate kernels to reduce cold-start sweep
+>   cost.
+> - Exclude it from verification-run counts. This is sidecar/runtime
+>   optimization, not a direct verification outcome.
+
 ## Goal
 
 Reduce the cold-start cost of the protein inverse-fit sweep stack by removing

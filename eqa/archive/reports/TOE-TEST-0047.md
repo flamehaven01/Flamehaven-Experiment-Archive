@@ -4,6 +4,14 @@
 - Target: `Flamehaven-TOE v4.10.0`
 - Scope: `src/toe/api/routers/physics.py`, `src/toe/api/reports.py`
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_request_cache_rewire`.
+>
+> - It removes duplicate route-layer recomposition through request-scoped cached
+>   builders.
+> - Exclude it from verification-run counts. This is route/runtime
+>   optimization infrastructure, not a verification run.
+
 ## Goal
 
 Finish the `0046` artifact-first optimization by removing the remaining inline

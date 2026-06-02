@@ -4,6 +4,14 @@ Date: 2026-04-02
 Engine: Flamehaven-TOE v4.10.0
 Scope: Meta-verify selector refinement for heavy protein interaction/report nodes
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_heavy_node_tiering`.
+>
+> - It splits delta verification into required fast-tier tests and deferred
+>   slow-tier tests.
+> - Exclude it from verification-run counts. This is execution-governance
+>   infrastructure, not a new verification result.
+
 ## Objective
 
 After `0044`, the selector was no longer overreaching across unrelated API

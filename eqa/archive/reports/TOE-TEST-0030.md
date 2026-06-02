@@ -3,6 +3,14 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_boundary_interpretation`.
+>
+> - It summarizes 2D dependency boundaries into hotspots, stable islands, and
+>   fragile strips.
+> - Exclude it from verification-run counts. This is a compact interpretation
+>   layer over a sidecar diagnostic map, not a direct verification result.
+
 ## Goal
 
 Add a compact interpretation layer on top of the 2D dependency boundary map so

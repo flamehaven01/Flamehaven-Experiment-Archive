@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_measurement_model`.
+>
+> - It adds an explicit Hamiltonian/readout model for the protein sidecar.
+> - Exclude it from verification-run counts. The stable claim is inspectable
+>   measurement-model structure under governance, not admission into the core
+>   EQA physics gate.
+
 ## Objective
 
 TOE-TEST-0016 upgraded the bio-quantum bridge to an ODMR / decoherence witness.

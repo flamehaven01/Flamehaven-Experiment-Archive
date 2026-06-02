@@ -4,6 +4,14 @@ Date: 2026-04-02
 Engine: Flamehaven-TOE v4.10.0
 Scope: Meta verification refinement for heavy API surfaces
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `meta_verify_node_selection`.
+>
+> - It narrows delta verification from whole-file API selection to endpoint
+>   node selection.
+> - Exclude it from verification-run counts. Its stable claim is selector
+>   refinement, not a core verification outcome.
+
 ## Objective
 
 Reduce the cost of day-to-day delta verification without weakening the release

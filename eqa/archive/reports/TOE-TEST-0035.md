@@ -1,5 +1,13 @@
 # TOE-TEST-0035: Robustness Explanation and Failure Modes
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_robustness_explanation`.
+>
+> - It explains why bounded ranking robustness drifts through explicit failure
+>   modes and fragile scenarios.
+> - Exclude it from verification-run counts. This is an interpretation layer
+>   over scenario robustness, not a direct verification result.
+
 ## Goal
 
 Explain why scenario rankings drift under bounded perturbation instead of reporting only aggregate robustness scores.

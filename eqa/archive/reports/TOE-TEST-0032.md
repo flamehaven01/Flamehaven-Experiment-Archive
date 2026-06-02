@@ -1,5 +1,12 @@
 # TOE-TEST-0032: Portable Report Diff Layer
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_report_diff`.
+>
+> - It compares portable inverse-fit reports as bounded explanation diffs.
+> - Exclude it from verification-run counts. Its stable claim is report
+>   comparison utility, not a direct EQA verification outcome.
+
 ## Goal
 
 Compare two portable protein inverse-fit reports directly instead of inspecting separate report payloads by hand.

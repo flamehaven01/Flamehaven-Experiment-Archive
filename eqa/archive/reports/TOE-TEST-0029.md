@@ -3,6 +3,13 @@
 Date: 2026-04-02  
 Version: v4.10.0
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_dependency_boundary_map`.
+>
+> - It extends inverse-fit diagnostics into a 2D dependency boundary map.
+> - Exclude it from verification-run counts. Its stable claim is bounded
+>   target-space interpretation, not a physical boundary measurement.
+
 ## Goal
 
 Extend inverse-fit target-space diagnostics from 1D drift maps to 2D boundary

@@ -6,6 +6,13 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_witness_refinement`.
+>
+> - It refines a biological sidecar witness/readout surface and its SPAR hooks.
+> - Exclude it from verification-run counts. Its stable claim is a better
+>   governed witness model, not a new core string-vacuum verification result.
+
 ## Objective
 
 TOE-TEST-0015 established the first executable biological-to-quantum bridge:

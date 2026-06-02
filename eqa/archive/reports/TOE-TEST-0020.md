@@ -6,6 +6,14 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_inverse_fit`.
+>
+> - It governs an inverse-fit / ranking surface over sidecar witness targets.
+> - Exclude it from verification-run counts. Its stable claim is bounded
+>   inference over an existing sidecar family, not a direct core-physics
+>   verification result.
+
 ## Objective
 
 TOE-TEST-0019 established an evidence-aware calibration dataset for the protein
