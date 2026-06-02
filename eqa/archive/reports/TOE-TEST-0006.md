@@ -6,6 +6,19 @@
 **Composition**: 3-PASS + 3-FAIL + 4-Adversarial (3-3-4 Matrix)
 **Gaps targeted**: C10 (Schwarzschild full Riemann path), C11 (WZW+F2 simultaneous), C (Global Pontryagin integration)
 
+> **Archive reconstruction note (2026-06-02)**: This historical record is
+> strongest where it names its own limits.
+>
+> - The stable evidence is `C10` full-Riemann execution for `schwarzschild`,
+>   `C11(a)` GS response for `wzw_s3_f2`, and the documented distinction between
+>   GS-only failure and beta-function failure.
+> - `A03/A04` are integration proxies, not exact topological charges. The source
+>   itself states that the global Pontryagin calculation here is a 1D radial
+>   integral proxy, not the full 4D topological invariant.
+> - `C11(b)` remains open in this record: modified Bianchi / `F2` cross-terms in
+>   `beta^B` are explicitly not implemented and must not be inferred from the
+>   historical PASS/FAIL headline alone.
+
 ---
 
 ## 0. Executive Summary

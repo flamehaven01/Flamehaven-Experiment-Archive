@@ -6,6 +6,17 @@
 **Format:** 3-3-4 Matrix  
 **Grade:** see Summary
 
+> **Archive reconstruction note (2026-06-02)**: This historical record is a
+> preset-direct matrix. The narrative language in the source should not be read
+> as canonical proof that the engine is "narrative-immune."
+>
+> - The stable evidence here is the topology / geometry contrast itself:
+>   single-plane vs two-plane `F2`, rigid vs non-rigid `CY3`, and `D=11`
+>   BRST/GS rejection under the historical v4.2.0 gate stack.
+> - `A02` (`AdS5` at `L=0.99/1.00/1.01`) is a historical no-`F5` sensitivity
+>   probe. It should not be read as the current canonical `AdS5×S5` verdict for
+>   later engine versions with fuller flux support.
+
 ---
 
 ## Motivation

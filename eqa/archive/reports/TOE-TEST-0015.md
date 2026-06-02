@@ -6,6 +6,15 @@
 **Result**: PASS  
 **Grade**: A
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `bio_quantum_bridge_validation`.
+>
+> - It validates a sidecar bridge from biological trajectories into bounded
+>   quantum-channel maps plus result-aware biological SPAR.
+> - Exclude it from verification-run counts. The stable claim is an executable
+>   sidecar bridge under governance, not admission into the core string-vacuum
+>   verifier.
+
 ## Scope
 
 This test closes the first executable bio-quantum bridge in Flamehaven-TOE.

@@ -6,6 +6,15 @@
 **Method**: sidecar mathematical-model implementation + regression verification  
 **Purpose**: Add a first information-geometric ageing diagnostic to TOE without altering the existing string-vacuum core.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `sidecar_analysis_module`.
+>
+> - It validates a biological sidecar analysis module and its API/tests, not a
+>   core EQA verification run.
+> - Exclude it from verification-run counts. Its stable claim is gate isolation:
+>   the sidecar is admitted only as a bounded analysis surface outside the
+>   string-vacuum PASS/FAIL path.
+
 ---
 
 ## 0. Executive Summary

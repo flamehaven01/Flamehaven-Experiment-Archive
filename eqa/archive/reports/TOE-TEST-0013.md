@@ -5,6 +5,14 @@
 **Method**: frontend/API wiring + SPAR extension + bridge-registry implementation  
 **Purpose**: Close the loop from biological sidecars to frontend exposure, add a minimal SPAR-aware biological admissibility check, and diagnose which biological claims can genuinely connect to TOE's existing quantum stack.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `frontend_bridge_integration`.
+>
+> - It exposes sidecars, SPAR supplements, and bridge diagnosis through the
+>   frontend/API surface.
+> - Exclude it from verification-run counts. Its stable value is integration and
+>   gap diagnosis, not a new core EQA run verdict.
+
 ---
 
 ## 0. Executive Summary

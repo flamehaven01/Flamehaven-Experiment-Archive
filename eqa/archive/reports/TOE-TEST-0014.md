@@ -5,6 +5,13 @@
 **Method**: SPAR structural reinforcement + regression verification  
 **Purpose**: Strengthen SPAR so biological sidecar governance does not blur the core string-vacuum verdict, while still recording bio-specific admissibility and missing-link probes.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `spar_governance_reinforcement`.
+>
+> - It restructures SPAR score paths and biological Layer C probes.
+> - Exclude it from verification-run counts. The stable claim is separation of
+>   core physics review from biological admissibility / bridge incompleteness.
+
 ---
 
 ## 0. Executive Summary

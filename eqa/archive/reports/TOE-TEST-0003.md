@@ -5,6 +5,16 @@
 **Format:** 3-3-4 Matrix (v2.0 with Adversarial block)  
 **Grade:** see Summary
 
+> **Archive reconstruction note (2026-06-02)**: This historical record is a
+> preset-direct verification matrix, not a natural-language parser proof.
+>
+> - `T02` (`ads5`, `L=1.0`) records a source-stated engine-scope limitation around
+>   missing F5 support in this historical session; do not read it as the current
+>   canonical AdS5 verdict for later engine versions.
+> - The stable evidence in this record is the Pontryagin topology distinction
+>   (`A01` vs `A02`), the GS-only rejection path (`T06`), and AdS deformation
+>   sensitivity under the no-F5 historical scope.
+
 ---
 
 ## Context

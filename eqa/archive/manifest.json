@@ -83,30 +83,40 @@
       "id": "TOE-TEST-0011",
       "title": "Fisher Information Ageing",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "sidecar_analysis_module",
       "report_path": "./eqa/archive/reports/TOE-TEST-0011.md"
     },
     {
       "id": "TOE-TEST-0012",
       "title": "Biological Evidence Contracts",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "evidence_governance_implementation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0012.md"
     },
     {
       "id": "TOE-TEST-0013",
       "title": "Bio Quantum Bridges And Frontend",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "frontend_bridge_integration",
       "report_path": "./eqa/archive/reports/TOE-TEST-0013.md"
     },
     {
       "id": "TOE-TEST-0014",
       "title": "Spar Bio Reinforcement",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "spar_governance_reinforcement",
       "report_path": "./eqa/archive/reports/TOE-TEST-0014.md"
     },
     {
       "id": "TOE-TEST-0015",
       "title": "Protein Spin Qubit And Result Aware Spar",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "bio_quantum_bridge_validation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0015.md"
     },
     {

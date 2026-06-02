@@ -5,6 +5,13 @@
 **Method**: evidence-governance implementation + API regression  
 **Purpose**: Convert the biological-claim admissibility logic from TOE-TEST-0010 into a machine-readable layer that can be used by API consumers, SPAR priors, and future bio-quantum modules.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a
+> `non_run_artifact` of class `evidence_governance_implementation`.
+>
+> - It implements an admissibility / exclusion registry for biological claims.
+> - Exclude it from verification-run counts. This is a governance layer about
+>   what may enter later sidecars, not a direct physics-verification result.
+
 ---
 
 ## 0. Executive Summary

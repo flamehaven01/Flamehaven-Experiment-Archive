@@ -6,6 +6,20 @@
 **Composition**: 3-PASS + 3-FAIL + 4-Adversarial (3-3-4 Matrix)  
 **Gaps targeted**: C5 (AdS5 SymPy crosscheck), C8 (p1_R=p1_F≠0 GS cancellation), C9 (Pontryagin integrality p1∈2ℤ)
 
+> **Archive reconstruction note (2026-06-02)**: This historical record captures
+> a real preset-direct transition in engine capability, but some headline claims
+> in the source are stronger than the stable evidence warrants.
+>
+> - The stable evidence is that `eguchi_hanson` introduced a non-zero
+>   `p1_R` path in the engine and allowed tuned-`F2` vs under-tuned vs
+>   over-tuned GS comparisons.
+> - Read `p1_R ≈ -1.6` here as a historical single-point density / local proxy,
+>   not as the exact full topological charge. The source itself distinguishes
+>   local density from the exact global instanton value.
+> - `P02` (`ads5_s5_f5`) is a historical regression check, not a universal
+>   claim that every earlier AdS5 scope question was already resolved at this
+>   stage of the archive.
+
 ---
 
 ## 0. Executive Summary
