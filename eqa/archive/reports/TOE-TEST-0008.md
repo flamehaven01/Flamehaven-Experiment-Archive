@@ -5,6 +5,13 @@
 **Type:** Regression + Documentation validation
 **Scope:** SPAR A4 routing fix + NumPy math sprint release + full doc sync
 
+> **Archive reconstruction note (2026-06-02)**: This record is a `non_run_artifact`
+> of class `regression_doc_validation`.
+>
+> - It verifies a SPAR routing / documentation fix, not a new EQA verification run.
+> - Exclude it from verification-run counts. Read it as a historical regression and
+>   documentation-control artifact tied to EQA maintenance.
+
 ---
 
 ## 1. Session Objective

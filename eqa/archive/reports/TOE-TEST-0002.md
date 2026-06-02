@@ -6,6 +6,18 @@
 > **Authors**: Flamehaven Lab
 > **Classification**: String Theory / Cosmology / Quantum Gravity / NEC Violation
 
+> **Archive reconstruction note (2026-06-02)**: This record is `parser_sensitive`.
+> The numeric results in this report are consistent with direct preset execution,
+> but the natural-language hypotheses shown in the adversarial cohort are not
+> canonical evidence under the current parser.
+>
+> - `T07`: `"no dilaton"` still matches the bare `dilaton` keyword, so the current parser can route this case toward a FAIL-like dilaton path even though the report records a direct `schwarzschild` PASS result.
+> - `T08`: `"anti-de-Sitter"` uses a hyphenated form that does not match the current `"anti-de sitter"` keyword branch, so parser routing can miss the intended `ads5` path.
+> - `T10`: `"positive Lambda"` does not match the current `de_sitter` keyword set, so parser routing can fall through even though the direct preset result is recorded here as `de_sitter` FAIL.
+>
+> Treat this report as a historical preset-direct matrix, not as proof that the
+> present natural-language parser is narrative-immune.
+
 ---
 
 ## Abstract

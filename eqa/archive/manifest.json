@@ -11,6 +11,7 @@
       "title": "Ten Case Verification",
       "date": "2026-03-05",
       "grade": "A (90%)",
+      "errata": true,
       "report_path": "./eqa/archive/reports/TOE-TEST-0001.md"
     },
     {
@@ -18,6 +19,7 @@
       "title": "3 3 4 Matrix",
       "date": "2026-03-05",
       "grade": "S (100%)",
+      "parser_sensitive": true,
       "report_path": "./eqa/archive/reports/TOE-TEST-0002.md"
     },
     {
@@ -50,24 +52,31 @@
       "id": "TOE-TEST-0007",
       "title": "Covenant C1 Closure",
       "date": "2026-03-30",
+      "ground_truth_sensitive": true,
       "report_path": "./eqa/archive/reports/TOE-TEST-0007.md"
     },
     {
       "id": "TOE-TEST-0008",
       "title": "New D02 Fix Doc V499",
       "date": "2026-03-30",
+      "non_run_artifact": true,
+      "artifact_class": "regression_doc_validation",
       "report_path": "./eqa/archive/reports/TOE-TEST-0008.md"
     },
     {
       "id": "TOE-TEST-0009",
       "title": "Cyclic Cosmology",
       "date": "2026-03-31",
+      "non_run_artifact": true,
+      "artifact_class": "integration_feasibility_assessment",
       "report_path": "./eqa/archive/reports/TOE-TEST-0009.md"
     },
     {
       "id": "TOE-TEST-0010",
       "title": "Quantum Biology Integration",
       "date": "2026-04-02",
+      "non_run_artifact": true,
+      "artifact_class": "evidence_governance_audit",
       "report_path": "./eqa/archive/reports/TOE-TEST-0010.md"
     },
     {

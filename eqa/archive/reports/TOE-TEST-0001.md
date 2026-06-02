@@ -392,3 +392,63 @@ enforces the Maldacena-Núñez no-go constraint on de Sitter backgrounds without
 implementation of the theorem. These results support the engine's use as the computational
 core of the planned ASDP (Autonomous Scientific Discovery Pipeline) and API regression
 suite, where physics correctness must be guaranteed at every version boundary.
+
+---
+
+## Errata v1 (2026-03-05, issued post-v4.1.5 analysis)
+
+> **Issued by**: Claude Sonnet 4.6 (GitHub Copilot CLI)  
+> **Trigger**: Raw data analysis revealed that T06/T07/T08/T10 share identical output.  
+> This Errata does not revise the grade or the T09 physics insight. It corrects the
+> interpretation of the FAIL cohort and identifies a HypothesisParser limitation.
+
+### E01 — T06/T07/T08/T10 Numerical Identity
+
+**Observation**: All four FAIL cases (T06 de Sitter no-go, T07 Phantom dark energy,
+T08 Swampland dS, T10 Rapid inflation) produced exactly identical outputs:
+`Ω=0.0, ‖R‖_F=0.060, √JSD=0.272161`.
+
+**Root cause**: HypothesisParser mapped all four physically distinct hypotheses to
+the same `de_sitter` background preset. This is a documented limitation of keyword-based
+routing: the parser cannot distinguish "phantom energy (w<-1)" from "de Sitter (H=const)"
+because both hypotheses contain cosmological curvature keywords.
+
+**Corrected interpretation of Discovery 2**:
+The original report claimed this proved "the engine measures geometry, not narrative."
+That claim is technically correct but requires a more precise statement:
+
+> *"The engine correctly produces identical outputs for identical inputs.
+> The FAIL cohort in this test used only one distinct input (de_sitter preset),
+> so it tested one FAIL mechanism four times, not four different mechanisms."*
+
+**Impact on grade**: None. The engine performed correctly on all four cases given the
+inputs it received. The error is in test design, not engine behavior.
+
+**What this finding enables**: E01 is the **first experimental record of the
+HypothesisParser preset-collision problem**. It directly motivated the introduction
+of the `phantom` background preset (v4.1.5, Caldwell 2002) and the `schwarzschild_dilaton`
+adversarial preset, which provide three numerically distinct FAIL mechanisms:
+
+| Preset | Mechanism | ricci_norm | sqrt_jsd |
+|--------|-----------|-----------|---------|
+| `de_sitter` (v4.1.4+) | Cosmological constant → β^Φ via Ricci scalar | 0.0600 | 0.272161 |
+| `phantom` (v4.1.5+) | H_dot>0 Big-Rip → enhanced Ricci (×32) | 1.9436 | 0.491541 |
+| `schwarzschild_dilaton` (v4.1.5+) | Ricci-flat + runaway kinetic dilaton | 0.0000 | 0.510947 |
+
+### E02 — FAIL Cohort Diversity (Test Design Limitation)
+
+**Observation**: The FAIL cohort nominally tested 5 scenarios but covered only
+1 distinct geometry (`de_sitter` × 4) plus 1 test design error (T09 Schwarzschild).
+Effective FAIL diversity: 0 out of 5.
+
+**Corrected claim**: The 90% accuracy figure measures engine correctness against the
+test inputs used, not coverage of the FAIL space. A test suite with 4 identical inputs
+cannot demonstrate that the engine distinguishes different FAIL mechanisms.
+
+**Resolution**: TOE-TEST-0002 will use the 3-3-4 Matrix with three genuinely distinct
+FAIL presets: `de_sitter`, `phantom`, and `schwarzschild_dilaton`. Each has a different
+mathematical mechanism for inconsistency. See `TOE-TEST/README.md §Phase 2`.
+
+---
+
+*End of Errata v1.*

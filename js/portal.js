@@ -1464,12 +1464,19 @@ function renderArchiveInspector(runId, d, panels) {
   // Verified Rules
   const gates = [];
   if (hasSr9) gates.push({ label: 'SR9 honesty gate (>= 0.80)', status: m.sr9_resonance >= 0.80 ? 'PASS' : 'FAIL', detail: 'SR9 = ' + m.sr9_resonance.toFixed(3) + (m.sr9_resonance >= 0.80 ? '' : ' (below gate)') });
-  if (m.report) gates.push({ label: 'Human-readable report', status: 'PASS', detail: esc(m.report) });
-  if (isEqa && d.grade) gates.push({ label: 'Recorded gate verdict', status: 'PASS', detail: 'Grade ' + esc(d.grade) + ' (verbatim from source report)' });
-  if (isEqa && d._reportText) gates.push({ label: 'Verbatim source report attached', status: 'PASS', detail: 'Imported from Flamehaven-TOE (paths sanitized, content unedited)' });
+  if (m.report) gates.push({ label: 'Human-readable report', status: 'IMPORTED', detail: esc(m.report) });
+  if (isEqa && d.grade) gates.push({ label: 'Source-recorded grade', status: 'IMPORTED', detail: 'Grade ' + esc(d.grade) + ' (as stated in source — not re-verified here)' });
+  if (isEqa && d.parser_sensitive) gates.push({ label: 'Historical parser sensitivity', status: 'DERIVED', detail: 'Natural-language hypotheses in this source do not canonically route to the recorded preset results under the current parser.' });
+  if (isEqa && d.ground_truth_sensitive) gates.push({ label: 'Historical ground-truth sensitivity', status: 'DERIVED', detail: 'A source-recorded meta-layer mismatch affected historical SPAR/ground-truth interpretation while the underlying engine result remained correct.' });
+  if (isEqa && d.non_run_artifact) gates.push({ label: 'Non-run archive artifact', status: 'IMPORTED', detail: 'Historical ' + String(d.artifact_class || 'meta artifact').replace(/_/g, ' ') + ' archived with EQA materials; excluded from verification-run counts.' });
+  if (isEqa && d._reportText) gates.push({ label: 'Verbatim source report attached', status: 'IMPORTED', detail: 'Imported from Flamehaven-TOE (paths sanitized, content unedited)' });
   panels.insChecks.innerHTML = gates.length
     ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Governance signals</div>' +
-      gates.map(g => { const col = g.status === 'PASS' ? '#10b981' : '#eab308'; return `<div style="display:flex;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:8px;font-size:12.5px;color:var(--t3);"><span style="color:${col};font-weight:bold;margin-right:8px;">[${g.status === 'PASS' ? '✓' : '!'}]</span><div style="flex:1;"><div style="font-weight:600;color:var(--ts);font-size:12px;font-family:'JetBrains Mono',monospace;">${esc(g.label)}</div><div style="font-size:12px;color:var(--t4);">${esc(g.detail)}</div></div><span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:${col};">${g.status}</span></div>`; }).join('')
+      gates.map(g => {
+        const col = g.status === 'PASS' ? '#10b981' : (g.status === 'FAIL' ? '#eab308' : '#9ca3af');
+        const icon = g.status === 'PASS' ? '✓' : (g.status === 'FAIL' ? '!' : '·');
+        return `<div style="display:flex;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);margin-bottom:8px;font-size:12.5px;color:var(--t3);"><span style="color:${col};font-weight:bold;margin-right:8px;">[${icon}]</span><div style="flex:1;"><div style="font-weight:600;color:var(--ts);font-size:12px;font-family:'JetBrains Mono',monospace;">${esc(g.label)}</div><div style="font-size:12px;color:var(--t4);">${esc(g.detail)}</div></div><span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:${col};">${g.status}</span></div>`;
+      }).join('')
     : '<p class="empty-state">No structured governance signals for this archived run.</p>';
 
   // Integrity
@@ -3082,13 +3089,15 @@ window.renderEqaArchive = async function() {
   const withReport = mf.runs.filter(r => r.report_path).length;
   const dated = mf.runs.map(r => r.date).filter(Boolean).sort();
   const graded = mf.runs.filter(r => r.grade).length;
+  const verificationRuns = mf.runs.filter(r => !r.non_run_artifact).length;
   const oldBanner = container.parentElement && container.parentElement.querySelector('.eqa-arch-stats');
   if (oldBanner) oldBanner.remove();
   const banner = document.createElement('div');
   banner.className = 'eqa-arch-stats';
   banner.style.cssText = 'display:flex;gap:18px;padding:7px 16px;background:rgba(167,139,250,0.04);border-bottom:1px solid rgba(167,139,250,0.12);flex-wrap:wrap;align-items:center;';
   banner.innerHTML = `
-    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">${mf.runs.length} runs</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--t3);">${mf.runs.length} records</span>
+    ${verificationRuns !== mf.runs.length ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9ca3af;">${verificationRuns} verification runs</span>` : ''}
     <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a78bfa;">&#9683; ${withReport} with verbatim report</span>
     ${graded ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#10b981;">&#10003; ${graded} graded</span>` : ''}
     ${dated.length ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--t4);">${dated[0]} → ${dated[dated.length-1]}</span>` : ''}
@@ -3100,6 +3109,10 @@ window.renderEqaArchive = async function() {
   container.innerHTML = runs.map(r => {
     const hasReport = !!r.report_path;
     const gradeChip = r.grade ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:3px;padding:1px 5px;">${esc(r.grade)}</span>` : '';
+    const errataChip = r.errata ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#eab308;border:1px solid rgba(234,179,8,0.35);border-radius:3px;padding:1px 5px;">errata</span>` : '';
+    const parserChip = r.parser_sensitive ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#9ca3af;border:1px solid rgba(156,163,175,0.35);border-radius:3px;padding:1px 5px;">parser-sensitive</span>` : '';
+    const gtChip = r.ground_truth_sensitive ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#eab308;border:1px solid rgba(234,179,8,0.35);border-radius:3px;padding:1px 5px;">ground-truth-sensitive</span>` : '';
+    const nonRunChip = r.non_run_artifact ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#60a5fa;border:1px solid rgba(96,165,250,0.35);border-radius:3px;padding:1px 5px;">non-run</span>` : '';
     const dateChip = r.date ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t5);">${esc(r.date)}</span>` : '';
     const reportChip = hasReport
       ? `<span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#a78bfa;border:1px solid rgba(167,139,250,0.25);border-radius:3px;padding:1px 5px;">report ✓</span>`
@@ -3107,7 +3120,7 @@ window.renderEqaArchive = async function() {
     return `<div class="bav-arch-row" onclick="openJsonInspector('eqa-arch-${esc(r.id)}')" style="flex-shrink:0;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;overflow:hidden;" title="Open in Ledger Inspector">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><span style="color:#a78bfa;">⌕</span> <span style="color:#6b7280;">${esc(r.id)}</span> <span style="font-family:'Inter',sans-serif;color:var(--t4);">${esc(r.title)}</span></span>
-        <span style="display:flex;align-items:center;gap:6px;flex-shrink:0;">${dateChip}${gradeChip}${reportChip}</span>
+        <span style="display:flex;align-items:center;gap:6px;flex-shrink:0;">${dateChip}${gradeChip}${errataChip}${parserChip}${gtChip}${nonRunChip}${reportChip}</span>
       </div>
     </div>`;
   }).join('');

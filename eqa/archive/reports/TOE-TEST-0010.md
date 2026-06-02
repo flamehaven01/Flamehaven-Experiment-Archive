@@ -6,6 +6,13 @@
 **Method**: TOE integration-feasibility audit + missing-link classification  
 **Purpose**: Determine which quantum-biology and adjacent mathematical-biology claims can be formalized inside TOE, which belong only to evidence review / SPAR, and which must be excluded from the core engine.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a `non_run_artifact`
+> of class `evidence_governance_audit`.
+>
+> - It is not a verification run and should be excluded from verification-run counts.
+> - Its historical value is governance restraint: it explicitly refuses to inject
+>   weak or non-admissible biological-quantum claims into the string-vacuum gate.
+
 ---
 
 ## 0. Executive Summary

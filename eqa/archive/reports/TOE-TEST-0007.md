@@ -6,6 +6,15 @@
 **Composition**: 3-PASS + 3-FAIL + 4-Adversarial (3-3-4 Matrix)
 **Gaps targeted**: C1 (beta^B + dilaton-H coupling), C11(b) (Modified Bianchi scope), A03 (Tensor Covenant calibration)
 
+> **Archive reconstruction note (2026-06-02)**: This historical record is `ground_truth_sensitive`.
+> The source itself records that the engine result was correct while the SPAR meta layer
+> was incomplete for `schwarzschild_dilaton`.
+>
+> - `D02`: `ground_truth.py` had no `schwarzschild_dilaton` entry and fell back to
+>   `schwarzschild`, producing an A4 anomaly against a correct engine FAIL result.
+> - Treat the `D02` section in this report as a source-recorded correction to the
+>   SPAR ground-truth table, not as evidence of an engine defect.
+
 ---
 
 ## s1. Abstract

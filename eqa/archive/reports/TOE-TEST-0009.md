@@ -6,6 +6,13 @@
 **Purpose**: Evaluate cyclic cosmology models for TOE integration feasibility before implementation.
 **Principle**: Evaluate first, integrate second.
 
+> **Archive reconstruction note (2026-06-02)**: This record is a `non_run_artifact`
+> of class `integration_feasibility_assessment`.
+>
+> - It is not a single EQA verification run headline.
+> - Exclude it from verification-run counts. Read it as a bounded integration /
+>   defer / missing-link assessment for cyclic-cosmology candidates.
+
 ---
 
 ## 0. Executive Summary
