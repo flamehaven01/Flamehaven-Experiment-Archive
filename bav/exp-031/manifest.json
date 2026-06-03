@@ -7,7 +7,7 @@
     {
       "arm": "A",
       "hybrid": "./bav/exp-031/arm-a/hybrid_result.json",
-      "sha256": "308dfafaebfa1ef63799112fcdad7fe39500f7c72e0720d00f8bebfc5abc438b",
+      "sha256": "07408f6f2c58587151cf38c3cf6f73ad7a9934da766904ddcdddbaba0650c0cc",
       "final_drift": 0.10000000000000003,
       "plddt_mean": 40.0,
       "engine_status": "trinity_failed_convergence",
@@ -16,7 +16,7 @@
     {
       "arm": "B",
       "hybrid": "./bav/exp-031/arm-b/hybrid_result.json",
-      "sha256": "66dcd04d7f31fac9fe305210933850699e72a530da4fdffec6f475a5f66b0c63",
+      "sha256": "8b9e228f414349c1cd12e7ccbd6c0f0fb49b0a31f26fd4577ba0868fcb6a2df0",
       "final_drift": 0.3702,
       "plddt_mean": 40.0,
       "engine_status": "trinity_failed_convergence",
@@ -25,7 +25,7 @@
     {
       "arm": "C",
       "hybrid": "./bav/exp-031/arm-c/hybrid_result.json",
-      "sha256": "aa3777d9b829f3fdab08758848cc90646a657d19605149e829ed4d347a82ec11",
+      "sha256": "769c4cd5dc7b32e86e55087eed172a8846b43263c883f09dc1128ad5f6324cce",
       "final_drift": 0.08900364983518161,
       "plddt_mean": 76.52036498351816,
       "engine_status": "trinity_failed_convergence",
@@ -38,7 +38,15 @@
     "af3_summary": "./bav/exp-031/arm-a/af3_summary_0.json",
     "note": "Real AF2 (pLDDT[52], PAE[52x52], pTM) and AF3 (PAE, contact_probs[52x52], atom_plddts[405]) outputs for structure-detail charts."
   },
+  "observer_context": {
+    "validator_metrics_mode": "manual_synced",
+    "governance_mode": "observer_only",
+    "alphagenome_role": "redesign_engine_only",
+    "promotion_evidence": "insufficient",
+    "promotion_min_samples": 50,
+    "promotion_decision": "KEEP_OBSERVER"
+  },
   "source": "output",
-  "provenance_note": "Copied verbatim from EXP-031 AlphaFold outputs (DI-EQA-002). Drift/pTM/pLDDT live-fetched from these files, never hardcoded (DI-BSC-001). NOTE: published notes used approximate narrative drift values; ledger uses exact artifact values.",
+  "provenance_note": "Copied verbatim from EXP-031 artifacts (DI-EQA-002). Drift/pTM/pLDDT are live-fetched from these files, never hardcoded (DI-BSC-001). Validator metrics in this run were manually synced from AF2/AF3/Boltz2/Chai1 source artifacts; AlphaGenome acted as a redesign engine only. NOTE: published notes used approximate narrative drift values; ledger uses exact artifact values.",
   "disclaimer": "Pipeline reliability + structural consensus heuristics. NOT clinical efficacy."
 }

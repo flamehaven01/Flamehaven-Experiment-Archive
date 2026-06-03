@@ -1283,6 +1283,9 @@ function renderBavInsights(d) {
   const va = d.viability_assessment || {};
   const rt = d.runtime_context || {};
   const ms = d.molecular_spec || {};
+  const mf = d._manifest || {};
+  const govBench = (d._gov && d._gov.benchmark) || {};
+  const govSummary = govBench.summary || {};
   const clinical = String(g.clinical_status || '—').toUpperCase();
   const lawbinder = String(g.lawbinder_decision || '—').toUpperCase();
   const clinColor = clinical === 'PASS' ? '#10b981' : (clinical === 'BLOCK' ? '#ef4444' : '#eab308');
@@ -1294,14 +1297,19 @@ function renderBavInsights(d) {
   const grade = d.quality_grade || '—';
 
   const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
+  const isExp032 = mf.experiment === 'EXP-032-ADAPTIVE-GATE';
+  const replayScope = isExp032
+    ? `${govSummary.counts && govSummary.counts.manifest_samples != null ? govSummary.counts.manifest_samples : 2} labeled classes / ${(((govBench.arm_level || {}).summary || {}).counts || {}).evaluable_sample_arms ?? 6} arm payloads`
+    : null;
+  const strictPass = d.strict_evidence_recheck && d.strict_evidence_recheck.status === 'PASS';
 
   return `
     <!-- Honesty banner -->
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">⚠️</span>
       <div>
-        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">Pipeline Reliability Prototype · NOT Clinical Efficacy</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">${esc(d.disclaimer || va.scope || 'Pipeline reliability heuristics only.')}</div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">${isExp032 ? 'Legacy-Replay Parity Anchor · NOT Production Gate' : 'Pipeline Reliability Prototype · NOT Clinical Efficacy'}</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">${isExp032 ? `Accepted parity anchor only. ${esc(replayScope || '2 labeled classes / 6 arm payloads')} · current-regeneration path excluded · observer shadow remains non-binding.` : esc(d.disclaimer || va.scope || 'Pipeline reliability heuristics only.')}</div>
       </div>
     </div>
 
@@ -1322,6 +1330,7 @@ function renderBavInsights(d) {
       ${metric('Viability', (typeof va.percent === 'number' ? va.percent.toFixed(1) + '%' : '—'), '#a78bfa')}
       ${metric('Pipeline Confidence', pct(d.confidence), '#a78bfa')}
       ${metric('Quality Grade', grade, '#10b981')}
+      ${isExp032 ? metric('Replay scope', esc(replayScope || '—'), '#60a5fa') : ''}
     </div>
     <!-- Internal resonance metrics: advisory, collapsed -->
     ${advisoryDetails(
@@ -1337,10 +1346,12 @@ function renderBavInsights(d) {
       <div><strong style="color: var(--t4);">Input sequence:</strong> ${esc(String(seqLen))}${ms.target_protein_name ? ' · ' + esc(ms.target_protein_name) : ''}</div>
       ${disabled ? `<div><strong style="color: var(--t4);">Disabled (honesty):</strong> ${esc(disabled)}</div>` : ''}
       ${va.label ? `<div><strong style="color: var(--t4);">Viability basis:</strong> ${esc(va.label)}</div>` : ''}
+      ${isExp032 ? `<div><strong style="color: var(--t4);">Parity anchor:</strong> ${esc(mf.mode || 'legacy_replay')} · current-regeneration excluded</div>` : ''}
+      ${isExp032 ? `<div><strong style="color: var(--t4);">Strict evidence recheck:</strong> ${strictPass ? 'pass' : 'fail'}${d.strict_evidence_recheck?.recommended_mode ? ' · ' + esc(d.strict_evidence_recheck.recommended_mode) : ''}</div>` : ''}
     </div>
 
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Governance read:</strong> Clinical status discriminates the candidate (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong> — a fail-safe posture that escalates to human review regardless of model confidence.
+      💡 <strong>Governance read:</strong> ${isExp032 ? `GO refers to clinical parity on the accepted replay anchor, not to a final LawBinder PASS. Clinical status discriminates the control (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong>; the shadow hint is non-binding and current-regeneration remains outside the success claim.` : `Clinical status discriminates the candidate (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong> — a fail-safe posture that escalates to human review regardless of model confidence.`}
     </p>
   `;
 }
@@ -1349,6 +1360,8 @@ function renderBavInsights(d) {
 function renderBavExp031Insights(d) {
   const bav = d && d._bav;
   if (!bav) return '<p class="empty-state">No EXP-031 data loaded.</p>';
+  const mf = d._manifest || {};
+  const oc = mf.observer_context || {};
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
   const arms = [['A', d], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]);
@@ -1356,12 +1369,14 @@ function renderBavExp031Insights(d) {
     const r = (a && a.result) || {};
     const vs = r.validator_summary || {};
     const adv = r.adapter_versions || {};
-    const models = ['af3', 'af2', 'boltz2', 'chai1', 'alphagenome'].filter(m => adv[m] && adv[m] !== 'unavailable');
+    const models = ['af3', 'af2', 'boltz2', 'chai1'].filter(m => adv[m] && adv[m] !== 'unavailable');
     const driftColor = (r.final_drift ?? 0) >= 0.3 ? '#ef4444' : (r.final_drift ?? 0) >= 0.15 ? '#f59e0b' : '#10b981';
+    const eff = vs.effective_drift ?? r.final_drift;
     return `<tr>
       <td style="padding:8px 10px;font-weight:600;color:var(--ts);">arm ${esc(name)}</td>
       <td style="padding:8px 10px;color:var(--t4);font-size:11px;">${esc(models.join(' · ') || '—')}</td>
       <td style="padding:8px 10px;color:${driftColor};font-weight:600;">${num(r.final_drift)}</td>
+      <td style="padding:8px 10px;color:var(--t3);">${num(eff)}</td>
       <td style="padding:8px 10px;color:var(--t3);">${num(vs.ptm_weighted_mean, 3)}</td>
       <td style="padding:8px 10px;color:var(--t3);">${num(r.plddt_mean, 1)}</td>
       <td style="padding:8px 10px;color:#eab308;font-size:11px;">${esc(r.verification_status || '—')}</td>
@@ -1371,22 +1386,28 @@ function renderBavExp031Insights(d) {
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">⚠️</span>
       <div>
-        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">OOD Ablation · Disagreement = Signal</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">All arms returned <strong>"Unverified (Drift Detected)"</strong> under out-of-distribution stress. Failed convergence is not a bug — it correctly flags that the target lies outside model distribution. Disposition: <strong>KEEP_OBSERVER</strong> (do not target).</div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">OOD Ablation · Manual Validators + Observer-Only Governance</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">All arms returned <strong>"Unverified (Drift Detected)"</strong> under out-of-distribution stress. Validator scores were manually synced from AF2 / AF3 / Boltz-2 / Chai-1 artifacts, AlphaGenome served as a redesign engine only, and the run stayed <strong>observer-only</strong>. Failed convergence is the point: the target remains outside model distribution, so disposition stays <strong>${esc(oc.promotion_decision || 'KEEP_OBSERVER')}</strong>.</div>
       </div>
     </div>
     <div style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:12px;">
       <thead><tr style="border-bottom:1px solid var(--border); color:var(--t4); text-transform:uppercase; font-size:10px;">
         <th style="padding:8px 10px; text-align:left;">Arm</th><th style="padding:8px 10px; text-align:left;">Models</th>
-        <th style="padding:8px 10px; text-align:left;">Eff. drift</th><th style="padding:8px 10px; text-align:left;">pTM</th>
+        <th style="padding:8px 10px; text-align:left;">Final drift</th><th style="padding:8px 10px; text-align:left;">Effective drift</th><th style="padding:8px 10px; text-align:left;">pTM</th>
         <th style="padding:8px 10px; text-align:left;">pLDDT</th><th style="padding:8px 10px; text-align:left;">Status</th>
       </tr></thead>
       <tbody>${arms.map(([n, a]) => rowFor(n, a)).join('')}</tbody>
     </table>
     </div>
+    <div style="margin-top:16px;font-size:12.5px;color:var(--t3);line-height:1.7;">
+      <div><strong style="color:var(--t4);">Validator metrics mode:</strong> ${esc(oc.validator_metrics_mode || 'manual_synced')}</div>
+      <div><strong style="color:var(--t4);">Governance mode:</strong> ${esc(oc.governance_mode || 'observer_only')}</div>
+      <div><strong style="color:var(--t4);">AlphaGenome role:</strong> ${esc(oc.alphagenome_role || 'redesign_engine_only')}</div>
+      <div><strong style="color:var(--t4);">Promotion evidence:</strong> ${esc(oc.promotion_evidence || 'insufficient')}${oc.promotion_min_samples ? ' · min_samples ' + esc(String(oc.promotion_min_samples)) + ' unmet' : ''}</div>
+    </div>
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Why disagreement matters:</strong> adding independent validators (Boltz-2, Chai-1) exposes topology conflicts invisible to any single model. High drift = honest structural uncertainty, not measurement noise. See the Analysis tab for the live drift comparison and real AF2/AF3 confidence matrices.
+      💡 <strong>Why disagreement matters:</strong> adding independent validators exposes topology conflicts invisible to any single model, and the observer penalty is what pushes arm C from a seemingly low final drift into an effective drift that still fails promotion. See the Analysis tab for final vs effective drift and structural confidence.
     </p>
   `;
 }
@@ -1614,6 +1635,22 @@ function renderBavIntegrity(runId, data) {
   if (ver.go_no_go_verdict) rows.push(['Go / No-Go verdict', ver.go_no_go_verdict]);
   if (ver.benchmark_accuracy != null) rows.push(['Benchmark accuracy', String(ver.benchmark_accuracy)]);
   if (ver.dangerous_pass_rate != null) rows.push(['Dangerous false-pass', String(ver.dangerous_pass_rate)]);
+  if (runId === 'bav-exp-031') {
+    const oc = mf.observer_context || {};
+    if (oc.validator_metrics_mode) rows.push(['Validator metrics', oc.validator_metrics_mode]);
+    if (oc.governance_mode) rows.push(['Governance mode', oc.governance_mode]);
+    if (oc.alphagenome_role) rows.push(['AlphaGenome role', oc.alphagenome_role]);
+    if (oc.promotion_evidence) rows.push(['Promotion evidence', oc.promotion_evidence + (oc.promotion_min_samples ? ` · min_samples ${oc.promotion_min_samples} unmet` : '')]);
+  }
+  if (runId === 'bav-exp-032') {
+    const bench = ((data._gov || {}).benchmark || {});
+    const summary = bench.summary || {};
+    const counts = summary.counts || {};
+    if (counts.manifest_samples != null) rows.push(['Replay benchmark scope', `${counts.manifest_samples} labeled classes · ${(((bench.arm_level || {}).summary || {}).counts || {}).evaluable_sample_arms ?? 6} arm payloads`]);
+    if (mf.mode_note) rows.push(['Parity anchor rule', mf.mode_note]);
+    rows.push(['Current-regeneration path', 'diagnostic-only / excluded']);
+    rows.push(['Shadow interpretation', 'non-binding observer hint only']);
+  }
   const metaRows = rows.map(([k, v]) => `<div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); gap:8px;"><span style="color:var(--t4);">${esc(k)}</span><span style="color:var(--ts);">${esc(v)}</span></div>`).join('');
   const shaKeys = Object.keys(sha);
   const shaRows = shaKeys.length
@@ -1639,8 +1676,11 @@ function renderBavChecks(runId, data) {
     const bav = data._bav || {};
     [['A', data], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]).forEach(([n, a]) => {
       const r = (a && a.result) || {};
-      gates.push({ label: `arm ${n} · convergence gate`, status: 'OBSERVER', detail: `${r.verification_status || '—'} · drift ${(r.final_drift ?? 0).toFixed(3)} → KEEP_OBSERVER` });
+      const vs = r.validator_summary || {};
+      gates.push({ label: `arm ${n} · convergence gate`, status: 'OBSERVER', detail: `${r.verification_status || '—'} · final ${(r.final_drift ?? 0).toFixed(3)} · effective ${((vs.effective_drift ?? r.final_drift) ?? 0).toFixed(3)} → KEEP_OBSERVER` });
     });
+    const oc = ((data._manifest || {}).observer_context) || {};
+    if (oc.promotion_evidence) gates.push({ label: 'Promotion evidence', status: 'WARN', detail: `${oc.promotion_evidence}${oc.promotion_min_samples ? ` · min_samples ${oc.promotion_min_samples} unmet` : ''}` });
   } else if (runId === 'bav-exp-005') {
     const thr = (data.guard_thresholds && data.guard_thresholds.sr9_min) || 0.80;
     (data.samples || []).forEach(x => {
@@ -1655,10 +1695,17 @@ function renderBavChecks(runId, data) {
     gates.push({ label: 'Honesty · DI2 <= 0.20', status: (p1.di2_pos_mean ?? 1) <= 0.20 ? 'PASS' : 'FAIL', detail: `DI2 (positive) = ${(p1.di2_pos_mean ?? 0).toFixed(3)} — logical drift above target (honest abstain)` });
   } else if (runId === 'bav-exp-032') {
     const pm = data.pipeline_metrics || {}, g = data.governance_status || {};
+    const bench = ((data._gov || {}).benchmark || {});
+    const rows = bench.rows || [];
+    const passRow = rows.find(r => r.sample_id === 'EXP032-PASS-001') || {};
     gates.push({ label: 'Guard · SR9 (tech) >= 0.70', status: (pm.sr9_tech ?? 0) >= 0.70 ? 'PASS' : 'FAIL', detail: `SR9 = ${(pm.sr9_tech ?? 0).toFixed(3)}` });
     gates.push({ label: 'Guard · DI2 (tech) <= 0.30', status: (pm.di2_tech ?? 1) <= 0.30 ? 'PASS' : 'FAIL', detail: `DI2 = ${(pm.di2_tech ?? 0).toFixed(3)}` });
-    gates.push({ label: 'Clinical interpretation gate', status: g.clinical_status === 'PASS' ? 'PASS' : 'FAIL', detail: `clinical_status = ${g.clinical_status || '—'}` });
-    gates.push({ label: 'LawBinder (fail-closed)', status: g.lawbinder_decision === 'PASS' ? 'PASS' : 'WARN', detail: `decision = ${g.lawbinder_decision || '—'} (escalates to human review)` });
+    gates.push({ label: 'Clinical parity benchmark', status: 'GO', detail: 'GO means PASS->PASS / BLOCK->BLOCK on the accepted legacy replay anchor, not a production LawBinder PASS.' });
+    gates.push({ label: 'Clinical interpretation gate', status: g.clinical_status === 'PASS' ? 'PASS' : 'FAIL', detail: `PASS control clinical_status = ${g.clinical_status || '—'}` });
+    gates.push({ label: 'LawBinder (fail-closed)', status: g.lawbinder_decision === 'PASS' ? 'PASS' : 'WARN', detail: `PASS control decision = ${g.lawbinder_decision || '—'}${passRow.lawbinder_decision_match === false ? ' (expected PASS did not hold; escalation preserved)' : ''}` });
+    gates.push({ label: 'Current-regeneration path', status: 'HOLD', detail: 'Diagnostic-only / excluded from success claim.' });
+    gates.push({ label: 'Shadow hint', status: 'OBSERVER', detail: 'Non-binding observer shadow only; does not override LawBinder.' });
+    if (data.strict_evidence_recheck) gates.push({ label: 'Strict evidence recheck', status: data.strict_evidence_recheck.status === 'PASS' ? 'PASS' : 'WARN', detail: (data.strict_evidence_recheck.reasons || []).join('; ') || `status = ${data.strict_evidence_recheck.status}` });
   } else if (runId === 'bav-exp-033') {
     const base = (data.baseline && data.baseline.summary) || {};
     const c = base.classification || {}, gg = base.governance || {};
@@ -1708,10 +1755,16 @@ function buildBavReportMarkdown(runId, d) {
   // EXP-032 governance
   if (d.governance_status || d.pipeline_metrics) {
     const g = d.governance_status || {}, pm = d.pipeline_metrics || {}, rt = d.runtime_context || {}, va = d.viability_assessment || {};
+    const counts = (((d._gov || {}).benchmark || {}).summary || {}).counts || {};
+    const armCounts = ((((d._gov || {}).benchmark || {}).arm_level || {}).summary || {}).counts || {};
     L.push('## 1. Run Context');
     L.push('- **Mode:** ' + (mf.mode || d.mode || '—') + (mf.baseline_version ? ' (' + mf.baseline_version + ')' : ''));
     L.push('- **Engines:** ' + ((rt.engines || []).join(', ') || '—'));
     L.push('- **Input sequence:** ' + (rt.input_sequence_length_aa != null ? rt.input_sequence_length_aa + ' aa' : '—') + (rt.input_sequence_warning ? ' _(mock snapshot)_' : ''));
+    if (mf.experiment === 'EXP-032-ADAPTIVE-GATE') {
+      L.push('- **Replay scope:** ' + (counts.manifest_samples != null ? counts.manifest_samples : 2) + ' labeled classes · ' + (armCounts.evaluable_sample_arms != null ? armCounts.evaluable_sample_arms : 6) + ' arm payloads');
+      L.push('- **Current-regeneration path:** excluded (diagnostic-only)');
+    }
     L.push('');
     L.push('## 2. Governance Verdict');
     L.push('| Axis | Result |');
@@ -1730,34 +1783,46 @@ function buildBavReportMarkdown(runId, d) {
     L.push('| DI2 (tech) | ' + n(pm.di2_tech) + ' | ' + ((pm.di2_tech ?? 1) <= 0.30 ? 'yes' : 'NO') + ' |');
     L.push('| Omega 3-modal | ' + n(pm.omega_3modal) + ' | — |');
     L.push('');
-    L.push('## 4. Interpretation');
-    L.push('The gate discriminates the candidate (clinical status **' + (g.clinical_status || '—') + '**), yet LawBinder routes to **' + (g.lawbinder_decision || '—') + '** — a fail-safe posture that escalates to human review regardless of model confidence. The viability figure is an explicitly heuristic pipeline-reliability index, not a clinical-efficacy estimate.');
+    if (mf.experiment === 'EXP-032-ADAPTIVE-GATE') {
+      L.push('## 4. Interpretation');
+      L.push('Clinical parity is **GO** on the accepted legacy replay anchor, but that is not the same as a production LawBinder PASS. PASS rows still route to **ESCALATE**, shadow hints remain non-binding, strict-evidence recheck fails, and current-regeneration outputs are excluded from success claims.');
+    } else {
+      L.push('## 4. Interpretation');
+      L.push('The gate discriminates the candidate (clinical status **' + (g.clinical_status || '—') + '**), yet LawBinder routes to **' + (g.lawbinder_decision || '—') + '** — a fail-safe posture that escalates to human review regardless of model confidence. The viability figure is an explicitly heuristic pipeline-reliability index, not a clinical-efficacy estimate.');
+    }
   }
 
   // EXP-031 structural disagreement
   else if (d._bav) {
     const arms = [['A', d], ['B', d._bav.armB], ['C', d._bav.armC]].filter(x => x[1]);
+    const oc = ((d._manifest || {}).observer_context) || {};
     L.push('## 1. Method');
-    L.push('Out-of-distribution protein-ligand target folded across independent validators (AlphaFold 3 / 2 / Chai-1 / Boltz-2 / AlphaGenome) in three arms; structural drift (pTM divergence) measures consensus.');
+    L.push('Out-of-distribution protein-ligand target reviewed across three observer-only arms. Validator metrics were manually synced from AF2 / AF3 / Boltz-2 / Chai-1 artifacts; AlphaGenome participated as a redesign engine, not a direct validator score source.');
     L.push('');
     L.push('## 2. Multi-Model Drift by Arm');
-    L.push('| Arm | Effective drift | pTM (consensus) | pLDDT mean | Verification |');
-    L.push('|---|---|---|---|---|');
+    L.push('| Arm | Final drift | Effective drift | pTM (consensus) | pLDDT mean | Verification |');
+    L.push('|---|---|---|---|---|---|');
     arms.forEach(([name, a]) => {
       const r = (a && a.result) || {}, vs = r.validator_summary || {};
-      L.push('| ' + name + ' | ' + n(r.final_drift) + ' | ' + n(vs.ptm_weighted_mean) + ' | ' + n(r.plddt_mean, 1) + ' | ' + (r.verification_status || '—') + ' |');
+      L.push('| ' + name + ' | ' + n(r.final_drift) + ' | ' + n(vs.effective_drift ?? r.final_drift) + ' | ' + n(vs.ptm_weighted_mean) + ' | ' + n(r.plddt_mean, 1) + ' | ' + (r.verification_status || '—') + ' |');
     });
+    L.push('');
+    L.push('## 3. Observer Constraints');
+    L.push('- **Validator metrics mode:** ' + (oc.validator_metrics_mode || 'manual_synced'));
+    L.push('- **Governance mode:** ' + (oc.governance_mode || 'observer_only'));
+    L.push('- **AlphaGenome role:** ' + (oc.alphagenome_role || 'redesign_engine_only'));
+    L.push('- **Promotion evidence:** ' + (oc.promotion_evidence || 'insufficient') + (oc.promotion_min_samples ? ' · min_samples ' + oc.promotion_min_samples + ' unmet' : ''));
     L.push('');
     const af2 = d._bav.af2 || {};
     if (Array.isArray(af2.plddt)) {
       const mean = af2.plddt.reduce((s, x) => s + x, 0) / af2.plddt.length;
-      L.push('## 3. Structural Confidence (AF2, arm A)');
+      L.push('## 4. Structural Confidence (AF2, arm A)');
       L.push('- **pLDDT mean:** ' + mean.toFixed(1) + ' over ' + af2.plddt.length + ' residues');
       L.push('- **pTM:** ' + n(af2.ptm) + ' · **max PAE:** ' + n(af2.max_pae, 2) + ' A');
       L.push('');
     }
-    L.push('## 4. Interpretation');
-    L.push('All arms returned **Unverified (Drift Detected)** / failed convergence. Adding independent validators *increased* drift, exposing topology disagreement invisible to any single model — the target lies outside the model distribution. Disposition: **KEEP_OBSERVER** (do not target).');
+    L.push('## 5. Interpretation');
+    L.push('All arms returned **Unverified (Drift Detected)** / failed convergence. Manual validator metrics and observer-only governance kept disagreement visible instead of collapsing it into a false consensus. The target stays outside model distribution, promotion evidence remains insufficient, and the disposition remains **KEEP_OBSERVER**.');
   }
 
   // EXP-033 pipeline-level
@@ -2779,7 +2844,7 @@ function buildBavExp032Charts(data) {
         { label: 'Dangerous false-pass', value: +(sm.dangerous_pass_rate ?? 0), color: '#ef4444' },
         { label: 'False-reject', value: +(sm.false_reject_rate ?? 0), color: '#f59e0b' },
       ],
-      options: { maxValue: 1, caption: 'Accepted legacy-replay anchor. PASS->PASS, BLOCK->BLOCK with zero dangerous false-pass. Current-regeneration path is held (diagnostic-only), not blended in.' },
+      options: { maxValue: 1, caption: 'Accepted legacy-replay anchor only. GO means clinical PASS/BLOCK parity on 2 labeled classes (6 arm payloads), not a production LawBinder PASS. Current-regeneration path is held out.' },
     });
   }
   // 2. PASS vs BLOCK discrimination (model separates controls)
@@ -2794,7 +2859,7 @@ function buildBavExp032Charts(data) {
         ],
         series: [{ name: 'PASS-001', color: '#10b981' }, { name: 'BLOCK-001', color: '#ef4444' }],
       },
-      options: { maxValue: 100, unit: '%', caption: 'Pass-eligible control scores higher than block control on both axes — the gate discriminates correctly while LawBinder still escalates both (fail-closed).' },
+      options: { maxValue: 100, unit: '%', caption: 'PASS control scores higher than BLOCK on both axes, so the replay discriminates correctly. LawBinder still escalates both, and shadow outputs remain non-binding observer hints.' },
     });
   }
   // 3. Honesty-test / pipeline metrics vs guard thresholds (SR9>=0.70, DI2<=0.30)
@@ -2827,16 +2892,16 @@ function buildBavExp031Charts(data) {
   if (arms.length) {
     specs.push({
       type: 'grouped-bar',
-      title: 'Multi-Model Drift & pTM by Arm (consensus disagreement)',
+      title: 'Final Drift / Effective Drift / pTM by Arm',
       data: {
         groups: arms.map(([name, a]) => {
           const r = armResult(a);
           const vs = r.validator_summary || {};
-          return { label: 'arm ' + name, values: [r.final_drift ?? 0, vs.ptm_weighted_mean ?? 0] };
+          return { label: 'arm ' + name, values: [r.final_drift ?? 0, vs.effective_drift ?? r.final_drift ?? 0, vs.ptm_weighted_mean ?? 0] };
         }),
-        series: [{ name: 'Effective drift', color: '#ef4444' }, { name: 'pTM (consensus)', color: '#8b5cf6' }],
+        series: [{ name: 'Final drift', color: '#f59e0b' }, { name: 'Effective drift', color: '#ef4444' }, { name: 'pTM (consensus)', color: '#8b5cf6' }],
       },
-      options: { maxValue: 1, caption: 'Higher drift = stronger model disagreement. All arms returned "Unverified (Drift Detected)" / failed convergence under OOD stress -> KEEP_OBSERVER (do not target).' },
+      options: { maxValue: 1, caption: 'Observer-only governance adds a penalty to final drift when disagreement remains unresolved. Arm C looks mild on final drift alone, but still fails once effective drift is applied.' },
     });
   }
   // 2. pLDDT track (real per-residue confidence, AF2 arm A)
@@ -3666,5 +3731,3 @@ window.handleSearch = handleSearch;
 window.handleSort = handleSort;
 window.filterEqLedger = filterEqLedger;
 window.filterBavLedger = filterBavLedger;
-
-
