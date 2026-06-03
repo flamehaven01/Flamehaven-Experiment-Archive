@@ -3,7 +3,7 @@
 
 This note records the replay drift observed for `TOE-TEST-0052` when the same manually encoded `subject` and `report_text` are passed through different SPAR policy surfaces.
 
-The `2025/2026` labels below are era labels, not exact git timestamps. The published historical artifact does not pin the exact TOE or SPAR commit that produced the original `73`-point result. What *is* pinned is the published JSON snapshot and the current replay outputs collected on `2026-06-02`.
+The `2025/2026` labels below are era labels, not exact git timestamps. The published historical artifact does not pin the exact TOE or SPAR commit that produced the original `73`-point result. What *is* pinned is the published JSON snapshot and the current replay outputs collected on `2026-06-03`.
 
 ---
 
@@ -95,3 +95,22 @@ When rendered in the public ledger, `TOE-TEST-0052` should be interpreted as:
 3. a reason to separate `historical snapshot`, `current TOE legacy replay`, and `current external toe-spar replay`
 
 That separation is the honest replacement for pretending that the original `73` was timeless.
+
+---
+
+## Reproduction Anchor
+
+The current replay results are now pinned with explicit receipts:
+
+- `toe legacy` replay receipt: `replay_receipt_2026_06_03.md`
+- `external toe-spar` replay receipt: `replay_receipt_2026_06_03.md`
+
+Those receipts record:
+
+- exact repository paths
+- current commit SHAs
+- replay commands
+- minimal canonical output payloads
+- SHA256 hashes of those payloads
+
+The historical `73` snapshot remains historically important but is still unpinned at commit level. It should therefore be treated as an imported archive state, not as a newly recreated receipt-backed run.

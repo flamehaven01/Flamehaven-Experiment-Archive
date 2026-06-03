@@ -5,7 +5,7 @@
 **Source**: LinkedIn Academic Discussion (Ben Said Mosbah et al.)
 
 > **Archive reconstruction note**
-> This markdown preserves the historical `REJECTED / MINOR REVISION / 73` snapshot that shipped with the first 0052 ledger card. It should not be read as the current replay result. Re-running the same manually encoded `subject` and `report_text` on `2026-06-02` yields `MINOR REVISION / 76` under current TOE legacy SPAR and `ACCEPT / 98` under current external `toe-spar` / `spar-framework`. See `comparison_2025_2026.md` for the detailed side-by-side analysis.
+> This markdown preserves the historical `REJECTED / MINOR REVISION / 73` snapshot that shipped with the first 0052 ledger card. It should not be read as the current replay result. Re-running the same manually encoded `subject` and `report_text` on `2026-06-03` yields `MINOR REVISION / 76` under current TOE legacy SPAR and `ACCEPT / 98` under current external `toe-spar` / `spar-framework`. See `comparison_2025_2026.md` for the side-by-side analysis and `replay_receipt_2026_06_03.md` for the exact command / SHA / output anchors.
 
 ## Key Takeaways
 
@@ -13,6 +13,7 @@
 - The decisive problem is claim scope, not arithmetic incoherence.
 - The same encoded review payload now yields three different review outcomes (`73`, `76`, `98`) across policy surfaces.
 - This record is therefore best read as a framework-sensitive review artifact.
+- The current `76` and `98` replays are now receipt-backed; the historical `73` remains an imported archive snapshot.
 
 ---
 

@@ -48,22 +48,50 @@
     "di2_drift": 0.548
   },
   "current_replays": {
-    "toe_legacy_2026_06_02": {
+    "toe_legacy_2026_06_03": {
       "label": "Current TOE legacy replay",
-      "date": "2026-06-02",
+      "date": "2026-06-03",
       "engine_family": "toe.spar.run_spar -> _run_spar_legacy",
       "verdict": "MINOR REVISION",
       "score": 76,
-      "grade": "PASS"
+      "grade": "PASS",
+      "repo_path": "D:/Sanctum/Flamehaven-TOE/Flamehaven-TOE(Theory of Everything)",
+      "repo_commit": "a0994390f746120efefc67eca2683d1753e00401",
+      "command": "python - (inline subject) -> toe.spar.spar_engine.run_spar",
+      "output_sha256": "451249fff262458b5a8d36410f5cad53e9255e7a6b9a390afa903e425604d4ac",
+      "output_payload": {
+        "source": "fluid-dynamics-pedagogy",
+        "gate": "REJECTED",
+        "verdict": "MINOR REVISION",
+        "spar_score": 76,
+        "spar_grade": "PASS",
+        "core_verdict": "MINOR REVISION"
+      }
     },
-    "toe_spar_framework_2026_06_02": {
+    "toe_spar_framework_2026_06_03": {
       "label": "Current toe-spar replay",
-      "date": "2026-06-02",
+      "date": "2026-06-03",
       "engine_family": "external spar-framework / toe-spar policy surface",
       "verdict": "ACCEPT",
       "score": 98,
-      "grade": "PASS"
+      "grade": "PASS",
+      "repo_path": "D:/Sanctum/spar-framework",
+      "repo_commit": "24748be5f19fc0c2f6a231d85a0d84fd5393663a",
+      "command": "python D:/Sanctum/Flamehaven-TOE/TOE-TEST/TOE-TEST-0052/analysis_script.py",
+      "output_sha256": "8e6838f7bc4b43bc3f4d0f782953517ae8e2c74f914c230237a1cf4e2bd3c6c9",
+      "output_payload": {
+        "source": "fluid-dynamics-pedagogy",
+        "gate": "REJECTED",
+        "verdict": "ACCEPT",
+        "score": 98,
+        "grade": "PASS"
+      }
     }
+  },
+  "replay_receipt_anchor": {
+    "date": "2026-06-03",
+    "document": "replay_receipt_2026_06_03.md",
+    "scope": "Current TOE legacy and external toe-spar replays only. The historical 73-point archive snapshot remains unpinned at commit level."
   },
   "spar_review": {
     "verdict": "MINOR REVISION",
