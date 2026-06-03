@@ -1,6 +1,7 @@
 /* ── SIDEBAR FOLDER TREE ─────────────────────────────────────────────────── */
 .sidebar {
   width: 260px; flex-shrink: 0;
+  display: flex; flex-direction: column;
   position: sticky; top: 56px; height: calc(100vh - 56px);
   border-right: 1px solid var(--border);
   overflow-y: auto;
