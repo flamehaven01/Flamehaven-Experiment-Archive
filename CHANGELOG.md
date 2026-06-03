@@ -4,6 +4,16 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
+## [1.14.0] - 2026-06-03
+
+EQA record-type status taxonomy, provenance receipts, and a live version tag.
+
+- **P1 — record-type status taxonomy** (`js/portal.js`, `index.html`, `eqa.html`): replaced the lifecycle filter (`published/verified/archived`) with a record-type model. `data-kind` {`verification-run` | `non-run`} drives the filter pills (**All / Verification Runs / Non-Run Artifacts**) and the verification-run count; `data-class` {`verification-run` | `review-artifact` | `runtime-audit` | `governance-audit` | `research-artifact`} drives a per-card badge. Single source `EQA_CARD_TAXONOMY`, hydrated on load (0052 review / 0053 runtime / 0054 governance / 0055 AEFSO research / 0056 Erdős verification-run; archive = verification-run bucket badged "Historical Records"). Resolves the verified/published semantic inversion. Runtime-verified on both pages.
+- **P2 — TOE-TEST-0052 replay receipts**: pinned the current TOE-legacy (76) and external `toe-spar` (98) replays with repo commit + replay command + canonical output hash (`replay_receipt_2026_06_03.md`); historical `73` kept as an imported snapshot, not retro-pinned.
+- **Sidebar version tag**: a live "Flamehaven Verification Ledger · v{version}" tag (links to the repo) reads the version from the latest CHANGELOG entry at runtime — single source, no hardcoded version.
+
+---
+
 ## [1.13.2] - 2026-06-02
 
 EQA canonical renumber correction for `0055/0056`. AEFSO (`2026-04-18`) is now the canonical **TOE-TEST-0055** record, and the OpenAI Erdős reproduction (`2026-05-25`) is the canonical **TOE-TEST-0056** record.

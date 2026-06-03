@@ -54,6 +54,19 @@ function hydrateEqaCardTaxonomy() {
   });
 }
 
+// Sidebar version tag — single source of truth: parse the latest CHANGELOG entry.
+// No hardcoded version anywhere in the page; updates automatically on release.
+async function hydrateLedgerVersion() {
+  const num = document.querySelector('#ledger-version-tag .lv-num');
+  if (!num) return;
+  try {
+    const res = await fetch('./CHANGELOG.md?t=' + Date.now());
+    if (!res.ok) return;
+    const m = (await res.text()).match(/##\s*\[(\d+\.\d+\.\d+)\]/);
+    if (m) num.textContent = 'v' + m[1];
+  } catch (e) { /* version tag is non-critical */ }
+}
+
 // ── Provenance classing (credibility Pillar 1b) ──────────────────────────────
 // Every shown scientific/governance metric is labelled by where its authority
 // comes from. Internal Flamehaven metrics (SR9/DI2/Omega/SPAR) are ADVISORY and
@@ -148,6 +161,7 @@ function copyFooterLink() {
 document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
   hydrateEqaCardTaxonomy();
+  hydrateLedgerVersion();
 
   // Footer share icons — static page URL
   const fUrl = encodeURIComponent(window.location.href);
