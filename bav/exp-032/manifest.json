@@ -56,9 +56,17 @@
       "sha256": "ff1cf79044c19dbb9ce4528488b8bac080781935b531c8ab3dacf7847e22276a"
     }
   ],
+  "sha256": {
+    "benchmark": "522c0165de05c2a79b5b61983bea669e784c195daa56a9da212b194512364d77",
+    "go_no_go": "971835993f4530cd06cbe5305a963dc5a53bf8d2b860114dc80fa0676561027e"
+  },
+  "files": {
+    "benchmark": "./bav/exp-032/benchmark.json",
+    "go_no_go": "./bav/exp-032/go_no_go.json"
+  },
   "benchmark": "./bav/exp-032/benchmark.json",
   "go_no_go": "./bav/exp-032/go_no_go.json",
   "source": "parity_20260416_batch_reports_wrapper",
-  "provenance_note": "Payloads copied verbatim from certified legacy-replay batch (DI-EQA-002). SHA256 enables integrity verification. Card values are live-fetched, never hardcoded (DI-BSC-001).",
+  "provenance_note": "Payloads, benchmark, and go/no-go outputs are copied verbatim from the certified legacy-replay batch (DI-EQA-002). Public SHA256 anchors cover the six arm payloads plus benchmark and go/no-go files. Card values are live-fetched, never hardcoded (DI-BSC-001).",
   "disclaimer": "Pipeline reliability heuristics only. NOT clinical efficacy."
 }

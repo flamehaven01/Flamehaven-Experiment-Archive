@@ -14,6 +14,17 @@ EQA record-type status taxonomy, provenance receipts, and a live version tag.
 
 ---
 
+## [1.14.1] - 2026-06-04
+
+BAV integrity closure for active cards, more honest EXP-005 / EXP-028 presentation, and a sanitizer-path cleanup for `TOE-TEST-0052`.
+
+- **EXP-005 public SHA repair + provenance disclosure** (`bav/exp-005/manifest.json`, `index.html`, `js/portal.js`): re-anchored all three public sample hashes to the published sanitized files, exposed the early `MANUAL_OVERRIDE` / `control_injection` context, and surfaced the `validator.metric PASS` vs `lab_validator.phi FAIL` split in Insights, Integrity, Checks, Analysis, and report text. The card now reads as an early manual-assisted truthful-null control series, not as a fully autonomous modern pipeline win.
+- **EXP-028 pilot/fallback disclosure** (`bav/exp-028/manifest.json`, `bav/exp-028/post_overlay_report.json`, `index.html`, `js/portal.js`): kept the real calibration numbers but put the missing limits on the public surface — `phase1 n_total = 6`, `phase3 n_test = 2`, fallback gate `0.5 -> 0.075`, `Youden J = 0`, and `chem_on == chem_off`. The card and inspector now frame this as a tiny fallback-gated pilot with honest abstention, not as a robust performance claim.
+- **EXP-032 integrity closure** (`bav/exp-032/manifest.json`): added public SHA256 anchors for `benchmark.json` and `go_no_go.json`, so the active BAV set now has hash anchors across all published live payloads and companion benchmark/governance files.
+- **Sanitizer fix — TOE-TEST-0052 replay receipt** (`eqa/toe-test-0052/internal_data.json`, `eqa/toe-test-0052/replay_receipt_2026_06_03.md`): collapsed leaked absolute workspace paths to `[workspace]/...` in the public replay metadata and receipt text. This resolves the OPSEC gate finding from `sanitize_ledger.py`.
+
+---
+
 ## [1.13.2] - 2026-06-02
 
 EQA canonical renumber correction for `0055/0056`. AEFSO (`2026-04-18`) is now the canonical **TOE-TEST-0055** record, and the OpenAI Erdős reproduction (`2026-05-25`) is the canonical **TOE-TEST-0056** record.

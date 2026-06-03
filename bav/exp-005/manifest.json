@@ -2,9 +2,15 @@
   "schema_id": "flamehaven_bav_exp005_upadacitinib_null.v1",
   "experiment": "SEP-01~EXP-03 Upadacitinib Topical Formulation (fills skipped EXP-005~007)",
   "theme": "Truthful null: SR9 honesty gate rejected all lipid carriers fast.",
-  "method": "RExSyn-Nexus autonomous formulation screen + NNSL SR9 resonance gate",
+  "method": "Early RExSyn-led manual-assisted control series + NNSL SR9 resonance gate",
   "guard_thresholds": {
     "sr9_min": 0.8
+  },
+  "operator_context": {
+    "pipeline_maturity": "pre-split RExSyn line-first run",
+    "config_mode": "MANUAL_OVERRIDE",
+    "control_injection": true,
+    "disclosure": "SEP-01 and SEP-02 used manual fact injection because automated harvest signal was insufficient."
   },
   "finding": "Three lipid-based carriers (SLN, NLC, Liposomal Gel) for Upadacitinib each scored SR9 ~0.23-0.28, far below the 0.80 honesty gate, and were all correctly rejected in under 2 hours -- replacing ~8 months of bench work (~91K USD saved). The value is in what was NOT built.",
   "samples": [
@@ -13,25 +19,25 @@
       "label": "Solid Lipid Nanoparticle (SLN)",
       "file": "./bav/exp-005/sln.json",
       "sr9_resonance": 0.2776811603243806,
-      "sha256": "43bf6f0ff8984870546ff66e6c5dfa9a68e5fba71bae2bdde39aacda237dd263"
+      "sha256": "52d169ba23ec93b60b7ba3c466a71165d9127e263df859192f1c61d93c22df2d"
     },
     {
       "id": "nlc",
       "label": "Nanostructured Lipid Carrier (NLC)",
       "file": "./bav/exp-005/nlc.json",
       "sr9_resonance": 0.2274588741086295,
-      "sha256": "bfa486f25069b6883bb1b1b52eac5d9d2f24e3e11a74f03c7c42f63951211444"
+      "sha256": "1dcfe3904e24ffad80c5a9cd4c7cbd8eb13dbbd8fa52fe29c0cf18cb17dcb99c"
     },
     {
       "id": "liposomal_gel",
       "label": "Liposomal Gel",
       "file": "./bav/exp-005/liposomal_gel.json",
       "sr9_resonance": 0.2582273185373759,
-      "sha256": "6208660d254fc518f6229f8f167278a3244f2dbc1d8199b15f66a93f0924370c"
+      "sha256": "27d32d9267543f7ec132c1d58215b42db53c978552d7cc62955baab6a26535d4"
     }
   ],
   "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
   "source": "RExSyn Upadacitinib forensic repo (workspace paths sanitized for public release)",
-  "provenance_note": "Verbatim NNSL outputs; workspace paths sanitized (DI-SAN-001). Live-fetched, no hardcoding (DI-BSC-001).",
+  "provenance_note": "Public ledger files are path-sanitized derivatives of the original NNSL outputs; SHA-256 values below are anchored to the published sanitized files, not the pre-sanitization source copies. Live-fetched, no hardcoding (DI-BSC-001).",
   "disclaimer": "Pipeline reliability + honesty heuristics only. NOT clinical efficacy."
 }

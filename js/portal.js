@@ -1418,17 +1418,35 @@ function renderBavExp005Insights(d) {
   if (!s.length) return '<p class="empty-state">No EXP-005 data loaded.</p>';
   const esc = (x) => String(x == null ? '' : x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const thr = (d.guard_thresholds && d.guard_thresholds.sr9_min) || 0.80;
+  const oc = d.operator_context || {};
   const rows = s.map(x => {
     const sr9 = +(x.sr9_resonance ?? 0);
     const rej = sr9 < thr;
     return `<tr><td style="padding:8px 10px;color:var(--ts);font-weight:600;">${esc(x.label || x.id)}</td><td style="padding:8px 10px;color:${rej ? '#ef4444' : '#10b981'};font-weight:600;">${sr9.toFixed(3)}</td><td style="padding:8px 10px;color:${rej ? '#ef4444' : '#10b981'};font-size:11px;">${rej ? 'REJECTED' : 'pass'}</td></tr>`;
   }).join('');
   return `
-    <div style="display:flex; align-items:flex-start; gap:10px; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.25); border-radius:var(--r-md); padding:12px 16px; margin-bottom:20px;">
+    <div style="display:flex; align-items:flex-start; gap:10px; background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:var(--r-md); padding:12px 16px; margin-bottom:20px;">
       <span style="font-size:14px;">🧫</span>
       <div>
-        <div style="font-size:11px; font-weight:700; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.06em; color:#10b981;">Truthful Null &middot; The Value of Not Building</div>
-        <div style="font-size:12px; color:var(--t4); margin-top:4px; line-height:1.5;">${esc(d.finding || 'SR9 honesty gate rejected all lipid carriers.')}</div>
+        <div style="font-size:11px; font-weight:700; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.06em; color:#f59e0b;">Early Manual-Assisted Control Series &middot; Honest Null</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:4px; line-height:1.5;">${esc(d.finding || 'SR9 honesty gate rejected all lipid carriers.')} This public record now exposes the early-pipeline and operator-assisted context instead of compressing it into a purely autonomous win.</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:16px;">
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
+        <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Pipeline Context</div>
+        <div style="font-size:16px; font-weight:600; color:#f59e0b; margin-top:4px;">${esc(oc.pipeline_maturity || 'pre-split RExSyn line-first run')}</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:2px;">Not a fully separated modern pipeline stack</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
+        <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Operator Assistance</div>
+        <div style="font-size:16px; font-weight:600; color:#f59e0b; margin-top:4px;">${esc(oc.config_mode || 'MANUAL_OVERRIDE')}</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:2px;">${oc.control_injection ? 'Control injection present upstream' : 'No control injection disclosed'}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
+        <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Validator Split</div>
+        <div style="font-size:16px; font-weight:600; color:#ef4444; margin-top:4px;">metric PASS / phi FAIL</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:2px;">lab phi matrix is ill-conditioned in the public outputs</div>
       </div>
     </div>
     <table style="width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:12px;">
@@ -1437,7 +1455,7 @@ function renderBavExp005Insights(d) {
       </tr></thead><tbody>${rows}</tbody>
     </table>
     <p style="font-size:13px; color:var(--t3); line-height:1.6; margin-top:16px; border-top:1px solid var(--border); padding-top:16px; margin-bottom:0;">
-      💡 <strong>Why this matters:</strong> a fast, honest negative is a result, not a failure. Catching incompatibility in 2 hours instead of 8 months is exactly what the SR9 honesty gate is for. See the Analysis tab for the SR9-vs-gate comparison.
+      💡 <strong>Why this matters:</strong> the useful result is still the honest null, but the public ledger should not hide how it was produced. This was an early manual-assisted control series with a short active decision window, separate literature pre-work, and a visible validator split.
     </p>
   `;
 }
@@ -1445,27 +1463,44 @@ function renderBavExp005Insights(d) {
 // BAV EXP-028 insights: the honesty test. Live from phase1/phase2.
 function renderBavExp028Insights(d) {
   if (!d || !d.phase1) return '<p class="empty-state">No EXP-028 data loaded.</p>';
+  const esc = (x) => String(x == null ? '' : x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
-  const p1 = d.phase1 || {}, p2 = (d.phase2 && d.phase2.metrics) || {};
+  const p1 = d.phase1 || {}, p2 = (d.phase2 && d.phase2.metrics) || {}, p3 = d.phase3 || {}, ss = d.screen_summary || {};
   const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🧪</span>
       <div>
-        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #ef4444;">The Honesty Test · Looked Perfect, Then Failed</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Excellent calibration (Brier ${num(p2.brier_after, 4)}) and perfect discrimination (AUC ${num(p1.sr9_auc, 2)}) — yet SR9 (cross-domain resonance) sits far below 0.80 and DI2 (logical drift) far above 0.20. The system honestly reports "I cannot resolve this" instead of hallucinating confidence.</div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #ef4444;">The Honesty Test · Tiny Pilot, Fallback Gate</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Excellent calibration (Brier ${num(p2.brier_after, 4)}) and perfect-looking discrimination (AUC ${num(p1.sr9_auc, 2)}) are real, but they sit on a tiny pilot: ${esc(ss.pilot_scale || 'phase1 n_total=6; phase3 n_test=2')}. The system honestly reports "I cannot resolve this" instead of turning a fallback-gated pilot into a performance claim.</div>
       </div>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
       ${metric('Brier (after)', num(p2.brier_after, 4), (p2.brier_after ?? 1) <= 0.01 ? '#10b981' : '#ef4444')}
       ${metric('Discrimination AUC', num(p1.overall_auc, 2), '#10b981')}
+      ${metric('Phase1 n', String(p1.n_total ?? '6'), '#eab308')}
+      ${metric('Phase3 test n', String(p3.n_test ?? '2'), '#eab308')}
     </div>
     ${advisoryDetails(
       metric('SR9 (positive)', num(p1.sr9_pos_mean), (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444') +
-      metric('DI2 (positive)', num(p1.di2_pos_mean), (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444')
+      metric('DI2 (positive)', num(p1.di2_pos_mean), (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444') +
+      metric('Gate threshold', num(p3.gate_threshold, 3), '#eab308') +
+      metric('Youden J', num((p3.gate_optimization || {}).youden_j, 1), '#ef4444')
     )}
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:16px;">
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
+        <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Fallback Gate</div>
+        <div style="font-size:16px; font-weight:600; color:#eab308; margin-top:4px;">${num(p3.gate_threshold, 3)} from fallback</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:2px;">default ${num(p3.gate_threshold_default, 1)} · ${esc(ss.fallback_detail || 'youden_j = 0.0, fallback_used = true')}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
+        <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Chem Policy Boundary</div>
+        <div style="font-size:16px; font-weight:600; color:#eab308; margin-top:4px;">chem_on == chem_off</div>
+        <div style="font-size:12px; color:var(--t4); margin-top:2px;">${esc(ss.chem_policy_boundary || 'public report shows identical chem_on and chem_off metrics')}</div>
+      </div>
+    </div>
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Honest calibration beats false confidence:</strong> a model that says "I don't know" when cross-domain signals contradict is more valuable than one that reports high confidence while wrong. Failing the honesty test here is the correct, safe outcome.
+      💡 <strong>Honest calibration beats false confidence:</strong> a model that says "I don't know" when cross-domain signals contradict is more valuable than one that reports high confidence while wrong. Here the public lesson is narrower than the headline metric: this is a tiny fallback-gated pilot with honest abstention, not robust proof of performance.
     </p>
   `;
 }
@@ -1638,10 +1673,30 @@ function renderBavIntegrity(runId, data) {
   if (mf.mode) rows.push(['Run mode', mf.mode]);
   if (mf.baseline_version) rows.push(['Baseline version', mf.baseline_version]);
   if (mf.method) rows.push(['Method', mf.method]);
-  if (guard.sr9_min != null) rows.push(['Guard thresholds', `SR9 >= ${guard.sr9_min} · DI2 <= ${guard.di2_max}`]);
+  if (guard.sr9_min != null || guard.di2_max != null) {
+    const parts = [];
+    if (guard.sr9_min != null) parts.push(`SR9 >= ${guard.sr9_min}`);
+    if (guard.di2_max != null) parts.push(`DI2 <= ${guard.di2_max}`);
+    rows.push(['Guard thresholds', parts.join(' · ')]);
+  }
   if (ver.go_no_go_verdict) rows.push(['Go / No-Go verdict', ver.go_no_go_verdict]);
   if (ver.benchmark_accuracy != null) rows.push(['Benchmark accuracy', String(ver.benchmark_accuracy)]);
   if (ver.dangerous_pass_rate != null) rows.push(['Dangerous false-pass', String(ver.dangerous_pass_rate)]);
+  if (runId === 'bav-exp-005') {
+    const oc = mf.operator_context || {};
+    if (oc.pipeline_maturity) rows.push(['Pipeline maturity', oc.pipeline_maturity]);
+    if (oc.config_mode) rows.push(['Operator assistance', `${oc.config_mode}${oc.control_injection ? ' · control injection present' : ''}`]);
+  }
+  if (runId === 'bav-exp-028') {
+    const p3 = data.phase3 || {};
+    const go = p3.gate_optimization || {};
+    const p4 = data.phase4 || {};
+    const chemSame = JSON.stringify(p4.chem_on || {}) === JSON.stringify(p4.chem_off || {});
+    if (data.screen_summary?.pilot_scale) rows.push(['Pilot scale', data.screen_summary.pilot_scale]);
+    if (p3.gate_threshold != null) rows.push(['Deployed gate', `${p3.gate_threshold} (default ${p3.gate_threshold_default ?? 0.5})`]);
+    if (go.fallback_used != null) rows.push(['Gate optimization', `fallback_used ${go.fallback_used} · youden_j ${go.youden_j ?? '—'}`]);
+    rows.push(['Chem policy separation', chemSame ? 'No measurable difference in public report' : 'chem_on/off differ']);
+  }
   if (runId === 'bav-exp-031') {
     const oc = mf.observer_context || {};
     if (oc.validator_metrics_mode) rows.push(['Validator metrics', oc.validator_metrics_mode]);
@@ -1710,12 +1765,19 @@ function renderBavChecks(runId, data) {
       const sr9 = +(x.sr9_resonance ?? 0);
       gates.push({ label: `SR9 gate · ${x.label || x.id}`, status: sr9 >= thr ? 'PASS' : 'FAIL', detail: `SR9 = ${sr9.toFixed(3)} (gate >= ${thr}) — ${sr9 >= thr ? 'eligible' : 'correctly rejected (do not build)'}` });
     });
+    gates.push({ label: 'Operator assistance disclosure', status: 'WARN', detail: 'SEP-01 / SEP-02 used MANUAL_OVERRIDE with control injection upstream; treat this as an early manual-assisted control series, not a fully autonomous modern pipeline run.' });
+    gates.push({ label: 'Validator split', status: 'WARN', detail: 'Public outputs show validator PASS while lab_validator.phi FAILs on ill-conditioned phi matrices.' });
   } else if (runId === 'bav-exp-028') {
     const p1 = data.phase1 || {}, p2 = (data.phase2 && data.phase2.metrics) || {};
     gates.push({ label: 'Calibration · Brier <= 0.01', status: (p2.brier_after ?? 1) <= 0.01 ? 'PASS' : 'FAIL', detail: `Brier (after) = ${(p2.brier_after ?? 0).toFixed(4)}` });
-    gates.push({ label: 'Discrimination · AUC = 1.0', status: (p1.overall_auc ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `overall AUC = ${p1.overall_auc}` });
+    gates.push({ label: 'Discrimination · AUC = 1.0', status: (p1.overall_auc ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `overall AUC = ${p1.overall_auc} on phase1 n_total = ${p1.n_total ?? '—'} and phase3 n_test = ${(data.phase3 || {}).n_test ?? '—'}` });
     gates.push({ label: 'Honesty · SR9 >= 0.80', status: (p1.sr9_pos_mean ?? 0) >= 0.80 ? 'PASS' : 'FAIL', detail: `SR9 (positive) = ${(p1.sr9_pos_mean ?? 0).toFixed(3)} — cross-domain resonance below target (honest abstain)` });
     gates.push({ label: 'Honesty · DI2 <= 0.20', status: (p1.di2_pos_mean ?? 1) <= 0.20 ? 'PASS' : 'FAIL', detail: `DI2 (positive) = ${(p1.di2_pos_mean ?? 0).toFixed(3)} — logical drift above target (honest abstain)` });
+    const p3 = data.phase3 || {}, go = p3.gate_optimization || {};
+    gates.push({ label: 'Threshold selection', status: go.fallback_used ? 'WARN' : 'PASS', detail: `deployed threshold = ${p3.gate_threshold ?? '—'} (default ${p3.gate_threshold_default ?? 0.5}) · youden_j = ${go.youden_j ?? '—'} · ${go.fallback_used ? 'fallback gate used' : 'direct optimum used'}` });
+    const p4 = data.phase4 || {};
+    const chemSame = JSON.stringify(p4.chem_on || {}) === JSON.stringify(p4.chem_off || {});
+    gates.push({ label: 'Chem policy separation', status: chemSame ? 'WARN' : 'PASS', detail: chemSame ? 'chem_on and chem_off public metrics are identical; no measurable policy separation is shown here.' : 'chem_on and chem_off diverge in the public metrics.' });
   } else if (runId === 'bav-exp-032') {
     const pm = data.pipeline_metrics || {}, g = data.governance_status || {};
     const bench = ((data._gov || {}).benchmark || {});
@@ -1909,26 +1971,41 @@ function buildBavReportMarkdown(runId, d) {
 
   // EXP-028 honesty test
   else if (d.phase1) {
-    const p1 = d.phase1, p2 = (d.phase2 && d.phase2.metrics) || {};
+    const p1 = d.phase1, p2 = (d.phase2 && d.phase2.metrics) || {}, p3 = d.phase3 || {}, p4 = d.phase4 || {};
     L.push('## 1. Calibration');
     L.push('- **Brier:** ' + n(p2.brier_before, 3) + ' -> **' + n(p2.brier_after, 4) + '** · **ECE:** ' + n(p2.ece_before, 3) + ' -> ' + n(p2.ece_after, 3));
     L.push('- **Discrimination AUC:** ' + n(p1.overall_auc, 2));
+    L.push('- **Pilot scale:** phase1 n_total = ' + (p1.n_total ?? '—') + ' · phase3 n_test = ' + (p3.n_test ?? '—'));
     L.push('');
     L.push('## 2. Honesty Test (targets: SR9 >= 0.80, DI2 <= 0.20)');
     L.push('- **SR9 (positive):** ' + n(p1.sr9_pos_mean) + ' — ' + ((p1.sr9_pos_mean ?? 0) >= 0.80 ? 'pass' : 'below target') + '');
     L.push('- **DI2 (positive):** ' + n(p1.di2_pos_mean) + ' — ' + ((p1.di2_pos_mean ?? 1) <= 0.20 ? 'pass' : 'above target') + '');
     L.push('');
-    L.push('## 3. Interpretation');
-    L.push('The system is well-calibrated (Brier ' + n(p2.brier_after, 4) + ', AUC ' + n(p1.overall_auc, 2) + ') yet honestly fails the cross-domain resonance test (SR9 below 0.80, DI2 above 0.20). It reports *"I cannot resolve this"* instead of hallucinating confidence — the correct, safe outcome.');
+    L.push('## 3. Thresholding');
+    L.push('- **Default gate:** ' + n(p3.gate_threshold_default, 1) + ' · **deployed gate:** ' + n(p3.gate_threshold, 3));
+    if (p3.gate_optimization) L.push('- **Optimization:** youden_j = ' + n(p3.gate_optimization.youden_j, 1) + ' · tpr = ' + n(p3.gate_optimization.tpr, 1) + ' · fpr = ' + n(p3.gate_optimization.fpr, 1) + ' · fallback_used = ' + String(!!p3.gate_optimization.fallback_used));
+    L.push('');
+    L.push('## 4. Chem policy');
+    const chemSame = JSON.stringify((p4.chem_on || {})) === JSON.stringify((p4.chem_off || {}));
+    L.push('- **chem_on vs chem_off:** ' + (chemSame ? 'identical metrics in the public report' : 'metrics differ'));
+    L.push('');
+    L.push('## 5. Interpretation');
+    L.push('The system is well-calibrated (Brier ' + n(p2.brier_after, 4) + ', AUC ' + n(p1.overall_auc, 2) + ') yet honestly fails the cross-domain resonance test (SR9 below 0.80, DI2 above 0.20). The stronger public reading is narrower than the headline metric: this is a tiny pilot with a fallback gate and no measurable chem-policy separation, so the honest result is abstention rather than a performance claim.');
   }
 
   // EXP-005 Upadacitinib truthful null
   else if (d.samples) {
     const thr = (d.guard_thresholds && d.guard_thresholds.sr9_min) || 0.80;
+    const oc = d.operator_context || {};
     L.push('## 1. Finding');
     L.push(d.finding || 'SR9 honesty gate rejected all lipid carriers.');
     L.push('');
-    L.push('## 2. SR9 Resonance by Formulation (gate >= ' + thr + ')');
+    L.push('## 2. Provenance');
+    L.push('- **Pipeline context:** ' + (oc.pipeline_maturity || 'pre-split RExSyn line-first run'));
+    L.push('- **Operator assistance:** ' + (oc.config_mode || 'MANUAL_OVERRIDE') + (oc.control_injection ? ' · control injection present upstream' : ''));
+    if (oc.disclosure) L.push('- **Disclosure:** ' + oc.disclosure);
+    L.push('');
+    L.push('## 3. SR9 Resonance by Formulation (gate >= ' + thr + ')');
     L.push('| Formulation | SR9 | Gate |');
     L.push('|---|---|---|');
     d.samples.forEach(x => {
@@ -1936,8 +2013,12 @@ function buildBavReportMarkdown(runId, d) {
       L.push('| ' + (x.label || x.id) + ' | ' + sr9.toFixed(3) + ' | ' + (sr9 >= thr ? 'pass' : '**REJECTED**') + ' |');
     });
     L.push('');
-    L.push('## 3. Interpretation');
-    L.push('A fast, honest negative is a result, not a failure. Every lipid carrier fell far below the SR9 honesty gate and was rejected in under 2 hours — replacing roughly 8 months of bench work. The value is in what was *not* built.');
+    L.push('## 4. Integrity nuance');
+    L.push('- **Hash basis:** SHA-256 values in the manifest are anchored to the public sanitized ledger files.');
+    L.push('- **Validator split:** public outputs show validator PASS while lab_validator.phi FAILs on ill-conditioned phi matrices.');
+    L.push('');
+    L.push('## 5. Interpretation');
+    L.push('A fast, honest negative is still a useful result, but this should not be marketed as a fully autonomous modern pipeline win. The honest public reading is an early manual-assisted control series that correctly rejected all three lipid carriers and preserved the null.');
   }
 
   // Reproducibility footer
@@ -2751,7 +2832,19 @@ function buildBavExp005Charts(data) {
     type: 'bar',
     title: 'SR9 Resonance by Formulation vs Honesty Gate (>= ' + thr + ')',
     data: bars,
-    options: { maxValue: 1, caption: 'Every lipid carrier scores far below the SR9 honesty gate and is rejected. The fast, honest null result replaced ~8 months of bench work.' },
+    options: { maxValue: 1, caption: 'All three lipid carriers remain far below the SR9 gate. Read this as an early manual-assisted control series that preserved an honest null, not as a fully autonomous production-era pipeline run.' },
+  },{
+    type: 'grouped-bar',
+    title: 'Validator Split by Surface',
+    data: {
+      groups: [
+        { label: 'SLN', values: [1, 0] },
+        { label: 'NLC', values: [1, 0] },
+        { label: 'Liposomal Gel', values: [1, 0] }
+      ],
+      series: [{ name: 'validator.metric PASS', color: '#10b981' }, { name: 'lab_validator.phi PASS', color: '#ef4444' }]
+    },
+    options: { maxValue: 1, caption: 'The public outputs show a consistent split: the generic metric validator passes, but the phi-specific lab validator does not. This ambiguity belongs on the public surface.' }
   }];
 }
 
@@ -2760,6 +2853,8 @@ function buildBavExp028Charts(data) {
   if (!data) return [];
   const p1 = data.phase1 || {};
   const p2 = (data.phase2 && data.phase2.metrics) || {};
+  const p3 = data.phase3 || {};
+  const p4 = data.phase4 || {};
   const specs = [];
   // 1. Calibration improvement (before -> after)
   specs.push({
@@ -2772,7 +2867,7 @@ function buildBavExp028Charts(data) {
       ],
       series: [{ name: 'Before', color: '#ef4444' }, { name: 'After', color: '#10b981' }],
     },
-    options: { maxValue: Math.max(+(p2.brier_before ?? 0), +(p2.ece_before ?? 0), 0.5), caption: 'Isotonic + logistic calibration drove Brier to ' + (p2.brier_after != null ? p2.brier_after.toFixed(4) : '—') + ' — the model is well-calibrated. Calibration alone, however, does not certify reasoning.' },
+    options: { maxValue: Math.max(+(p2.brier_before ?? 0), +(p2.ece_before ?? 0), 0.5), caption: 'Calibration improved sharply, but this remains a tiny pilot. Better Brier and ECE do not turn fallback-gated n=2 evaluation into a robust claim.' },
   });
   // 2. Honesty test vs targets (SR9 >= 0.80, DI2 <= 0.20) — the system fails honestly
   specs.push({
@@ -2785,6 +2880,29 @@ function buildBavExp028Charts(data) {
       { label: 'DI2 target', value: 0.20, color: 'rgba(255,255,255,0.18)' },
     ],
     options: { maxValue: 1, caption: 'SR9 (cross-domain resonance, target >=0.80) is far below target and DI2 (logical drift, target <=0.20) far above — the system honestly reports it cannot resolve the cross-domain reasoning rather than hallucinating confidence.' },
+  });
+  specs.push({
+    type: 'bar',
+    title: 'Thresholding Context',
+    data: [
+      { label: 'Default gate', value: +(p3.gate_threshold_default ?? 0.5), color: 'rgba(255,255,255,0.18)' },
+      { label: 'Deployed gate', value: +(p3.gate_threshold ?? 0), color: '#eab308' },
+      { label: 'Youden J', value: +((p3.gate_optimization || {}).youden_j ?? 0), color: '#ef4444' }
+    ],
+    options: { maxValue: 1, caption: 'The deployed gate came from fallback optimization, not a strong discriminative optimum. Youden J = 0 is a warning sign, not a triumph.' }
+  });
+  specs.push({
+    type: 'grouped-bar',
+    title: 'Chem Policy Comparison',
+    data: {
+      groups: [
+        { label: 'SR9 mean', values: [+(p4.chem_on?.sr9_mean ?? 0), +(p4.chem_off?.sr9_mean ?? 0)] },
+        { label: 'DI2 mean', values: [+(p4.chem_on?.di2_mean ?? 0), +(p4.chem_off?.di2_mean ?? 0)] },
+        { label: 'Overall mean', values: [+(p4.chem_on?.overall_mean ?? 0), +(p4.chem_off?.overall_mean ?? 0)] }
+      ],
+      series: [{ name: 'chem_on', color: '#10b981' }, { name: 'chem_off', color: '#60a5fa' }]
+    },
+    options: { maxValue: 1, caption: 'The public report shows chem_on and chem_off as numerically identical. That means policy preference exists, but measurable separation is not demonstrated here.' }
   });
   return specs;
 }

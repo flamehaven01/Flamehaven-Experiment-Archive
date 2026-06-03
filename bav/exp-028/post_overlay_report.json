@@ -139,5 +139,12 @@
       "chem_on": true,
       "reason": "selected_by_overall_auc"
     }
+  },
+  "screen_summary": {
+    "pilot_scale": "phase1 n_total=6 (3 pos / 3 neg); phase3 n_test=2",
+    "fallback_gate": "deployed gate threshold 0.075 came from fallback optimization, not default 0.5",
+    "fallback_detail": "youden_j = 0.0, tpr = 0.0, fpr = 0.0, fallback_used = true",
+    "chem_policy_boundary": "chem_on and chem_off metrics are identical in the public report; policy preference does not show a measurable separation here",
+    "honest_result": "calibration improved, but this remains a tiny pilot with fallback gating rather than a robust performance claim"
   }
 }

@@ -29,7 +29,7 @@ This keeps the subject fixed and makes the replay difference attributable to the
 
 **Repository path**
 
-`D:\Sanctum\Flamehaven-TOE\Flamehaven-TOE(Theory of Everything)`
+`[workspace]/Flamehaven-TOE/Flamehaven-TOE(Theory of Everything)`
 
 **Commit**
 
@@ -44,7 +44,7 @@ This keeps the subject fixed and makes the replay difference attributable to the
 ```powershell
 @'
 import json, hashlib, sys
-sys.path.insert(0, r"D:\Sanctum\Flamehaven-TOE\Flamehaven-TOE(Theory of Everything)\src")
+sys.path.insert(0, r"[workspace]/Flamehaven-TOE/Flamehaven-TOE(Theory of Everything)/src")
 from toe.spar.spar_engine import run_spar
 phys = {
     "hypothesis_id": "pedagogical-hierarchy-gte",
@@ -97,7 +97,7 @@ print(json.dumps({"payload": payload, "output_sha256": hashlib.sha256(canon.enco
 
 **Repository path**
 
-`D:\Sanctum\spar-framework`
+`[workspace]/spar-framework`
 
 **Commit**
 
@@ -105,12 +105,12 @@ print(json.dumps({"payload": payload, "output_sha256": hashlib.sha256(canon.enco
 
 **Entry path**
 
-`D:\Sanctum\Flamehaven-TOE\TOE-TEST\TOE-TEST-0052\analysis_script.py`
+`[workspace]/Flamehaven-TOE/TOE-TEST/TOE-TEST-0052/analysis_script.py`
 
 **Replay command**
 
 ```powershell
-python D:\Sanctum\Flamehaven-TOE\TOE-TEST\TOE-TEST-0052\analysis_script.py
+python [workspace]/Flamehaven-TOE/TOE-TEST/TOE-TEST-0052/analysis_script.py
 ```
 
 **Equivalent canonical payload used for hashing**

@@ -1020,8 +1020,8 @@
           The Honesty Test: It Looked Perfect, Then It Failed
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          Integrating AlphaFold 3 + AlphaGenome produced confident, well-calibrated outputs — yet the honesty check (SR9 cross-domain resonance, DI2 logical drift) flagged contradictory reasoning.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Brier 0.0056 and AUC 1.0 (calibrated), but SR9 far below 0.80 and DI2 far above 0.20 — the system honestly reports it cannot resolve the reasoning rather than hallucinating confidence.</strong>
+          Integrating AlphaFold 3 + AlphaGenome produced confident, well-calibrated outputs — yet the honesty check (SR9 cross-domain resonance, DI2 logical drift) flagged contradictory reasoning on a very small pilot.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: Brier 0.0056 and AUC 1.0 are real, but phase1 used only 6 samples, phase3 tested only 2, and the deployed gate fell back from 0.5 to 0.075 with Youden J = 0. The honest result is not "perfect performance." It is a tiny fallback-gated pilot that refuses to overclaim.</strong>
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
           <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-028'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
@@ -1051,8 +1051,8 @@
           How Failing in 2 Hours Saved 8 Months — Upadacitinib Topical Formulation
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          RExSyn-Nexus autonomously screened lipid-based carriers (SLN, NLC, Liposomal Gel) for topical Upadacitinib, with the NNSL SR9 honesty gate (&ge; 0.80) deciding eligibility.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: all three carriers scored SR9 ~0.23&ndash;0.28 — far below the gate — and were correctly rejected in under 2 hours, replacing ~8 months of bench work. The value is in what was <em>not</em> built.</strong>
+          Early RExSyn line-first control runs screened three lipid-based carriers (SLN, NLC, Liposomal Gel) for topical Upadacitinib, with manual fact injection present upstream and the NNSL SR9 honesty gate (&ge; 0.80) deciding eligibility.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: all three carriers scored SR9 ~0.23&ndash;0.28 and were rejected. The useful finding is the honest null, not a fully autonomous pipeline win: the public record now exposes the manual-assisted provenance, the validator split, and the fact that the active decision window was ~2 hours after separate literature pre-work.</strong>
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
           <button class="eq-slot-btn" onclick="openJsonInspector('bav-exp-005'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">

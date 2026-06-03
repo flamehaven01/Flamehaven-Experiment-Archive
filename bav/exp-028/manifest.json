@@ -9,7 +9,7 @@
     "brier_max": 0.01
   },
   "sha256": {
-    "post_overlay_report": "ad478c0a1a4302f043cdc37e4a43413caa275e3bf8177f2428865fac520385b9"
+    "post_overlay_report": "b6626b16b7e2b1eca8410c7577913fb015677dd7017aeb994bb6d211daed41f4"
   },
   "files": {
     "post_overlay_report": "./bav/exp-028/post_overlay_report.json"
