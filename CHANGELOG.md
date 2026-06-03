@@ -4,15 +4,6 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 ---
 
-## [1.14.0] - 2026-06-03
-
-EQA record-type status taxonomy, provenance receipts, and a live version tag.
-
-- **P1 — record-type status taxonomy** (`js/portal.js`, `index.html`, `eqa.html`): replaced the lifecycle filter (`published/verified/archived`) with a record-type model. `data-kind` {`verification-run` | `non-run`} drives the filter pills (**All / Verification Runs / Non-Run Artifacts**) and the verification-run count; `data-class` {`verification-run` | `review-artifact` | `runtime-audit` | `governance-audit` | `research-artifact`} drives a per-card badge. Single source `EQA_CARD_TAXONOMY`, hydrated on load (0052 review / 0053 runtime / 0054 governance / 0055 AEFSO research / 0056 Erdős verification-run; archive = verification-run bucket badged "Historical Records"). Resolves the verified/published semantic inversion. Runtime-verified on both pages.
-- **P2 — TOE-TEST-0052 replay receipts**: pinned the current TOE-legacy (76) and external `toe-spar` (98) replays with repo commit + replay command + canonical output hash (`replay_receipt_2026_06_03.md`); historical `73` kept as an imported snapshot, not retro-pinned.
-- **Sidebar version tag**: a live "Flamehaven Verification Ledger · v{version}" tag (links to the repo) reads the version from the latest CHANGELOG entry at runtime — single source, no hardcoded version.
-
----
 
 ## [1.14.1] - 2026-06-04
 
@@ -22,6 +13,16 @@ BAV integrity closure for active cards, more honest EXP-005 / EXP-028 presentati
 - **EXP-028 pilot/fallback disclosure** (`bav/exp-028/manifest.json`, `bav/exp-028/post_overlay_report.json`, `index.html`, `js/portal.js`): kept the real calibration numbers but put the missing limits on the public surface — `phase1 n_total = 6`, `phase3 n_test = 2`, fallback gate `0.5 -> 0.075`, `Youden J = 0`, and `chem_on == chem_off`. The card and inspector now frame this as a tiny fallback-gated pilot with honest abstention, not as a robust performance claim.
 - **EXP-032 integrity closure** (`bav/exp-032/manifest.json`): added public SHA256 anchors for `benchmark.json` and `go_no_go.json`, so the active BAV set now has hash anchors across all published live payloads and companion benchmark/governance files.
 - **Sanitizer fix — TOE-TEST-0052 replay receipt** (`eqa/toe-test-0052/internal_data.json`, `eqa/toe-test-0052/replay_receipt_2026_06_03.md`): collapsed leaked absolute workspace paths to `[workspace]/...` in the public replay metadata and receipt text. This resolves the OPSEC gate finding from `sanitize_ledger.py`.
+
+---
+
+## [1.14.0] - 2026-06-03
+
+EQA record-type status taxonomy, provenance receipts, and a live version tag.
+
+- **P1 — record-type status taxonomy** (`js/portal.js`, `index.html`, `eqa.html`): replaced the lifecycle filter (`published/verified/archived`) with a record-type model. `data-kind` {`verification-run` | `non-run`} drives the filter pills (**All / Verification Runs / Non-Run Artifacts**) and the verification-run count; `data-class` {`verification-run` | `review-artifact` | `runtime-audit` | `governance-audit` | `research-artifact`} drives a per-card badge. Single source `EQA_CARD_TAXONOMY`, hydrated on load (0052 review / 0053 runtime / 0054 governance / 0055 AEFSO research / 0056 Erdős verification-run; archive = verification-run bucket badged "Historical Records"). Resolves the verified/published semantic inversion. Runtime-verified on both pages.
+- **P2 — TOE-TEST-0052 replay receipts**: pinned the current TOE-legacy (76) and external `toe-spar` (98) replays with repo commit + replay command + canonical output hash (`replay_receipt_2026_06_03.md`); historical `73` kept as an imported snapshot, not retro-pinned.
+- **Sidebar version tag**: a live "Flamehaven Verification Ledger · v{version}" tag (links to the repo) reads the version from the latest CHANGELOG entry at runtime — single source, no hardcoded version.
 
 ---
 
