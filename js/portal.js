@@ -4,8 +4,55 @@ let activeTier = 'all';
 let activeColl = 'all';
 let activeQuery = '';
 let activeSort  = 'date-desc';
-let activeEqStatus = 'all';
+let activeEqKind = 'all';
 let activeBavStatus = 'all';
+
+const EQA_KIND_META = {
+  all: { label: 'All' },
+  'verification-run': { label: 'Verification Runs' },
+  'non-run': { label: 'Non-Run Artifacts' },
+};
+
+const EQA_CLASS_META = {
+  'verification-run': { label: 'Verification Run', color: '#10b981', border: 'rgba(16,185,129,0.2)' },
+  'review-artifact': { label: 'Review Artifact', color: '#60a5fa', border: 'rgba(96,165,250,0.2)' },
+  'runtime-audit': { label: 'Runtime Audit', color: '#eab308', border: 'rgba(234,179,8,0.2)' },
+  'governance-audit': { label: 'Governance Audit', color: '#f87171', border: 'rgba(248,113,113,0.2)' },
+  'research-artifact': { label: 'Research Artifact', color: '#a78bfa', border: 'rgba(167,139,250,0.2)' },
+};
+
+const EQA_CARD_TAXONOMY = {
+  'eqa-card-0052': { kind: 'non-run', class: 'review-artifact' },
+  'eqa-card-0053': { kind: 'non-run', class: 'runtime-audit' },
+  'eqa-card-0054': { kind: 'non-run', class: 'governance-audit' },
+  'eqa-card-0055': { kind: 'non-run', class: 'research-artifact' },
+  'eqa-card-0056': { kind: 'verification-run', class: 'verification-run' },
+  'eqa-card-archive': { kind: 'verification-run', class: 'verification-run', badgeLabel: 'Historical Records', badgeColor: '#9ca3af', badgeBorder: 'rgba(156,163,175,0.2)' },
+};
+
+function hydrateEqaCardTaxonomy() {
+  Object.entries(EQA_CARD_TAXONOMY).forEach(([id, meta]) => {
+    const card = document.getElementById(id);
+    if (!card) return;
+    card.dataset.kind = meta.kind;
+    card.dataset.class = meta.class;
+    card.dataset.status = meta.kind; // legacy fallback for any older selectors
+
+    const chip = card.querySelector('.tier-chip');
+    if (!chip) return;
+    const classMeta = EQA_CLASS_META[meta.class] || EQA_CLASS_META['verification-run'];
+    const label = meta.badgeLabel || classMeta.label;
+    const color = meta.badgeColor || classMeta.color;
+    const border = meta.badgeBorder || classMeta.border;
+    chip.style.color = color;
+    chip.style.borderColor = border;
+    const dot = chip.querySelector('.tier-dot');
+    if (dot) dot.style.background = color;
+    const labelNode = chip.querySelector('.tier-chip-label');
+    if (labelNode) labelNode.textContent = label;
+    else chip.innerHTML = `${dot ? dot.outerHTML : ''}${label}`;
+  });
+}
 
 // ── Provenance classing (credibility Pillar 1b) ──────────────────────────────
 // Every shown scientific/governance metric is labelled by where its authority
@@ -100,6 +147,7 @@ function copyFooterLink() {
 
 document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
+  hydrateEqaCardTaxonomy();
 
   // Footer share icons — static page URL
   const fUrl = encodeURIComponent(window.location.href);
@@ -796,12 +844,12 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
 
 // ── LEDGER FILTERING (unified for EQA + BAV lanes) ────────────────────────
 const LANE_CFG = {
-  toe:    { stateKey: 'activeEqStatus',  dashId: '#dashboard-toe', searchId: 'eq-local-search',  cardSel: '.eq-card' },
-  rexsyn: { stateKey: 'activeBavStatus', dashId: '#dashboard-bav', searchId: 'bav-local-search', cardSel: '.bav-card' },
+  toe:    { stateKey: 'activeEqKind',    dashId: '#dashboard-toe', searchId: 'eq-local-search',  cardSel: '.eq-card',  filterAttr: 'kind' },
+  rexsyn: { stateKey: 'activeBavStatus', dashId: '#dashboard-bav', searchId: 'bav-local-search', cardSel: '.bav-card', filterAttr: 'status' },
 };
 
 function filterLedger(lane, status, btn) {
-  if (lane === 'toe') activeEqStatus = status;
+  if (lane === 'toe') activeEqKind = status;
   else activeBavStatus = status;
   document.querySelectorAll(`${LANE_CFG[lane].dashId} .eq-filter-pill`).forEach(p => {
     p.classList.remove('active');
@@ -814,10 +862,11 @@ function filterLedger(lane, status, btn) {
 
 function applyLedgerFilters(lane) {
   const cfg = LANE_CFG[lane];
-  const activeStatus = lane === 'toe' ? activeEqStatus : activeBavStatus;
+  const activeStatus = lane === 'toe' ? activeEqKind : activeBavStatus;
   const query = (document.getElementById(cfg.searchId)?.value || '').toLowerCase().trim();
   document.querySelectorAll(cfg.cardSel).forEach(card => {
-    const match = (activeStatus === 'all' || card.dataset.status === activeStatus) &&
+    const cardValue = card.dataset[cfg.filterAttr] || card.dataset.status;
+    const match = (activeStatus === 'all' || cardValue === activeStatus) &&
                   (!query || card.textContent.toLowerCase().includes(query));
     if (match) {
       card.style.display = 'flex';
