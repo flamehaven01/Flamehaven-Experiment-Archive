@@ -1,15 +1,16 @@
 {
   "schema_id": "flamehaven_bav_exp033_pipeline_governance.v1",
   "experiment": "EXP-033-LAWBINDER-CRITIC-ALIGNMENT",
-  "theme": "Pipeline-level validation: is the ENTIRE chain right, not just one model?",
+  "theme": "Pipeline-level validation: baseline parity held in EXP-032, but current EXP-033 repro2 collapsed PASS controls to BLOCK.",
   "p_e2e_equation": "p_e2e = capture x transfer x model x clinical",
   "files": {
     "governance_multiaxis": "./bav/exp-033/governance_multiaxis.json"
   },
   "sha256": {
-    "governance_multiaxis": "fcb21f95407094b47690dbfc154b555c7ae47068aeb781abbb9c11243deceb90"
+    "governance_multiaxis": "c6203b53691a0ff95e1f0f168bf04ff4bf56e279105b3eb93ec3e58181de61f7"
   },
-  "source": "exp034_vs_exp033_multiaxis.json (baseline=EXP033_PARITY_V5J)",
-  "provenance_note": "Verbatim cross-experiment comparison artifact (DI-EQA-002). EXP-033 governance read from baseline side. Live-fetched, no hardcoding (DI-BSC-001).",
+  "finding": "Baseline EXP-032 control parity was perfect, but EXP-033 current repro2 collapsed PASS-eligible controls to BLOCK (tp_pass = 0, balanced_accuracy = 0.5) via R5_e2e_floor. Zero dangerous false-pass was preserved, but promotion parity failed.",
+  "source": "exp033_cmp_v32_vs_v33_multiaxis.json (baseline=EXP032_BASELINE_V5L, current=EXP033_CURRENT_REPRO2)",
+  "provenance_note": "Public payload is a sanitized copy of the actual EXP-033 compare artifact (paths sanitized). Live-fetched, no hardcoding (DI-BSC-001).",
   "disclaimer": "Pipeline reliability + governance only. NOT clinical efficacy."
 }

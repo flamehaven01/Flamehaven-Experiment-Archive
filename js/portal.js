@@ -1473,28 +1473,32 @@ function renderBavExp028Insights(d) {
 // BAV EXP-033 insights: pipeline-level validation. Live from multiaxis baseline.
 function renderBavExp033Insights(d) {
   const base = d && d.baseline && d.baseline.summary;
-  if (!base) return '<p class="empty-state">No EXP-033 data loaded.</p>';
-  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const curr = d && d.current && d.current.summary;
+  if (!base || !curr) return '<p class="empty-state">No EXP-033 data loaded.</p>';
   const num = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
-  const g = base.governance || {}, c = base.classification || {};
+  const g = curr.governance || {}, c = curr.classification || {}, bc = base.classification || {}, bg = base.governance || {};
   const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🔗</span>
       <div>
-        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #60a5fa;">Pipeline-Level Validation · Not Just One Model</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Components validated in isolation can still produce an untrustworthy chain. p_e2e = capture × transfer × model × clinical exposes the blind spot. Methodology / governance / reproducibility only — no efficacy claim.</div>
+        <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #60a5fa;">Pipeline Failure Record · Baseline Held, Current Repro Collapsed</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">Against the EXP-032 parity baseline, EXP-033 current repro2 preserved zero dangerous false-pass but drove every PASS-eligible control to BLOCK. The chain surface stayed measurable; the decision routing failed.</div>
       </div>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
-      ${metric('p_e2e (end-to-end)', num(g.ccge_p_e2e_mean), '#8b5cf6')}
-      ${metric('Accuracy', num(c.accuracy, 2), '#10b981')}
+      ${metric('Baseline accuracy', num(bc.accuracy, 2), '#10b981')}
+      ${metric('Current accuracy', num(c.accuracy, 2), (c.accuracy ?? 0) >= 1 ? '#10b981' : '#ef4444')}
+      ${metric('Current pass recall', num(c.pass_recall, 2), (c.pass_recall ?? 0) >= 1 ? '#10b981' : '#ef4444')}
       ${metric('Dangerous false-pass', num(c.fp_dangerous_pass, 0), (c.fp_dangerous_pass ? '#ef4444' : '#10b981'))}
-      ${metric('Model accuracy', num(g.ccge_model_accuracy_contextual_mean), '#60a5fa')}
-      ${metric('Clinical interp.', num(g.ccge_clinical_interpretation_reliability_mean), '#60a5fa')}
+      ${metric('p_e2e (current)', num(g.ccge_p_e2e_mean), '#8b5cf6')}
     </div>
+    ${advisoryDetails(
+      metric('Baseline clinical counts', `PASS ${bg.clinical_status_counts?.PASS ?? 0} / BLOCK ${bg.clinical_status_counts?.BLOCK ?? 0}`, '#60a5fa') +
+      metric('Current clinical counts', `PASS ${g.clinical_status_counts?.PASS ?? 0} / BLOCK ${g.clinical_status_counts?.BLOCK ?? 0}`, '#ef4444')
+    )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>The blind spot:</strong> every stage scores ~0.82–0.92, but their product p_e2e = ${num(g.ccge_p_e2e_mean)} — the chain is far less reliable than any single model suggests. See Analysis for the full reliability chain.
+      💡 <strong>The failure mode:</strong> baseline parity was perfect, but current repro2 shifted the PASS cohort from <code>R6_pass</code> to <code>R5_e2e_floor</code>. This is not a model-confidence win; it is a pipeline-level collapse caught in governance.
     </p>
   `;
 }
@@ -1506,17 +1510,20 @@ function renderBavExp034Insights(d) {
   const num = (v, dp = 4) => (typeof v === 'number' && isFinite(v)) ? (v >= 0 ? '+' : '') + v.toFixed(dp) : '—';
   const ds = d.delta_summary || {};
   const gov = d._gov || {};
-  const regen = (gov.stage_gate && gov.stage_gate.overall_status) || 'HOLD';
+  const sg = gov.stage_gate || {};
+  const hold = ((sg.diagnostic_holds || [])[0]) || {};
+  const regen = hold.status || 'HOLD';
   const metric = metricCard;  // shared card + provenance chip (Pillar 1b)
   return `
     <div style="display: flex; align-items: flex-start; gap: 10px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: var(--r-md); padding: 12px 16px; margin-bottom: 20px;">
       <span style="font-size: 14px;">🛡️</span>
       <div>
         <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #10b981;">Passed — But One Path Held</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">The accepted legacy-replay anchor passed (GO). The current-regeneration path was <strong>held at ${esc(regen)}</strong> — diagnostic only, not blended into the verdict. "This path passed. This path did not. And we did not mix them."</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">The accepted legacy-replay anchor passed the final stage gate. The current-regeneration path remained a separate <strong>${esc(regen)}</strong> diagnostic hold and was never blended into the accepted verdict.</div>
       </div>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+      ${metric('Overall stage gate', esc(sg.overall_status || 'PASS'), (sg.overall_status || 'PASS') === 'PASS' ? '#10b981' : '#ef4444')}
       ${metric('Accuracy Δ', num(ds.accuracy_delta), (ds.accuracy_delta ? '#f59e0b' : '#10b981'))}
       ${metric('p_e2e Δ', num(ds.ccge_p_e2e_mean_delta), '#8b5cf6')}
       ${metric('Regen path', esc(regen), '#eab308')}
@@ -1526,7 +1533,7 @@ function renderBavExp034Insights(d) {
       metric('DI2 tech Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')
     )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation.
+      💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Final PASS belongs to the accepted anchor only; current regeneration remains a documented diagnostic hold.
     </p>
   `;
 }
@@ -1642,6 +1649,15 @@ function renderBavIntegrity(runId, data) {
     if (oc.alphagenome_role) rows.push(['AlphaGenome role', oc.alphagenome_role]);
     if (oc.promotion_evidence) rows.push(['Promotion evidence', oc.promotion_evidence + (oc.promotion_min_samples ? ` · min_samples ${oc.promotion_min_samples} unmet` : '')]);
   }
+  if (runId === 'bav-exp-033') {
+    const base = (data.baseline && data.baseline.summary) || {};
+    const curr = (data.current && data.current.summary) || {};
+    const bc = base.classification || {}, bg = base.governance || {};
+    const cc = curr.classification || {}, cg = curr.governance || {};
+    rows.push(['Compare artifact', `${data.baseline?.label || 'baseline'} -> ${data.current?.label || 'current'}`]);
+    rows.push(['Baseline parity', `accuracy ${bc.accuracy ?? '—'} · PASS ${bg.clinical_status_counts?.PASS ?? 0} / BLOCK ${bg.clinical_status_counts?.BLOCK ?? 0}`]);
+    rows.push(['Current repro2', `accuracy ${cc.accuracy ?? '—'} · PASS ${cg.clinical_status_counts?.PASS ?? 0} / BLOCK ${cg.clinical_status_counts?.BLOCK ?? 0}`]);
+  }
   if (runId === 'bav-exp-032') {
     const bench = ((data._gov || {}).benchmark || {});
     const summary = bench.summary || {};
@@ -1650,6 +1666,13 @@ function renderBavIntegrity(runId, data) {
     if (mf.mode_note) rows.push(['Parity anchor rule', mf.mode_note]);
     rows.push(['Current-regeneration path', 'diagnostic-only / excluded']);
     rows.push(['Shadow interpretation', 'non-binding observer hint only']);
+  }
+  if (runId === 'bav-exp-034') {
+    const sg = ((data._gov || {}).stage_gate) || {};
+    const hold = ((sg.diagnostic_holds || [])[0]) || {};
+    if (sg.anchor_mode) rows.push(['Accepted anchor mode', sg.anchor_mode]);
+    if (sg.overall_status) rows.push(['Final stage gate', sg.overall_status]);
+    if (hold.status) rows.push(['Diagnostic hold', `${hold.hold_id || 'current-regeneration'} · ${hold.status}`]);
   }
   const metaRows = rows.map(([k, v]) => `<div style="display:flex; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-xs); gap:8px;"><span style="color:var(--t4);">${esc(k)}</span><span style="color:var(--ts);">${esc(v)}</span></div>`).join('');
   const shaKeys = Object.keys(sha);
@@ -1708,14 +1731,19 @@ function renderBavChecks(runId, data) {
     if (data.strict_evidence_recheck) gates.push({ label: 'Strict evidence recheck', status: data.strict_evidence_recheck.status === 'PASS' ? 'PASS' : 'WARN', detail: (data.strict_evidence_recheck.reasons || []).join('; ') || `status = ${data.strict_evidence_recheck.status}` });
   } else if (runId === 'bav-exp-033') {
     const base = (data.baseline && data.baseline.summary) || {};
-    const c = base.classification || {}, gg = base.governance || {};
-    gates.push({ label: 'Zero dangerous false-pass', status: (c.fp_dangerous_pass ?? 1) === 0 ? 'PASS' : 'FAIL', detail: `fp_dangerous_pass = ${c.fp_dangerous_pass}` });
-    gates.push({ label: 'Classification accuracy = 1.0', status: (c.accuracy ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `accuracy = ${c.accuracy}` });
-    gates.push({ label: 'End-to-end reliability (p_e2e)', status: 'WARN', detail: `p_e2e = ${(gg.ccge_p_e2e_mean ?? 0).toFixed(3)} (chain below any single stage — pipeline blind spot)` });
+    const curr = (data.current && data.current.summary) || {};
+    const bc = base.classification || {}, bg = base.governance || {};
+    const cc = curr.classification || {}, cg = curr.governance || {};
+    gates.push({ label: 'Baseline parity anchor', status: (bc.accuracy ?? 0) >= 1 ? 'PASS' : 'WARN', detail: `EXP-032 baseline accuracy = ${bc.accuracy} · PASS ${bg.clinical_status_counts?.PASS ?? 0} / BLOCK ${bg.clinical_status_counts?.BLOCK ?? 0}` });
+    gates.push({ label: 'Current dangerous false-pass', status: (cc.fp_dangerous_pass ?? 1) === 0 ? 'PASS' : 'FAIL', detail: `fp_dangerous_pass = ${cc.fp_dangerous_pass}` });
+    gates.push({ label: 'Current pass recall', status: (cc.pass_recall ?? 0) >= 1 ? 'PASS' : 'FAIL', detail: `pass_recall = ${(cc.pass_recall ?? 0).toFixed(2)} · PASS cohort collapsed to BLOCK` });
+    gates.push({ label: 'Rule routing shift', status: 'WARN', detail: `Baseline used R6_pass (${bg.ccge_rule_id_counts?.R6_pass ?? 0}); current repro2 shows R5_e2e_floor (${cg.ccge_rule_id_counts?.R5_e2e_floor ?? 0}) on the pass cohort.` });
   } else if (runId === 'bav-exp-034') {
     const sg = (data._gov && data._gov.stage_gate) || {};
     (sg.gates || []).forEach(g => gates.push({ label: esc(g.gate_id || 'gate'), status: g.status || 'WARN', detail: g.next_action || '' }));
     if (sg.overall_status) gates.push({ label: 'Overall stage-gate', status: sg.overall_status, detail: sg.final_action || '' });
+    const hold = ((sg.diagnostic_holds || [])[0]) || {};
+    if (hold.status) gates.push({ label: hold.hold_id || 'Diagnostic hold', status: hold.status, detail: hold.reason || 'Held outside accepted anchor verdict.' });
   }
   if (!gates.length) return '<p class="empty-state">No governance gates recorded for this record.</p>';
   const palette = { PASS: '#10b981', GO: '#10b981', FAIL: '#ef4444', WARN: '#eab308', HOLD: '#eab308', OBSERVER: '#eab308' };
@@ -1826,30 +1854,37 @@ function buildBavReportMarkdown(runId, d) {
   }
 
   // EXP-033 pipeline-level
-  else if (d.baseline) {
-    const g = (d.baseline.summary || {}).governance || {}, c = (d.baseline.summary || {}).classification || {};
-    L.push('## 1. End-to-End Reliability Chain');
-    L.push('`p_e2e = capture x transfer x model x clinical`');
+  else if (runId === 'bav-exp-033' && d.baseline) {
+    const bg = (d.baseline.summary || {}).governance || {}, bc = (d.baseline.summary || {}).classification || {};
+    const cg = (d.current && d.current.summary || {}).governance || {}, cc = (d.current && d.current.summary || {}).classification || {};
+    L.push('## 1. Baseline vs Current Repro2');
+    L.push('| Metric | EXP-032 baseline | EXP-033 current repro2 |');
+    L.push('|---|---|---|');
+    L.push('| Accuracy | ' + n(bc.accuracy, 2) + ' | ' + n(cc.accuracy, 2) + ' |');
+    L.push('| Balanced accuracy | ' + n(bc.balanced_accuracy, 2) + ' | ' + n(cc.balanced_accuracy, 2) + ' |');
+    L.push('| Pass recall | ' + n(bc.pass_recall, 2) + ' | ' + n(cc.pass_recall, 2) + ' |');
+    L.push('| Block recall | ' + n(bc.block_recall, 2) + ' | ' + n(cc.block_recall, 2) + ' |');
+    L.push('| Dangerous false-pass | ' + n(bc.fp_dangerous_pass, 0) + ' | ' + n(cc.fp_dangerous_pass, 0) + ' |');
     L.push('');
-    L.push('| Stage | Score |');
-    L.push('|---|---|');
-    L.push('| Data capture | ' + n(g.ccge_data_capture_quality_mean) + ' |');
-    L.push('| Transfer integrity | ' + n(g.ccge_transfer_integrity_mean) + ' |');
-    L.push('| Model accuracy | ' + n(g.ccge_model_accuracy_contextual_mean) + ' |');
-    L.push('| Clinical interpretation | ' + n(g.ccge_clinical_interpretation_reliability_mean) + ' |');
-    L.push('| **p_e2e (chain)** | **' + n(g.ccge_p_e2e_mean) + '** |');
+    L.push('## 2. Governance Route Shift');
+    L.push('- **Baseline clinical counts:** PASS ' + (bg.clinical_status_counts?.PASS ?? 0) + ' / BLOCK ' + (bg.clinical_status_counts?.BLOCK ?? 0));
+    L.push('- **Current clinical counts:** PASS ' + (cg.clinical_status_counts?.PASS ?? 0) + ' / BLOCK ' + (cg.clinical_status_counts?.BLOCK ?? 0));
+    L.push('- **Rule IDs:** baseline R6_pass = ' + (bg.ccge_rule_id_counts?.R6_pass ?? 0) + ' · current R5_e2e_floor = ' + (cg.ccge_rule_id_counts?.R5_e2e_floor ?? 0));
     L.push('');
-    L.push('## 2. Classification Parity');
-    L.push('- **Accuracy:** ' + n(c.accuracy, 2) + ' · **Balanced:** ' + n(c.balanced_accuracy, 2));
-    L.push('- **Dangerous false-pass:** ' + n(c.fp_dangerous_pass, 0) + ' · **False-reject:** ' + n(c.fn_false_reject, 0));
+    L.push('## 3. End-to-End Reliability Chain');
+    L.push('`p_e2e = capture x transfer x model x clinical` remained ' + n(cg.ccge_p_e2e_mean) + ', so the visible failure is not a prettier score getting worse; it is the PASS cohort routing into BLOCK under current repro2.');
     L.push('');
-    L.push('## 3. Interpretation');
-    L.push('Each stage scores high individually, yet the chain product **p_e2e = ' + n(g.ccge_p_e2e_mean) + '** is far below any single component — the pipeline blind spot. A confident model does not guarantee a trustworthy chain. Methodology / governance / reproducibility only.');
+    L.push('## 4. Interpretation');
+    L.push('EXP-033 is not a pipeline success record. It is the point where baseline parity from EXP-032 broke: dangerous false-pass stayed zero, but pass recall collapsed to **0.00**, balanced accuracy fell to **0.50**, and PASS-eligible controls were captured by **R5_e2e_floor**.');
   }
 
   // EXP-034 path separation
-  else if (d.delta_summary) {
+  else if (runId === 'bav-exp-034' && d.delta_summary) {
     const ds = d.delta_summary, sg = (d._gov && d._gov.stage_gate) || {};
+    const hold = ((sg.diagnostic_holds || [])[0]) || {};
+    const lb = (d._gov && d._gov.legacy_benchmark) || {};
+    const lbm = (lb.arm_level && lb.arm_level.benchmark && lb.arm_level.benchmark.metrics) || {};
+    const accVal = v => (v && typeof v === 'object') ? (v.value ?? 0) : (+v || 0);
     L.push('## 1. Cross-Cycle Governance Deltas (legacy-replay vs EXP-033 v5j)');
     L.push('| Signal | Delta |');
     L.push('|---|---|');
@@ -1859,11 +1894,17 @@ function buildBavReportMarkdown(runId, d) {
     L.push('| DI2 (tech) | ' + n(ds.nnsl_di2_tech_mean_delta) + ' |');
     L.push('');
     L.push('## 2. Path Separation');
-    L.push('- **Accepted anchor:** legacy-replay (GO)');
-    L.push('- **Held diagnostic:** current-regeneration (' + (sg.overall_status || 'HOLD') + ')');
+    L.push('- **Final stage gate:** ' + (sg.overall_status || 'PASS'));
+    L.push('- **Accepted anchor:** ' + (sg.anchor_mode || 'legacy_replay') + ' (GO)');
+    L.push('- **Held diagnostic:** ' + (hold.hold_id || 'current-regeneration') + ' (' + (hold.status || 'HOLD') + ')');
+    if (hold.reason) L.push('- **Hold reason:** ' + hold.reason);
     L.push('');
-    L.push('## 3. Interpretation');
-    L.push('Accuracy delta is exactly **0** — the judgment baseline never moved across cycles while the governance surface became more measurable. Controlled expansion without breaking the accepted PASS/BLOCK separation: *non-degradation, not repair*.');
+    L.push('## 3. Accepted Anchor Metrics');
+    L.push('- **Accuracy:** ' + n(accVal(lbm.accuracy), 2) + ' · **Balanced:** ' + n(accVal(lbm.balanced_accuracy), 2));
+    L.push('- **Pass recall:** ' + n(accVal(lbm.pass_recall), 2) + ' · **Block recall:** ' + n(accVal(lbm.block_recall), 2));
+    L.push('');
+    L.push('## 4. Interpretation');
+    L.push('Accuracy delta is exactly **0** — the judgment baseline never moved across cycles while the governance surface became more measurable. Final PASS belongs to the accepted legacy-replay anchor only; current regeneration stays outside the success claim as a separate diagnostic HOLD. Controlled expansion without mixing verdict surfaces: *non-degradation, not repair*.');
   }
 
   // EXP-028 honesty test
@@ -2751,33 +2792,42 @@ function buildBavExp028Charts(data) {
 // BAV EXP-033: pipeline-level p_e2e chain + classification parity. Live from multiaxis baseline. No hardcoding.
 function buildBavExp033Charts(data) {
   const base = data && data.baseline && data.baseline.summary;
-  if (!base) return [];
-  const g = base.governance || {}, c = base.classification || {};
+  const curr = data && data.current && data.current.summary;
+  if (!base || !curr) return [];
+  const bc = base.classification || {}, cc = curr.classification || {};
+  const bg = base.governance || {}, cg = curr.governance || {};
   const specs = [];
-  // 1. p_e2e component chain
   specs.push({
-    type: 'bar',
-    title: 'End-to-End Reliability Chain (p_e2e = capture x transfer x model x clinical)',
-    data: [
-      { label: 'Data capture', value: +(g.ccge_data_capture_quality_mean ?? 0), color: '#60a5fa' },
-      { label: 'Transfer integ.', value: +(g.ccge_transfer_integrity_mean ?? 0), color: '#60a5fa' },
-      { label: 'Model accuracy', value: +(g.ccge_model_accuracy_contextual_mean ?? 0), color: '#60a5fa' },
-      { label: 'Clinical interp.', value: +(g.ccge_clinical_interpretation_reliability_mean ?? 0), color: '#60a5fa' },
-      { label: 'p_e2e (product)', value: +(g.ccge_p_e2e_mean ?? 0), color: '#8b5cf6' },
-    ],
-    options: { maxValue: 1, caption: 'Each stage scores high individually, yet the product (p_e2e) drops well below any single component — the pipeline blind spot. A confident model does not guarantee a trustworthy chain.' },
+    type: 'grouped-bar',
+    title: 'Baseline vs Current Repro2 (classification metrics)',
+    data: {
+      groups: [
+        { label: 'EXP-032 baseline', values: [+(bc.accuracy ?? 0), +(bc.balanced_accuracy ?? 0), +(bc.pass_recall ?? 0), +(bc.block_recall ?? 0)] },
+        { label: 'EXP-033 current', values: [+(cc.accuracy ?? 0), +(cc.balanced_accuracy ?? 0), +(cc.pass_recall ?? 0), +(cc.block_recall ?? 0)] },
+      ],
+      series: [
+        { name: 'Accuracy', color: '#10b981' },
+        { name: 'Balanced acc.', color: '#60a5fa' },
+        { name: 'Pass recall', color: '#f59e0b' },
+        { name: 'Block recall', color: '#8b5cf6' },
+      ],
+    },
+    options: { maxValue: 1, caption: 'Baseline parity was perfect. Current repro2 preserves block recall but collapses the PASS cohort, driving pass recall to 0.00 and balanced accuracy to 0.50.' },
   });
-  // 2. classification parity
   specs.push({
-    type: 'bar',
-    title: 'Classification Parity (control set)',
-    data: [
-      { label: 'Accuracy', value: +(c.accuracy ?? 0), color: '#10b981' },
-      { label: 'Balanced acc.', value: +(c.balanced_accuracy ?? 0), color: '#10b981' },
-      { label: 'Dangerous false-pass', value: +(c.fp_dangerous_pass ?? 0), color: '#ef4444' },
-      { label: 'False-reject', value: +(c.fn_false_reject ?? 0), color: '#f59e0b' },
-    ],
-    options: { maxValue: 1, caption: 'PASS recall 1.0 and BLOCK recall 1.0 with zero dangerous false-pass on the control set. Methodology / governance only — no population-level claim.' },
+    type: 'grouped-bar',
+    title: 'Clinical Status Counts (baseline vs current repro2)',
+    data: {
+      groups: [
+        { label: 'EXP-032 baseline', values: [+(bg.clinical_status_counts?.PASS ?? 0), +(bg.clinical_status_counts?.BLOCK ?? 0)] },
+        { label: 'EXP-033 current', values: [+(cg.clinical_status_counts?.PASS ?? 0), +(cg.clinical_status_counts?.BLOCK ?? 0)] },
+      ],
+      series: [
+        { name: 'PASS', color: '#10b981' },
+        { name: 'BLOCK', color: '#ef4444' },
+      ],
+    },
+    options: { caption: 'The accepted baseline keeps a 3/3 PASS/BLOCK split. Current repro2 routes every control to BLOCK, revealing the pipeline-level failure surface.' },
   });
   return specs;
 }
@@ -2801,23 +2851,19 @@ function buildBavExp034Charts(data) {
       options: { caption: 'Accuracy delta is exactly 0 — the judgment baseline stayed fixed across cycles. Governance metrics shifted (more measurable), but the verdict did not move. Non-degradation, not repair.' },
     });
   }
-  // 2. Path separation: legacy-replay anchor (GO) vs current-regeneration (HOLD)
   const lb = gov.legacy_benchmark || {};
   const lbm = (lb.benchmark && lb.benchmark.metrics) || lb.metrics || {};
   const accVal = v => (v && typeof v === 'object') ? (v.value ?? 0) : (+v || 0);
-  const gate = gov.stage_gate || {};
-  const regenStatus = gate.overall_status || 'HOLD';
   specs.push({
-    type: 'grouped-bar',
-    title: 'Path Separation: Accepted Anchor vs Held Diagnostic',
-    data: {
-      groups: [
-        { label: 'Legacy-replay (GO)', values: [accVal(lbm.accuracy) || 1, accVal(lbm.balanced_accuracy) || 1] },
-        { label: 'Current-regen (' + regenStatus + ')', values: [0.5, 0.5] },
-      ],
-      series: [{ name: 'Accuracy', color: '#10b981' }, { name: 'Balanced acc.', color: '#60a5fa' }],
-    },
-    options: { maxValue: 1, caption: 'The accepted legacy-replay anchor holds at 1.0. The current-regeneration path degraded and was HELD at the first gate (G1) — diagnostic only, never blended into the accepted verdict.' },
+    type: 'bar',
+    title: 'Accepted Anchor Metrics (legacy-replay only)',
+    data: [
+      { label: 'Accuracy', value: accVal(lbm.accuracy) || 0, color: '#10b981' },
+      { label: 'Balanced acc.', value: accVal(lbm.balanced_accuracy) || 0, color: '#60a5fa' },
+      { label: 'Pass recall', value: accVal(lbm.pass_recall) || 0, color: '#8b5cf6' },
+      { label: 'Block recall', value: accVal(lbm.block_recall) || 0, color: '#f59e0b' },
+    ],
+    options: { maxValue: 1, caption: 'Only the accepted legacy-replay anchor is charted numerically. Current regeneration remains a diagnostic HOLD and is intentionally excluded from anchor-performance charts.' },
   });
   return specs;
 }

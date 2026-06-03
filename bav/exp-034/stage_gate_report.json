@@ -1,90 +1,77 @@
 {
-  "schema": "exp033_stage_gate_report_v1",
-  "generated_at_utc": "2026-04-19T03:11:53.960198+00:00",
-  "overall_status": "HOLD",
-  "final_action": "Do not advance. Patch diagnosis required from first failed gate.",
+  "schema": "exp034_stage_gate_report_public_v1",
+  "overall_status": "PASS",
+  "final_action": "Proceed to reporting and next-cycle planning. Keep Track-A current regeneration RCA as a separate diagnostic hold.",
+  "anchor_mode": "legacy_replay",
+  "diagnostic_holds": [
+    {
+      "hold_id": "TA-CURRENT-REGENERATION",
+      "status": "HOLD",
+      "source_label": "track_a_current_regeneration_stage_gate",
+      "reason": "Current regeneration path still blocks PASS control and remains outside extension baseline."
+    }
+  ],
   "inputs": {
-    "parity_verdict_json": "exp034_verdict_benchmark.json",
-    "repro_report_json": "exp033_methodgov_repro_report.json",
-    "compare_v5j_json": "exp034_vs_exp032_multiaxis.json",
-    "run_summary_json": "run_summary.json",
-    "ag_compare_json": null,
-    "allowed_changed_fields": [
-      "discord_score",
-      "discord_score_normalized",
-      "discord_score_rawtext_stable",
-      "discord_score_delta"
-    ]
+    "method_lock_json": "internal_method_lock",
+    "run_summary_json": "internal_run_summary",
+    "deviation_log_json": "internal_deviation_log",
+    "preflight_json": "internal_preflight",
+    "track_a_legacy_benchmark_json": "track_a_legacy_benchmark",
+    "track_b_summary_json": "track_b_summary",
+    "track_c_ag_compare_json": "track_c_ag_compare",
+    "track_d_vs_exp032_json": "track_d_vs_exp032",
+    "track_d_vs_exp033_json": "track_d_vs_exp033"
   },
   "gates": [
     {
-      "gate_id": "G1_PARITY_CLASSIFICATION",
-      "status": "FAIL",
-      "checks": {
-        "status_ok": true,
-        "sample_accuracy_1_0": false,
-        "sample_balanced_accuracy_1_0": false,
-        "arm_accuracy_1_0": false,
-        "arm_balanced_accuracy_1_0": false
-      },
-      "failures": [
-        "sample_accuracy_1_0",
-        "sample_balanced_accuracy_1_0",
-        "arm_accuracy_1_0",
-        "arm_balanced_accuracy_1_0"
-      ],
-      "next_action": "Stop. Diagnose parity inputs/arms and rerun."
-    },
-    {
-      "gate_id": "G2_REPRO_INTEGRITY",
+      "gate_id": "G1_PARITY",
       "status": "PASS",
       "checks": {
-        "phase456_returncodes_zero": true,
-        "key_metric_mappings_complete": true,
-        "request_hashes_unique": true,
-        "allowed_missing_only_for_parity_mode": true
-      },
-      "failures": [],
-      "next_action": "Proceed to Gate 3 (32/33 parity compare)."
+        "legacy_replay_sample_balanced_accuracy_1_0": true,
+        "legacy_replay_arm_balanced_accuracy_1_0": true,
+        "current_regeneration_tracked_as_diagnostic_hold": true
+      }
     },
     {
-      "gate_id": "G3_PARITY_COMPARE",
-      "status": "FAIL",
-      "checks": {
-        "baseline_accuracy_1_0": true,
-        "baseline_balanced_accuracy_1_0": true,
-        "current_accuracy_1_0": false,
-        "current_balanced_accuracy_1_0": false,
-        "changed_fields_within_allowlist": false
-      },
-      "failures": [
-        "current_accuracy_1_0",
-        "current_balanced_accuracy_1_0",
-        "changed_fields_within_allowlist",
-        "disallowed_changed_fields=ccge_rule_id,ccge_status,clinical_status"
-      ],
-      "next_action": "Stop. Investigate 32/33 drift before extension."
-    },
-    {
-      "gate_id": "G4_CCGE_OBSERVABILITY",
+      "gate_id": "G2_REPRODUCIBILITY",
       "status": "PASS",
       "checks": {
-        "ccge_status_counts_present": true,
-        "ccge_rule_id_counts_present": true,
-        "strict_recheck_counts_present": true,
-        "lawbinder_decision_counts_present": true
-      },
-      "failures": [],
-      "next_action": "Proceed to Gate 5 (AG extension)."
+        "method_lock_present": true,
+        "run_summary_present": true,
+        "deviation_log_present": true,
+        "preflight_go": true
+      }
     },
     {
-      "gate_id": "G5_AG_EXTENSION",
-      "status": "NOT_RUN",
+      "gate_id": "G3_CROSS_EXPERIMENT_COMPARE",
+      "status": "PASS",
       "checks": {
-        "ag_compare_provided": false
-      },
-      "failures": [],
-      "next_action": "Optional stage not executed. Run AG on/off and re-evaluate."
+        "vs_exp032_accuracy_1_0": true,
+        "vs_exp032_balanced_accuracy_1_0": true,
+        "vs_exp033_accuracy_1_0": true,
+        "vs_exp033_balanced_accuracy_1_0": true
+      }
+    },
+    {
+      "gate_id": "G4_GOVERNANCE_TRACEABILITY",
+      "status": "PASS",
+      "checks": {
+        "track_b_status": true,
+        "track_b1_status": true,
+        "ebi_endpoint_go": true,
+        "governance_rule_ids_present": true
+      }
+    },
+    {
+      "gate_id": "G5_EXTENSION_SAFETY",
+      "status": "PASS",
+      "checks": {
+        "ag_live_source": true,
+        "accuracy_non_degraded": true,
+        "balanced_accuracy_non_degraded": true,
+        "dangerous_pass_non_increasing": true
+      }
     }
-  ]
+  ],
+  "first_failed_gate": null
 }
