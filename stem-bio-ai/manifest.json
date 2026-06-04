@@ -1,0 +1,35 @@
+{
+  "schema_id": "flamehaven_bsc_stem_bio_ai_scans.v1",
+  "lane": "Bioscience Compliance (BSC)",
+  "scanner": "STEM-BIO-AI (PyPI stem-ai), zero-execution static analysis (ast.parse); risks mapped to the MIT AI Risk Repository (AIRI, MIT-licensed)",
+  "note": "Each entry anchors the public scanner result JSON by SHA-256 computed on the published (path-sanitized) file. Scores are computed by the scanner (0.4*S1 + 0.2*S2 + 0.4*S3 - risk_penalty, score-capped for clinical-adjacent surfaces without an explicit boundary); coverage_rate is the scanner's self-disclosed static-scan coverage of in-scope AIRI risks (partial by design).",
+  "reports": [
+    {
+      "id": "yorkeccak-bio",
+      "target": "yorkeccak/bio",
+      "target_remote": "https://github.com/yorkeccak/bio.git",
+      "target_commit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99",
+      "file": "./stem-bio-ai/yorkeccak-bio/2026-05-15/report.json",
+      "sha256": "7d6abec58619877af4bcd9a6a06348e358c60c6814468b126bab9e3def3ae334",
+      "final_score": 48,
+      "formal_tier": "T1 Quarantine",
+      "score_cap": 69,
+      "coverage_rate": 0.219
+    },
+    {
+      "id": "bioclaw",
+      "target": "Runchuan-BU/BioClaw",
+      "target_remote": "https://github.com/Runchuan-BU/BioClaw",
+      "target_commit": "faae6a2778e992b1cc6a4b1639e530a147d8b463",
+      "file": "./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json",
+      "sha256": "574400587373f89ea37828dece8b24fb08548c407c4a6d85f45651dbad16423b",
+      "final_score": 60,
+      "formal_tier": "T2 Caution",
+      "score_cap": 69,
+      "coverage_rate": 0.062,
+      "weights_status": "uncalibrated_initial_priors_pending_benchmark_calibration"
+    }
+  ],
+  "provenance_note": "Verbatim STEM-BIO-AI scanner outputs; workspace paths sanitized (DI-SAN-001). The file_hashes_sha256 inside each report hash the SCANNED external repo's files; the sha256 here anchors the published ledger result file itself.",
+  "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim."
+}

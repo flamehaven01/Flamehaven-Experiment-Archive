@@ -5,6 +5,15 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 ---
 
 
+## [1.14.2] - 2026-06-04
+
+BSC lane audit — confirmed clean; added ledger-side integrity anchors for consistency with EQA/BAV.
+
+- **BSC verified honest, not slop**: both scanner results compute their scores transparently and traceably (`yorkeccak/bio` 0.4·75 + 0.2·40 + 0.4·25 = **48 → T1**; `Runchuan-BU/BioClaw` 0.4·70 + 0.2·50 + 0.4·54 = **60 → T2**), are evidence-anchored (per-finding file:line:snippet), zero-execution (`ast`), MIT-AIRI-attributed, and **self-disclose their static-scan coverage limits** (21.9% / 6.2%) and that the bioclaw weights are `uncalibrated_initial_priors`. The cards open the full verbatim report, not a compressed metric — no over-clean screen.
+- **New `stem-bio-ai/manifest.json`**: anchors each public result JSON by SHA-256 (computed on the published sanitized file), so the BSC lane now matches the EQA/BAV integrity pattern. Ledger-wide file↔`sha256` scan: **8 anchors, 0 broken**.
+
+---
+
 ## [1.14.1] - 2026-06-04
 
 BAV lane reconstruction — the verification-first pass applied to every active card: hash-anchor integrity, honest provenance, and hero-narrative screens lowered to match the evidence (EXP-005 / 028 / 031 / 032 / 033 / 034), plus count honesty and a sanitizer-path cleanup for `TOE-TEST-0052`. Raw BAV numbers were real throughout; the slop was in framing, provenance disclosure, and two broken integrity anchors.

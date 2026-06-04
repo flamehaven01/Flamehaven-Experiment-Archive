@@ -11,7 +11,7 @@ description: >
   reproduction anchors, citable metadata) is documented in credibility-architecture.
 
 metadata:
-  version: "1.14.1"
+  version: "1.14.2"
   last_updated: "2026-06-04"
   eqa_run_range: "TOE-TEST-0001~0056"
   eqa_archive: "TOE-TEST-0001~0051 reconstructed by provenance (v1.13.0): 7 verification runs (0001~0007) + 44 non_run_artifact (0008~0051); engine verified real by re-execution; append-only point-of-use notes; governed by memory/eqa-reconstruction-standard.md"
