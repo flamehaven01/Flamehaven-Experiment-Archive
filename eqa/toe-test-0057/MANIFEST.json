@@ -1,0 +1,48 @@
+{
+  "experiment_id": "QSOT_COMPILER_V2",
+  "title": "QSOT Compiler (Quantum State Over Time) Multiphase Verification",
+  "status": "executable_research_only_proxy_verified",
+  "location": "eqa/toe-test-0057",
+  "main_repo": "Flamehaven-Labs/QSOT_Compiler_V2",
+  "validation_stack": [
+    "Temporal-State Axioms (Phase 0)",
+    "Flat Spacetime Baselines (Phase 1)",
+    "Curvature Noise Models (Phase 2)",
+    "Observer Boost Dilation (Phase 3)",
+    "Kirkwood-Dirac Optimization (Phase 4)",
+    "Transfer Tensor Method (Phase 5)",
+    "Rust Turbovec Sidecar (Phase 6)",
+    "Scientific Audit Heuristics (Phase 7)"
+  ],
+  "working_hypothesis": "The QSOT spacetime-to-quantum-channel mapping is a high-formality, fake physics slop artifact wrapping a conceptually arbitrary, ungrounded single-qubit toy ansatz with heavy physics terminology.",
+  "canonical_run_id": "toe-test-0057",
+  "legacy_aliases": [
+    "qsot-compiler",
+    "qsot-v2-1"
+  ],
+  "artifact_class": "high_formality_fake_physics_slop_artifact",
+  "review_path": "run_experiment_py_cli_verification",
+  "expected_outputs": [
+    "verification_result.json",
+    "analysis_result.json",
+    "analysis_report.md"
+  ],
+  "screen_summary": {
+    "verdict": "DEGRADED_PASS",
+    "research_scope": "toy_ansatz_numerical_consistency",
+    "what_was_verified": [
+      "Linearity, CPTP completeness, and trace preservation within 5e-16 deviation",
+      "Purity decay for Schwarzschild (0.9994), de Sitter (0.6360), AdS5 (0.6776), and Eguchi-Hanson (0.9988)",
+      "Purity decay acceleration under observer boost (v=0.5c)",
+      "Kirkwood-Dirac negativity detection (-0.1234 flat, -0.0119 de Sitter)",
+      "Non-Markovianity measure (0.001413) via Transfer Tensor Method",
+      "Rust turbovec sidecar subprocess execution and data ingestion (10 results)"
+    ],
+    "not_claimed": [
+      "Any physical connection to quantum gravity or macroscopic general relativity",
+      "Derivation of the metric-to-channel mapping ansatz from first principles",
+      "External experimental validation of the toy model",
+      "Dynamic physical verification of Gödel universe or Eguchi-Hanson metrics (heuristically hardcoded)"
+    ]
+  }
+}

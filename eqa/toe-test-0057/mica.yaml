@@ -1,0 +1,20 @@
+mica_spec: "0.2.6"
+name: qsot-compiler-verification
+mode: memory_injection
+description: "MICA Package for QSOT Compiler V1/V2/V2.1 Multiphase Verification."
+
+layers:
+  - name: archive
+    path: memory/qsot.mica.archive.json
+    format: json
+    loading_hint: always
+  - name: playbook
+    path: memory/qsot-playbook.md
+    format: markdown
+    loading_hint: always
+
+invocation_protocol:
+  primary_pattern: readme_protocol
+
+update_triggers:
+  - on_explicit_save

@@ -2,8 +2,19 @@
 
 All notable changes to the **Flamehaven Verification Ledger** platform will be documented in this file.
 
----
 
+
+## [1.14.3] - 2026-06-09
+
+EQA integration of QSOT Compiler V2.1 (`toe-test-0057`), detailed physics verification analytics, and manifest syntax repair.
+
+- **Integrated QSOT Compiler V2.1 (`toe-test-0057`)**: Documented the multiphase verification of the QSOT Compiler under `DEGRADED_PASS` status. Addressed the post-mortem critique ("We Made a High-Formality, Fake Physics Slop Artifact") by ensuring all outputs (such as purity decay, entropy, and Negativity) are honestly represented as advisory heuristics (`ADVISORY-HEURISTIC`), preventing physical overclaiming.
+- **Detailed Physics Comparison Table**: Added a comprehensive analysis table to the EQA dashboard (`eqa.html` / `portal.js`) mapping metrics (Schwarzschild, de Sitter, AdS5, Eguchi-Hanson, Flat) against curvature invariants, topological properties, causality, horizons, purity, entropy, KD Negativity, and TTM non-Markovianity.
+- **Fixed `toe-test-0056` Manifest Syntax Error**: Corrected a syntax error in `eqa/toe-test-0056/ANT_MANIFEST.json` where a closing bracket `]` was used instead of a curly brace `}`, unblocking the build-ledger-summary scripts.
+- **Rebuilt Ledger Summary**: Regenerated `ledger-summary.json` to include the newly integrated `toe-test-0057` record (now 8 active records in total).
+- **Updated Verification Ledger Playbook**: Documented the new physics analysis table design guidelines under `memory/verification-ledger-playbook.md` (DI-025 to DI-028).
+
+---
 
 ## [1.14.2] - 2026-06-04
 

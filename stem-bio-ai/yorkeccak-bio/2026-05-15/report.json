@@ -1913,7 +1913,7 @@
     ],
     "note": {
       "title": "Regulatory basis note",
-      "body_line_1": "Aligned to current official source classes as of May 2026: EU AI Act (Regulation (EU) 2024/1689), FDA QMSR, FDA AI-enabled device guidance themes, and IMDRF SaMD/GMLP frameworks.",
+      "body_line_1": "Aligned to: EU AI Act (Regulation (EU) 2024/1689), ICH M15 (Step 4, Jan 2026), AIRI (MIT, 2024), FDA QMSR, FDA AI-enabled device guidance themes, and IMDRF SaMD/GMLP frameworks — as of Jun 2026.",
       "body_line_2": "This is a traceability aid, not a compliance or clearance determination."
     }
   },

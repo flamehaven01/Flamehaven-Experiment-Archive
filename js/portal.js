@@ -27,6 +27,7 @@ const EQA_CARD_TAXONOMY = {
   'eqa-card-0054': { kind: 'non-run', class: 'governance-audit' },
   'eqa-card-0055': { kind: 'non-run', class: 'research-artifact' },
   'eqa-card-0056': { kind: 'verification-run', class: 'verification-run' },
+  'eqa-card-0057': { kind: 'verification-run', class: 'verification-run' },
   'eqa-card-archive': { kind: 'verification-run', class: 'verification-run', badgeLabel: 'Historical Records', badgeColor: '#9ca3af', badgeBorder: 'rgba(156,163,175,0.2)' },
 };
 
@@ -240,6 +241,14 @@ function handleHashNavigation(hash) {
     openReportViewer('bioclaw', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf', 'Runchuan-BU/BioClaw', 'Bioscience Compliance · 2026-05-21');
   } else if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
+  } else if (hash === 'toe-test-0057' || hash === 'qsot-compiler') {
+    activeColl = 'toe';
+    applyFilters();
+    setTimeout(() => {
+      const card = document.getElementById('eqa-card-0057');
+      if (card) card.scrollIntoView({ behavior: 'smooth' });
+      openJsonInspector('toe-test-0057');
+    }, 150);
   } else if (hash === 'toe-test-0055' || hash === 'toe-test-0056-legacy-aefso' || hash === 'toe-test-aefso' || hash === 'aefso') {
     activeColl = 'toe';
     applyFilters();
@@ -947,6 +956,8 @@ async function openJsonInspector(runId, type = 'json') {
       titleNode.textContent = 'EQA · TOE-TEST-0055 AEFSO';
     } else if (runId === 'toe-test-0056') {
       titleNode.textContent = 'EQA · TOE-TEST-0056 OPENAI ERDOS EQ.2.2';
+    } else if (runId === 'toe-test-0057') {
+      titleNode.textContent = 'EQA · TOE-TEST-0057 QSOT COMPILER';
     } else if (runId.startsWith('bav-arch-')) {
       titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
     } else if (runId.startsWith('eqa-arch-')) {
@@ -980,6 +991,8 @@ async function openJsonInspector(runId, type = 'json') {
       rawTabBtn.innerHTML = `📄 Research Dossier`;
     } else if (runId === 'toe-test-0056' && type === 'report') {
       rawTabBtn.innerHTML = `📄 Verification Note`;
+    } else if (runId === 'toe-test-0057' && type === 'report') {
+      rawTabBtn.innerHTML = `📄 Verification Note`;
     } else {
       rawTabBtn.innerHTML = `📄 Raw JSON`;
     }
@@ -987,7 +1000,9 @@ async function openJsonInspector(runId, type = 'json') {
   
   // Fetch unedited raw JSON from our local workspace paths
   let jsonPath = '';
-  if (runId === 'toe-test-0056') {
+  if (runId === 'toe-test-0057') {
+    jsonPath = './eqa/toe-test-0057/verification_result.json';
+  } else if (runId === 'toe-test-0056') {
     jsonPath = './eqa/toe-test-0056/verification_result.json';
   } else if (runId === 'toe-test-0054') {
     jsonPath = './eqa/toe-test-0054/logos_toe_contract_inspection.json';
@@ -1133,6 +1148,11 @@ async function openJsonInspector(runId, type = 'json') {
   } else if (type === 'report' && runId === 'toe-test-0056') {
     try {
       const res = await fetch('./eqa/toe-test-0056/analysis_report.md?t=' + new Date().getTime());
+      if (res.ok) reportText = await res.text();
+    } catch (e) {}
+  } else if (type === 'report' && runId === 'toe-test-0057') {
+    try {
+      const res = await fetch('./eqa/toe-test-0057/analysis_report.md?t=' + new Date().getTime());
       if (res.ok) reportText = await res.text();
     } catch (e) {}
   }
@@ -2059,7 +2079,48 @@ function renderInspectorData(runId, data, reportText = '') {
 
   // 1. Insights Tab Contents
   let insightHtml = '';
-  if (runId === 'toe-test-0056') {
+  if (runId === 'toe-test-0057') {
+    const obs = data.observations || {};
+    const cptpDev = obs.cptp_completeness_max_deviation || 1.57e-16;
+    const dsPurity = obs.desitter_purity || 0.6360680891448688;
+    const schPurity = obs.schwarz_purity || 0.9994346211351026;
+    const kdNeg = obs.kd_flat?.kd_value || -0.1234429932877238;
+    const nmMeasure = obs.memory_kernel?.nm_measure || 0.0014132140336108878;
+
+    insightHtml = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Axiom Validation Precision</div>
+          <div style="font-size: 20px; font-weight: 600; color: #10b981; margin-top: 4px;">&lt; 5e-16</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">CPTP Max Dev: ${cptpDev.toExponential(4)}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">de Sitter Purity</div>
+          <div style="font-size: 20px; font-weight: 600; color: #f97316; margin-top: 4px;">${dsPurity.toFixed(4)}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Schwarzschild: ${schPurity.toFixed(4)}</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Kirkwood-Dirac Negativity</div>
+          <div style="font-size: 20px; font-weight: 600; color: var(--ts); margin-top: 4px;">${kdNeg.toFixed(4)}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">Flat Spacetime Optimization</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: var(--r-md);">
+          <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--t4); text-transform: uppercase;">Non-Markovianity (TTM)</div>
+          <div style="font-size: 20px; font-weight: 600; color: var(--ts); margin-top: 4px;">${nmMeasure.toExponential(4)}</div>
+          <div style="font-size: 12px; color: var(--t4); margin-top: 2px;">de Sitter Environment</div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 24px; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.15); border-radius: var(--r-md); padding: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #ef4444; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase;">
+          <span>⚠️ High-Formality, Fake Physics Slop Warning</span>
+        </div>
+        <p style="font-size: 12.5px; color: var(--t3); margin: 0; line-height: 1.6;">
+          This verification run exposes the <strong>extreme formality wrapper</strong> of the QSOT framework. While the pipeline executes 8 distinct phases, solves optimization problems with PyTorch, and queries a Rust database sidecar, the underlying physical assumption (that macroscopic spacetime curvature directly maps to single-qubit quantum noise channels) is completely ungrounded in first-principles physics.
+        </p>
+      </div>
+    `;
+  } else if (runId === 'toe-test-0056') {
     const sawin = data.observations.phase3_sawin_multiquadratic || {};
     const evalData = data.observations.phase3_eq_2_2_evaluation || {};
     
@@ -2748,7 +2809,7 @@ function renderInspectorData(runId, data, reportText = '') {
         });
       };
     }
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056')) {
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -2757,7 +2818,9 @@ function renderInspectorData(runId, data, reportText = '') {
       ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
       : runId === 'toe-test-0055'
       ? '📄 AEFSO Research Dossier (TOE-TEST-0055)'
-      : '📄 Verification Note (TOE-TEST-0056)';
+      : runId === 'toe-test-0056'
+      ? '📄 Verification Note (TOE-TEST-0056)'
+      : '📄 Verification Note (TOE-TEST-0057)';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>
@@ -2781,7 +2844,7 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056');
+      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057');
       const prefersJson = (runId === 'toe-test-0054' || runId === 'toe-test-0052' || runId === 'toe-test-0053');
       const copyVal = (isMarkdownReport && !prefersJson) ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {
@@ -2806,6 +2869,7 @@ function renderInspectorData(runId, data, reportText = '') {
 
 function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
+  if (runId === 'toe-test-0057') return buildQsotCharts(data);
   if (runId === 'toe-test-0056') return buildErdosCharts(data);
   if (runId === 'toe-test-0054') return buildGovGateCharts(data);
   if (runId === 'toe-test-0053') return buildLogosRuntimeCharts(data);
@@ -3081,6 +3145,58 @@ function buildBavExp031Charts(data) {
     specs.push({ type: 'contact-map', title: 'Contact Probability Map (AF3, arm A)', data: { matrix: bav.af3full.contact_probs }, options: { scale: 'contact', caption: 'AlphaFold3 predicted residue-residue contact probability. Bright = high predicted contact.' } });
   }
   return specs;
+}
+
+function buildQsotCharts(data) {
+  const checks = data.checks ?? {};
+  const vals = Object.values(checks);
+  const passCount = vals.filter(v => v === 'PASS' || v === true).length;
+  const skipCount = vals.filter(v => v === 'SKIPPED').length;
+  const failCount = vals.length - passCount - skipCount;
+
+  const obs = data.observations ?? {};
+  const dsPurity = obs.desitter_purity ?? 0.6360680891448688;
+  const schPurity = obs.schwarz_purity ?? 0.9994346211351026;
+  const adsPurity = obs.ads_purity ?? 0.6776355966184198;
+  const eguchiPurity = obs.eguchi_purity ?? 0.9988698549640613;
+
+  const boost = obs.ads_boost_info ?? {};
+  const v = boost.observer_velocity ?? 0.5;
+  const gammaRest = 1.0;
+  const gammaBoost = boost.gamma_boost ?? 1.1547005383792517;
+
+  return [
+    {
+      type: 'donut',
+      title: 'Verification Check Results',
+      data: [
+        { label: 'Pass', value: passCount, color: '#10b981' },
+        ...(skipCount > 0 ? [{ label: 'Skipped', value: skipCount, color: '#6b7280' }] : []),
+        ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : []),
+      ],
+      options: { centerText: String(passCount), centerSub: `of ${vals.length} passed` },
+    },
+    {
+      type: 'bar',
+      title: 'Phase 2 · Curvature Induced Purity Decay',
+      data: [
+        { label: 'Schwarzschild Rest', value: schPurity, color: '#10b981', note: 'Decay parameter: ~0.0001' },
+        { label: 'de Sitter Rest', value: dsPurity, color: '#ef4444', note: 'Decay parameter: ~0.3639' },
+        { label: 'AdS5 Rest', value: adsPurity, color: '#3b82f6', note: 'Decay parameter: ~0.3224' },
+        { label: 'Eguchi-Hanson Rest', value: eguchiPurity, color: '#8b5cf6', note: 'Decay parameter: ~0.0011' },
+      ],
+      options: { maxValue: 1, unit: '', caption: 'Purity decays asymptotically from 1.0 depending on background curvature tensors.' },
+    },
+    {
+      type: 'bar',
+      title: 'Phase 3 · Relativistic Boost Time Dilation',
+      data: [
+        { label: 'Rest (v = 0.0)', value: gammaRest, color: '#10b981', note: 'gamma = 1.0' },
+        { label: 'Boost (v = ' + v + 'c)', value: gammaBoost, color: '#ef4444', note: 'gamma = ' + gammaBoost.toFixed(4) },
+      ],
+      options: { maxValue: 2.0, unit: '', caption: 'Observer velocity sweep shows time dilation scaling factor gamma. Total factor combines boost and curvature metrics.' },
+    },
+  ];
 }
 
 function buildErdosCharts(data) {
@@ -3381,7 +3497,125 @@ function buildAEFSOCharts(data) {
 function renderAnalysisTab(container, runId, data) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // Source claims provenance table (EQA-specific — kept as structured table)
-  if (runId === 'toe-test-0055') {
+  if (runId === 'toe-test-0057') {
+    const section = document.createElement('div');
+    section.style.cssText = 'margin-bottom:28px;';
+    section.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:12px;">Relativistic Quantum Dynamics: Metric Backgrounds &amp; Toy State Evolution</div>
+      
+      <div style="overflow-x:auto; margin-bottom:24px; border:1px solid var(--border); border-radius:var(--r-md); background:rgba(255,255,255,0.01);">
+        <table style="width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:11px; text-align:left; min-width:850px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--t4); text-transform:uppercase; font-size:9.5px;">
+              <th style="padding:10px 12px;">Metric Background</th>
+              <th style="padding:10px 12px;">Class &amp; Topology</th>
+              <th style="padding:10px 12px;">Curvature Invariants</th>
+              <th style="padding:10px 12px;">Causality / Horizon</th>
+              <th style="padding:10px 12px;">Channel Map</th>
+              <th style="padding:10px 12px;">Purity ($\gamma$)</th>
+              <th style="padding:10px 12px;">Entropy ($S$)</th>
+              <th style="padding:10px 12px;">KD Neg. ($\mathcal{N}_{KD}$)</th>
+              <th style="padding:10px 12px;">Mem ($\mathcal{N}_{TTM}$)</th>
+              <th style="padding:10px 12px;">Audit Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">Flat Space</td>
+              <td style="padding:10px 12px;">Minkowski $\mathbb{R}^{1,3}$</td>
+              <td style="padding:10px 12px;">$R=0$, $\|R_{\mu\nu\rho\sigma}\|=0$</td>
+              <td style="padding:10px 12px; color:var(--t4);">Trivial</td>
+              <td style="padding:10px 12px;">Unitary</td>
+              <td style="padding:10px 12px;">1.0000</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#10b981;">-0.1234</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#10b981; font-weight:600;">ACCEPT</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">Schwarzschild</td>
+              <td style="padding:10px 12px;">Ricci-Flat Vacuum</td>
+              <td style="padding:10px 12px;">$R_{\mu\nu}=0$, $\|R_{\mu\nu\rho\sigma}\|=0.0014$</td>
+              <td style="padding:10px 12px; color:var(--t4);">Horizon $r=2M$</td>
+              <td style="padding:10px 12px;">Depolarizing</td>
+              <td style="padding:10px 12px;">0.9994</td>
+              <td style="padding:10px 12px;">0.0026</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#10b981; font-weight:600;">ACCEPT</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">de Sitter</td>
+              <td style="padding:10px 12px;">Einstein Space $\Lambda > 0$</td>
+              <td style="padding:10px 12px;">$R=1.5811$, $R_{\mu\nu}=\Lambda g_{\mu\nu}$</td>
+              <td style="padding:10px 12px; color:#f97316;">Cosmic Horizon</td>
+              <td style="padding:10px 12px;">Phase Damp</td>
+              <td style="padding:10px 12px;">0.6361</td>
+              <td style="padding:10px 12px;">0.5501</td>
+              <td style="padding:10px 12px; color:#10b981;">-0.0120</td>
+              <td style="padding:10px 12px; color:#a78bfa;">0.001413</td>
+              <td style="padding:10px 12px; color:#eab308; font-weight:600;">REVISION</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">AdS5</td>
+              <td style="padding:10px 12px;">Einstein Space $\Lambda < 0$</td>
+              <td style="padding:10px 12px;">$R=1.2649$, $R_{\mu\nu}=\Lambda g_{\mu\nu}$</td>
+              <td style="padding:10px 12px; color:var(--t4);">Boundary $S^3\times\mathbb{R}$</td>
+              <td style="padding:10px 12px;">Phase Damp</td>
+              <td style="padding:10px 12px;">0.6776</td>
+              <td style="padding:10px 12px;">0.5031</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#10b981; font-weight:600;">ACCEPT</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">Eguchi-Hanson</td>
+              <td style="padding:10px 12px;">Gravitational Instanton</td>
+              <td style="padding:10px 12px;">$R=0$, $\|R_{\mu\nu\rho\sigma}\|=0.0028$</td>
+              <td style="padding:10px 12px; color:var(--t4);">Asymp. Locally Flat</td>
+              <td style="padding:10px 12px;">Depolarizing</td>
+              <td style="padding:10px 12px;">0.9989</td>
+              <td style="padding:10px 12px;">0.0048</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#eab308; font-weight:600;">REVISION</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px; color:var(--ts); font-weight:600;">Gödel Universe</td>
+              <td style="padding:10px 12px;">Rotating Cosmology</td>
+              <td style="padding:10px 12px;">$R=0.9487$, $\|R_{\mu\nu\rho\sigma}\|=0.9487$</td>
+              <td style="padding:10px 12px; color:#ef4444; font-weight:600;">CTCs Present</td>
+              <td style="padding:10px 12px;">Non-unitary</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px; color:var(--t5);">—</td>
+              <td style="padding:10px 12px;">0.0000</td>
+              <td style="padding:10px 12px; color:#ef4444; font-weight:600;">REJECT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:12px;">Operational Formality vs. Physics Slop Mapping</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">High Operational Formality (v2.1 Execution)</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;">• **Axiomatic Consistency**: 50 check automated pipeline validating linearity, Hermiticity, and trace preservation within $5\times 10^{-16}$.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Numerical Optimizations**: PyTorch Adam gradient descent locates genuine KD negativity in flat/de Sitter state ansatze.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Subprocess Ingestion**: Subprocess execution of compiled Rust sidecar (turbovec) exchanging vector database queries.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Non-Markovianity**: Transfer Tensor Method (TTM) calculates memory profiles and backflow measures using spectral truncation.</div>
+        </div>
+        <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.18);border-radius:var(--r-sm);padding:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#f59e0b;text-transform:uppercase;margin-bottom:8px;">Physical Groundless Slop Elements (Model Boundaries)</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;">• **Ansatz-to-Curvature Leap**: Mapping general relativity curvature invariants directly to single-qubit noise channels has no physical basis.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Time-Dilation Analogy**: Damping scaling $p' = 1 - (1-p)^\gamma$ is a classical analogy, not a covariant field-theoretic treatment.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Free Calibration**: Calibration parameter $\alpha$ (sensitivity) is manually tuned to force the decay boundaries, not derived.</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6;margin-top:6px;">• **Ad Hoc Audit Gates**: Gödel and Eguchi-Hanson metrics are flagged using hardcoded logical conditions, not dynamically solved field equations.</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(section);
+  } else if (runId === 'toe-test-0055') {
     const stages = data.stage_outputs ?? [];
     const boundary = data.promotion_boundary ?? {};
     if (stages.length) {
