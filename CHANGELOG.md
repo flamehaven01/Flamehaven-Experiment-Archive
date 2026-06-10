@@ -4,6 +4,19 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.14.4] - 2026-06-10
+
+Code debt fixes for the EQA lane — stale inspector data, broken 0055 renderer, wrong card/sidebar order, and hardcoded badge count.
+
+- **Fixed `esc` undefined crash in `renderInspectorData`** (`js/portal.js`): the function used `esc()` throughout its insights/integrity/raw rendering but never defined it locally, causing a silent `ReferenceError` for any EQA experiment that relied on it (including 0055). Added `const esc = ...` at the top of the function. This was the root cause of "0055 [JSON] and [Report] don't work."
+- **Stale inspector content cleared on open** (`js/portal.js`): `closeJsonInspector()` only set `display:none` without clearing DOM content; reopening a different experiment briefly showed the previous experiment's data. Now all tab containers (`ins-insights`, `ins-analysis`, `ins-integrity`, `ins-rules`, `ins-raw`) are wiped immediately on `openJsonInspector()` call, before the async fetch.
+- **Dynamic EQA folder badge** (`js/portal.js`, `index.html`, `eqa.html`): badge was hardcoded `6` in HTML and stayed wrong after 0057 was added. DOMContentLoaded now counts actual `.sb-file` elements per folder and overwrites any numeric badge at runtime — self-updating for future additions.
+- **Swapped EQA-TEST-0055 / EQA-TEST-0056 order** (`index.html`, `eqa.html`): sidebar entries and main content cards for 0055 (AEFSO) and 0056 (OpenAI Erdős) were in the wrong order. Now: 0057 → **0056** → **0055** → 0054 in both sidebar and card grid, matching chronological addition order.
+- **`window.onerror` placement fix** (`index.html`, `eqa.html`): diagnostic error banner script was placed before `<meta charset="utf-8">` (non-standard) and used `document.body.appendChild` which throws if body is null. Moved charset first; switched to `(document.body || document.documentElement).appendChild`.
+- **Cache-buster bumped** (`index.html`, `eqa.html`): `portal.js?v=1.14.3 → ?v=1.14.5` to force all browsers to load the patched JS.
+
+---
+
 ## [1.14.3] - 2026-06-09
 
 EQA integration of QSOT Compiler V2.1 (`toe-test-0057`), detailed physics verification analytics, and manifest syntax repair.

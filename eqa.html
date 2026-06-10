@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
 <script>
 window.onerror = function(msg, url, line, col, error) {
   const errDiv = document.createElement('div');
   errDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:#ef4444;color:#fff;padding:12px;z-index:99999;font-family:monospace;font-size:12px;box-shadow:0 2px 10px rgba(0,0,0,0.5);text-align:left;';
-  errDiv.innerHTML = `<strong>JS ERROR:</strong> ${msg}<br><small>at ${url}:${line}:${col}</small>`;
-  document.body.appendChild(errDiv);
+  errDiv.innerHTML = '<strong>JS ERROR:</strong> ' + msg + '<br><small>at ' + url + ':' + line + ':' + col + '</small>';
+  (document.body || document.documentElement).appendChild(errDiv);
 };
 </script>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EQA Research Station — Flamehaven</title>
 <meta name="description" content="Equation-to-Artifact Research Station: deterministic reproduction of mathematical physics breakthroughs as runnable, citable computational software.">
@@ -109,13 +109,13 @@ window.onerror = function(msg, url, line, col, error) {
               <span class="sb-file-dot" style="background:#eab308"></span>
               <span class="sb-file-name">eqa-test-0057 <span style="font-size:10px;color:var(--t5);">(qsot-compiler)</span></span>
             </div>
-            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#eab308"></span>
-              <span class="sb-file-name">eqa-test-0055 <span style="font-size:10px;color:var(--t5);">(AEFSO)</span></span>
-            </div>
             <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0056').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#10b981"></span>
               <span class="sb-file-name">eqa-test-0056 <span style="font-size:10px;color:var(--t5);">(openai-erdos)</span></span>
+            </div>
+            <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+              <span class="sb-file-dot" style="background:#eab308"></span>
+              <span class="sb-file-name">eqa-test-0055 <span style="font-size:10px;color:var(--t5);">(AEFSO)</span></span>
             </div>
             <div class="sb-file" onclick="highlightFile(this); document.getElementById('eqa-card-0054').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#3b82f6"></span>
@@ -321,39 +321,7 @@ window.onerror = function(msg, url, line, col, error) {
           </div>
         </article>
 
-        <!-- CARD 1: EQA-TEST-0055 (AEFSO) -->
-        <article class="eq-card" id="eqa-card-0055" data-kind="non-run" data-class="research-artifact" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0055</span>
-              <span style="font-size:12px;color:var(--t4);">2026-04-18</span>
-            </div>
-            <span class="tier-chip tb-t3" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
-            <span class="tier-dot" style="background:#a78bfa"></span><span class="tier-chip-label">Research Artifact</span>
-            </span>
-          </div>
-          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">All Elementary Functions from a Single Operator (AEFSO)</h3>
-          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
-            We evaluated whether the AEFSO operator <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">eml(x,y) = exp(x) − ln(y)</code> could serve as a TOE core component through a staged paper-to-TOE research stack: SPAR paper review, fhval validation, and 4 dogfood runs.
-            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: ACCEPT WITH BOUNDS at paper level, blocked for TOE core promotion, retained as OPTIONAL_REPRESENTATION_LAYER. The durable output is the missing-link IR discovery, not a core PASS.</strong>
-          </p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
-            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0055'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
-            </button>
-            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0055', 'report'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
-            </button>
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
-            </span>
-            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
-            </span>
-          </div>
-        </article>
-
-        <!-- CARD 2: EQA-TEST-0056 -->
+        <!-- CARD 1: EQA-TEST-0056 -->
         <article class="eq-card" id="eqa-card-0056" data-kind="verification-run" data-class="verification-run" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
             <div style="display:flex;align-items:center;gap:10px;">
@@ -382,6 +350,38 @@ window.onerror = function(msg, url, line, col, error) {
             <a class="eq-slot-btn" href="https://zenodo.org/records/20383217" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
             </a>
+          </div>
+        </article>
+
+        <!-- CARD 2: EQA-TEST-0055 (AEFSO) -->
+        <article class="eq-card" id="eqa-card-0055" data-kind="non-run" data-class="research-artifact" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-0055</span>
+              <span style="font-size:12px;color:var(--t4);">2026-04-18</span>
+            </div>
+            <span class="tier-chip tb-t3" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;">
+            <span class="tier-dot" style="background:#a78bfa"></span><span class="tier-chip-label">Research Artifact</span>
+            </span>
+          </div>
+          <h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">All Elementary Functions from a Single Operator (AEFSO)</h3>
+          <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">
+            We evaluated whether the AEFSO operator <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;">eml(x,y) = exp(x) − ln(y)</code> could serve as a TOE core component through a staged paper-to-TOE research stack: SPAR paper review, fhval validation, and 4 dogfood runs.
+            <strong style="color:var(--ts);display:block;margin-top:6px;">Result: ACCEPT WITH BOUNDS at paper level, blocked for TOE core promotion, retained as OPTIONAL_REPRESENTATION_LAYER. The durable output is the missing-link IR discovery, not a core PASS.</strong>
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0055'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(167,139,250,0.12)'" onmouseout="this.style.background='rgba(167,139,250,0.05)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>[JSON]
+            </button>
+            <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0055', 'report'); return false;" style="cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>[Report]
+            </button>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>[Repo]
+            </span>
+            <span class="eq-slot-btn disabled" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 16px;border-radius:var(--r-md);cursor:not-allowed;opacity:0.4;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>[Paper]
+            </span>
           </div>
         </article>
 
@@ -607,6 +607,6 @@ window.onerror = function(msg, url, line, col, error) {
 <div id="toast">Link copied &#10003;</div>
 
 <script src="./js/chart-engine.js"></script>
-<script src="./js/portal.js?v=1.14.3" defer></script>
+<script src="./js/portal.js?v=1.14.5" defer></script>
 </body>
 </html>

@@ -163,6 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
   hydrateEqaCardTaxonomy();
   hydrateLedgerVersion();
+  // Dynamic folder badge counts (overrides hardcoded values in HTML)
+  document.querySelectorAll('.sb-folder-btn[data-id]').forEach(btn => {
+    const children = document.getElementById('child-' + btn.dataset.id);
+    if (!children) return;
+    const badge = btn.querySelector('.sb-folder-badge');
+    if (badge && /^\d+$/.test(badge.textContent.trim())) {
+      badge.textContent = String(children.querySelectorAll('.sb-file').length);
+    }
+  });
 
   // Footer share icons — static page URL
   const fUrl = encodeURIComponent(window.location.href);
@@ -944,6 +953,11 @@ async function openJsonInspector(runId, type = 'json') {
   const reportViewer = document.getElementById('report-viewer');
   if (reportViewer) reportViewer.style.display = 'none';
   inspector.style.display = 'block';
+  // Clear stale tab content from any previous inspector session
+  ['ins-insights', 'ins-analysis', 'ins-integrity', 'ins-rules', 'ins-raw'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
   inspector.dataset.activeRunId = runId;
   
   const titleNode = document.getElementById('inspector-run-id');
@@ -2067,6 +2081,8 @@ function renderInspectorData(runId, data, reportText = '') {
 
   // Honest load-state guard (v1.13.1): no inlined fallback data. If the on-disk
   // JSON could not be fetched, show why instead of crashing or showing stale data.
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
   if (!data || data._load_error) {
     const msg = (data && data._load_error) || 'Could not load this record. The Verification Ledger reads its evidence from on-disk JSON and must be served over HTTP (e.g. "python -m http.server"), not opened via file://.';
     insRaw.innerHTML = `<p class="empty-state" style="color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;">${msg}</p>`;
