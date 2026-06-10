@@ -4,6 +4,21 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.16.0] - 2026-06-10
+
+portal.js 3-module split — feature-boundary extraction eliminates monolith bottleneck.
+
+- **New `js/bav-renderers.js`** (~783 lines): all BAV lane inspector functions extracted (`renderBavInsights`, `renderBavExp031/005/028/033/034Insights`, `renderArchiveInspector`, `renderBavIntegrity`, `renderBavChecks`, `buildBavReportMarkdown`). Parallel structure to `eqa-renderers.js`.
+- **New `js/portal-charts.js`** (~627 lines): all 14 `build*Charts` functions + `getChartsForRecord` dispatcher extracted. Single concern: produce ChartEngine spec arrays.
+- **New `js/portal-inspector.js`** (~743 lines): inspector lifecycle (`normalizeLiveEqaRunId`, `openJsonInspector`, `closeJsonInspector`, `switchInspectorTab`), markdown parser, `renderInspectorData`, `renderAnalysisTab`, and fallback stubs extracted.
+- **`portal.js` residual** (~1225 lines, down from 4138): retains app state, taxonomy, nav, sidebar, filter engine, URL helpers, lane filters, BSC helpers, EQA archive, and DOMContentLoaded init only.
+- **Dead code eliminated** (~600 lines): EQA `else if` branches in `renderInspectorData` (insights + integrity) and `renderAnalysisTab` that were unreachable since v1.15.0 dispatch refactor — removed during extraction.
+- **Latent bug fixed**: `renderSignalRow` / `signalMeta` promoted from local `const` inside `renderInspectorData` to global functions in `bav-renderers.js`. Previously the EQA integrity renderers in `eqa-renderers.js` called `renderSignalRow` but it was out of scope (would throw `ReferenceError` at runtime).
+- **Load order** (`index.html`, `eqa.html`): `eqa-registry.js` → `eqa-renderers.js` → `bav-renderers.js` → `portal-charts.js` → `portal-inspector.js` (all sync) → `portal.js` (defer).
+- **Cache-buster bumped**: `?v=1.15.0 → ?v=1.16.0` across all 6 script tags.
+
+---
+
 ## [1.15.0] - 2026-06-10
 
 EQA portal architecture refactor — registry/renderer spine replaces 8 parallel if-else chains.
