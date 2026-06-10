@@ -4,6 +4,20 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.15.0] - 2026-06-10
+
+EQA portal architecture refactor — registry/renderer spine replaces 8 parallel if-else chains.
+
+- **New `js/eqa-registry.js`**: single source of truth for all EQA experiment configs (`id`, `inspectorTitle`, `jsonPath`, `reportPaths`, `rawTabLabel`, `sidebar`). Exports `EQA_REGISTRY` (ordered array) and `EQA_MAP` (`Map` for O(1) lookup). Adding experiment N now requires one entry here; `portal.js` picks it up automatically.
+- **New `js/eqa-renderers.js`**: all per-experiment rendering logic extracted from `portal.js` into named functions (`eqaInsights*`, `eqaIntegrity*`, `eqaAnalysis*`) with a `EQA_RENDERERS` dispatch map keyed by experiment id. ~530 lines; zero portal.js surgery needed for new experiments.
+- **`portal.js` — 8 dispatch rewrites**: inspector title, raw-tab label, `jsonPath` resolution, report fetch (`Promise.all` over `reportPaths[]`), insights, integrity, charts, and analysis-tab rendering each replaced with a registry/renderer lookup. Old EQA branches retained as unreachable dead code (safe removal pass deferred).
+- **Sidebar generation from registry** (`portal.js` DOMContentLoaded): EQA sidebar entries are now built from `EQA_REGISTRY` at runtime; the `[data-keep]` archive entry is preserved as the insertion anchor.
+- **HTML sidebar cleanup** (`index.html`, `eqa.html`): 6 hardcoded `.sb-file` experiment entries removed; archive entry marked `data-keep` for the JS anchor.
+- **Script load order** (`index.html`, `eqa.html`): `eqa-registry.js` + `eqa-renderers.js` load synchronously before `portal.js defer`, ensuring registry is available at DOMContentLoaded.
+- **Cache-buster bumped**: `?v=1.14.5 → ?v=1.15.0` across all three script tags.
+
+---
+
 ## [1.14.4] - 2026-06-10
 
 Code debt fixes for the EQA lane — stale inspector data, broken 0055 renderer, wrong card/sidebar order, and hardcoded badge count.

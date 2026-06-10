@@ -163,7 +163,32 @@ document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
   hydrateEqaCardTaxonomy();
   hydrateLedgerVersion();
-  // Dynamic folder badge counts (overrides hardcoded values in HTML)
+  // Generate EQA sidebar entries from registry (replaces hardcoded HTML)
+  if (typeof EQA_REGISTRY !== 'undefined') {
+    document.querySelectorAll('#child-toe .sb-files').forEach(function(filesDiv) {
+      const archive = filesDiv.querySelector('[data-keep]');
+      filesDiv.querySelectorAll('.sb-file:not([data-keep])').forEach(function(el) { el.remove(); });
+      EQA_REGISTRY.forEach(function(cfg) {
+        if (!cfg.sidebar) return;
+        const d = document.createElement('div');
+        d.className = 'sb-file';
+        d.style.cssText = 'margin-left:8px;padding-left:14px;';
+        d.onclick = function() {
+          highlightFile(this);
+          activeColl = 'toe';
+          if (typeof applyFilters === 'function') applyFilters();
+          const card = document.getElementById(cfg.sidebar.cardId);
+          if (card) card.scrollIntoView({ behavior: 'smooth' });
+        };
+        d.innerHTML = '<span class="sb-file-dot" style="background:' + cfg.sidebar.dot + '"></span>'
+          + '<span class="sb-file-name">' + cfg.sidebar.label
+          + (cfg.sidebar.sub ? ' <span style="font-size:10px;color:var(--t5);">(' + cfg.sidebar.sub + ')</span>' : '')
+          + '</span>';
+        filesDiv.insertBefore(d, archive);
+      });
+    });
+  }
+  // Dynamic folder badge counts (re-run after sidebar generation)
   document.querySelectorAll('.sb-folder-btn[data-id]').forEach(btn => {
     const children = document.getElementById('child-' + btn.dataset.id);
     if (!children) return;
@@ -962,16 +987,13 @@ async function openJsonInspector(runId, type = 'json') {
   
   const titleNode = document.getElementById('inspector-run-id');
   if (titleNode) {
-    if (runId === 'bav-exp-031') {
+    const _eqaTitleCfg = EQA_MAP.get(runId);
+    if (_eqaTitleCfg) {
+      titleNode.textContent = _eqaTitleCfg.inspectorTitle;
+    } else if (runId === 'bav-exp-031') {
       titleNode.textContent = 'BAV · EXP-031 OOD-ABLATION';
     } else if (runId === 'bav-exp-032') {
       titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
-    } else if (runId === 'toe-test-0055') {
-      titleNode.textContent = 'EQA · TOE-TEST-0055 AEFSO';
-    } else if (runId === 'toe-test-0056') {
-      titleNode.textContent = 'EQA · TOE-TEST-0056 OPENAI ERDOS EQ.2.2';
-    } else if (runId === 'toe-test-0057') {
-      titleNode.textContent = 'EQA · TOE-TEST-0057 QSOT COMPILER';
     } else if (runId.startsWith('bav-arch-')) {
       titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
     } else if (runId.startsWith('eqa-arch-')) {
@@ -997,16 +1019,9 @@ async function openJsonInspector(runId, type = 'json') {
     return text.includes('raw') || text.includes('json') || text.includes('proof') || text.includes('report');
   });
   if (rawTabBtn) {
-    if (runId === 'toe-test-0054' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Intake Report`;
-    } else if (runId === 'toe-test-0052' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Analysis + Comparison`;
-    } else if (runId === 'toe-test-0055' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Research Dossier`;
-    } else if (runId === 'toe-test-0056' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Verification Note`;
-    } else if (runId === 'toe-test-0057' && type === 'report') {
-      rawTabBtn.innerHTML = `📄 Verification Note`;
+    const _eqaTabCfg = EQA_MAP.get(runId);
+    if (_eqaTabCfg && type === 'report') {
+      rawTabBtn.innerHTML = _eqaTabCfg.rawTabLabel;
     } else {
       rawTabBtn.innerHTML = `📄 Raw JSON`;
     }
@@ -1014,18 +1029,9 @@ async function openJsonInspector(runId, type = 'json') {
   
   // Fetch unedited raw JSON from our local workspace paths
   let jsonPath = '';
-  if (runId === 'toe-test-0057') {
-    jsonPath = './eqa/toe-test-0057/verification_result.json';
-  } else if (runId === 'toe-test-0056') {
-    jsonPath = './eqa/toe-test-0056/verification_result.json';
-  } else if (runId === 'toe-test-0054') {
-    jsonPath = './eqa/toe-test-0054/logos_toe_contract_inspection.json';
-  } else if (runId === 'toe-test-0053') {
-    jsonPath = './eqa/toe-test-0053/analysis_results.json';
-  } else if (runId === 'toe-test-0052') {
-    jsonPath = './eqa/toe-test-0052/internal_data.json';
-  } else if (runId === 'toe-test-0055') {
-    jsonPath = './eqa/toe-test-0055/AEFSO_MANIFEST.json';
+  const _eqaJsonCfg = EQA_MAP.get(runId);
+  if (_eqaJsonCfg) {
+    jsonPath = _eqaJsonCfg.jsonPath;
   } else if (runId === 'yorkeccak-bio') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
@@ -1131,44 +1137,21 @@ async function openJsonInspector(runId, type = 'json') {
     } catch (e) { console.warn('BAV manifest fetch failed', e); }
   }
 
-  // Fetch report markdown for live EQA reports (archive reports are loaded above).
+  // Fetch report markdown — EQA paths driven by registry; archive handled above.
   let reportText = '';
-  if (type === 'report' && runId === 'toe-test-0054') {
-    try {
-      const res = await fetch('./eqa/toe-test-0054/README.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
-    } catch (e) {}
-  } else if (type === 'report' && runId === 'toe-test-0053') {
-    try {
-      const res = await fetch('./eqa/toe-test-0053/analysis_report.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
-    } catch (e) {}
-  } else if (type === 'report' && runId === 'toe-test-0052') {
-    try {
-      const stamp = new Date().getTime();
-      const [analysisRes, comparisonRes] = await Promise.all([
-        fetch('./eqa/toe-test-0052/analysis_report.md?t=' + stamp),
-        fetch('./eqa/toe-test-0052/comparison_2025_2026.md?t=' + stamp),
-      ]);
-      const analysisText = analysisRes.ok ? await analysisRes.text() : '';
-      const comparisonText = comparisonRes.ok ? await comparisonRes.text() : '';
-      reportText = [analysisText, comparisonText].filter(Boolean).join('\n\n---\n\n');
-    } catch (e) {}
-  } else if (type === 'report' && runId === 'toe-test-0055') {
-    try {
-      const res = await fetch('./eqa/toe-test-0055/analysis_report.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
-    } catch (e) {}
-  } else if (type === 'report' && runId === 'toe-test-0056') {
-    try {
-      const res = await fetch('./eqa/toe-test-0056/analysis_report.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
-    } catch (e) {}
-  } else if (type === 'report' && runId === 'toe-test-0057') {
-    try {
-      const res = await fetch('./eqa/toe-test-0057/analysis_report.md?t=' + new Date().getTime());
-      if (res.ok) reportText = await res.text();
-    } catch (e) {}
+  if (type === 'report') {
+    const _eqaRpCfg = EQA_MAP.get(runId);
+    if (_eqaRpCfg && _eqaRpCfg.reportPaths.length) {
+      try {
+        const stamp = new Date().getTime();
+        const texts = await Promise.all(
+          _eqaRpCfg.reportPaths.map(function(p) {
+            return fetch(p + '?t=' + stamp).then(function(r) { return r.ok ? r.text() : ''; }).catch(function() { return ''; });
+          })
+        );
+        reportText = texts.filter(Boolean).join('\n\n---\n\n');
+      } catch (e) {}
+    }
   }
   inspector.reportText = reportText;
   
@@ -2095,7 +2078,13 @@ function renderInspectorData(runId, data, reportText = '') {
 
   // 1. Insights Tab Contents
   let insightHtml = '';
-  if (runId === 'toe-test-0057') {
+  const _eqaInsRend = EQA_RENDERERS[runId];
+  if (_eqaInsRend) {
+    insightHtml = _eqaInsRend.insights(data, esc);
+    if (runId === 'toe-test-0056') {
+      setTimeout(function() { const b = document.getElementById('btn-prec-64'); if (b) steerPrecision(64, b); }, 50);
+    }
+  } else if (runId === 'toe-test-0057') {
     const obs = data.observations || {};
     const cptpDev = obs.cptp_completeness_max_deviation || 1.57e-16;
     const dsPurity = obs.desitter_purity || 0.6360680891448688;
@@ -2577,7 +2566,10 @@ function renderInspectorData(runId, data, reportText = '') {
   };
 
   // 2. Integrity Tab Contents
-  if (runId === 'toe-test-0054') {
+  const _eqaIntRend = EQA_RENDERERS[runId];
+  if (_eqaIntRend && _eqaIntRend.integrity) {
+    _eqaIntRend.integrity(data, esc, insIntegrity, insChecks);
+  } else if (runId === 'toe-test-0054') {
     const summary = data.screen_summary ?? {};
     const law = data.lawbinder_governance ?? {};
     const boundary = data.operational_boundary ?? {};
@@ -2885,12 +2877,8 @@ function renderInspectorData(runId, data, reportText = '') {
 
 function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
-  if (runId === 'toe-test-0057') return buildQsotCharts(data);
-  if (runId === 'toe-test-0056') return buildErdosCharts(data);
-  if (runId === 'toe-test-0054') return buildGovGateCharts(data);
-  if (runId === 'toe-test-0053') return buildLogosRuntimeCharts(data);
-  if (runId === 'toe-test-0052') return buildSparCharts(data);
-  if (runId === 'toe-test-0055') return buildAEFSOCharts(data);
+  const _eqaCharts = { 'toe-test-0057': buildQsotCharts, 'toe-test-0056': buildErdosCharts, 'toe-test-0054': buildGovGateCharts, 'toe-test-0053': buildLogosRuntimeCharts, 'toe-test-0052': buildSparCharts, 'toe-test-0055': buildAEFSOCharts };
+  if (_eqaCharts[runId]) return _eqaCharts[runId](data);
   if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
   if (runId === 'bav-exp-005') return buildBavExp005Charts(data);
   if (runId === 'bav-exp-028') return buildBavExp028Charts(data);
@@ -3512,8 +3500,11 @@ function buildAEFSOCharts(data) {
 
 function renderAnalysisTab(container, runId, data) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  // Source claims provenance table (EQA-specific — kept as structured table)
-  if (runId === 'toe-test-0057') {
+  // Source claims provenance table (EQA-specific)
+  const _eqaAnRend = EQA_RENDERERS[runId];
+  if (_eqaAnRend && _eqaAnRend.analysis) {
+    _eqaAnRend.analysis(container, data, esc);
+  } else if (runId === 'toe-test-0057') {
     const section = document.createElement('div');
     section.style.cssText = 'margin-bottom:28px;';
     section.innerHTML = `
@@ -3706,7 +3697,7 @@ function renderAnalysisTab(container, runId, data) {
     }
   }
 
-  if (runId === 'toe-test-0052') {
+  if (!_eqaAnRend && runId === 'toe-test-0052') {
     const spar = data.spar_review ?? {};
     const hist = data.historical_snapshot ?? {};
     const replays = data.current_replays ?? {};
@@ -3760,7 +3751,7 @@ function renderAnalysisTab(container, runId, data) {
     container.appendChild(section2);
   }
 
-  if (runId === 'toe-test-0054') {
+  if (!_eqaAnRend && runId === 'toe-test-0054') {
     const summary = data.screen_summary ?? {};
     const law = data.lawbinder_governance ?? {};
     const conns = data.connections ?? {};
@@ -3813,7 +3804,7 @@ function renderAnalysisTab(container, runId, data) {
     container.appendChild(section2);
   }
 
-  if (runId === 'toe-test-0053') {
+  if (!_eqaAnRend && runId === 'toe-test-0053') {
     const runtime = data.logos_runtime_probe ?? {};
     const compile = Array.isArray(data.logos_source_compile) ? data.logos_source_compile : [];
     const contract = data.toe_contract_probe ?? {};

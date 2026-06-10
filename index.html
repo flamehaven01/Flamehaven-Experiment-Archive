@@ -105,31 +105,7 @@ window.onerror = function(msg, url, line, col, error) {
         </div>
         <div class="sb-children" id="child-toe">
           <div class="sb-files" style="padding-left: 8px;">
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0057').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#eab308"></span>
-              <span class="sb-file-name">eqa-test-0057 <span style="font-size:10px;color:var(--t5);">(qsot-compiler)</span></span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0056').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#10b981"></span>
-              <span class="sb-file-name">eqa-test-0056 <span style="font-size:10px;color:var(--t5);">(openai-erdos)</span></span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0055').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#eab308"></span>
-              <span class="sb-file-name">eqa-test-0055 <span style="font-size:10px;color:var(--t5);">(AEFSO)</span></span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0054').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#3b82f6"></span>
-              <span class="sb-file-name">eqa-test-0054</span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0053').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#3b82f6"></span>
-              <span class="sb-file-name">eqa-test-0053</span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-0052').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
-              <span class="sb-file-dot" style="background:#eab308"></span>
-              <span class="sb-file-name">eqa-test-0052</span>
-            </div>
-            <div class="sb-file" onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-archive').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
+            <div class="sb-file" data-keep onclick="highlightFile(this); activeColl='toe'; applyFilters(); document.getElementById('eqa-card-archive').scrollIntoView({behavior:'smooth'});" style="margin-left:8px;padding-left:14px;">
               <span class="sb-file-dot" style="background:#6b7280"></span>
               <span class="sb-file-name">eqa-archive-0001~0051</span>
             </div>
@@ -457,12 +433,12 @@ window.onerror = function(msg, url, line, col, error) {
     <!-- Vertical Stack for EQA Cards -->
     <div class="eq-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
       
-      <!-- CARD 0: EQA-TEST-0057 (QSOT Compiler V2.1) -->
+      <!-- CARD 0: EQA-TEST-0057 (QSOT Compiler v1.2.3) -->
       <article class="eq-card" id="eqa-card-0057" data-kind="verification-run" data-class="verification-run" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EQA-TEST-0057</span>
-            <span style="font-size: 12px; color: var(--t4);">2026-06-09</span>
+            <span style="font-size: 12px; color: var(--t4);">2025-12-23</span>
           </div>
           <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
             <span class="tier-dot" style="background:#10b981"></span>
@@ -470,11 +446,11 @@ window.onerror = function(msg, url, line, col, error) {
           </span>
         </div>
         <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
-          QSOT Compiler V1/V2/V2.1: Multiphase Numerical Consistency Verification
+          QSOT Compiler v1.2.3: Single-Qubit Trace &amp; Linearity Verification
         </h3>
         <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
-          This verification run compiles and executes the QSOT (Quantum State Over Time) Compiler v1/v2/v2.1 framework. It implements an 8-phase verification pipeline containing 50 checks, including CPTP completeness checks, observer boost dilations, Kirkwood-Dirac optimization, and a compiled Rust vector search sidecar. It is officially classified as a **High-Formality, Fake Physics Slop Artifact** due to the lack of physical first-principles derivation linking spacetime metrics to single-qubit Kraus noise channels.
-          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: DEGRADED_PASS. All 49 model checks pass, and 1 check (DQE tensor core) is skipped. Operational validity verified, physical validity ungrounded.</strong>
+          This run archives the execution audit of the Zenodo-released **QSOT Compiler v1.2.3** codebase. The system verifies trace preservation and linearity within machine precision, alongside coherence decay tracking under relativistic time dilation. It is officially classified as a **High-Formality, Fake Physics Slop Artifact** because the complex spacetime metric mapping described in the accompanying LaTeX papers is mathematically and physically ungrounded, relying on zero-value placeholders for Kirkwood-Dirac negativity and memory depth in actual execution.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: PASS. All 4 trace and linearity checks pass. Operational validity verified, physical validity ungrounded.</strong>
         </p>
         
         <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -491,18 +467,18 @@ window.onerror = function(msg, url, line, col, error) {
             </svg>
             [Report]
           </button>
-          <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
+          <a class="eq-slot-btn" href="https://github.com/Flamehaven-Labs/QSOT-Compiler" target="_blank" rel="noopener" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/>
             </svg>
             [Repo]
-          </span>
-          <span class="eq-slot-btn disabled" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t5); background: transparent; border: 1px solid rgba(255,255,255,0.05); padding: 8px 16px; border-radius: var(--r-md); cursor: not-allowed; opacity: 0.4;">
+          </a>
+          <a class="eq-slot-btn" href="https://zenodo.org/records/18035432" target="_blank" rel="noopener" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
             </svg>
             [Paper]
-          </span>
+          </a>
         </div>
       </article>
 
@@ -1979,6 +1955,8 @@ window.onerror = function(msg, url, line, col, error) {
 
 <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 <script src="./js/chart-engine.js"></script>
-<script src="./js/portal.js?v=1.14.5" defer></script>
+<script src="./js/eqa-registry.js?v=1.15.0"></script>
+<script src="./js/eqa-renderers.js?v=1.15.0"></script>
+<script src="./js/portal.js?v=1.15.0" defer></script>
 </body>
 </html>
