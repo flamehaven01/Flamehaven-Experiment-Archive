@@ -1,48 +1,39 @@
 {
-  "experiment_id": "QSOT_COMPILER_V2",
-  "title": "QSOT Compiler (Quantum State Over Time) Multiphase Verification",
-  "status": "executable_research_only_proxy_verified",
+  "experiment_id": "QSOT_COMPILER_V1_2_3",
+  "title": "QSOT Compiler v1.2.3 — High-Formality, Fake Physics Slop Artifact",
+  "status": "fake_physics_slop_audited",
   "location": "eqa/toe-test-0057",
-  "main_repo": "Flamehaven-Labs/QSOT_Compiler_V2",
+  "main_repo": "Flamehaven-Labs/QSOT-Compiler",
   "validation_stack": [
-    "Temporal-State Axioms (Phase 0)",
-    "Flat Spacetime Baselines (Phase 1)",
-    "Curvature Noise Models (Phase 2)",
-    "Observer Boost Dilation (Phase 3)",
-    "Kirkwood-Dirac Optimization (Phase 4)",
-    "Transfer Tensor Method (Phase 5)",
-    "Rust Turbovec Sidecar (Phase 6)",
-    "Scientific Audit Heuristics (Phase 7)"
+    "Trace and Linearity Verification (v1.2.3)",
+    "Supplementary LaTeX Paper Audit"
   ],
-  "working_hypothesis": "The QSOT spacetime-to-quantum-channel mapping is a high-formality, fake physics slop artifact wrapping a conceptually arbitrary, ungrounded single-qubit toy ansatz with heavy physics terminology.",
+  "working_hypothesis": "The QSOT Compiler v1.2.3 is an AI-Native academic-looking package wrapping a conceptually ungrounded single-qubit toy ansatz with high-formality physics nomenclature to mimic general relativistic quantum gravity.",
   "canonical_run_id": "toe-test-0057",
   "legacy_aliases": [
-    "qsot-compiler",
-    "qsot-v2-1"
+    "qsot-compiler-v1-2-3",
+    "qsot-compiler"
   ],
   "artifact_class": "high_formality_fake_physics_slop_artifact",
-  "review_path": "run_experiment_py_cli_verification",
+  "review_path": "post_mortem_code_and_paper_audit",
   "expected_outputs": [
     "verification_result.json",
     "analysis_result.json",
     "analysis_report.md"
   ],
   "screen_summary": {
-    "verdict": "DEGRADED_PASS",
+    "verdict": "PASS",
     "research_scope": "toy_ansatz_numerical_consistency",
     "what_was_verified": [
-      "Linearity, CPTP completeness, and trace preservation within 5e-16 deviation",
-      "Purity decay for Schwarzschild (0.9994), de Sitter (0.6360), AdS5 (0.6776), and Eguchi-Hanson (0.9988)",
-      "Purity decay acceleration under observer boost (v=0.5c)",
-      "Kirkwood-Dirac negativity detection (-0.1234 flat, -0.0119 de Sitter)",
-      "Non-Markovianity measure (0.001413) via Transfer Tensor Method",
-      "Rust turbovec sidecar subprocess execution and data ingestion (10 results)"
+      "Trace preservation and Linearity verified within 2.22e-16 deviation (machine epsilon)",
+      "Average L1 Coherence of 0.70205 decaying to 0.44367 over 5 steps at velocity 0.1c",
+      "Cryptographic trace hash chain verifying execution state transitions"
     ],
     "not_claimed": [
       "Any physical connection to quantum gravity or macroscopic general relativity",
       "Derivation of the metric-to-channel mapping ansatz from first principles",
       "External experimental validation of the toy model",
-      "Dynamic physical verification of Gödel universe or Eguchi-Hanson metrics (heuristically hardcoded)"
+      "Non-zero Kirkwood-Dirac negativity or Transfer Tensor memory depth (both evaluated to 0.0 in the test artifacts)"
     ]
   }
 }

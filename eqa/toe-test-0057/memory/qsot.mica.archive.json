@@ -3,12 +3,12 @@
   "mica_schema_version": "0.2.6",
   "project": {
     "name": "qsot-compiler-verification",
-    "full_name": "QSOT Compiler (Quantum State Over Time) Multiphase Verification",
-    "version": "2.1.0",
+    "full_name": "QSOT Compiler v1.2.3 Verification",
+    "version": "1.2.3",
     "status": "active",
     "primary_language": "Python",
     "repo_path": "eqa/toe-test-0057",
-    "canonical_statement": "Multi-phase numerical consistency verification of the single-qubit metric-to-channel mapping ansatz under temporal-state axioms, observer boosts, and Transfer Tensor Method reconstruction."
+    "canonical_statement": "Execution and audit of the QSOT Compiler v1.2.3 single-qubit toy amplitude damping simulation and its ungrounded supplementary general relativity papers."
   },
   "scope": {
     "include": ["src/", "tests/", "README.md", "pyproject.toml"],
@@ -21,13 +21,13 @@
       "statement": "Density matrices must preserve Hermiticity, unit trace, and positive semi-definiteness within 1e-8 tolerance to avoid non-physical mathematical collapses.",
       "severity": "critical",
       "binding": {
-        "origin_episode": "EXP-057: Implemented mathematical validation of density matrices to ensure CPTP completeness and prevent numerical divergence in optimization steps."
+        "origin_episode": "EXP-057: Audited v1.2.3 trace and linearity deviations to verify CPTP completeness."
       }
     },
     {
       "id": "DI-002",
       "label": "advisory-metric-positioning",
-      "statement": "All computed values (purity decay, entropy growth, Kirkwood-Dirac negativity) are strictly advisory heuristics. No external physical claims or general relativity derivations are made.",
+      "statement": "All computed values (purity decay, coherence) are strictly advisory heuristics. No external physical claims or general relativity derivations are made.",
       "severity": "high",
       "binding": {
         "origin_episode": "EXP-057: Classified as a High-Formality, Fake Physics Slop Artifact. Provenance tags locked to ADVISORY-HEURISTIC to restrict scientific claims."
@@ -37,9 +37,9 @@
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "QSOT-COMPILER-MICA-001",
-    "update_count": 1,
+    "update_count": 2,
     "last_updated": "2026-06-09",
     "session_count": 1,
-    "bootstrap_note": "MICA package established to enforce quantum state mathematical constraints and lock claims boundary."
+    "bootstrap_note": "MICA package updated to reflect strictly v1.2.3 audit scope."
   }
 }

@@ -1,35 +1,24 @@
-# MICA Playbook: QSOT Compiler Multiphase Verification
+# MICA Playbook: QSOT Compiler v1.2.3 Verification
 
-This playbook governs the execution, maintenance, and verification of the QSOT Compiler V1/V2/V2.1 multiphase verification artifact.
+This playbook governs the execution, maintenance, and verification of the QSOT Compiler v1.2.3 verification artifact.
 
 ## 1. Operating Rules & Governance
 * **Claim Boundaries**: All computed metrics must carry `ADVISORY-HEURISTIC` provenance markers. The system must never assert direct physical verification of macroscopic general relativity or quantum gravity.
-* **Mathematical Locks**: The density matrix validator must enforce unit trace, Hermiticity, and positive semi-definiteness within a tolerance of $10^{-8}$. Any violation of Phase 0 axioms must immediately reject the execution run.
-* **Axiom Strictness**: The temporal-state axioms (linearity, CPTP completeness, trace preservation) must be verified at every step of the simulation sweep.
+* **Axiom Strictness**: The temporal-state axioms (linearity, trace preservation) must be verified at every step of the simulation.
 
 ## 2. Playbook Steps (Verification Path)
 1. Install dependencies and activate virtual environment:
    ```bash
-   cd D:\Sanctum\Flamehaven-Labs\QSOT_Compiler_V2
-   uv venv
-   .venv\Scripts\activate
-   uv pip install -e .
+   cd D:\Sanctum\Flamehaven-Labs\QSOT_Compiler_V1\qsot_compiler
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
    ```
-2. Execute the test suite using pytest to ensure all 47 tests pass with >90% coverage:
+2. Execute the verification sweep script:
    ```bash
-   pytest --cov=qsot_v2 tests/
+   python scripts/asdp_run.py --rho0 config/rho0.json --channels config/channels.json --velocity 0.1 --outdir test_artifacts
    ```
-3. Run the experiment sweep using the CLI to generate `result.json` and `report.md`:
-   ```bash
-   python run_experiment.py --config experiment.yaml
-   ```
-4. Verify the outputs match the canonical bounds:
-   - Linearity deviation: $< 5 \times 10^{-16}$
-   - Schwarzschild purity: $\approx 0.9994$
-   - de Sitter purity: $\approx 0.6360$
-   - Kirkwood-Dirac negativity (flat): $\approx -0.1234$
-   - Non-Markovianity measure (de Sitter): $\approx 0.001413$
-5. Copy the generated `reports/result.json` to the ledger repository:
-   ```bash
-   copy reports\result.json D:\Sanctum\flamehaven-audit-reports\eqa\toe-test-0057\verification_result.json
-   ```
+3. Verify the outputs match the canonical bounds inside `test_artifacts/`:
+   - Linearity deviation: $< 3 \times 10^{-16}$
+   - Average coherence: $\approx 0.70205$
+   - Negativity / Non-Markovianity: exactly $0.0$

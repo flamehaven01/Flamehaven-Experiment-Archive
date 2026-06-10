@@ -1,7 +1,7 @@
 mica_spec: "0.2.6"
 name: qsot-compiler-verification
 mode: memory_injection
-description: "MICA Package for QSOT Compiler V1/V2/V2.1 Multiphase Verification."
+description: "MICA Package for QSOT Compiler v1.2.3 Verification."
 
 layers:
   - name: archive

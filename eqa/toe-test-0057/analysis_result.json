@@ -2,68 +2,22 @@
   "schema_id": "flamehaven_toe_test_qsot_compiler.v1",
   "canonical_run_id": "toe-test-0057",
   "legacy_aliases": [
-    "qsot-compiler",
-    "qsot-v2-1"
+    "qsot-compiler-v1-2-3",
+    "qsot-compiler"
   ],
   "artifact_class": "high_formality_fake_physics_slop_artifact",
-  "review_path": "run_experiment_py_cli_verification",
-  "generated_at": "2026-06-09T10:45:00.000Z",
-  "test_root": "Flamehaven-Labs/QSOT_Compiler_V2",
-  "repo_root": "D:/Sanctum/Flamehaven-Labs/QSOT_Compiler_V2",
-  "verdict": "DEGRADED_PASS",
+  "review_path": "post_mortem_code_and_paper_audit",
+  "generated_at": "2026-06-09T18:44:00.000Z",
+  "test_root": "Flamehaven-Labs/QSOT_Compiler_V1",
+  "repo_root": "D:/Sanctum/Flamehaven-Labs/QSOT_Compiler_V1",
+  "verdict": "PASS",
   "provenance_class": "ADVISORY",
-  "classification_note": "This artifact represents a High-Formality, Fake Physics Slop Artifact. The system uses a highly structured 8-phase verification pipeline with cryptographic trace hashes, Rust vector databases, and Bloch sphere optimizations to wrap a conceptually arbitrary, ungrounded single-qubit metric-to-channel mapping ansatz with zero physical first-principles derivation.",
+  "classification_note": "This artifact represents the audit of QSOT Compiler v1.2.3, which is classified as a High-Formality, Fake Physics Slop Artifact. The system uses a highly structured execution and audit framework, including LaTeX paper targets and NeurIPS-style web pages, to wrap a conceptually arbitrary, ungrounded single-qubit toy amplitude damping simulation with general relativity nomenclature.",
   "checks": {
-    "temporal_axiom_linearity_holds": true,
-    "temporal_axiom_cptp_completeness_holds": true,
-    "temporal_axiom_trace_preservation_holds": true,
-    "temporal_axiom_conditionability_holds": true,
-    "temporal_axiom_density_validity_holds": true,
-    "flat_rest_purity_is_1": true,
-    "flat_rest_entropy_is_0": true,
-    "flat_gate_passes": true,
-    "flat_ctc_is_clear": true,
-    "flat_boost_purity_is_1": true,
-    "schwarzschild_purity_decays": true,
-    "desitter_purity_decays": true,
-    "ads5_purity_decays": true,
-    "eguchi_hanson_purity_decays": true,
-    "schwarzschild_entropy_positive": true,
-    "desitter_entropy_positive": true,
-    "ads5_entropy_positive": true,
-    "eguchi_hanson_entropy_positive": true,
-    "desitter_gate_fails": true,
-    "godel_gate_fails_and_ctc_detected": true,
-    "eguchi_hanson_gate_fails_gs": true,
-    "schwarzschild_curvature_positive": true,
-    "desitter_curvature_positive": true,
-    "ads5_curvature_positive": true,
-    "eguchi_hanson_curvature_positive": true,
-    "boost_accelerates_purity_decay": true,
-    "boost_amplifies_noise_parameter": true,
-    "gamma_boost_greater_than_1": true,
-    "gamma_grav_greater_than_1": true,
-    "gamma_total_combines_effects": true,
-    "kd_flat_respects_lower_bound": true,
-    "kd_desitter_has_negative_value": true,
-    "kd_returns_basis_angles": true,
-    "kd_desitter_contextuality_proxy_detected": true,
-    "dqe_covenant_validated": false,
-    "memory_kernel_detects_non_markovianity": true,
-    "accessibility_passes_fully": true,
-    "accessibility_fails_fully": true,
-    "accessibility_penalizes_non_markovianity": true,
-    "accessibility_penalizes_kd_negativity": true,
-    "rust_verify_binary_runs": true,
-    "rust_turbovec_verdict_is_pass": true,
-    "rust_turbovec_ingested_correct_count": true,
-    "rust_turbovec_quantization_error_within_bounds": true,
-    "scientific_audit_accepts_flat": true,
-    "scientific_audit_accepts_ads5": true,
-    "scientific_audit_accepts_schwarzschild": true,
-    "scientific_audit_confirms_de_sitter_expected_fail": true,
-    "scientific_audit_confirms_eguchi_hanson_expected_revision": true,
-    "scientific_audit_confirms_godel_universe_expected_fail": true
+    "trace_preservation_axiom_holds": true,
+    "linearity_axiom_holds": true,
+    "boost_parameter_valid": true,
+    "cryptographic_hash_chain_valid": true
   },
   "observations": {
     "v1_test_artifacts": {
@@ -81,46 +35,19 @@
         "complete_link_hash": "743708967be4b2b35f43575dd41a9e036cc57c01dfb01e3f3cd34873a2c268b1"
       }
     },
-    "v2_1_results": {
-      "flat_rest_purity": 1.0,
-      "flat_rest_entropy": 0.0,
-      "schwarzschild_purity": 0.9994346211351026,
-      "schwarzschild_entropy": 0.0025932038484574923,
-      "desitter_purity": 0.6360680891448688,
-      "desitter_entropy": 0.5501174194306857,
-      "ads5_purity": 0.6776355966184198,
-      "ads5_entropy": 0.5031307364024421,
-      "eguchi_hanson_purity": 0.9988698549640613,
-      "eguchi_hanson_entropy": 0.004793229964460515,
-      "kd_flat_negativity": -0.1234429932877238,
-      "kd_desitter_negativity": -0.011973396998374426,
-      "memory_kernel_nm_measure": 0.0014132140336108878,
-      "observer_boost": {
-        "velocity": 0.5,
-        "gamma_boost": 1.1547005383792517,
-        "gamma_total": 1.1547005383792517
-      },
-      "rust_turbovec": {
-        "verdict": "PASS",
-        "max_quantization_error": 0.023588568,
-        "scores_count": 10
-      }
-    },
     "slop_analysis": {
       "high_formality_elements": [
-        "8-Phase Verification Pipeline spanning Temporal-State Axioms to Scientific Audits",
-        "50 sequential execution checks with precise PASS/FAIL boundaries",
-        "Transfer Tensor Method (TTM) reconstructing memory kernel evolution",
-        "Bloch sphere gradient descent optimization with Adam for Kirkwood-Dirac negativity",
-        "Subprocess execution of compiled Rust sidecar (turbovec) exchanging JSON payloads",
-        "Trace hash-chaining in trace.jsonl simulating audit ledger state updates"
+        "Docker-deployable containerized execution environment",
+        "Single-run entrypoint script accepting JSON state inputs",
+        "Cryptographic trace hash chaining verifying state transitions in trace.jsonl",
+        "Formal abstract program summaries in Elsarticle LaTeX style targeting CPC",
+        "Formatted NeurIPS-style scholarly landing page complete with structured schemas"
       ],
       "fake_physics_slop_elements": [
-        "Conceptual leap from general relativity curvature (Ricci-flat vacuums, Schwarzschild, Eguchi-Hanson) to a standard single-qubit noise simulation channel (depolarizing/dephasing)",
-        "Zero first-principles physical derivation linking spacetime metrics to microscopic Kraus operator weights",
-        "Arbitrary calibration parameter alpha (sensitivity) manually set to 0.1 to force decay boundaries",
-        "Heuristically hardcoded scientific audits rejecting Gödel universe and Eguchi-Hanson metrics based on flags rather than physical laws",
-        "Jargon-heavy terminology (e.g. BRST proxy anomaly, moduli space decay, CTC order parameters) dressing up standard 2x2 matrix calculations"
+        "Theoretical mismatch: curved spacetime metrics mentioned in LaTeX papers are completely absent in the execution code",
+        "Zero-value placeholders: Kirkwood-Dirac negativity and Transfer Tensor non-Markovianity are described in the papers, but evaluate to exactly 0.0 in the actual execution reports",
+        "Conceptual leap: modeling special relativistic time dilation (gamma) as an arbitrary Kraus operator parameter deformation with no physical derivation",
+        "Jargon-heavy text: using complex terminology ('near causal horizons', 'spectral truncation', 'NISQ verification') to describe a standard single-qubit amplitude damping simulation"
       ]
     }
   }
