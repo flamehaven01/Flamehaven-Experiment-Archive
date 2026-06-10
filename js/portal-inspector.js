@@ -27,10 +27,8 @@ async function openJsonInspector(runId, type = 'json') {
     const _eqaTitleCfg = EQA_MAP.get(runId);
     if (_eqaTitleCfg) {
       titleNode.textContent = _eqaTitleCfg.inspectorTitle;
-    } else if (runId === 'bav-exp-031') {
-      titleNode.textContent = 'BAV · EXP-031 OOD-ABLATION';
-    } else if (runId === 'bav-exp-032') {
-      titleNode.textContent = 'BAV · EXP-032 ADAPTIVE-GATE';
+    } else if (BAV_MAP.has(runId)) {
+      titleNode.textContent = BAV_MAP.get(runId).inspectorTitle;
     } else if (runId.startsWith('bav-arch-')) {
       titleNode.textContent = 'BAV ARCHIVE · ' + runId.replace('bav-arch-', '');
     } else if (runId.startsWith('eqa-arch-')) {
@@ -73,22 +71,12 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
     jsonPath = './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json';
-  } else if (runId === 'bav-exp-032') {
-    jsonPath = './bav/exp-032/pass-001-arm-a/payload.json';
-  } else if (runId === 'bav-exp-031') {
-    jsonPath = './bav/exp-031/arm-a/hybrid_result.json';
-  } else if (runId === 'bav-exp-005') {
-    jsonPath = './bav/exp-005/manifest.json';
+  } else if (BAV_MAP.has(runId)) {
+    jsonPath = BAV_MAP.get(runId).jsonPath;
   } else if (runId.startsWith('bav-arch-')) {
     jsonPath = './bav/archive/manifest.json';
   } else if (runId.startsWith('eqa-arch-')) {
     jsonPath = './eqa/archive/manifest.json';
-  } else if (runId === 'bav-exp-028') {
-    jsonPath = './bav/exp-028/post_overlay_report.json';
-  } else if (runId === 'bav-exp-033') {
-    jsonPath = './bav/exp-033/governance_multiaxis.json';
-  } else if (runId === 'bav-exp-034') {
-    jsonPath = './bav/exp-034/cross_parity_multiaxis.json';
   }
   
   let jsonData = null;
@@ -451,18 +439,9 @@ function renderInspectorData(runId, data, reportText = '') {
       const defaultBtn = document.getElementById('btn-comp-std');
       if (defaultBtn) steerCompliance('standard', runId, defaultBtn);
     }, 50);
-  } else if (runId === 'bav-exp-032') {
-    insightHtml = renderBavInsights(data);
-  } else if (runId === 'bav-exp-031') {
-    insightHtml = renderBavExp031Insights(data);
-  } else if (runId === 'bav-exp-005') {
-    insightHtml = renderBavExp005Insights(data);
-  } else if (runId === 'bav-exp-028') {
-    insightHtml = renderBavExp028Insights(data);
-  } else if (runId === 'bav-exp-033') {
-    insightHtml = renderBavExp033Insights(data);
-  } else if (runId === 'bav-exp-034') {
-    insightHtml = renderBavExp034Insights(data);
+  } else {
+    const _bavR = BAV_RENDERERS[runId];
+    if (_bavR) insightHtml = _bavR.insights(data);
   }
   insInsights.innerHTML = insightHtml;
   

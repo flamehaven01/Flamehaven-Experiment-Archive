@@ -5,12 +5,8 @@ function getChartsForRecord(runId, data) {
   if (Array.isArray(data._charts) && data._charts.length) return data._charts;
   const _eqaCharts = { 'toe-test-0057': buildQsotCharts, 'toe-test-0056': buildErdosCharts, 'toe-test-0054': buildGovGateCharts, 'toe-test-0053': buildLogosRuntimeCharts, 'toe-test-0052': buildSparCharts, 'toe-test-0055': buildAEFSOCharts };
   if (_eqaCharts[runId]) return _eqaCharts[runId](data);
-  if (runId === 'bav-exp-031') return buildBavExp031Charts(data);
-  if (runId === 'bav-exp-005') return buildBavExp005Charts(data);
-  if (runId === 'bav-exp-028') return buildBavExp028Charts(data);
-  if (runId === 'bav-exp-032') return buildBavExp032Charts(data);
-  if (runId === 'bav-exp-033') return buildBavExp033Charts(data);
-  if (runId === 'bav-exp-034') return buildBavExp034Charts(data);
+  const _bavCharts = { 'bav-exp-031': buildBavExp031Charts, 'bav-exp-005': buildBavExp005Charts, 'bav-exp-028': buildBavExp028Charts, 'bav-exp-032': buildBavExp032Charts, 'bav-exp-033': buildBavExp033Charts, 'bav-exp-034': buildBavExp034Charts };
+  if (_bavCharts[runId]) return _bavCharts[runId](data);
   return buildGenericCharts(data);
 }
 

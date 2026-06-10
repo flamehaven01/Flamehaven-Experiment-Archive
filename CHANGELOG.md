@@ -4,6 +4,26 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.17.0] - 2026-06-10
+
+BAV registry & renderer consolidation — same dispatch pattern as EQA applied to all 6 BAV experiments.
+
+- **New `js/bav-registry.js`** (~15 lines): `BAV_REGISTRY` array (6 entries: `id`, `inspectorTitle`, `jsonPath`) + `BAV_MAP` for O(1) lookup. Single source of truth for BAV experiment config.
+- **`js/bav-renderers.js`**: added `BAV_RENDERERS` dispatch object (6 entries: `bav-exp-005/028/031/032/033/034`). Each entry carries `insights`, `integrityRows`, `checkGates`, `reportSection` callbacks. Per-experiment logic extracted from the 3 if-chain functions.
+  - `renderBavIntegrity`: 6 standalone `if` blocks (47 lines) → `BAV_RENDERERS[runId].integrityRows(data, rows, mf)` (2 lines).
+  - `renderBavChecks`: 6 `if-else-if` blocks (57 lines) → `BAV_RENDERERS[runId].checkGates(data, gates, esc)` (2 lines).
+  - `buildBavReportMarkdown`: multi-branch `if-else` tree (130 lines) → `BAV_RENDERERS[runId].reportSection(d, L, mf, n, pct)` (2 lines).
+- **`js/portal-inspector.js`**: 3 BAV chains eliminated.
+  - Title chain (2 explicit entries) → `BAV_MAP.get(runId).inspectorTitle`.
+  - jsonPath chain (6 explicit entries) → `BAV_MAP.get(runId).jsonPath`.
+  - Insights dispatch (6 `else-if` entries) → `BAV_RENDERERS[runId].insights(data)`.
+- **`js/portal-charts.js`**: 6 standalone BAV `if` statements → single `_bavCharts` flat lookup map (same pattern as `_eqaCharts`).
+- **Supplementary fetch blocks** (`bav-exp-031/032/034`) left as explicit named blocks — async, one-off per experiment, not worth encoding declaratively.
+- **Load order** (`index.html`, `eqa.html`): `eqa-registry.js` → `eqa-renderers.js` → **`bav-registry.js`** → `bav-renderers.js` → `portal-charts.js` → `portal-inspector.js` (all sync) → `portal.js` (defer). 7 script tags total.
+- **Cache-buster bumped**: `?v=1.16.0 → ?v=1.17.0` across all 7 script tags.
+
+---
+
 ## [1.16.0] - 2026-06-10
 
 portal.js 3-module split — feature-boundary extraction eliminates monolith bottleneck.
