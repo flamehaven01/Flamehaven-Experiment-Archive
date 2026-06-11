@@ -183,16 +183,23 @@ def _detect(rule_id: str, rx: re.Pattern):
 
 
 # ----- promotional_language detector (scope-gated, content-aware) -----------
-# Default superlative / strong-appeal list (config-overridable via promo_terms).
-# Deliberately excludes ambiguous technical words (e.g. "best candidate",
-# "position:absolute") by content extraction + allowlist, not by listing them.
-_PROMO_TERMS_DEFAULT = [
-    "revolutionary", "ultimate", "world-class", "breakthrough", "cutting-edge",
-    "state-of-the-art", "first-ever", "unprecedented", "authoritative", "absolute",
-    "groundbreaking", "game-changing", "industry-leading", "unparalleled",
-]
-_PROMO_SCOPE_DEFAULT = ["index.html", "eqa.html", "README.md"]
-_PROMO_ALLOW_DEFAULT = [r"(?i)absolute\s+path"]  # technical, not promotional
+# Term lists live in .sanconfig.yaml (single source of truth).
+# These module-level names are populated at import time from that file so
+# callers (including tests) can reference them without a separate config load.
+def _load_promo_cfg() -> tuple:
+    cfg_path = Path(__file__).resolve().parent / ".sanconfig.yaml"
+    try:
+        import yaml
+        data = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+        return (
+            data.get("promo_terms", []),
+            data.get("promo_scope", ["index.html", "eqa.html", "README.md"]),
+            data.get("promo_allowlist", []),
+        )
+    except Exception:
+        return [], ["index.html", "eqa.html", "README.md"], []
+
+_PROMO_TERMS_DEFAULT, _PROMO_SCOPE_DEFAULT, _PROMO_ALLOW_DEFAULT = _load_promo_cfg()
 _HTML_DROP_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.I | re.S)
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
 _MD_FENCE_RE = re.compile(r"```.*?```", re.S)

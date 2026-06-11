@@ -38,6 +38,16 @@ promo_terms:                  # superlative / strong-appeal words; ambiguous tec
 promo_allowlist:              # legitimate technical usages (regex, checked in +/-24 char context)
   - '(?i)absolute\s+path'     # "absolute path(s)" is a file-system term, not promotion
 
+# Credibility slop: grandiose / pseudo-scientific authority phrases.
+# These terms trigger the credibility_slop detector (detect-only, all files).
+# Note: bare "sovereign" and codename slugs (e.g. SOVEREIGN-ORIGIN) are NOT
+# matched — only compound phrases that assert fabricated status.
+credibility_slop_terms:
+  - sovereign-grade
+  - sovereign threshold
+  - Sovereign Research Asset
+  - Sovereign Recovery
+
 # Workspace leak markers that gate abs_path_collapse (case-insensitive contains).
 markers:
   - Sanctum
