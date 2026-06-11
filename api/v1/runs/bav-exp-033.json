@@ -8,9 +8,9 @@
   "date": "2026-03-08",
   "summary": "EXP-032 baseline parity was perfect, but EXP-033 current repro2 collapsed PASS-eligible controls to BLOCK (tp_pass = 0, balanced_accuracy = 0.5) via a threshold gate. Zero dangerous false-pass was preserved, but promotion parity failed.",
   "key_metrics": {
-    "sr9": 0.9531,
-    "di2": 0.1637,
-    "p_e2e": 0.5627,
+    "cross_domain_consistency": 0.9531,
+    "reasoning_deviation": 0.1637,
+    "end_to_end_reliability": 0.5627,
     "balanced_accuracy": 0.5,
     "pass_recall": 0.0,
     "block_recall": 1.0

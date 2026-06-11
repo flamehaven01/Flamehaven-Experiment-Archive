@@ -27,9 +27,9 @@
       "Failure surface localised to end-to-end reliability threshold gate (R5_e2e_floor)"
     ],
     "metrics": {
-      "sr9": 0.9531,
-      "di2": 0.1637,
-      "p_e2e": 0.5627,
+      "cross_domain_consistency": 0.9531,
+      "reasoning_deviation": 0.1637,
+      "end_to_end_reliability": 0.5627,
       "balanced_accuracy": 0.5,
       "pass_recall": 0.0,
       "block_recall": 1.0

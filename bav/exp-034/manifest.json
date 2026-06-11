@@ -30,9 +30,9 @@
       "DI2 (reasoning deviation) = 0.127 — within the 0.30 pipeline guard"
     ],
     "metrics": {
-      "sr9": 1.0,
-      "di2": 0.1270,
-      "p_e2e": 0.6072,
+      "cross_domain_consistency": 1.0,
+      "reasoning_deviation": 0.1270,
+      "end_to_end_reliability": 0.6072,
       "balanced_accuracy": 1.0,
       "pass_recall": 1.0,
       "block_recall": 1.0
