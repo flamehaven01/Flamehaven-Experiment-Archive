@@ -660,10 +660,158 @@ function eqaAnalysis0053(container, data, esc) {
 // integrity: null = use portal.js default (Cryptographic File Manifest + generic checks)
 
 const EQA_RENDERERS = {
-  'toe-test-0057': { insights: eqaInsights0057, integrity: null,             analysis: eqaAnalysis0057 },
-  'toe-test-0056': { insights: eqaInsights0056, integrity: null,             analysis: eqaAnalysis0056 },
-  'toe-test-0055': { insights: eqaInsights0055, integrity: eqaIntegrity0055, analysis: eqaAnalysis0055 },
-  'toe-test-0054': { insights: eqaInsights0054, integrity: eqaIntegrity0054, analysis: eqaAnalysis0054 },
-  'toe-test-0053': { insights: eqaInsights0053, integrity: eqaIntegrity0053, analysis: eqaAnalysis0053 },
-  'toe-test-0052': { insights: eqaInsights0052, integrity: eqaIntegrity0052, analysis: eqaAnalysis0052 },
+  'toe-test-0057': {
+    insights: eqaInsights0057, integrity: null, analysis: eqaAnalysis0057,
+    charts: function(data) {
+      const checks = data.checks ?? {}, vals = Object.values(checks);
+      const passCount = vals.filter(v => v === 'PASS' || v === true).length;
+      const skipCount = vals.filter(v => v === 'SKIPPED').length;
+      const failCount = vals.length - passCount - skipCount;
+      const obs = data.observations ?? {};
+      const schPurity = obs.schwarz_purity ?? 0.9994346211351026;
+      const dsPurity = obs.desitter_purity ?? 0.6360680891448688;
+      const adsPurity = obs.ads_purity ?? 0.6776355966184198;
+      const eguchiPurity = obs.eguchi_purity ?? 0.9988698549640613;
+      const boost = obs.ads_boost_info ?? {};
+      const v = boost.observer_velocity ?? 0.5;
+      const gammaBoost = boost.gamma_boost ?? 1.1547005383792517;
+      return [
+        donutChart('Verification Check Results',
+          [{ label: 'Pass', value: passCount, color: '#10b981' }, ...(skipCount > 0 ? [{ label: 'Skipped', value: skipCount, color: '#6b7280' }] : []), ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : [])],
+          { centerText: String(passCount), centerSub: 'of ' + vals.length + ' passed' }),
+        barChart('Phase 2 \xb7 Curvature Induced Purity Decay',
+          [{ label: 'Schwarzschild Rest', value: schPurity, color: '#10b981', note: 'Decay parameter: ~0.0001' }, { label: 'de Sitter Rest', value: dsPurity, color: '#ef4444', note: 'Decay parameter: ~0.3639' }, { label: 'AdS5 Rest', value: adsPurity, color: '#3b82f6', note: 'Decay parameter: ~0.3224' }, { label: 'Eguchi-Hanson Rest', value: eguchiPurity, color: '#8b5cf6', note: 'Decay parameter: ~0.0011' }],
+          { maxValue: 1, unit: '', caption: 'Purity decays asymptotically from 1.0 depending on background curvature tensors.' }),
+        barChart('Phase 3 \xb7 Relativistic Boost Time Dilation',
+          [{ label: 'Rest (v = 0.0)', value: 1.0, color: '#10b981', note: 'gamma = 1.0' }, { label: 'Boost (v = ' + v + 'c)', value: gammaBoost, color: '#ef4444', note: 'gamma = ' + gammaBoost.toFixed(4) }],
+          { maxValue: 2.0, unit: '', caption: 'Observer velocity sweep shows time dilation scaling factor gamma. Total factor combines boost and curvature metrics.' }),
+      ];
+    },
+  },
+  'toe-test-0056': {
+    insights: eqaInsights0056, integrity: null, analysis: eqaAnalysis0056,
+    charts: function(data) {
+      const checks = data.checks ?? {}, vals = Object.values(checks);
+      const passCount = vals.filter(Boolean).length, failCount = vals.length - passCount;
+      const phase1 = data.observations?.phase1_lattice ?? {};
+      const gaussian = phase1.gaussian ?? {}, eisenstein = phase1.eisenstein ?? {};
+      const sawin = data.observations?.phase3_sawin_multiquadratic ?? {};
+      const gs = sawin.galois_rank ?? {};
+      const gsR = gs.r_G_S_bound ?? 0, gsThreshold = gs.golod_shafarevich_threshold ?? 0;
+      const gsDelta = gs.d_G_infty ?? 0, gsAdmit = gs.admissible ?? true;
+      return [
+        donutChart('Verification Check Results',
+          [{ label: 'Pass', value: passCount, color: '#10b981' }, ...(failCount > 0 ? [{ label: 'Fail', value: failCount, color: '#ef4444' }] : [])],
+          { centerText: String(passCount), centerSub: 'of ' + vals.length + ' passed' }),
+        barChart('Phase 1 \xb7 Lattice Unit-Distance Pairs',
+          [{ label: 'Q(i) Gaussian', value: gaussian.unit_distance_pairs ?? 0, color: '#3b82f6', note: gaussian.observed_exponent != null ? 'observed exponent: ' + gaussian.observed_exponent.toFixed(6) : '' }, { label: 'Q(√-3) Eisenstein', value: eisenstein.unit_distance_pairs ?? 0, color: '#8b5cf6', note: eisenstein.observed_exponent != null ? 'observed exponent: ' + eisenstein.observed_exponent.toFixed(6) : '' }],
+          { unit: ' pairs', caption: 'Eisenstein integers are denser at identical grid bounds (h=1 degenerate cases, Prop. 2.2).' }),
+        barChart('Phase 3 \xb7 Golod-Shafarevich Tower Admissibility',
+          [{ label: 'r_{G,S} bound', value: gsR, color: '#f59e0b', note: 'H² relations — must be < d²/4' }, { label: 'd²/4 threshold', value: gsThreshold, color: '#10b981', note: 'GS upper bound' }, { label: 'd_G_∞ dim', value: gsDelta, color: '#6366f1', note: 'H¹ generators' }],
+          { maxValue: Math.max(gsThreshold * 1.2, gsDelta * 1.2, 1), caption: 'Tower exists ⇔ r < d²/4. Here: ' + gsR + ' < ' + (gsDelta * gsDelta / 4).toFixed(2) + ' → infinite pro-2 tower ' + (gsAdmit ? 'CONFIRMED' : 'NOT CONFIRMED') + '. (Hajir-Maire, Prop. 2.3)' }),
+      ];
+    },
+  },
+  'toe-test-0055': {
+    insights: eqaInsights0055, integrity: eqaIntegrity0055, analysis: eqaAnalysis0055,
+    charts: function(data) {
+      const stack = data.validation_stack ?? [], stages = data.stage_outputs ?? [];
+      const summary = data.screen_summary ?? {};
+      const stackColors = ['#10b981', '#3b82f6', '#a78bfa'];
+      return [
+        barChart('Validation Stack Completion',
+          stack.map((s, i) => ({ label: s, value: 100, color: stackColors[i % stackColors.length] })),
+          { maxValue: 100, unit: '% complete', caption: 'All three validation stages completed: SPAR paper review, fhval validation, and TOE dogfood testing (4 runs).' }),
+        donutChart('Target Outcome Classification',
+          [{ label: 'Optional Layer', value: 1, color: '#eab308' }, { label: 'Missing Link', value: 1, color: '#10b981' }, { label: 'Core (Rejected)', value: 1, color: '#ef4444' }],
+          { centerText: 'ORL', centerSub: 'classification', caption: 'AEFSO received OPTIONAL_REPRESENTATION_LAYER classification. Core candidate rejected; missing-link discovery approved for continued research.' }),
+        barChart('Stage Outcomes',
+          stages.map(s => ({ label: s.name, value: s.status === 'PASS' ? 100 : s.status === 'WARN' ? 60 : 20, color: s.status === 'PASS' ? '#10b981' : s.status === 'WARN' ? '#eab308' : '#ef4444', note: s.detail })),
+          { maxValue: 100, unit: '% confidence', caption: 'AEFSO survives as a bounded research candidate, but the core-promotion step fails on readability and governance-surface criteria.' }),
+        barChart('Architectural Yield Mix',
+          [{ label: 'What survived', value: (summary.what_it_proved || []).length, color: '#10b981' }, { label: 'Promotion blockers', value: (summary.promotion_blockers || []).length, color: '#ef4444' }, { label: 'Missing-link properties', value: (summary.missing_link_properties || []).length, color: '#60a5fa' }],
+          { maxValue: 5, unit: 'signals', caption: '0055 is not a clean fail. The missing-link output is part of the result, not post-hoc spin.' }),
+      ];
+    },
+  },
+  'toe-test-0054': {
+    insights: eqaInsights0054, integrity: eqaIntegrity0054, analysis: eqaAnalysis0054,
+    charts: function(data) {
+      const conns = data.connections ?? {}, entries = Object.entries(conns);
+      const chartData = entries.map(([key, val]) => { const score = val.contract_score ?? 0; return { label: key.replace(/_/g, ' '), value: score, color: score >= 0.9 ? '#10b981' : score >= 0.7 ? '#eab308' : '#ef4444', note: 'discord ' + (val.discord_score ?? 0).toFixed(3) + ' \xb7 risk ' + (val.dangerous_pass_risk ?? 0).toFixed(4) }; });
+      const passCount = entries.filter(([, v]) => (v.contract_score ?? 0) >= 0.85).length;
+      const law = data.lawbinder_governance ?? {};
+      const constraints = Array.isArray(law.constraint_results) ? law.constraint_results : [];
+      const hard = Number(law.hard_violations ?? 0), soft = Number(law.soft_violations ?? 0);
+      const clean = Math.max(0, constraints.length - hard - soft);
+      const connRisk = entries.map(([key, val]) => ({ label: key.replace(/_/g, ' '), value: +(val.dangerous_pass_risk ?? 0), color: (val.dangerous_pass_risk ?? 0) > 0 ? '#ef4444' : '#10b981', note: (val.issues || []).join('; ') || 'no recorded issue' }));
+      return [
+        donutChart('Gate Contract Results',
+          [{ label: 'Above threshold (≥0.85)', value: passCount, color: '#10b981' }, { label: 'Below threshold (<0.85)', value: entries.length - passCount, color: '#ef4444' }],
+          { centerText: String(passCount), centerSub: 'of ' + entries.length + ' gates', caption: 'Only the promotion-boundary connection clears the threshold. The other two surfaces are intentionally blocked because no candidate exists yet.' }),
+        barChart('Pipeline Contract Scores', chartData,
+          { maxValue: 1, caption: 'Minimum threshold for pipeline promotion: 0.850. INHIBIT gate triggered by hard constraint violation.' }),
+        barChart('Dangerous Pass Risk by Connection', connRisk,
+          { maxValue: 1, caption: 'The system is not just saying no. It localizes where a false promotion would be dangerous, with the global intake surface correctly pinned at risk 1.0.' }),
+        donutChart('LawBinder Constraint Outcomes',
+          [{ label: 'Clean constraints', value: clean, color: '#10b981' }, { label: 'Soft violations', value: soft, color: '#f59e0b' }, { label: 'Hard violations', value: hard, color: '#ef4444' }].filter(x => x.value > 0),
+          { centerText: String(hard), centerSub: 'hard', caption: 'LawBinder distinguishes one hard blocker from one softer usability blocker. That distinction is the real governance insight of 0054.' }),
+      ];
+    },
+  },
+  'toe-test-0053': {
+    insights: eqaInsights0053, integrity: eqaIntegrity0053, analysis: eqaAnalysis0053,
+    charts: function(data) {
+      const runtime = data.logos_runtime_probe ?? {}, compile = Array.isArray(data.logos_source_compile) ? data.logos_source_compile : [];
+      const contract = data.toe_contract_probe ?? {};
+      const probes = [
+        { label: 'Package resolution', status: runtime.package_name_resolution?.status || 'unknown', duration: runtime.package_name_resolution?.duration_s ?? 0.0, color: '#10b981', note: (runtime.package_name_resolution?.stdout || '').trim() || 'no path recorded' },
+        { label: 'Direct import', status: runtime.direct_import?.status || 'unknown', duration: runtime.direct_import?.duration_s ?? 0.0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'imports aats.pipeline, bridge.manifold_bridge, missing_link.runner' },
+        { label: 'AATS smoke', status: runtime.aats_smoke?.status || 'unknown', duration: runtime.aats_smoke?.duration_s ?? 0.0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'runs AATSPipeline().run(...) in the active environment' },
+        { label: 'TOE contracts', status: contract.status || 'unknown', duration: contract.duration_s ?? 0.0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'tests/unit/test_logos_sidecar_contract.py + export contract' },
+      ];
+      const passCount = probes.filter(p => p.status === 'pass').length + compile.filter(x => x.status === 'pass').length;
+      const timeoutCount = probes.filter(p => p.status === 'timeout').length;
+      const failCount = probes.filter(p => p.status === 'fail').length + compile.filter(x => x.status === 'fail').length;
+      const compileRatio = compile.length ? Math.round((compile.filter(x => x.status === 'pass').length / compile.length) * 100) : 0;
+      return [
+        barChart('Probe Duration Profile',
+          probes.map(p => ({ label: p.label, value: +(p.duration || 0), color: p.color, note: p.status + ' — ' + p.note })),
+          { maxValue: Math.max(25, ...probes.map(p => +(p.duration || 0))), unit: 's', caption: 'Two probes hit the 20-second timeout ceiling. The sidecar boundary is operational, not speculative: import and smoke execution are too slow for guarded runtime use.' }),
+        donutChart('Operational Outcome Mix',
+          [{ label: 'Pass', value: passCount, color: '#10b981' }, { label: 'Timeout', value: timeoutCount, color: '#ef4444' }, { label: 'Fail', value: failCount, color: '#f59e0b' }].filter(x => x.value > 0),
+          { centerText: String(passCount), centerSub: 'passes', caption: 'The audit is not empty: compile checks and TOE contract tests pass. The decisive blockers are the two runtime timeouts.' }),
+        barChart('Boundary Readiness Matrix',
+          [{ label: 'Source compile', value: compileRatio, color: '#10b981', note: compile.filter(x => x.status === 'pass').length + '/' + compile.length + ' key files compile' }, { label: 'Package resolution', value: runtime.package_name_resolution?.status === 'pass' ? 100 : 0, color: '#10b981', note: 'Path resolved, but not to Flamehaven-LOGOS' }, { label: 'Direct import', value: runtime.direct_import?.status === 'pass' ? 100 : 0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.direct_import?.status || 'unknown') }, { label: 'AATS smoke', value: runtime.aats_smoke?.status === 'pass' ? 100 : 0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.aats_smoke?.status || 'unknown') }, { label: 'TOE contracts', value: contract.status === 'pass' ? 100 : 0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (contract.status || 'unknown') }],
+          { maxValue: 100, unit: '%', caption: '0053 preserves the safe boundary because runtime execution is still degraded even though compile and TOE contract checks are healthy.' }),
+      ];
+    },
+  },
+  'toe-test-0052': {
+    insights: eqaInsights0052, integrity: eqaIntegrity0052, analysis: eqaAnalysis0052,
+    charts: function(data) {
+      const spar = data.spar_review ?? {}, subj = data.subject ?? {}, hist = data.historical_snapshot ?? {};
+      const replays = data.current_replays ?? {};
+      const legacyReplay = replays.toe_legacy_2026_06_02 ?? {};
+      const frameworkReplay = replays.toe_spar_framework_2026_06_02 ?? {};
+      const historicalScore = hist.score ?? spar.score ?? 0;
+      const findings = Array.isArray(spar.findings) ? spar.findings : [];
+      const statusCounts = findings.reduce((acc, f) => { const k = f.status || 'UNKNOWN'; acc[k] = (acc[k] || 0) + 1; return acc; }, {});
+      const layerCounts = findings.reduce((acc, f) => { const k = f.layer || '?'; acc[k] = (acc[k] || 0) + 1; return acc; }, {});
+      return [
+        barChart('Replay Comparison',
+          [{ label: 'Historical', value: historicalScore, color: '#ef4444', note: 'Historical snapshot — ' + (hist.spar_verdict ?? spar.verdict ?? 'MINOR REVISION') }, { label: 'TOE Legacy', value: legacyReplay.score ?? historicalScore, color: '#eab308', note: (legacyReplay.verdict ?? 'MINOR REVISION') + ' on ' + (legacyReplay.date ?? '2026-06-02') }, { label: 'toe-spar', value: frameworkReplay.score ?? 98, color: '#10b981', note: (frameworkReplay.verdict ?? 'ACCEPT') + ' on ' + (frameworkReplay.date ?? '2026-06-02') }],
+          { maxValue: 100, unit: '/100', caption: 'Same manually encoded subject, different SPAR policy surfaces. This chart shows review-policy drift, not new physics output.' }),
+        barChart('Agent Metrics',
+          [{ label: 'SR9 Resonance', value: Math.round((subj.sr9_resonance ?? 0) * 100), color: '#10b981', note: (subj.sr9_resonance ?? 0) + ' — theoretical alignment' }, { label: 'DI2 Drift', value: Math.round((subj.di2_drift ?? 0) * 100), color: '#ef4444', note: (subj.di2_drift ?? 0) + ' — claim-to-math deviation' }, { label: 'Omega (SIDRCE)', value: Math.round((subj.sidrce_omega ?? 0) * 100), color: '#eab308', note: (subj.sidrce_omega ?? 0) + ' — composite adjudication' }],
+          { maxValue: 100, unit: '%', caption: 'SR9 Resonance measures theoretical alignment. DI2 Drift measures claim-to-math deviation. Omega is the composite SIDRCE adjudication score.' }),
+        donutChart('Finding Severity Mix',
+          [{ label: 'ANOMALY', value: statusCounts.ANOMALY || 0, color: '#ef4444' }, { label: 'WARN', value: statusCounts.WARN || 0, color: '#f59e0b' }, { label: 'APPROXIMATION', value: statusCounts.APPROXIMATION || 0, color: '#eab308' }, { label: 'GAPPED', value: statusCounts.GAPPED || 0, color: '#60a5fa' }, { label: 'HEURISTIC', value: statusCounts.HEURISTIC || 0, color: '#a78bfa' }].filter(x => x.value > 0),
+          { centerText: String(findings.length), centerSub: 'findings', caption: 'The verdict is driven by one scope anomaly, one scope-honesty warning, and three bounded-domain/model-gap findings.' }),
+        barChart('Finding Layers',
+          [{ label: 'Layer A', value: layerCounts.A || 0, color: '#ef4444', note: 'math / claim mismatch' }, { label: 'Layer B', value: layerCounts.B || 0, color: '#f59e0b', note: 'scope honesty' }, { label: 'Layer C', value: layerCounts.C || 0, color: '#60a5fa', note: 'domain limits and evidence gaps' }],
+          { maxValue: Math.max(3, ...Object.values(layerCounts), 1), caption: '0052 is not failing because the symbolic story collapses everywhere. It fails because the reviewed claim outruns a bounded, domain-specific mathematical construction.' }),
+      ];
+    },
+  },
 };

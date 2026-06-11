@@ -551,6 +551,22 @@ const BAV_RENDERERS = {
       L.push('## 5. Interpretation');
       L.push('A fast, honest negative is still a useful result, but this should not be marketed as a fully autonomous modern pipeline win. The honest public reading is an early manual-assisted control series that correctly rejected all three lipid carriers and preserved the null.');
     },
+    charts: function(data) {
+      const s = (data && data.samples) || [];
+      if (!s.length) return [];
+      const thr = (data.guard_thresholds && data.guard_thresholds.sr9_min) || 0.80;
+      const bars = [];
+      s.forEach(x => { bars.push({ label: x.label || x.id, value: +(x.sr9_resonance ?? 0), color: (x.sr9_resonance ?? 0) >= thr ? '#10b981' : '#ef4444' }); });
+      bars.push({ label: 'SR9 gate', value: thr, color: 'rgba(255,255,255,0.18)' });
+      return [
+        barChart('SR9 Resonance by Formulation vs Honesty Gate (>= ' + thr + ')', bars,
+          { maxValue: 1, caption: 'All three lipid carriers remain far below the SR9 gate. Read this as an early manual-assisted control series that preserved an honest null, not as a fully autonomous production-era pipeline run.' }),
+        groupedBarChart('Validator Split by Surface',
+          [{ label: 'SLN', values: [1, 0] }, { label: 'NLC', values: [1, 0] }, { label: 'Liposomal Gel', values: [1, 0] }],
+          [{ name: 'validator.metric PASS', color: '#10b981' }, { name: 'lab_validator.phi PASS', color: '#ef4444' }],
+          { maxValue: 1, caption: 'The public outputs show a consistent split: the generic metric validator passes, but the phi-specific lab validator does not. This ambiguity belongs on the public surface.' }),
+      ];
+    },
   },
   'bav-exp-028': {
     insights: renderBavExp028Insights,
@@ -598,6 +614,27 @@ const BAV_RENDERERS = {
       L.push('');
       L.push('## 5. Interpretation');
       L.push('The system is well-calibrated (Brier ' + n(p2.brier_after, 4) + ', AUC ' + n(p1.overall_auc, 2) + ') yet honestly fails the cross-domain resonance test (SR9 below 0.80, DI2 above 0.20). The stronger public reading is narrower than the headline metric: this is a tiny pilot with a fallback gate and no measurable chem-policy separation, so the honest result is abstention rather than a performance claim.');
+    },
+    charts: function(data) {
+      if (!data) return [];
+      const p1 = data.phase1 || {}, p2 = (data.phase2 && data.phase2.metrics) || {};
+      const p3 = data.phase3 || {}, p4 = data.phase4 || {};
+      return [
+        groupedBarChart('Calibration Improvement (lower is better)',
+          [{ label: 'Brier', values: [+(p2.brier_before ?? 0), +(p2.brier_after ?? 0)] }, { label: 'ECE', values: [+(p2.ece_before ?? 0), +(p2.ece_after ?? 0)] }],
+          [{ name: 'Before', color: '#ef4444' }, { name: 'After', color: '#10b981' }],
+          { maxValue: Math.max(+(p2.brier_before ?? 0), +(p2.ece_before ?? 0), 0.5), caption: 'Calibration improved sharply, but this remains a tiny pilot. Better Brier and ECE do not turn fallback-gated n=2 evaluation into a robust claim.' }),
+        barChart('Honesty Test: Cross-Domain Resonance vs Targets',
+          [{ label: 'SR9 (positive)', value: +(p1.sr9_pos_mean ?? 0), color: (p1.sr9_pos_mean ?? 0) >= 0.80 ? '#10b981' : '#ef4444' }, { label: 'SR9 target', value: 0.80, color: 'rgba(255,255,255,0.18)' }, { label: 'DI2 (positive)', value: +(p1.di2_pos_mean ?? 0), color: (p1.di2_pos_mean ?? 1) <= 0.20 ? '#10b981' : '#ef4444' }, { label: 'DI2 target', value: 0.20, color: 'rgba(255,255,255,0.18)' }],
+          { maxValue: 1, caption: 'SR9 (cross-domain resonance, target >=0.80) is far below target and DI2 (logical drift, target <=0.20) far above — the system honestly reports it cannot resolve the cross-domain reasoning rather than hallucinating confidence.' }),
+        barChart('Thresholding Context',
+          [{ label: 'Default gate', value: +(p3.gate_threshold_default ?? 0.5), color: 'rgba(255,255,255,0.18)' }, { label: 'Deployed gate', value: +(p3.gate_threshold ?? 0), color: '#eab308' }, { label: 'Youden J', value: +((p3.gate_optimization || {}).youden_j ?? 0), color: '#ef4444' }],
+          { maxValue: 1, caption: 'The deployed gate came from fallback optimization, not a strong discriminative optimum. Youden J = 0 is a warning sign, not a triumph.' }),
+        groupedBarChart('Chem Policy Comparison',
+          [{ label: 'SR9 mean', values: [+(p4.chem_on?.sr9_mean ?? 0), +(p4.chem_off?.sr9_mean ?? 0)] }, { label: 'DI2 mean', values: [+(p4.chem_on?.di2_mean ?? 0), +(p4.chem_off?.di2_mean ?? 0)] }, { label: 'Overall mean', values: [+(p4.chem_on?.overall_mean ?? 0), +(p4.chem_off?.overall_mean ?? 0)] }],
+          [{ name: 'chem_on', color: '#10b981' }, { name: 'chem_off', color: '#60a5fa' }],
+          { maxValue: 1, caption: 'The public report shows chem_on and chem_off as numerically identical. That means policy preference exists, but measurable separation is not demonstrated here.' }),
+      ];
     },
   },
   'bav-exp-031': {
@@ -650,6 +687,28 @@ const BAV_RENDERERS = {
       }
       L.push('## 5. Interpretation');
       L.push('All arms returned **Unverified (Drift Detected)** / failed convergence. Manual validator metrics and observer-only governance kept disagreement visible instead of collapsing it into a false consensus. The target stays outside model distribution, promotion evidence remains insufficient, and the disposition remains **KEEP_OBSERVER**.');
+    },
+    charts: function(data) {
+      const bav = data && data._bav;
+      if (!bav) return [];
+      const specs = [];
+      const arms = [['A', data], ['B', bav.armB], ['C', bav.armC]].filter(x => x[1]);
+      if (arms.length) {
+        specs.push(groupedBarChart('Final Drift / Effective Drift / pTM by Arm',
+          arms.map(([name, a]) => { const r = (a && a.result) || {}, vs = r.validator_summary || {}; return { label: 'arm ' + name, values: [r.final_drift ?? 0, vs.effective_drift ?? r.final_drift ?? 0, vs.ptm_weighted_mean ?? 0] }; }),
+          [{ name: 'Final drift', color: '#f59e0b' }, { name: 'Effective drift', color: '#ef4444' }, { name: 'pTM (consensus)', color: '#8b5cf6' }],
+          { maxValue: 1, caption: 'Observer-only governance adds a penalty to final drift when disagreement remains unresolved. Arm C looks mild on final drift alone, but still fails once effective drift is applied.' }));
+      }
+      if (bav.af2 && Array.isArray(bav.af2.plddt)) {
+        specs.push(plddtTrack('Per-Residue Confidence (AF2, arm A \xb7 pLDDT)', bav.af2.plddt, 'AlphaFold2 per-residue pLDDT. Low/very-low regions flag intrinsic disorder where structure should not be over-trusted.'));
+      }
+      if (bav.af2 && Array.isArray(bav.af2.pae)) {
+        specs.push(paeHeatmap('Predicted Aligned Error (AF2, arm A)', bav.af2.pae, bav.af2.max_pae, 'PAE[i,j]: expected position error of residue j when aligned on residue i. Low (teal) = confident relative positioning.'));
+      }
+      if (bav.af3full && Array.isArray(bav.af3full.contact_probs)) {
+        specs.push(contactMap('Contact Probability Map (AF3, arm A)', bav.af3full.contact_probs, 'AlphaFold3 predicted residue-residue contact probability. Bright = high predicted contact.'));
+      }
+      return specs;
     },
   },
   'bav-exp-032': {
@@ -714,6 +773,30 @@ const BAV_RENDERERS = {
         L.push('The gate discriminates the candidate (clinical status **' + (g.clinical_status || '—') + '**), yet LawBinder routes to **' + (g.lawbinder_decision || '—') + '** — a fail-safe posture that escalates to human review regardless of model confidence. The viability figure is an explicitly heuristic pipeline-reliability index, not a clinical-efficacy estimate.');
       }
     },
+    charts: function(data) {
+      if (!data) return [];
+      const gov = data._gov || {}, sm = (gov.go_no_go && gov.go_no_go.summary) || {};
+      const pm = data.pipeline_metrics || {}, passV = data.viability_assessment || {};
+      const block = gov.blockPayload || {}, blockV = block.viability_assessment || {};
+      const specs = [];
+      if (Object.keys(sm).length) {
+        specs.push(barChart('Classification Parity (legacy-replay anchor \xb7 verdict GO)',
+          [{ label: 'Accuracy', value: +(sm.benchmark_accuracy ?? 0), color: '#10b981' }, { label: 'Balanced acc.', value: +(sm.benchmark_balanced_accuracy ?? 0), color: '#10b981' }, { label: 'Dangerous false-pass', value: +(sm.dangerous_pass_rate ?? 0), color: '#ef4444' }, { label: 'False-reject', value: +(sm.false_reject_rate ?? 0), color: '#f59e0b' }],
+          { maxValue: 1, caption: 'Accepted legacy-replay anchor only. GO means clinical PASS/BLOCK parity on 2 labeled classes (6 arm payloads), not a production LawBinder PASS. Current-regeneration path is held out.' }));
+      }
+      if (block && blockV) {
+        specs.push(groupedBarChart('PASS vs BLOCK Control Discrimination',
+          [{ label: 'Viability %', values: [(+passV.percent || 0), (+blockV.percent || 0)] }, { label: 'Confidence %', values: [((+data.confidence || 0) * 100), ((+block.confidence || 0) * 100)] }],
+          [{ name: 'PASS-001', color: '#10b981' }, { name: 'BLOCK-001', color: '#ef4444' }],
+          { maxValue: 100, unit: '%', caption: 'PASS control scores higher than BLOCK on both axes, so the replay discriminates correctly. LawBinder still escalates both, and shadow outputs remain non-binding observer hints.' }));
+      }
+      if (Object.keys(pm).length) {
+        specs.push(barChart('Pipeline Governance Metrics (PASS-001 \xb7 guard: SR9>=0.70, DI2<=0.30)',
+          [{ label: 'Ω 3-modal', value: +(pm.omega_3modal ?? 0), color: '#8b5cf6' }, { label: 'SR9 (tech)', value: +(pm.sr9_tech ?? 0), color: (pm.sr9_tech ?? 0) >= 0.70 ? '#10b981' : '#ef4444' }, { label: 'SR9 (clinical)', value: +(pm.sr9_clinical ?? 0), color: (pm.sr9_clinical ?? 0) >= 0.70 ? '#10b981' : '#f59e0b' }, { label: 'DI2 (tech)', value: +(pm.di2_tech ?? 0), color: (pm.di2_tech ?? 0) <= 0.30 ? '#10b981' : '#ef4444' }],
+          { maxValue: 1, caption: 'SR9 = cross-domain resonance (higher better, >=0.70). DI2 = dimensional drift (lower better, <=0.30). Green = within guard threshold.' }));
+      }
+      return specs;
+    },
   },
   'bav-exp-033': {
     insights: renderBavExp033Insights,
@@ -760,6 +843,23 @@ const BAV_RENDERERS = {
       L.push('## 4. Interpretation');
       L.push('EXP-033 is not a pipeline success record. It is the point where baseline parity from EXP-032 broke: dangerous false-pass stayed zero, but pass recall collapsed to **0.00**, balanced accuracy fell to **0.50**, and PASS-eligible controls were captured by **R5_e2e_floor**.');
     },
+    charts: function(data) {
+      const base = data && data.baseline && data.baseline.summary;
+      const curr = data && data.current && data.current.summary;
+      if (!base || !curr) return [];
+      const bc = base.classification || {}, cc = curr.classification || {};
+      const bg = base.governance || {}, cg = curr.governance || {};
+      return [
+        groupedBarChart('Baseline vs Current Repro2 (classification metrics)',
+          [{ label: 'EXP-032 baseline', values: [+(bc.accuracy ?? 0), +(bc.balanced_accuracy ?? 0), +(bc.pass_recall ?? 0), +(bc.block_recall ?? 0)] }, { label: 'EXP-033 current', values: [+(cc.accuracy ?? 0), +(cc.balanced_accuracy ?? 0), +(cc.pass_recall ?? 0), +(cc.block_recall ?? 0)] }],
+          [{ name: 'Accuracy', color: '#10b981' }, { name: 'Balanced acc.', color: '#60a5fa' }, { name: 'Pass recall', color: '#f59e0b' }, { name: 'Block recall', color: '#8b5cf6' }],
+          { maxValue: 1, caption: 'Baseline parity was perfect. Current repro2 preserves block recall but collapses the PASS cohort, driving pass recall to 0.00 and balanced accuracy to 0.50.' }),
+        groupedBarChart('Clinical Status Counts (baseline vs current repro2)',
+          [{ label: 'EXP-032 baseline', values: [+(bg.clinical_status_counts?.PASS ?? 0), +(bg.clinical_status_counts?.BLOCK ?? 0)] }, { label: 'EXP-033 current', values: [+(cg.clinical_status_counts?.PASS ?? 0), +(cg.clinical_status_counts?.BLOCK ?? 0)] }],
+          [{ name: 'PASS', color: '#10b981' }, { name: 'BLOCK', color: '#ef4444' }],
+          { caption: 'The accepted baseline keeps a 3/3 PASS/BLOCK split. Current repro2 routes every control to BLOCK, revealing the pipeline-level failure surface.' }),
+      ];
+    },
   },
   'bav-exp-034': {
     insights: renderBavExp034Insights,
@@ -804,6 +904,21 @@ const BAV_RENDERERS = {
       L.push('');
       L.push('## 4. Interpretation');
       L.push('Accuracy delta is exactly **0** — the judgment baseline never moved across cycles while the governance surface became more measurable. Final PASS belongs to the accepted legacy-replay anchor only; current regeneration stays outside the success claim as a separate diagnostic HOLD. Controlled expansion without mixing verdict surfaces: *non-degradation, not repair*.');
+    },
+    charts: function(data) {
+      const specs = [], ds = data && data.delta_summary;
+      const gov = (data && data._gov) || {}, lb = gov.legacy_benchmark || {};
+      const lbm = (lb.benchmark && lb.benchmark.metrics) || lb.metrics || {};
+      const accVal = v => (v && typeof v === 'object') ? (v.value ?? 0) : (+v || 0);
+      if (ds) {
+        specs.push(barChart('Cross-Cycle Governance Deltas (EXP-034 legacy-replay vs EXP-033 v5j)',
+          [{ label: 'Accuracy Δ', value: +(ds.accuracy_delta ?? 0), color: '#10b981' }, { label: 'p_e2e Δ', value: +(ds.ccge_p_e2e_mean_delta ?? 0), color: '#8b5cf6' }, { label: 'SR9 tech Δ', value: +(ds.nnsl_sr9_tech_mean_delta ?? 0), color: '#60a5fa' }, { label: 'DI2 tech Δ', value: +(ds.nnsl_di2_tech_mean_delta ?? 0), color: '#f59e0b' }],
+          { caption: 'Accuracy delta is exactly 0 — the judgment baseline stayed fixed across cycles. Governance metrics shifted (more measurable), but the verdict did not move. Non-degradation, not repair.' }));
+      }
+      specs.push(barChart('Accepted Anchor Metrics (legacy-replay only)',
+        [{ label: 'Accuracy', value: accVal(lbm.accuracy) || 0, color: '#10b981' }, { label: 'Balanced acc.', value: accVal(lbm.balanced_accuracy) || 0, color: '#60a5fa' }, { label: 'Pass recall', value: accVal(lbm.pass_recall) || 0, color: '#8b5cf6' }, { label: 'Block recall', value: accVal(lbm.block_recall) || 0, color: '#f59e0b' }],
+        { maxValue: 1, caption: 'Only the accepted legacy-replay anchor is charted numerically. Current regeneration remains a diagnostic HOLD and is intentionally excluded from anchor-performance charts.' }));
+      return specs;
     },
   },
 };

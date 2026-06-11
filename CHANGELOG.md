@@ -4,6 +4,10 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.18.0] - 2026-06-11
+
+Chart SDK — factory helpers + builder collocation. All 14 per-experiment chart builders moved inline to BAV_RENDERERS / EQA_RENDERERS as `charts(data)` callbacks. `portal-charts.js` reduced from 627 lines to a 21-line dispatcher + generic fallback. New `chart-builder.js` provides 6 thin factory functions (`barChart`, `groupedBarChart`, `donutChart`, `plddtTrack`, `paeHeatmap`, `contactMap`) shared across both renderer modules.
+
 ## [1.17.0] - 2026-06-10
 
 BAV registry & renderer consolidation — same dispatch pattern as EQA applied to all 6 BAV experiments.
