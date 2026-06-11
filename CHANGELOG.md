@@ -4,6 +4,22 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.20.0] - 2026-06-11
+
+Static read-only API v1 — manifest-driven, zero per-experiment code.
+
+- **`scripts/build_api.py`**: generator reads `api_summary` blocks from each experiment's `manifest.json`; no per-experiment extraction logic. Adding a new experiment requires no script changes — register in JS registry + fill `api_summary`. `--check` mode added to CI to detect API drift.
+- **`scripts/api_schema_static.json`**: vocabulary document — lane descriptions, verdict glossary (11 codes), metric definitions (SR9, DI2, p_e2e, balanced_accuracy, Brier, BSC score).
+- **`api_summary` contract**: normalised block added to all 14 experiment manifests (6 BAV + 6 EQA + 2 BSC). Fields: `title`, `verdict`, `verdict_label`, `date`, `brief`, `summary`, `findings[]`, `metrics{}`.
+- **Generated endpoints** (static JSON served via GitHub Pages):
+  - `GET /api/v1/runs.json` — 14-entry index across all 3 lanes
+  - `GET /api/v1/runs/{id}.json` — per-experiment detail with `key_metrics`
+  - `GET /api/v1/metrics/bav.json` — aggregated BAV metrics table (SR9, DI2, p_e2e, balanced_accuracy per experiment)
+  - `GET /api/v1/schema.json` — vocabulary/legend for API consumers
+- **CI**: `API drift check` step added — fails if `api/v1/` files are out of sync with manifests.
+
+---
+
 ## [1.19.0] - 2026-06-11
 
 Jargon sanity pass — domain-appropriate language throughout all insight and report functions. Sanitizer CI gate fix. Repository About description and topics.
