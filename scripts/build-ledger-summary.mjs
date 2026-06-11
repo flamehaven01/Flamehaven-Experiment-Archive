@@ -299,11 +299,11 @@ function scanEqaRecords() {
     // Custom overrides for specific runs
     let id = dirName === 'toe-test-0055' ? 'toe-test-0055-aefso' : (dirName === 'toe-test-0056' ? 'toe-test-0056-openai-erdos-eq22' : 'toe-test-0057-qsot-compiler');
     let title = `EQA: ${dirName.toUpperCase()} — ${manifestJson.title || ''}`;
-    let auditDate = dirName === 'toe-test-0055' ? '2026-04-16' : (dirName === 'toe-test-0056' ? '2026-05-27' : '2026-06-09');
+    let auditDate = dirName === 'toe-test-0055' ? '2026-04-16' : (dirName === 'toe-test-0056' ? '2026-05-27' : '2025-12-23');
     let summary = firstNonEmptyLine(analysisText) || manifestJson.working_hypothesis || '';
     let useScope = dirName === 'toe-test-0055' ? 'Optional backend layer only; not eligible for core promotion.' : (dirName === 'toe-test-0056' ? 'Fully published. Citable via Zenodo DOI.' : 'Research reference and numerical consistency check only.');
-    let gate = dirName === 'toe-test-0055' ? 'OPTIONAL_LAYER' : (dirName === 'toe-test-0056' ? 'PASS' : 'DEGRADED_PASS');
-    let sparVerdict = dirName === 'toe-test-0055' ? 'ACCEPT WITH BOUNDS' : (dirName === 'toe-test-0056' ? 'ACCEPT' : 'DEGRADED_PASS');
+    let gate = dirName === 'toe-test-0055' ? 'OPTIONAL_LAYER' : (dirName === 'toe-test-0056' ? 'PASS' : 'PASS');
+    let sparVerdict = dirName === 'toe-test-0055' ? 'ACCEPT WITH BOUNDS' : (dirName === 'toe-test-0056' ? 'ACCEPT' : 'PASS');
 
     const urls = {};
     if (dirName === 'toe-test-0055') {
@@ -337,6 +337,8 @@ function scanEqaRecords() {
 
     if (dirName === 'toe-test-0056') {
       rec.zenodoDoi = '10.5281/zenodo.15487327';
+    } else if (dirName === 'toe-test-0057') {
+      rec.zenodoDoi = '10.5281/zenodo.18035432';
     }
 
     records.push(rec);

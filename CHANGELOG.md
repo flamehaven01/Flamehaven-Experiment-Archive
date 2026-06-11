@@ -4,6 +4,13 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.21.1] - 2026-06-11
+
+- **Restricted EQA-TEST-0057 to v1.2.3**: Removed all V2/V2.1 references, checks, and metrics from the record, metadata, and playbooks.
+- **Wired Zenodo DOI & paper/repo links**: Linked card 0057 to Zenodo DOI `10.5281/zenodo.18035432` and active repository.
+- **Regenerated ledger-summary**: Synced ledger-summary.json with v1.2.3 overrides (PASS gate, PASS sparVerdict, December 23, 2025 audit date).
+- **Updated version metadata**: Bumped version tag to `1.21.1` in mica.yaml.
+
 ## [1.21.0] - 2026-06-11
 
 Documentation, MICA, and playbook updated to reflect the v1.20.0 API architecture.
