@@ -4,6 +4,18 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.19.0] - 2026-06-11
+
+Jargon sanity pass — domain-appropriate language throughout all insight and report functions. Sanitizer CI gate fix. Repository About description and topics.
+
+- **EQA renderers** (`js/eqa-renderers.js`): replaced unexplained internal codes in all 6 insight/report functions. `SPAR` → scope and claim-honesty review; `TOE-facing` → framework-layer; `Missing-link IR` → Missing Representation Properties; `Dogfood Runs` → Internal Validation Runs; `Omega (SIDRCE)` → Omega (composite score); chart labels for SR9, DI2, p_e2e, AATS, LawBinder expanded with plain-language descriptions.
+- **BAV renderers** (`js/bav-renderers.js`): `LawBinder` expanded as "governance layer (LawBinder)" on first use; `observer shadow` → independent diagnostic path; `RExSyn` fallback → "early pipeline run (pre-modular separation)"; `NNSL/RExSyn` archive fallback → "Early pipeline iteration"; `R6_pass` / `R5_e2e_floor` hardcoded rule IDs → plain descriptions; `DI-EQA-002` / `DI-BSC-001` compliance codes removed from user-visible text; `p_e2e`, `SR9 tech`, `DI2 tech` metric labels expanded.
+- **Sanitizer CI gate** (`eqa/toe-test-0057/`): fixed `abs_path_collapse:1` leaks in `analysis_result.json` and `memory/qsot-playbook.md` — sanitize-gate passes cleanly.
+- **README**: full rewrite — Mermaid workflow diagrams, experiment tables with plain-English verdicts, metric table with explanations, external-audience framing. Internal acronyms removed or expanded on first use.
+- **Repository**: GitHub About description and 15 topic tags added (`ai-safety`, `biomedical-ai`, `pipeline-governance`, `reproducibility`, and more).
+
+---
+
 ## [1.18.0] - 2026-06-11
 
 Chart SDK — factory helpers + builder collocation. All 14 per-experiment chart builders moved inline to BAV_RENDERERS / EQA_RENDERERS as `charts(data)` callbacks. `portal-charts.js` reduced from 627 lines to a 21-line dispatcher + generic fallback. New `chart-builder.js` provides 6 thin factory functions (`barChart`, `groupedBarChart`, `donutChart`, `plddtTrack`, `paeHeatmap`, `contactMap`) shared across both renderer modules.
