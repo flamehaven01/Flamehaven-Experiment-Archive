@@ -285,6 +285,7 @@ function scanEqaRecords() {
     if (!fs.existsSync(reportDir)) continue;
 
     const manifestFileName = pickFirstExistingFile(reportDir, [
+      'manifest.json',
       'MANIFEST.json',
       'AEFSO_MANIFEST.json',
       'ANT_MANIFEST.json'

@@ -3,70 +3,316 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flamehaven Verification Ledger — API v1</title>
+<title>Flamehaven Verification Ledger &mdash; API v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #0f172a; --surface: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; --pass: #10b981; --code-bg: #0f172a; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 14px; line-height: 1.6; padding: 48px 24px; max-width: 760px; margin: 0 auto; }
-  h1 { font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
-  .sub { color: var(--muted); font-size: 13px; margin-bottom: 36px; }
-  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 28px 0 12px; }
-  .endpoint { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
-  .ep-line { display: flex; align-items: baseline; gap: 10px; }
-  .method { color: var(--pass); font-weight: 700; font-size: 12px; min-width: 36px; }
-  .ep-url { color: var(--accent); text-decoration: none; word-break: break-all; }
-  .ep-url:hover { text-decoration: underline; }
-  .ep-desc { color: var(--muted); font-size: 13px; }
-  .note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 12px 16px; margin-top: 28px; font-size: 13px; color: var(--muted); line-height: 1.7; }
-  a { color: var(--accent); }
-  .badge { font-size: 11px; background: #0c4a6e; color: #7dd3fc; padding: 2px 7px; border-radius: 999px; vertical-align: middle; margin-left: 6px; }
+:root {
+  --bg:      #000000;
+  --s1:      #09090b;
+  --s2:      #18181b;
+  --s3:      #27272a;
+  --s4:      #3f3f46;
+  --border:  #27272a;
+  --border-h:#3f3f46;
+  --tp:      #ffffff;
+  --ts:      #d4d4d8;
+  --t3:      #a1a1aa;
+  --t4:      #71717a;
+  --accent:  #f97316;
+  --accent-bg: rgba(249,115,22,.08);
+  --accent-bd: rgba(249,115,22,.2);
+  --pass:    #22c55e;
+  --pass-bg: rgba(34,197,94,.08);
+  --blue:    #3b82f6;
+  --blue-bg: rgba(59,130,246,.08);
+  --blue-bd: rgba(59,130,246,.2);
+  --r-sm: .375rem;
+  --r-md: .75rem;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ts);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+code, .mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--tp); text-decoration: underline; }
+
+/* ── LAYOUT ── */
+.page { max-width: 720px; margin: 0 auto; padding: 56px 24px 80px; }
+
+/* ── HEADER ── */
+.header { margin-bottom: 40px; }
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.logo-flame {
+  width: 28px; height: 28px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.brand {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tp);
+  letter-spacing: -.01em;
+}
+.brand-sub {
+  color: var(--t4);
+  font-weight: 400;
+}
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--tp);
+  letter-spacing: -.02em;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.title .badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-bd);
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: 999px;
+  vertical-align: middle;
+  margin-left: 8px;
+  letter-spacing: .03em;
+  position: relative;
+  top: -2px;
+}
+.subtitle {
+  font-size: 13.5px;
+  color: var(--t3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dot { color: var(--s4); }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--t4);
+  margin: 32px 0 12px;
+}
+
+/* ── ENDPOINT CARD ── */
+.ep {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  transition: border-color .15s;
+}
+.ep:hover { border-color: var(--border-h); }
+.ep-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.method {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pass);
+  min-width: 32px;
+  flex-shrink: 0;
+}
+.ep-path {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--tp);
+  word-break: break-all;
+}
+.ep-path a { color: var(--tp); }
+.ep-path a:hover { color: var(--accent); text-decoration: none; }
+.ep-desc {
+  font-size: 12.5px;
+  color: var(--t3);
+  padding-left: 42px;
+  margin-top: 2px;
+}
+.ep-example {
+  padding-left: 42px;
+  margin-top: 6px;
+}
+.ep-example a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--t4);
+}
+.ep-example a:hover { color: var(--blue); }
+
+/* ── METRIC PILLS ── */
+.metrics-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  color: var(--t3);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ── NOTICE ── */
+.notice {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-h);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--t3);
+  line-height: 1.7;
+}
+.notice strong { color: var(--ts); font-weight: 500; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--t4);
+}
+.footer a { color: var(--t4); }
+.footer a:hover { color: var(--ts); text-decoration: none; }
+.footer-links { display: flex; gap: 16px; }
 </style>
 </head>
 <body>
-<h1>Flamehaven Verification Ledger <span class="badge">API v1</span></h1>
-<p class="sub">Static read-only JSON API &mdash; served via GitHub Pages &mdash; no backend.</p>
+<div class="page">
 
-<h2>Endpoints</h2>
-
-<div class="endpoint">
-  <div class="ep-line">
-    <span class="method">GET</span>
-    <a class="ep-url" href="runs.json">api/v1/runs.json</a>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-row">
+      <svg class="logo-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+      </svg>
+      <span class="brand">Flamehaven <span class="brand-sub">/ Verification Ledger</span></span>
+    </div>
+    <h1 class="title">
+      Public API
+      <span class="badge">v1</span>
+    </h1>
+    <p class="subtitle">
+      Static read-only JSON
+      <span class="dot">&middot;</span>
+      GitHub Pages
+      <span class="dot">&middot;</span>
+      No backend
+      <span class="dot">&middot;</span>
+      No auth required
+    </p>
   </div>
-  <span class="ep-desc">Index of all verification runs across EQA / BAV / BSC lanes (id, verdict, brief, detail_url)</span>
-</div>
 
-<div class="endpoint">
-  <div class="ep-line">
-    <span class="method">GET</span>
-    <span class="ep-url">api/v1/runs/{id}.json</span>
+  <!-- Endpoints -->
+  <div class="section-label">Endpoints</div>
+
+  <div class="ep">
+    <div class="ep-row">
+      <span class="method">GET</span>
+      <span class="ep-path"><a href="runs.json">api/v1/runs.json</a></span>
+    </div>
+    <div class="ep-desc">Index of all verification runs &mdash; EQA, BAV, BSC lanes. Returns <code>id</code>, <code>verdict</code>, <code>brief</code>, <code>detail_url</code> for each run.</div>
   </div>
-  <span class="ep-desc">Per-run detail &mdash; summary, key_metrics, findings, evidence links. Example:</span>
-  <a class="ep-url" style="font-size:12px;padding-left:46px" href="runs/bav-exp-034.json">runs/bav-exp-034.json</a>
-</div>
 
-<div class="endpoint">
-  <div class="ep-line">
-    <span class="method">GET</span>
-    <a class="ep-url" href="metrics/bav.json">api/v1/metrics/bav.json</a>
+  <div class="ep">
+    <div class="ep-row">
+      <span class="method">GET</span>
+      <span class="ep-path">api/v1/runs/{id}.json</span>
+    </div>
+    <div class="ep-desc">Per-run detail &mdash; full <code>summary</code>, <code>key_metrics</code>, <code>findings[]</code>, and evidence links.</div>
+    <div class="ep-example">
+      Example: <a href="runs/bav-exp-034.json">runs/bav-exp-034.json</a>
+      &nbsp;&middot;&nbsp;
+      <a href="runs/toe-test-0056.json">runs/toe-test-0056.json</a>
+      &nbsp;&middot;&nbsp;
+      <a href="runs/bsc-yorkeccak-bio.json">runs/bsc-yorkeccak-bio.json</a>
+    </div>
   </div>
-  <span class="ep-desc">Aggregated BAV pipeline metrics table (SR9, DI2, p_e2e, balanced_accuracy per experiment)</span>
-</div>
 
-<div class="endpoint">
-  <div class="ep-line">
-    <span class="method">GET</span>
-    <a class="ep-url" href="schema.json">api/v1/schema.json</a>
+  <div class="ep">
+    <div class="ep-row">
+      <span class="method">GET</span>
+      <span class="ep-path"><a href="metrics/bav.json">api/v1/metrics/bav.json</a></span>
+    </div>
+    <div class="ep-desc">Aggregated BAV pipeline metrics table across all 6 experiments.</div>
+    <div class="metrics-row">
+      <span class="pill">cross_domain_consistency</span>
+      <span class="pill">calibration_brier_score</span>
+      <span class="pill">balanced_accuracy</span>
+      <span class="pill">p_e2e</span>
+    </div>
   </div>
-  <span class="ep-desc">Vocabulary &mdash; lane descriptions, 11 verdict codes, 6 metric definitions</span>
-</div>
 
-<div class="note">
-  All files are pre-generated from each experiment&rsquo;s <code>manifest.json</code> &mdash; no live computation.
-  View the full ledger at <a href="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/">flamehaven01.github.io/Flamehaven-Verification-Ledger</a>
-  or the source on <a href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger">GitHub</a>.
-  <br><br>
-  License: data CC BY-NC 4.0 &nbsp;&middot;&nbsp; code MIT
+  <div class="ep">
+    <div class="ep-row">
+      <span class="method">GET</span>
+      <span class="ep-path"><a href="schema.json">api/v1/schema.json</a></span>
+    </div>
+    <div class="ep-desc">Vocabulary &mdash; 3 lane definitions, 11 verdict codes, 6 metric definitions with provenance labels.</div>
+  </div>
+
+  <!-- Notice -->
+  <div class="notice">
+    <strong>Architecture.</strong> All files are pre-generated from each experiment&rsquo;s
+    <code>manifest.json</code> &mdash; no live computation. The build script
+    (<code>scripts/build_api.py</code>) is deterministic and manifest-driven; a CI gate
+    (<code>--check</code>) fails the build if committed files drift from source manifests.<br><br>
+    <strong>Provenance.</strong> Internal pipeline metrics (SR9, DI2, p&zwj;_e2e) carry
+    <code>provenance: advisory_internal</code> in schema.json. Verification weight rests on
+    external anchors: public MIT repositories, Zenodo DOI
+    <a href="https://doi.org/10.5281/zenodo.15487327" target="_blank" rel="noopener">10.5281/zenodo.15487327</a>,
+    and standard third-party metrics (AlphaFold pLDDT, PAE).
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Data CC BY-NC 4.0 &nbsp;&middot;&nbsp; Code MIT</span>
+    <div class="footer-links">
+      <a href="../../index.html">Portal</a>
+      <a href="https://flamehaven.space/" target="_blank" rel="noopener">flamehaven.space</a>
+      <a href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
 </div>
 </body>
 </html>

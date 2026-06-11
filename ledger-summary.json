@@ -1,6 +1,6 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-11T10:30:16.572Z",
+  "generatedAt": "2026-06-11T11:30:28.343Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
   "reportsActive": 14,
@@ -101,7 +101,7 @@
       "useScope": "Research reference and numerical consistency check only.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0057",
       "urls": {
-        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/MANIFEST.json",
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/manifest.json",
         "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/verification_result.json",
         "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/analysis_result.json",
         "report": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/analysis_report.md"
@@ -193,7 +193,7 @@
       "useScope": "Optional backend layer only; not eligible for core promotion.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0055",
       "urls": {
-        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/MANIFEST.json",
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/manifest.json",
         "decision": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/analysis_report.md",
         "spar": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/AEFSO_SPAR_REVIEW_v1.md"
       }
