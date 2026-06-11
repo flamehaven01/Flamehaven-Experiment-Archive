@@ -9,7 +9,7 @@
   "review_path": "post_mortem_code_and_paper_audit",
   "generated_at": "2026-06-09T18:44:00.000Z",
   "test_root": "Flamehaven-Labs/QSOT_Compiler_V1",
-  "repo_root": "D:/Sanctum/Flamehaven-Labs/QSOT_Compiler_V1",
+  "repo_root": "[workspace]/QSOT_Compiler_V1",
   "verdict": "PASS",
   "provenance_class": "ADVISORY",
   "classification_note": "This artifact represents the audit of QSOT Compiler v1.2.3, which is classified as a High-Formality, Fake Physics Slop Artifact. The system uses a highly structured execution and audit framework, including LaTeX paper targets and NeurIPS-style web pages, to wrap a conceptually arbitrary, ungrounded single-qubit toy amplitude damping simulation with general relativity nomenclature.",

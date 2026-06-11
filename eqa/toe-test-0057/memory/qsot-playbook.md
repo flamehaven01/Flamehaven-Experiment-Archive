@@ -9,7 +9,7 @@ This playbook governs the execution, maintenance, and verification of the QSOT C
 ## 2. Playbook Steps (Verification Path)
 1. Install dependencies and activate virtual environment:
    ```bash
-   cd D:\Sanctum\Flamehaven-Labs\QSOT_Compiler_V1\qsot_compiler
+   cd [workspace]/qsot_compiler
    python -m venv venv
    venv\Scripts\activate
    pip install -r requirements.txt
