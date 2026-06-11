@@ -43,19 +43,28 @@ promo_allowlist:              # legitimate technical usages (regex, checked in +
 # When a term is used with its expansion in parens — e.g. "cross-domain consistency (SR9)" —
 # add a jargon_allowlist entry so the detector does not flag it.
 jargon_terms:
-  - sr9          # cross-domain consistency score (internal Flamehaven code)
-  - di2          # reasoning deviation score (internal Flamehaven code)
-  - p_e2e        # end-to-end reliability probability (internal Flamehaven code)
-  - rexsyn       # internal biomedical pipeline name
-  - nnsl         # internal signal-processing system name
-  - lawbinder    # internal governance constraint component
-  - toe          # Theorem/Observation/Equation lane abbreviation (internal)
+  - sr9          # cross-domain consistency score — internal Flamehaven metric code
+  - di2          # reasoning deviation score — internal Flamehaven metric code
+  - p_e2e        # end-to-end reliability probability — internal Flamehaven metric code
+  # Pipeline codenames (rexsyn, nnsl, lawbinder, toe) are proper nouns used as-is in
+  # the portal and are intentionally excluded from jargon detection.
 
-jargon_allowlist:          # regex — checked in +/-24 char context around the match
-  - '(?i)\(sr9\)'          # "cross-domain consistency (SR9)" — already expanded
-  - '(?i)\(di2\)'          # "reasoning deviation (DI2)" — already expanded
-  - '(?i)\(p[_-]?e2e\)'   # "(p_e2e)" or "(pe2e)" — already expanded
-  - '(?i)toe-test'         # toe-test-XXXX experiment identifiers (code context)
+jargon_allowlist:          # regex checked in +/-24 char context around the match
+  - '(?i)\(sr9\)'          # "(SR9)" standalone in parens
+  - '(?i)\(di2\)'          # "(DI2)" standalone in parens
+  - '(?i)\(p[_-]?e2e\)'   # "(p_e2e)" standalone in parens
+  - '(?i)\(sr9[\s/,]'      # "(SR9 / DI2)" or "(SR9 cross-domain..." paired/annotated
+  - '(?i)\(di2[\s/,]'      # "(DI2 reasoning..." or "(DI2, ..." paired/annotated
+  - '(?i)sr9\s+cross'      # "SR9 cross-domain consistency" — expansion follows bare code
+  - '(?i)di2\s+reason'     # "DI2 reasoning drift" — expansion follows bare code
+  - '(?i)p[_-]?e2e\s*='   # "p_e2e = capture × ..." formula definition
+  - '(?i),\s*p[_-]?e2e'   # "SR9, DI2, p_e2e" — metrics list context
+  - '(?i)sr9\s*[/≥>~(]'   # SR9 before /, ≥, >, ~, ( — quantified/paired/defined
+  - '(?i)sr9\s+honesty'    # "NNSL SR9 honesty gate" — pipeline component name
+  - '(?i)/\s*di2'          # "SR9 / DI2" — DI2 after slash pairing
+  - '(?i)di2\s*[≤</(]'    # DI2 before ≤, <, /, ( — quantified/defined
+  - '(?i)di2\s+log'        # "DI2 logical drift" — alternate expansion
+  - '(?i)p[_-]?e2e\s+derived' # "p_e2e   DERIVED" — derivation label follows code
 
 # Credibility slop: grandiose / pseudo-scientific authority phrases.
 # These terms trigger the credibility_slop detector (detect-only, all files).
