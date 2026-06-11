@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flamehaven Verification Ledger &mdash; API v1</title>
+<title>&#x1F525; Flamehaven &mdash; API v1</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F525;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -198,6 +199,21 @@ a:hover { color: var(--tp); text-decoration: underline; }
 }
 .notice strong { color: var(--ts); font-weight: 500; }
 
+/* ── BACK NAV ── */
+.back-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--t3);
+  margin-bottom: 28px;
+  padding: 6px 0;
+  transition: color .15s;
+  text-decoration: none;
+}
+.back-nav:hover { color: var(--tp); text-decoration: none; }
+.back-nav svg { width: 14px; height: 14px; flex-shrink: 0; }
+
 /* ── FOOTER ── */
 .footer {
   margin-top: 48px;
@@ -218,6 +234,12 @@ a:hover { color: var(--tp); text-decoration: underline; }
 </head>
 <body>
 <div class="page">
+
+  <!-- Back navigation -->
+  <a class="back-nav" href="../../">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Verification Ledger
+  </a>
 
   <!-- Header -->
   <div class="header">
