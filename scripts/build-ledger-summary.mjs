@@ -24,8 +24,8 @@ const laneDefinitions = {
   rexsyn: {
     key: 'rexsyn',
     title: 'BAV',
-    status: 'in_preparation',
-    summary: 'Integrated telemetry and conformational consensus briefings remain under pre-release review.',
+    status: 'active',
+    summary: 'Biomedical AI Pipeline Governance: multi-engine structural consensus, calibration, and honesty-gate audits across RExSyn pipeline iterations.',
   },
 };
 
@@ -344,11 +344,51 @@ function scanEqaRecords() {
   return records.sort((a, b) => String(b.auditDate).localeCompare(String(a.auditDate)));
 }
 
+function scanBavRecords() {
+  const bavRoot = path.join(repoRoot, 'bav');
+  if (!fs.existsSync(bavRoot)) return [];
+
+  const expDirs = fs.readdirSync(bavRoot, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && /^exp-\d+$/.test(e.name))
+    .map((e) => e.name)
+    .sort();
+
+  const records = [];
+  for (const dirName of expDirs) {
+    const manifestPath = path.join(bavRoot, dirName, 'manifest.json');
+    if (!fs.existsSync(manifestPath)) continue;
+
+    const manifest = readJson(manifestPath);
+    const api = manifest.api_summary;
+    if (!api) continue;
+
+    records.push({
+      id: `bav-${dirName}`,
+      laneKey: 'rexsyn',
+      laneTitle: 'BAV',
+      title: api.title,
+      targetSlug: dirName,
+      auditDate: api.date,
+      gate: api.verdict,
+      summary: api.brief,
+      useScope: manifest.disclaimer || '',
+      portalUrl: absoluteArchiveUrl('index.html'),
+      urls: {
+        manifest: absoluteArchiveUrl(path.join('bav', dirName, 'manifest.json')),
+        api: absoluteArchiveUrl(path.join('api', 'v1', 'runs', `bav-${dirName}.json`)),
+      },
+    });
+  }
+
+  return records.sort((a, b) => String(b.auditDate).localeCompare(String(a.auditDate)));
+}
+
 function buildSummary() {
   const activeRecords = Object.keys(laneDefinitions)
     .filter((laneKey) => laneDefinitions[laneKey].status === 'active')
     .flatMap((laneKey) => {
       if (laneKey === 'toe') return scanEqaRecords();
+      if (laneKey === 'rexsyn') return scanBavRecords();
       return scanLaneRecords(laneKey);
     });
 

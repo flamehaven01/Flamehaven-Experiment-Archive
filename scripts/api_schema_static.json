@@ -36,34 +36,44 @@
       "description": "Can the pipeline reasoning transfer across domains it was not explicitly trained on?",
       "pipeline_guard": 0.70,
       "honesty_gate": 0.80,
-      "direction": "higher_is_better"
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
     },
     "di2": {
       "name": "Reasoning deviation (DI2)",
       "description": "How far does the model internal logic drift from its stated claims?",
       "pipeline_guard": 0.30,
       "honesty_gate": 0.20,
-      "direction": "lower_is_better"
+      "direction": "lower_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
     },
     "p_e2e": {
       "name": "End-to-end reliability (p_e2e)",
       "description": "Probability that a true positive survives the full pipeline: input capture x signal transfer x model correct x clinical decision correct.",
-      "direction": "higher_is_better"
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
     },
     "balanced_accuracy": {
       "name": "Balanced accuracy",
       "description": "Mean of PASS recall and BLOCK recall. 1.0 = perfect discrimination; 0.5 = random.",
-      "direction": "higher_is_better"
+      "direction": "higher_is_better",
+      "provenance": "standard_ml"
     },
     "brier_score": {
       "name": "Brier score",
       "description": "Calibration quality: mean squared error between predicted probabilities and outcomes. 0.0 = perfect calibration.",
-      "direction": "lower_is_better"
+      "direction": "lower_is_better",
+      "provenance": "standard_ml"
     },
     "final_score_bsc": {
       "name": "BSC compliance score",
       "description": "Weighted composite: 0.4 x README intent + 0.2 x consistency + 0.4 x code safety. Risk penalty subtracted. Capped at 69 for clinical-adjacent repositories without an explicit boundary statement.",
-      "direction": "higher_is_better"
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
     }
   },
   "disclaimer": "All entries are archival evidence records. They do not constitute certification, regulatory approval, or clinical recommendation. Internal pipeline metrics (SR9, DI2, p_e2e) are advisory Flamehaven-internal scores, not externally validated. Verification weight rests on external anchors: public MIT repositories, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT and PAE."

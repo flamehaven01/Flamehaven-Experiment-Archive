@@ -1,9 +1,9 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-09T12:32:20.388Z",
+  "generatedAt": "2026-06-11T10:30:16.572Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
-  "reportsActive": 8,
+  "reportsActive": 14,
   "lanes": [
     {
       "key": "stem-bio-ai",
@@ -24,10 +24,10 @@
     {
       "key": "rexsyn",
       "title": "BAV",
-      "status": "in_preparation",
-      "summary": "Integrated telemetry and conformational consensus briefings remain under pre-release review.",
-      "recordCount": 0,
-      "latestAuditDate": ""
+      "status": "active",
+      "summary": "Biomedical AI Pipeline Governance: multi-engine structural consensus, calibration, and honesty-gate audits across RExSyn pipeline iterations.",
+      "recordCount": 6,
+      "latestAuditDate": "2026-04-19"
     }
   ],
   "methodology": [
@@ -91,13 +91,13 @@
       "id": "toe-test-0057-qsot-compiler",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0057 — QSOT Compiler (Quantum State Over Time) Multiphase Verification",
+      "title": "EQA: TOE-TEST-0057 — QSOT Compiler v1.2.3 — High-Formality, Fake Physics Slop Artifact",
       "targetSlug": "toe-test-0057",
       "auditDate": "2026-06-09",
       "gate": "DEGRADED_PASS",
       "spar": null,
       "sparVerdict": "DEGRADED_PASS",
-      "summary": "`0057` is a verified execution and audit record for the QSOT (Quantum State Over Time) Compiler v1/v2/v2.1 codebase.",
+      "summary": "`0057` is a verified execution and audit record for the QSOT (Quantum State Over Time) Compiler v1.2.3 release.",
       "useScope": "Research reference and numerical consistency check only.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0057",
       "urls": {
@@ -165,7 +165,7 @@
       "id": "toe-test-0056-openai-erdos-eq22",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0056 — Integrating Algebraic Number Theory Breakthroughs (Erdos-OpenAI)",
+      "title": "EQA: TOE-TEST-0056 — ",
       "targetSlug": "toe-test-0056",
       "auditDate": "2026-05-27",
       "gate": "PASS",
@@ -183,7 +183,7 @@
       "id": "toe-test-0055-aefso",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0055 — All Elementary Functions from a Single Operator",
+      "title": "EQA: TOE-TEST-0055 — ",
       "targetSlug": "toe-test-0055",
       "auditDate": "2026-04-16",
       "gate": "OPTIONAL_LAYER",
@@ -193,9 +193,105 @@
       "useScope": "Optional backend layer only; not eligible for core promotion.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0055",
       "urls": {
-        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/AEFSO_MANIFEST.json",
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/MANIFEST.json",
         "decision": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/analysis_report.md",
         "spar": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0055/AEFSO_SPAR_REVIEW_v1.md"
+      }
+    },
+    {
+      "id": "bav-exp-034",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "Cross-cycle non-degradation check",
+      "targetSlug": "exp-034",
+      "auditDate": "2026-04-19",
+      "gate": "PASS",
+      "summary": "Accuracy delta = 0.000 across pipeline generations; non-degradation confirmed.",
+      "useScope": "Methodology / governance / reproducibility only. No efficacy or causal claim.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-034/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-034.json"
+      }
+    },
+    {
+      "id": "bav-exp-032",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "PASS/BLOCK classification parity",
+      "targetSlug": "exp-032",
+      "auditDate": "2026-04-16",
+      "gate": "PASS",
+      "summary": "Correct discrimination on 2 labeled classes, 6 arm payloads; legacy replay anchor certified.",
+      "useScope": "Pipeline reliability heuristics only. NOT clinical efficacy.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-032/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-032.json"
+      }
+    },
+    {
+      "id": "bav-exp-033",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "Repro2 parity test against baseline",
+      "targetSlug": "exp-033",
+      "auditDate": "2026-03-08",
+      "gate": "FAIL",
+      "summary": "Pass recall collapsed from 1.00 to 0.00; PASS-eligible controls routed to BLOCK.",
+      "useScope": "Pipeline reliability + governance only. NOT clinical efficacy.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-033/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-033.json"
+      }
+    },
+    {
+      "id": "bav-exp-031",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "Out-of-distribution protein target — 3-arm observer study",
+      "targetSlug": "exp-031",
+      "auditDate": "2026-02-09",
+      "gate": "HOLD",
+      "summary": "All 3 arms unverified (drift detected); multi-model disagreement kept visible as signal.",
+      "useScope": "Pipeline reliability + structural consensus heuristics. NOT clinical efficacy.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-031/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-031.json"
+      }
+    },
+    {
+      "id": "bav-exp-028",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "Honesty calibration under cross-domain query",
+      "targetSlug": "exp-028",
+      "auditDate": "2026-02-05",
+      "gate": "ABSTAIN",
+      "summary": "AUC = 1.0, Brier = 0.006 on pilot n=2; cross-domain consistency fails, system correctly declined to generalise.",
+      "useScope": "Pipeline calibration + honesty heuristics only. NOT clinical efficacy.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-028/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-028.json"
+      }
+    },
+    {
+      "id": "bav-exp-005",
+      "laneKey": "rexsyn",
+      "laneTitle": "BAV",
+      "title": "Upadacitinib topical formulation null screen",
+      "targetSlug": "exp-005",
+      "auditDate": "2025-12",
+      "gate": "NULL",
+      "summary": "Cross-domain consistency gate (SR9) rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
+      "useScope": "Pipeline reliability + honesty heuristics only. NOT clinical efficacy.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-005/manifest.json",
+        "api": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-005.json"
       }
     }
   ]

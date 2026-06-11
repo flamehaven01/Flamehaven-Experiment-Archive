@@ -6,10 +6,10 @@
   "verdict": "NULL",
   "verdict_label": "Truthful null",
   "date": "2025-12",
-  "summary": "Three lipid-based carriers for Upadacitinib each scored SR9 far below the 0.80 honesty gate and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
+  "summary": "Three lipid-based carriers for Upadacitinib each scored far below the cross-domain consistency (SR9) threshold of 0.80 and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
   "key_metrics": {
-    "sr9_mean": 0.254,
-    "sr9_threshold": 0.8,
+    "cross_domain_consistency_mean": 0.254,
+    "cross_domain_consistency_threshold": 0.8,
     "samples_rejected": 3,
     "samples_total": 3
   },

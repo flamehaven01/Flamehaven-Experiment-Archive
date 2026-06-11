@@ -45,8 +45,8 @@
     "verdict": "NULL",
     "verdict_label": "Truthful null",
     "date": "2025-12",
-    "brief": "SR9 gate rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
-    "summary": "Three lipid-based carriers for Upadacitinib each scored SR9 far below the 0.80 honesty gate and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
+    "brief": "Cross-domain consistency gate (SR9) rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
+    "summary": "Three lipid-based carriers for Upadacitinib each scored far below the cross-domain consistency (SR9) threshold of 0.80 and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
     "findings": [
       "SLN: SR9 = 0.278 — rejected (below 0.80 honesty gate)",
       "NLC: SR9 = 0.227 — rejected (below 0.80 honesty gate)",
@@ -54,8 +54,8 @@
       "All 3 carriers rejected in under 2 hours; pipeline correctly declined to claim efficacy"
     ],
     "metrics": {
-      "sr9_mean": 0.254,
-      "sr9_threshold": 0.80,
+      "cross_domain_consistency_mean": 0.254,
+      "cross_domain_consistency_threshold": 0.80,
       "samples_rejected": 3,
       "samples_total": 3
     },

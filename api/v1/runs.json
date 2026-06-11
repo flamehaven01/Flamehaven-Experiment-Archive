@@ -1,6 +1,6 @@
 {
   "schema": "flamehaven_api_v1_runs_index",
-  "generated_at_utc": "2026-06-11T06:10:21.463517+00:00",
+  "generated_at_utc": "2026-06-11T10:30:08.230693+00:00",
   "count": 14,
   "runs": [
     {
@@ -120,7 +120,7 @@
       "verdict": "NULL",
       "verdict_label": "Truthful null",
       "date": "2025-12",
-      "brief": "SR9 gate rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
+      "brief": "Cross-domain consistency gate (SR9) rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
       "detail_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/bav-exp-005.json"
     },
     {

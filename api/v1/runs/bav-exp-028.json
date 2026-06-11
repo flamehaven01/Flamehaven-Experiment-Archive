@@ -8,12 +8,12 @@
   "date": "2026-02-05",
   "summary": "Calibration metrics are statistically excellent on a pilot of n=2 (SR9 AUC = 1.0, Brier = 0.006 after isotonic calibration). However cross-domain consistency (SR9) fails the 0.80 honesty gate. The deployment gate fell back to Youden J = 0. System correctly declined to claim generalisation.",
   "key_metrics": {
-    "sr9_auc": 1.0,
+    "cross_domain_consistency_auc": 1.0,
     "overall_auc": 1.0,
-    "brier_after": 0.0056,
-    "ece_after": 0.075,
-    "sr9_honesty_gate": 0.8,
-    "sr9_gate_passed": false
+    "calibration_brier_score": 0.0056,
+    "calibration_ece_score": 0.075,
+    "cross_domain_consistency_threshold": 0.8,
+    "cross_domain_consistency_gate_passed": false
   },
   "findings": [
     "SR9 AUC = 1.0 and overall AUC = 1.0 on 6-sample pilot \u2014 perfect discrimination",
