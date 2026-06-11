@@ -53,7 +53,7 @@ function renderBavInsights(d) {
       <span style="font-size: 14px;">⚠️</span>
       <div>
         <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">${isExp032 ? 'Legacy-Replay Parity Anchor · NOT Production Gate' : 'Pipeline Reliability Prototype · NOT Clinical Efficacy'}</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">${isExp032 ? `Accepted parity anchor only. ${esc(replayScope || '2 labeled classes / 6 arm payloads')} · current-regeneration path excluded · observer shadow remains non-binding.` : esc(d.disclaimer || va.scope || 'Pipeline reliability heuristics only.')}</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">${isExp032 ? `Accepted parity anchor only. ${esc(replayScope || '2 labeled classes / 6 arm payloads')} · current-regeneration path excluded · independent diagnostic path remains non-binding.` : esc(d.disclaimer || va.scope || 'Pipeline reliability heuristics only.')}</div>
       </div>
     </div>
 
@@ -95,7 +95,7 @@ function renderBavInsights(d) {
     </div>
 
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Governance read:</strong> ${isExp032 ? `GO refers to clinical parity on the accepted replay anchor, not to a final LawBinder PASS. Clinical status discriminates the control (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong>; the shadow hint is non-binding and current-regeneration remains outside the success claim.` : `Clinical status discriminates the candidate (${clinical}), while LawBinder still routes to <strong>${lawbinder}</strong> — a fail-safe posture that escalates to human review regardless of model confidence.`}
+      💡 <strong>Governance read:</strong> ${isExp032 ? `GO refers to clinical parity on the accepted replay anchor, not to a final governance-layer PASS (LawBinder). Clinical status discriminates the control (${clinical}), while the governance layer still routes to <strong>${lawbinder}</strong>; the independent diagnostic path is non-binding and current-regeneration remains outside the success claim.` : `Clinical status discriminates the candidate (${clinical}), while the governance layer (LawBinder) still routes to <strong>${lawbinder}</strong> — a fail-closed posture that escalates to human review regardless of model confidence.`}
     </p>
   `;
 }
@@ -131,7 +131,7 @@ function renderBavExp031Insights(d) {
       <span style="font-size: 14px;">⚠️</span>
       <div>
         <div style="font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; color: #eab308;">OOD Ablation · Manual Validators + Observer-Only Governance</div>
-        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">All arms returned <strong>"Unverified (Drift Detected)"</strong> under out-of-distribution stress. Validator scores were manually synced from AF2 / AF3 / Boltz-2 / Chai-1 artifacts, AlphaGenome served as a redesign engine only, and the run stayed <strong>observer-only</strong>. Failed convergence is the point: the target remains outside model distribution, so disposition stays <strong>${esc(oc.promotion_decision || 'KEEP_OBSERVER')}</strong>.</div>
+        <div style="font-size: 12px; color: var(--t4); margin-top: 4px; line-height: 1.5;">All arms returned <strong>"Unverified (Drift Detected)"</strong> under out-of-distribution stress. Validator scores were manually synced from AF2 / AF3 / Boltz-2 / Chai-1 artifacts, AlphaGenome served as a redesign engine only, and the run stayed <strong>observer-only</strong>. Failed convergence is the point: the target remains outside model distribution, so disposition stays <strong>${esc(oc.promotion_decision || 'KEEP_OBSERVER')}</strong> — the target remains in observation-only mode, not promoted to the active pipeline.</div>
       </div>
     </div>
     <div style="overflow-x:auto;">
@@ -151,7 +151,7 @@ function renderBavExp031Insights(d) {
       <div><strong style="color:var(--t4);">Promotion evidence:</strong> ${esc(oc.promotion_evidence || 'insufficient')}${oc.promotion_min_samples ? ' · min_samples ' + esc(String(oc.promotion_min_samples)) + ' unmet' : ''}</div>
     </div>
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>Why disagreement matters:</strong> adding independent validators exposes topology conflicts invisible to any single model, and the observer penalty is what pushes arm C from a seemingly low final drift into an effective drift that still fails promotion. See the Analysis tab for final vs effective drift and structural confidence.
+      💡 <strong>Why disagreement matters:</strong> adding independent validators exposes topology conflicts invisible to any single model, and the topology-conflict penalty is what pushes arm C from a seemingly low raw drift into an effective drift that still fails promotion. See the Analysis tab for final vs effective drift and structural confidence.
     </p>
   `;
 }
@@ -179,7 +179,7 @@ function renderBavExp005Insights(d) {
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:16px;">
       <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
         <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--t4); text-transform:uppercase;">Pipeline Context</div>
-        <div style="font-size:16px; font-weight:600; color:#f59e0b; margin-top:4px;">${esc(oc.pipeline_maturity || 'pre-split RExSyn line-first run')}</div>
+        <div style="font-size:16px; font-weight:600; color:#f59e0b; margin-top:4px;">${esc(oc.pipeline_maturity || 'early pipeline run (pre-modular separation)')}</div>
         <div style="font-size:12px; color:var(--t4); margin-top:2px;">Not a fully separated modern pipeline stack</div>
       </div>
       <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:var(--r-md); padding:14px;">
@@ -270,14 +270,14 @@ function renderBavExp033Insights(d) {
       ${metric('Current accuracy', num(c.accuracy, 2), (c.accuracy ?? 0) >= 1 ? '#10b981' : '#ef4444')}
       ${metric('Current pass recall', num(c.pass_recall, 2), (c.pass_recall ?? 0) >= 1 ? '#10b981' : '#ef4444')}
       ${metric('Dangerous false-pass', num(c.fp_dangerous_pass, 0), (c.fp_dangerous_pass ? '#ef4444' : '#10b981'))}
-      ${metric('p_e2e (current)', num(g.ccge_p_e2e_mean), '#8b5cf6')}
+      ${metric('End-to-end reliability', num(g.ccge_p_e2e_mean), '#8b5cf6')}
     </div>
     ${advisoryDetails(
       metric('Baseline clinical counts', `PASS ${bg.clinical_status_counts?.PASS ?? 0} / BLOCK ${bg.clinical_status_counts?.BLOCK ?? 0}`, '#60a5fa') +
       metric('Current clinical counts', `PASS ${g.clinical_status_counts?.PASS ?? 0} / BLOCK ${g.clinical_status_counts?.BLOCK ?? 0}`, '#ef4444')
     )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
-      💡 <strong>The failure mode:</strong> baseline parity was perfect, but current repro2 shifted the PASS cohort from <code>R6_pass</code> to <code>R5_e2e_floor</code>. This is not a model-confidence win; it is a pipeline-level collapse caught in governance.
+      💡 <strong>The failure mode:</strong> baseline parity was perfect, but current repro2 shifted the PASS cohort from the primary acceptance criterion to the minimum reliability floor. This is not a model-confidence win; it is a pipeline-level collapse caught in governance.
     </p>
   `;
 }
@@ -304,12 +304,12 @@ function renderBavExp034Insights(d) {
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
       ${metric('Overall stage gate', esc(sg.overall_status || 'PASS'), (sg.overall_status || 'PASS') === 'PASS' ? '#10b981' : '#ef4444')}
       ${metric('Accuracy Δ', num(ds.accuracy_delta), (ds.accuracy_delta ? '#f59e0b' : '#10b981'))}
-      ${metric('p_e2e Δ', num(ds.ccge_p_e2e_mean_delta), '#8b5cf6')}
+      ${metric('Reliability (p_e2e) Δ', num(ds.ccge_p_e2e_mean_delta), '#8b5cf6')}
       ${metric('Regen path', esc(regen), '#eab308')}
     </div>
     ${advisoryDetails(
-      metric('SR9 tech Δ', num(ds.nnsl_sr9_tech_mean_delta), '#60a5fa') +
-      metric('DI2 tech Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')
+      metric('Consistency (SR9) Δ', num(ds.nnsl_sr9_tech_mean_delta), '#60a5fa') +
+      metric('Deviation (DI2) Δ', num(ds.nnsl_di2_tech_mean_delta), '#60a5fa')
     )}
     <p style="font-size: 13px; color: var(--t3); line-height: 1.6; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; margin-bottom: 0;">
       💡 <strong>Non-degradation, not repair:</strong> accuracy delta is exactly 0 — the judgment baseline never moved across cycles, while the governance surface became more measurable. Final PASS belongs to the accepted anchor only; current regeneration remains a documented diagnostic hold.
@@ -341,7 +341,7 @@ function renderArchiveInspector(runId, d, panels) {
     <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(107,114,128,0.06);border:1px solid rgba(107,114,128,0.25);border-radius:var(--r-md);padding:12px 16px;margin-bottom:20px;">
       <span style="font-size:14px;">🗄️</span>
       <div><div style="font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:#9ca3af;">${isEqa ? 'Archived TOE-TEST Run' : 'Archived Foundational Iteration'} · ${esc(d.id)}</div>
-      <div style="font-size:12px;color:var(--t4);margin-top:4px;line-height:1.5;">${isEqa ? esc(d.title || '') : (esc(d.theme || '') + ' — ' + esc(d.summary || 'Foundational RExSyn/NNSL iteration.'))}</div></div>
+      <div style="font-size:12px;color:var(--t4);margin-top:4px;line-height:1.5;">${isEqa ? esc(d.title || '') : (esc(d.theme || '') + ' — ' + esc(d.summary || 'Early pipeline iteration.'))}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;">
       ${hasSr9 ? card('SR9 resonance', m.sr9_resonance.toFixed(3), m.sr9_resonance >= 0.80 ? '#10b981' : '#eab308') : ''}
@@ -361,7 +361,7 @@ function renderArchiveInspector(runId, d, panels) {
   if (m.report) gates.push({ label: 'Human-readable report', status: 'IMPORTED', detail: esc(m.report) });
   if (isEqa && d.grade) gates.push({ label: 'Source-recorded grade', status: 'IMPORTED', detail: 'Grade ' + esc(d.grade) + ' (as stated in source — not re-verified here)' });
   if (isEqa && d.parser_sensitive) gates.push({ label: 'Historical parser sensitivity', status: 'DERIVED', detail: 'Natural-language hypotheses in this source do not canonically route to the recorded preset results under the current parser.' });
-  if (isEqa && d.ground_truth_sensitive) gates.push({ label: 'Historical ground-truth sensitivity', status: 'DERIVED', detail: 'A source-recorded meta-layer mismatch affected historical SPAR/ground-truth interpretation while the underlying engine result remained correct.' });
+  if (isEqa && d.ground_truth_sensitive) gates.push({ label: 'Historical ground-truth sensitivity', status: 'DERIVED', detail: 'A source-recorded meta-layer mismatch affected historical scope-review/ground-truth interpretation while the underlying engine result remained correct.' });
   if (isEqa && d.non_run_artifact) gates.push({ label: 'Non-run archive artifact', status: 'IMPORTED', detail: 'Historical ' + String(d.artifact_class || 'meta artifact').replace(/_/g, ' ') + ' archived with EQA materials; excluded from verification-run counts.' });
   if (isEqa && d._reportText) gates.push({ label: 'Verbatim source report attached', status: 'IMPORTED', detail: 'Imported from Flamehaven-TOE (paths sanitized, content unedited)' });
   panels.insChecks.innerHTML = gates.length
@@ -439,7 +439,7 @@ function renderBavIntegrity(runId, data) {
       <span style="color:#10b981; font-family:'JetBrains Mono', monospace; font-size:11px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); padding:2px 8px; border-radius:var(--r-xs);">🛡️ VERBATIM · SHA256</span>
     </div>
     <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px; margin-bottom:16px;">${metaRows || '<div style="color:var(--t4); font-style:italic;">No provenance metadata.</div>'}</div>
-    <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--t4); text-transform:uppercase; margin-bottom:8px;">Verbatim source hashes (DI-EQA-002)</div>
+    <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--t4); text-transform:uppercase; margin-bottom:8px;">Verbatim source hashes (SHA-256 provenance)</div>
     <div style="display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px;">${shaRows}</div>
     ${mf.disclaimer ? `<div style="margin-top:16px; font-size:11.5px; color:var(--t4); font-style:italic; border-top:1px solid var(--border); padding-top:12px;">${esc(mf.disclaimer)}</div>` : ''}
   `;
@@ -466,7 +466,7 @@ function renderBavChecks(runId, data) {
 }
 
 // ── BAV Live Report: expert-grade markdown generated from the live payload ───
-// No hardcoding (DI-BSC-001): every value is read from data / _bav / _gov / _manifest.
+// No hardcoding: every value is read from data / _bav / _gov / _manifest.
 function buildBavReportMarkdown(runId, d) {
   if (!d) return '';
   const n = (v, dp = 3) => (typeof v === 'number' && isFinite(v)) ? v.toFixed(dp) : '—';
@@ -497,10 +497,10 @@ function buildBavReportMarkdown(runId, d) {
   const ver = mf.verification || {};
   if (ver.go_no_go_verdict) L.push('- **Go/No-Go:** ' + ver.go_no_go_verdict + (ver.benchmark_accuracy != null ? ' · accuracy ' + ver.benchmark_accuracy : ''));
   const shaCount = Object.keys(mf.sha256 || {}).length + (mf.arms || []).length + (mf.samples || []).length;
-  if (shaCount) L.push('- **Provenance:** ' + shaCount + ' SHA-256 hashed source artifact(s) (verbatim, DI-EQA-002)');
+  if (shaCount) L.push('- **Provenance:** ' + shaCount + ' SHA-256 hashed source artifact(s) (verbatim SHA-256)');
   L.push('- **Scope:** ' + (mf.disclaimer || 'pipeline reliability & governance only; not clinical efficacy.'));
   L.push('');
-  L.push('_Generated live from the run payload — no hardcoded values (DI-BSC-001)._');
+  L.push('_Generated live from the run payload — no hardcoded values._');
   return L.join('\n');
 }
 
@@ -532,7 +532,7 @@ const BAV_RENDERERS = {
       L.push(d.finding || 'SR9 honesty gate rejected all lipid carriers.');
       L.push('');
       L.push('## 2. Provenance');
-      L.push('- **Pipeline context:** ' + (oc.pipeline_maturity || 'pre-split RExSyn line-first run'));
+      L.push('- **Pipeline context:** ' + (oc.pipeline_maturity || 'early pipeline run (pre-modular separation)'));
       L.push('- **Operator assistance:** ' + (oc.config_mode || 'MANUAL_OVERRIDE') + (oc.control_injection ? ' \xb7 control injection present upstream' : ''));
       if (oc.disclosure) L.push('- **Disclosure:** ' + oc.disclosure);
       L.push('');
@@ -727,11 +727,11 @@ const BAV_RENDERERS = {
       const passRow = benchRows.find(r => r.sample_id === 'EXP032-PASS-001') || {};
       gates.push({ label: 'Guard \xb7 SR9 (tech) >= 0.70', status: (pm.sr9_tech ?? 0) >= 0.70 ? 'PASS' : 'FAIL', detail: `SR9 = ${(pm.sr9_tech ?? 0).toFixed(3)}` });
       gates.push({ label: 'Guard \xb7 DI2 (tech) <= 0.30', status: (pm.di2_tech ?? 1) <= 0.30 ? 'PASS' : 'FAIL', detail: `DI2 = ${(pm.di2_tech ?? 0).toFixed(3)}` });
-      gates.push({ label: 'Clinical parity benchmark', status: 'GO', detail: 'GO means PASS->PASS / BLOCK->BLOCK on the accepted legacy replay anchor, not a production LawBinder PASS.' });
+      gates.push({ label: 'Clinical parity benchmark', status: 'GO', detail: 'GO means PASS->PASS / BLOCK->BLOCK on the accepted legacy replay anchor, not a production governance-layer PASS.' });
       gates.push({ label: 'Clinical interpretation gate', status: g.clinical_status === 'PASS' ? 'PASS' : 'FAIL', detail: `PASS control clinical_status = ${g.clinical_status || '—'}` });
       gates.push({ label: 'LawBinder (fail-closed)', status: g.lawbinder_decision === 'PASS' ? 'PASS' : 'WARN', detail: `PASS control decision = ${g.lawbinder_decision || '—'}${passRow.lawbinder_decision_match === false ? ' (expected PASS did not hold; escalation preserved)' : ''}` });
       gates.push({ label: 'Current-regeneration path', status: 'HOLD', detail: 'Diagnostic-only / excluded from success claim.' });
-      gates.push({ label: 'Shadow hint', status: 'OBSERVER', detail: 'Non-binding observer shadow only; does not override LawBinder.' });
+      gates.push({ label: 'Independent diagnostic path', status: 'OBSERVER', detail: 'Non-binding diagnostic output only; does not override the governance layer.' });
       if (data.strict_evidence_recheck) gates.push({ label: 'Strict evidence recheck', status: data.strict_evidence_recheck.status === 'PASS' ? 'PASS' : 'WARN', detail: (data.strict_evidence_recheck.reasons || []).join('; ') || `status = ${data.strict_evidence_recheck.status}` });
     },
     reportSection: function(d, L, mf, n, pct) {
@@ -767,10 +767,10 @@ const BAV_RENDERERS = {
       L.push('');
       if (mf.experiment === 'EXP-032-ADAPTIVE-GATE') {
         L.push('## 4. Interpretation');
-        L.push('Clinical parity is **GO** on the accepted legacy replay anchor, but that is not the same as a production LawBinder PASS. PASS rows still route to **ESCALATE**, shadow hints remain non-binding, strict-evidence recheck fails, and current-regeneration outputs are excluded from success claims.');
+        L.push('Clinical parity is **GO** on the accepted legacy replay anchor, but that is not the same as a production governance-layer PASS (LawBinder). PASS rows still route to **ESCALATE**, independent diagnostic paths remain non-binding, strict-evidence recheck fails, and current-regeneration outputs are excluded from success claims.');
       } else {
         L.push('## 4. Interpretation');
-        L.push('The gate discriminates the candidate (clinical status **' + (g.clinical_status || '—') + '**), yet LawBinder routes to **' + (g.lawbinder_decision || '—') + '** — a fail-safe posture that escalates to human review regardless of model confidence. The viability figure is an explicitly heuristic pipeline-reliability index, not a clinical-efficacy estimate.');
+        L.push('The gate discriminates the candidate (clinical status **' + (g.clinical_status || '—') + '**), yet the governance layer (LawBinder) routes to **' + (g.lawbinder_decision || '—') + '** — a fail-closed posture that escalates to human review regardless of model confidence. The viability figure is an explicitly heuristic pipeline-reliability index, not a clinical-efficacy estimate.');
       }
     },
     charts: function(data) {
@@ -782,13 +782,13 @@ const BAV_RENDERERS = {
       if (Object.keys(sm).length) {
         specs.push(barChart('Classification Parity (legacy-replay anchor \xb7 verdict GO)',
           [{ label: 'Accuracy', value: +(sm.benchmark_accuracy ?? 0), color: '#10b981' }, { label: 'Balanced acc.', value: +(sm.benchmark_balanced_accuracy ?? 0), color: '#10b981' }, { label: 'Dangerous false-pass', value: +(sm.dangerous_pass_rate ?? 0), color: '#ef4444' }, { label: 'False-reject', value: +(sm.false_reject_rate ?? 0), color: '#f59e0b' }],
-          { maxValue: 1, caption: 'Accepted legacy-replay anchor only. GO means clinical PASS/BLOCK parity on 2 labeled classes (6 arm payloads), not a production LawBinder PASS. Current-regeneration path is held out.' }));
+          { maxValue: 1, caption: 'Accepted legacy-replay anchor only. GO means clinical PASS/BLOCK parity on 2 labeled classes (6 arm payloads), not a production governance-layer PASS. Current-regeneration path is held out.' }));
       }
       if (block && blockV) {
         specs.push(groupedBarChart('PASS vs BLOCK Control Discrimination',
           [{ label: 'Viability %', values: [(+passV.percent || 0), (+blockV.percent || 0)] }, { label: 'Confidence %', values: [((+data.confidence || 0) * 100), ((+block.confidence || 0) * 100)] }],
           [{ name: 'PASS-001', color: '#10b981' }, { name: 'BLOCK-001', color: '#ef4444' }],
-          { maxValue: 100, unit: '%', caption: 'PASS control scores higher than BLOCK on both axes, so the replay discriminates correctly. LawBinder still escalates both, and shadow outputs remain non-binding observer hints.' }));
+          { maxValue: 100, unit: '%', caption: 'PASS control scores higher than BLOCK on both axes, so the replay discriminates correctly. The governance layer still escalates both, and independent diagnostic outputs remain non-binding.' }));
       }
       if (Object.keys(pm).length) {
         specs.push(barChart('Pipeline Governance Metrics (PASS-001 \xb7 guard: SR9>=0.70, DI2<=0.30)',

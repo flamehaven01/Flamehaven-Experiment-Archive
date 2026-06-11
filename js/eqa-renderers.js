@@ -140,7 +140,7 @@ function eqaInsights0055(data, esc) {
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">Representation claim survived bounded review</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">TOE Classification</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Integration Classification</div>
         <div style="font-size:16px;font-weight:600;color:#eab308;margin-top:4px;">OPTIONAL LAYER</div>
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">Not promoted to core</div>
       </div>
@@ -150,9 +150,9 @@ function eqaInsights0055(data, esc) {
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(String(phaseVerdict.toe_scope || 'optional_backend_representation_layer').replace(/_/g,' '))}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Dogfood Runs</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Internal Validation Runs</div>
         <div style="font-size:16px;font-weight:600;color:var(--ts);margin-top:4px;">${esc(String(summary.dogfood_runs ?? 4))} completed</div>
-        <div style="font-size:12px;color:#10b981;margin-top:2px;">Missing-link discovered</div>
+        <div style="font-size:12px;color:#10b981;margin-top:2px;">Missing representation gap discovered</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px;">
@@ -165,7 +165,7 @@ function eqaInsights0055(data, esc) {
         <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((summary.promotion_blockers || []).join(' · '))}</div>
       </div>
       <div style="background:rgba(96,165,250,0.04);border:1px solid rgba(96,165,250,0.18);border-radius:var(--r-md);padding:14px;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">Missing-link IR</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">Missing Representation Properties</div>
         <div style="font-size:12.5px;color:var(--t3);line-height:1.7;">${esc((summary.missing_link_properties || []).join(' · '))}</div>
       </div>
       <div style="background:rgba(167,139,250,0.04);border:1px solid rgba(167,139,250,0.18);border-radius:var(--r-md);padding:14px;">
@@ -174,7 +174,7 @@ function eqaInsights0055(data, esc) {
       </div>
     </div>
     <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-      &#x1F4A1; <strong>Auditing Insight:</strong> AEFSO is a <strong>paper-driven staged research artifact</strong>. The paper claim survived bounded review, but TOE-facing promotion failed on readability, guard transparency, and governance-surface clarity. The experiment still succeeded architecturally by making the missing IR requirements explicit.
+      &#x1F4A1; <strong>Auditing Insight:</strong> AEFSO is a <strong>paper-driven staged research artifact</strong>. The paper claim survived bounded review, but core-layer promotion failed on readability, guard transparency, and governance-surface clarity. The experiment still succeeded architecturally by making the missing representation requirements explicit.
     </p>
   `;
 }
@@ -187,7 +187,7 @@ function eqaInsights0054(data, esc) {
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Gating Verdict</div>
         <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${esc(data.gate_recommendation ?? 'BLOCK')} / ${esc(law.decision ?? 'INHIBIT')}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">Pre-SPAR intake governance barrier</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">Pre-review intake governance barrier</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Pipeline Contract Score</div>
@@ -197,7 +197,7 @@ function eqaInsights0054(data, esc) {
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Candidate Generation</div>
         <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">0 candidates</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">The decisive blocker before SPAR</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">The decisive blocker — no candidate existed to review</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Dangerous Pass Risk</div>
@@ -208,15 +208,15 @@ function eqaInsights0054(data, esc) {
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px;">
       <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-md);padding:14px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Decisive issue</div>
-        <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.decisive_issue || 'No candidate existed for SPAR to review.')}</div>
+        <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.decisive_issue || 'No candidate was generated, so scope review had nothing to check.')}</div>
       </div>
       <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-md);padding:14px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What held correctly</div>
-        <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.what_passed || 'SPAR remained mandatory and promotion stayed blocked.')}</div>
+        <div style="font-size:12.5px;color:var(--t3);line-height:1.65;">${esc(summary.what_passed || 'Scope review remained mandatory and promotion stayed blocked.')}</div>
       </div>
     </div>
     <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-      &#x1F4A1; <strong>Auditing Insight:</strong> This was a <strong>pre-SPAR intake governance audit</strong>. The useful result is not merely that the run was blocked. The useful result is that the system distinguished between <em>no candidate generated</em> and <em>bad candidate approved</em>, then held the promotion boundary exactly where it should: before SPAR, before registry change, and before any PASS interpretation.
+      &#x1F4A1; <strong>Auditing Insight:</strong> This was a <strong>pre-review intake governance audit</strong>. The useful result is not merely that the run was blocked. The useful result is that the system distinguished between <em>no candidate generated</em> and <em>bad candidate approved</em>, then held the promotion boundary exactly where it should: before scope review, before registry change, and before any PASS interpretation.
     </p>
   `;
 }
@@ -244,10 +244,10 @@ function eqaInsights0053(data, esc) {
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Runtime Probe</div>
         <div style="font-size:18px;font-weight:600;color:var(--ts);margin-top:4px;">direct ${esc(direct.status ?? 'timeout')} / AATS ${esc(aats.status ?? 'timeout')}</div>
-        <div style="font-size:12px;color:#ef4444;margin-top:2px;">Timeouts keep LOGOS bounded to offline sidecar use</div>
+        <div style="font-size:12px;color:#ef4444;margin-top:2px;">Timeouts restrict this package to offline sidecar use</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">TOE Contract Tests</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Pipeline Contract Tests</div>
         <div style="font-size:18px;font-weight:600;color:#10b981;margin-top:4px;">${esc(contract.status ?? 'pass')}</div>
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">Sidecar/report export tests replay cleanly</div>
       </div>
@@ -263,7 +263,7 @@ function eqaInsights0053(data, esc) {
       </div>
     </div>
     <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-      &#x1F4A1; <strong>Auditing Insight:</strong> This record is a <strong>runtime integration audit</strong>. The verdict is stable on replay, but the key evidence is operational: the active Python environment resolves <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">logos</code> to the RExSyn package path, while direct Flamehaven-LOGOS imports and the AATS smoke run both time out. That is enough to keep the sidecar offline-only without treating this as a verified physics experiment.
+      &#x1F4A1; <strong>Auditing Insight:</strong> This record is a <strong>runtime integration audit</strong>. The verdict is stable on replay, but the key evidence is operational: the active Python environment resolves <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">logos</code> to a different package (not the expected Flamehaven-LOGOS package), while direct Flamehaven-LOGOS imports and the pipeline smoke tests both time out. That is enough to keep the sidecar offline-only without treating this as a verified physics experiment.
     </p>
   `;
 }
@@ -285,19 +285,19 @@ function eqaInsights0052(data, esc) {
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">score ${hist.score ?? spar.score ?? 73} / gate ${hist.gate ?? subj.gate ?? 'REJECTED'}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Current TOE Legacy Replay</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Current Legacy Replay</div>
         <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${legacyReplay.verdict ?? 'MINOR REVISION'}</div>
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">score ${legacyReplay.score ?? 76} / ${legacyReplay.date ?? '2026-06-02'}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Current toe-spar Replay</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Current Scope-Review Replay</div>
         <div style="font-size:20px;font-weight:600;color:#10b981;margin-top:4px;">${frameworkReplay.verdict ?? 'ACCEPT'}</div>
         <div style="font-size:12px;color:var(--t4);margin-top:2px;">score ${frameworkReplay.score ?? 98} / ${frameworkReplay.date ?? '2026-06-02'}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
         <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Stable Inputs</div>
-        <div style="font-size:20px;font-weight:600;color:#a78bfa;margin-top:4px;">Omega ${subj.sidrce_omega ?? 0.697}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">SR9 ${subj.sr9_resonance ?? 0.549} / DI2 ${subj.di2_drift ?? 0.548}</div>
+        <div style="font-size:20px;font-weight:600;color:#a78bfa;margin-top:4px;">Composite Ω ${subj.sidrce_omega ?? 0.697}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">Consistency (SR9) ${subj.sr9_resonance ?? 0.549} / Deviation (DI2) ${subj.di2_drift ?? 0.548}</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px;">
@@ -315,7 +315,7 @@ function eqaInsights0052(data, esc) {
       </div>
     </div>
     <p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-      &#x1F4A1; <strong>Auditing Insight:</strong> <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">TOE-TEST-0052</code> is not a frozen computation run. It is a <strong>framework-sensitive review artifact</strong>: the same manually encoded subject and critique text produced a historical <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">73 / MINOR REVISION</code>, a current TOE legacy replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">76 / MINOR REVISION</code>, and a current external toe-spar replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">98 / ACCEPT</code>. The drift is policy-layer drift, not new physics output.
+      &#x1F4A1; <strong>Auditing Insight:</strong> <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">TOE-TEST-0052</code> is not a frozen computation run. It is a <strong>framework-sensitive review artifact</strong>: the same manually encoded subject and critique text produced a historical <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">73 / MINOR REVISION</code>, a current legacy replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">76 / MINOR REVISION</code>, and a current external scope-review replay of <code style="font-family:'JetBrains Mono',monospace;font-size:12px;">98 / ACCEPT</code>. The drift is policy-layer drift, not new physics output.
     </p>
   `;
 }
@@ -337,7 +337,7 @@ function eqaIntegrity0054(data, esc, insIntegrity, insChecks) {
       <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(summary.what_passed || '')}</div>
     </div>`;
   let checksHtml = `<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Gate Boundary Checks</div>`;
-  checksHtml += renderSignalRow('Candidate generated', 'FAIL', 'LOGOS produced zero candidate results, so SPAR had nothing to review.');
+  checksHtml += renderSignalRow('Candidate generated', 'FAIL', 'The reasoning engine produced zero candidate results, so scope review had nothing to check.');
   checksHtml += renderSignalRow('Pipeline contract score usable', (data.pipeline_contract_score ?? 0) >= 0.85 ? 'PASS' : 'FAIL', 'score = ' + Number(data.pipeline_contract_score ?? 0).toFixed(3) + ' (threshold 0.850).');
   Object.entries(conns).forEach(function([key, val]) {
     const status = (val.contract_score ?? 0) >= 0.85 ? 'PASS' : 'WARN';
@@ -388,7 +388,7 @@ function eqaIntegrity0055(data, esc, insIntegrity, insChecks) {
       <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Record type</span><span style="color:var(--ts);">${esc(data.artifact_class || 'paper_driven_staged_research_artifact')}</span></div>
       <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Canonical run</span><span style="color:var(--ts);">${esc(data.canonical_run_id || 'toe-test-0055')}</span></div>
       <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Legacy aliases</span><span style="color:var(--ts);">${esc((data.legacy_aliases || []).join(', '))}</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'paper_review_to_fhval_to_dogfood')}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Review path</span><span style="color:var(--ts);">${esc(data.review_path || 'paper_review_to_fhval_to_internal_test')}</span></div>
       <div style="display:flex;justify-content:space-between;padding:6px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);gap:8px;"><span style="color:var(--t4);">Current phase</span><span style="color:var(--ts);">${esc(String(phaseVerdict.status || '').replace(/_/g,' '))}</span></div>
       <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);font-size:12px;color:var(--t3);line-height:1.6;"><strong style="color:var(--ts);">Reading rule:</strong> ${esc(summary.why_it_matters || '')}</div>
     </div>`;
@@ -400,7 +400,7 @@ function eqaIntegrity0055(data, esc, insIntegrity, insChecks) {
     checksHtml += renderSignalRow('Allowed now · ' + v, 'PASS', 'Bounded AEFSO use that remains inside research-only backend scope.');
   });
   (boundary.blocked_now || []).forEach(function(v) {
-    checksHtml += renderSignalRow('Blocked now · ' + v, 'FAIL', 'Core promotion remains blocked because the representation loses too much reviewability on TOE-facing surfaces.');
+    checksHtml += renderSignalRow('Blocked now · ' + v, 'FAIL', 'Core promotion remains blocked because the representation loses too much reviewability on framework-layer surfaces.');
   });
   insChecks.innerHTML = checksHtml;
 }
@@ -423,8 +423,8 @@ function eqaIntegrity0053(data, esc, insIntegrity, insChecks) {
   checksHtml += renderSignalRow('Key source files compile', 'PASS', compile.filter(function(x) { return x.status === 'pass'; }).length + '/' + compile.length + ' Flamehaven-LOGOS files compile.');
   checksHtml += renderSignalRow('Package resolution collision observed', 'WARN', packageOrigin);
   checksHtml += renderSignalRow('Direct Flamehaven-LOGOS import', runtime.direct_import?.status === 'pass' ? 'PASS' : 'FAIL', 'status = ' + (runtime.direct_import?.status || 'unknown') + ' at ' + (runtime.direct_import?.duration_s ?? '?') + 's.');
-  checksHtml += renderSignalRow('AATS smoke execution', runtime.aats_smoke?.status === 'pass' ? 'PASS' : 'FAIL', 'status = ' + (runtime.aats_smoke?.status || 'unknown') + ' at ' + (runtime.aats_smoke?.duration_s ?? '?') + 's.');
-  checksHtml += renderSignalRow('TOE sidecar contract tests', data.toe_contract_probe?.status === 'pass' ? 'PASS' : 'FAIL', 'status = ' + (data.toe_contract_probe?.status || 'unknown') + ' in ' + (data.toe_contract_probe?.duration_s ?? '?') + 's.');
+  checksHtml += renderSignalRow('Pipeline smoke execution (AATS)', runtime.aats_smoke?.status === 'pass' ? 'PASS' : 'FAIL', 'status = ' + (runtime.aats_smoke?.status || 'unknown') + ' at ' + (runtime.aats_smoke?.duration_s ?? '?') + 's.');
+  checksHtml += renderSignalRow('Pipeline sidecar contract tests', data.toe_contract_probe?.status === 'pass' ? 'PASS' : 'FAIL', 'status = ' + (data.toe_contract_probe?.status || 'unknown') + ' in ' + (data.toe_contract_probe?.duration_s ?? '?') + 's.');
   checksHtml += renderSignalRow('Offline-only safety boundary', 'PASS', summary.safe_boundary_preserved || 'The runtime remains degraded, so LOGOS is not promoted into a verifier or request-path role.');
   insChecks.innerHTML = checksHtml;
 }
@@ -549,7 +549,7 @@ function eqaAnalysis0052(container, data, esc) {
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div style="display:grid;grid-template-columns:160px 1fr auto auto;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Historical snapshot</div>
-        <div style="font-size:12px;color:var(--t4);">${esc(hist.engine_family || 'historical TOE + legacy SPAR')}</div>
+        <div style="font-size:12px;color:var(--t4);">${esc(hist.engine_family || 'historical pipeline + legacy scope review')}</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(hist.spar_verdict || spar.verdict || 'MINOR REVISION')}</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">${esc(hist.score ?? spar.score ?? 73)}/100</div>
       </div>
@@ -605,8 +605,8 @@ function eqaAnalysis0054(container, data, esc) {
       <span style="font-size:10px;color:var(--t4);font-family:'JetBrains Mono',monospace;">what held &middot; what changes next</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
-      <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What passed structurally</div><div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(summary.what_passed || 'SPAR remained mandatory and promotion stayed blocked.')}</div></div>
-      <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">LawBinder rationale</div><div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(law.rationale || 'INHIBIT')}</div></div>
+      <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#10b981;text-transform:uppercase;margin-bottom:8px;">What passed structurally</div><div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(summary.what_passed || 'Scope review remained mandatory and promotion stayed blocked.')}</div></div>
+      <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.18);border-radius:var(--r-sm);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ef4444;text-transform:uppercase;margin-bottom:8px;">Governance layer rationale</div><div style="font-size:12px;color:var(--t3);line-height:1.6;">${esc(law.rationale || 'INHIBIT')}</div></div>
     </div>
     <div style="margin-top:12px;padding:12px 14px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-sm);">
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.38);text-transform:uppercase;margin-bottom:8px;">Next actions</div>
@@ -634,7 +634,7 @@ function eqaAnalysis0053(container, data, esc) {
       <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Package resolution</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">${esc(runtime.package_name_resolution?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.package_name_resolution?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);word-break:break-all;">${esc((runtime.package_name_resolution?.stdout || '').trim() || 'no path recorded')}</div></div>
       <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Direct import</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(runtime.direct_import?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.direct_import?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">Importing <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">aats.pipeline</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">bridge.manifold_bridge</code>, and <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">missing_link.runner</code> exceeds the timeout budget.</div></div>
       <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">AATS smoke</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#ef4444;">${esc(runtime.aats_smoke?.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(runtime.aats_smoke?.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">Minimal sidecar execution cannot complete within the operational budget.</div></div>
-      <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">TOE contracts</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">${esc(contract.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(contract.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">The guarded sidecar/report export contract still replays cleanly.</div></div>
+      <div style="display:grid;grid-template-columns:150px 70px 80px 1fr;gap:10px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);">Pipeline contracts</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#10b981;">${esc(contract.status || 'unknown')}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t4);">${esc(contract.duration_s ?? '')}s</div><div style="font-size:12px;color:var(--t3);">The guarded sidecar/report export contract still replays cleanly.</div></div>
     </div>
     <div style="margin-top:12px;font-size:12.5px;color:var(--t3);line-height:1.6;">${esc(summary.decisive_issue || '')}</div>`;
   container.appendChild(s1);
@@ -721,7 +721,7 @@ const EQA_RENDERERS = {
       return [
         barChart('Validation Stack Completion',
           stack.map((s, i) => ({ label: s, value: 100, color: stackColors[i % stackColors.length] })),
-          { maxValue: 100, unit: '% complete', caption: 'All three validation stages completed: SPAR paper review, fhval validation, and TOE dogfood testing (4 runs).' }),
+          { maxValue: 100, unit: '% complete', caption: 'All three validation stages completed: scope-and-claim review, fhval validation, and internal testing (4 runs).' }),
         donutChart('Target Outcome Classification',
           [{ label: 'Optional Layer', value: 1, color: '#eab308' }, { label: 'Missing Link', value: 1, color: '#10b981' }, { label: 'Core (Rejected)', value: 1, color: '#ef4444' }],
           { centerText: 'ORL', centerSub: 'classification', caption: 'AEFSO received OPTIONAL_REPRESENTATION_LAYER classification. Core candidate rejected; missing-link discovery approved for continued research.' }),
@@ -753,9 +753,9 @@ const EQA_RENDERERS = {
           { maxValue: 1, caption: 'Minimum threshold for pipeline promotion: 0.850. INHIBIT gate triggered by hard constraint violation.' }),
         barChart('Dangerous Pass Risk by Connection', connRisk,
           { maxValue: 1, caption: 'The system is not just saying no. It localizes where a false promotion would be dangerous, with the global intake surface correctly pinned at risk 1.0.' }),
-        donutChart('LawBinder Constraint Outcomes',
+        donutChart('Governance Constraint Outcomes',
           [{ label: 'Clean constraints', value: clean, color: '#10b981' }, { label: 'Soft violations', value: soft, color: '#f59e0b' }, { label: 'Hard violations', value: hard, color: '#ef4444' }].filter(x => x.value > 0),
-          { centerText: String(hard), centerSub: 'hard', caption: 'LawBinder distinguishes one hard blocker from one softer usability blocker. That distinction is the real governance insight of 0054.' }),
+          { centerText: String(hard), centerSub: 'hard', caption: 'The governance layer distinguishes one hard blocker from one softer usability blocker. That distinction is the real governance insight of 0054.' }),
       ];
     },
   },
@@ -768,7 +768,7 @@ const EQA_RENDERERS = {
         { label: 'Package resolution', status: runtime.package_name_resolution?.status || 'unknown', duration: runtime.package_name_resolution?.duration_s ?? 0.0, color: '#10b981', note: (runtime.package_name_resolution?.stdout || '').trim() || 'no path recorded' },
         { label: 'Direct import', status: runtime.direct_import?.status || 'unknown', duration: runtime.direct_import?.duration_s ?? 0.0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'imports aats.pipeline, bridge.manifold_bridge, missing_link.runner' },
         { label: 'AATS smoke', status: runtime.aats_smoke?.status || 'unknown', duration: runtime.aats_smoke?.duration_s ?? 0.0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'runs AATSPipeline().run(...) in the active environment' },
-        { label: 'TOE contracts', status: contract.status || 'unknown', duration: contract.duration_s ?? 0.0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'tests/unit/test_logos_sidecar_contract.py + export contract' },
+        { label: 'Pipeline contracts', status: contract.status || 'unknown', duration: contract.duration_s ?? 0.0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'tests/unit/test_logos_sidecar_contract.py + export contract' },
       ];
       const passCount = probes.filter(p => p.status === 'pass').length + compile.filter(x => x.status === 'pass').length;
       const timeoutCount = probes.filter(p => p.status === 'timeout').length;
@@ -782,8 +782,8 @@ const EQA_RENDERERS = {
           [{ label: 'Pass', value: passCount, color: '#10b981' }, { label: 'Timeout', value: timeoutCount, color: '#ef4444' }, { label: 'Fail', value: failCount, color: '#f59e0b' }].filter(x => x.value > 0),
           { centerText: String(passCount), centerSub: 'passes', caption: 'The audit is not empty: compile checks and TOE contract tests pass. The decisive blockers are the two runtime timeouts.' }),
         barChart('Boundary Readiness Matrix',
-          [{ label: 'Source compile', value: compileRatio, color: '#10b981', note: compile.filter(x => x.status === 'pass').length + '/' + compile.length + ' key files compile' }, { label: 'Package resolution', value: runtime.package_name_resolution?.status === 'pass' ? 100 : 0, color: '#10b981', note: 'Path resolved, but not to Flamehaven-LOGOS' }, { label: 'Direct import', value: runtime.direct_import?.status === 'pass' ? 100 : 0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.direct_import?.status || 'unknown') }, { label: 'AATS smoke', value: runtime.aats_smoke?.status === 'pass' ? 100 : 0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.aats_smoke?.status || 'unknown') }, { label: 'TOE contracts', value: contract.status === 'pass' ? 100 : 0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (contract.status || 'unknown') }],
-          { maxValue: 100, unit: '%', caption: '0053 preserves the safe boundary because runtime execution is still degraded even though compile and TOE contract checks are healthy.' }),
+          [{ label: 'Source compile', value: compileRatio, color: '#10b981', note: compile.filter(x => x.status === 'pass').length + '/' + compile.length + ' key files compile' }, { label: 'Package resolution', value: runtime.package_name_resolution?.status === 'pass' ? 100 : 0, color: '#10b981', note: 'Path resolved, but not to Flamehaven-LOGOS' }, { label: 'Direct import', value: runtime.direct_import?.status === 'pass' ? 100 : 0, color: runtime.direct_import?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.direct_import?.status || 'unknown') }, { label: 'AATS smoke', value: runtime.aats_smoke?.status === 'pass' ? 100 : 0, color: runtime.aats_smoke?.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (runtime.aats_smoke?.status || 'unknown') }, { label: 'Pipeline contracts', value: contract.status === 'pass' ? 100 : 0, color: contract.status === 'pass' ? '#10b981' : '#ef4444', note: 'status = ' + (contract.status || 'unknown') }],
+          { maxValue: 100, unit: '%', caption: '0053 preserves the safe boundary because runtime execution is still degraded even though compile and contract checks are healthy.' }),
       ];
     },
   },
@@ -801,10 +801,10 @@ const EQA_RENDERERS = {
       return [
         barChart('Replay Comparison',
           [{ label: 'Historical', value: historicalScore, color: '#ef4444', note: 'Historical snapshot — ' + (hist.spar_verdict ?? spar.verdict ?? 'MINOR REVISION') }, { label: 'TOE Legacy', value: legacyReplay.score ?? historicalScore, color: '#eab308', note: (legacyReplay.verdict ?? 'MINOR REVISION') + ' on ' + (legacyReplay.date ?? '2026-06-02') }, { label: 'toe-spar', value: frameworkReplay.score ?? 98, color: '#10b981', note: (frameworkReplay.verdict ?? 'ACCEPT') + ' on ' + (frameworkReplay.date ?? '2026-06-02') }],
-          { maxValue: 100, unit: '/100', caption: 'Same manually encoded subject, different SPAR policy surfaces. This chart shows review-policy drift, not new physics output.' }),
+          { maxValue: 100, unit: '/100', caption: 'Same manually encoded subject, different scope-review policy surfaces. This chart shows review-policy drift, not new physics output.' }),
         barChart('Agent Metrics',
-          [{ label: 'SR9 Resonance', value: Math.round((subj.sr9_resonance ?? 0) * 100), color: '#10b981', note: (subj.sr9_resonance ?? 0) + ' — theoretical alignment' }, { label: 'DI2 Drift', value: Math.round((subj.di2_drift ?? 0) * 100), color: '#ef4444', note: (subj.di2_drift ?? 0) + ' — claim-to-math deviation' }, { label: 'Omega (SIDRCE)', value: Math.round((subj.sidrce_omega ?? 0) * 100), color: '#eab308', note: (subj.sidrce_omega ?? 0) + ' — composite adjudication' }],
-          { maxValue: 100, unit: '%', caption: 'SR9 Resonance measures theoretical alignment. DI2 Drift measures claim-to-math deviation. Omega is the composite SIDRCE adjudication score.' }),
+          [{ label: 'SR9 (cross-domain consistency)', value: Math.round((subj.sr9_resonance ?? 0) * 100), color: '#10b981', note: (subj.sr9_resonance ?? 0) + ' — theoretical alignment' }, { label: 'DI2 (reasoning deviation)', value: Math.round((subj.di2_drift ?? 0) * 100), color: '#ef4444', note: (subj.di2_drift ?? 0) + ' — claim-to-math deviation' }, { label: 'Omega (composite score)', value: Math.round((subj.sidrce_omega ?? 0) * 100), color: '#eab308', note: (subj.sidrce_omega ?? 0) + ' — composite adjudication' }],
+          { maxValue: 100, unit: '%', caption: 'SR9 measures cross-domain reasoning consistency. DI2 measures reasoning deviation from stated claims. Omega is the composite adjudication score.' }),
         donutChart('Finding Severity Mix',
           [{ label: 'ANOMALY', value: statusCounts.ANOMALY || 0, color: '#ef4444' }, { label: 'WARN', value: statusCounts.WARN || 0, color: '#f59e0b' }, { label: 'APPROXIMATION', value: statusCounts.APPROXIMATION || 0, color: '#eab308' }, { label: 'GAPPED', value: statusCounts.GAPPED || 0, color: '#60a5fa' }, { label: 'HEURISTIC', value: statusCounts.HEURISTIC || 0, color: '#a78bfa' }].filter(x => x.value > 0),
           { centerText: String(findings.length), centerSub: 'findings', caption: 'The verdict is driven by one scope anomaly, one scope-honesty warning, and three bounded-domain/model-gap findings.' }),
