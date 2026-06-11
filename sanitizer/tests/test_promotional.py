@@ -57,9 +57,42 @@ def test_scope_gate_blocks_out_of_scope_files():
     assert f == []
 
 
+# ── jargon_language detector tests ──────────────────────────────────────────
+JCFG = {
+    "jargon_scope": [],
+    "jargon_terms": S._JARGON_TERMS_DEFAULT,
+    "jargon_allowlist": S._JARGON_ALLOW_DEFAULT,
+}
+
+
+def _jhits(text, ext):
+    _, f = S.detect_jargon(text, JCFG, ext, "fixture." + ext)
+    return [x.original.lower() for x in f]
+
+
+def test_bare_jargon_md_is_flagged():
+    hits = _jhits("Pipeline SR9 score below threshold. DI2 elevated.", "md")
+    assert "sr9" in hits and "di2" in hits, hits
+
+
+def test_jargon_in_parens_not_flagged():
+    assert _jhits("cross-domain consistency (SR9) score = 1.0", "md") == []
+    assert _jhits("reasoning deviation (DI2) = 0.13", "md") == []
+
+
+def test_jargon_inline_code_not_flagged():
+    assert _jhits("use the `sr9` metric key in the manifest", "md") == []
+
+
+def test_jargon_scope_gate():
+    cfg = dict(JCFG, jargon_scope=["index.html"])
+    _, f = S.detect_jargon("sr9 score", cfg, "md", "README.md")
+    assert f == []
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:
         fn()
         print("PASS", fn.__name__)
-    print("\nAll %d promotional_language tests passed." % len(fns))
+    print("\nAll %d tests passed." % len(fns))

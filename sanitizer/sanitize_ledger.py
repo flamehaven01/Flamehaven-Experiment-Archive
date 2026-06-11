@@ -74,7 +74,7 @@ DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",
                   "ipv4_address": "detect", "email_address": "detect",
                   "secret_token": "detect", "synthetic_marker": "detect",
-                  "promotional_language": "detect"},
+                  "promotional_language": "detect", "jargon_language": "detect"},
     "markers": ["Sanctum", "STRUCTURA", "Users/dream", "Users\\dream"],
     "ignore_dirs": [".git", ".claude", "node_modules", "__pycache__", "sanitizer"],
     "extensions": ["json", "md", "html", "js", "yaml", "yml", "cff", "txt"],
@@ -200,6 +200,25 @@ def _load_promo_cfg() -> tuple:
         return [], ["index.html", "eqa.html", "README.md"], []
 
 _PROMO_TERMS_DEFAULT, _PROMO_SCOPE_DEFAULT, _PROMO_ALLOW_DEFAULT = _load_promo_cfg()
+
+# ----- jargon_language detector (scope-gated, same scope as promo) -----------
+# Unexplained internal codes that must not appear bare in public prose.
+# Term list and allowlist live in .sanconfig.yaml (jargon_terms / jargon_allowlist).
+def _load_jargon_cfg() -> tuple:
+    cfg_path = Path(__file__).resolve().parent / ".sanconfig.yaml"
+    try:
+        import yaml
+        data = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+        return (
+            data.get("jargon_terms", []),
+            data.get("jargon_scope", ["index.html", "eqa.html", "README.md"]),
+            data.get("jargon_allowlist", []),
+        )
+    except Exception:
+        return [], ["index.html", "eqa.html", "README.md"], []
+
+_JARGON_TERMS_DEFAULT, _JARGON_SCOPE_DEFAULT, _JARGON_ALLOW_DEFAULT = _load_jargon_cfg()
+
 _HTML_DROP_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.I | re.S)
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
 _MD_FENCE_RE = re.compile(r"```.*?```", re.S)
@@ -241,6 +260,28 @@ def detect_promotional(text: str, cfg: dict, ext: str = "", relpath: str = ""):
     return text, found
 
 
+def detect_jargon(text: str, cfg: dict, ext: str = "", relpath: str = ""):
+    """Flag bare internal codes / abbreviations in our authored public surface."""
+    scope = cfg.get("jargon_scope", _JARGON_SCOPE_DEFAULT)
+    rel = (relpath or "").replace("\\", "/")
+    if scope and rel not in scope:
+        return text, []
+    terms = cfg.get("jargon_terms", _JARGON_TERMS_DEFAULT)
+    if not terms:
+        return text, []
+    allow = [re.compile(a) for a in cfg.get("jargon_allowlist", _JARGON_ALLOW_DEFAULT)]
+    rx = re.compile(r"(?i)\b(" + "|".join(re.escape(t) for t in terms) + r")\b")
+    visible = _visible_text(text, ext)
+    found = []
+    for m in rx.finditer(visible):
+        s, e = max(0, m.start() - 24), m.end() + 24
+        ctx = visible[s:e]
+        if any(a.search(ctx) for a in allow):
+            continue
+        found.append(Finding("jargon_language", m.group(0), FLAG))
+    return text, found
+
+
 _FIX["abs_path_collapse"] = fix_abs_path
 _FIX["hangul_redact"] = fix_hangul
 _FIX["credibility_clean"] = fix_credibility
@@ -270,9 +311,13 @@ def sanitize_text(text: str, cfg: dict, ext: str = "", relpath: str = "") -> Tup
     det = cfg.get("detectors", DEFAULT_CONFIG["detectors"])
     findings: List[Finding] = []
     for rid, mode in det.items():
-        # promotional_language is path/content-aware; it self-scopes (html/md only).
+        # promotional_language and jargon_language are scope-gated content-aware detectors.
         if rid == "promotional_language" and mode != "fix":
             _, f = detect_promotional(text, cfg, ext, relpath)
+            findings.extend(f)
+            continue
+        if rid == "jargon_language" and mode != "fix":
+            _, f = detect_jargon(text, cfg, ext, relpath)
             findings.extend(f)
             continue
         fn = _FIX.get(rid) if mode == "fix" else _DETECT.get(rid)

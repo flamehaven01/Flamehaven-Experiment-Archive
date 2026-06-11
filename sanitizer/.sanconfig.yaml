@@ -13,6 +13,7 @@ detectors:
   credibility_slop: detect    # residual pseudo-science symbol markers (runs on all files)
   synthetic_marker: detect    # fabrication tag "[synthetic]" / mock data (runs on all files)
   promotional_language: detect  # superlatives / self-promotion in public surface (scope-gated)
+  jargon_language: detect       # unexplained internal codes / abbreviations (scope-gated)
 
 # promotional_language: enforce the understatement posture on the public-facing
 # surface only. Scope, term list, and allowlist are config (not hardcoded).
@@ -37,6 +38,24 @@ promo_terms:                  # superlative / strong-appeal words; ambiguous tec
   - unparalleled
 promo_allowlist:              # legitimate technical usages (regex, checked in +/-24 char context)
   - '(?i)absolute\s+path'     # "absolute path(s)" is a file-system term, not promotion
+
+# Internal jargon terms that must be explained (or avoided) in public prose.
+# When a term is used with its expansion in parens — e.g. "cross-domain consistency (SR9)" —
+# add a jargon_allowlist entry so the detector does not flag it.
+jargon_terms:
+  - sr9          # cross-domain consistency score (internal Flamehaven code)
+  - di2          # reasoning deviation score (internal Flamehaven code)
+  - p_e2e        # end-to-end reliability probability (internal Flamehaven code)
+  - rexsyn       # internal biomedical pipeline name
+  - nnsl         # internal signal-processing system name
+  - lawbinder    # internal governance constraint component
+  - toe          # Theorem/Observation/Equation lane abbreviation (internal)
+
+jargon_allowlist:          # regex — checked in +/-24 char context around the match
+  - '(?i)\(sr9\)'          # "cross-domain consistency (SR9)" — already expanded
+  - '(?i)\(di2\)'          # "reasoning deviation (DI2)" — already expanded
+  - '(?i)\(p[_-]?e2e\)'   # "(p_e2e)" or "(pe2e)" — already expanded
+  - '(?i)toe-test'         # toe-test-XXXX experiment identifiers (code context)
 
 # Credibility slop: grandiose / pseudo-scientific authority phrases.
 # These terms trigger the credibility_slop detector (detect-only, all files).
