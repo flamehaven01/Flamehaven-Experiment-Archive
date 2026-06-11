@@ -1,0 +1,22 @@
+{
+  "schema_id": "flamehaven_eqa_manifest.v1",
+  "experiment_id": "toe-test-0055",
+  "api_summary": {
+    "title": "AEFSO — abstract execution formalism as optional representation layer",
+    "verdict": "ACCEPT",
+    "verdict_label": "Accept with bounds",
+    "date": "2026-04-16",
+    "brief": "Research-viable as a supporting construct; rejected for core promotion.",
+    "summary": "AEFSO (All Elementary Functions from a Single Operator) is more likely a representation-layer or symbolic-search primitive than a direct replacement for core physics models. Accepted as an optional backend representation layer within explicit scope bounds. Core promotion is blocked.",
+    "findings": [
+      "AEFSO converges to design-update insight: optional backend representation layer",
+      "Accepted as symbolic-search primitive within bounded scope",
+      "Rejected for core promotion; next gate is closed",
+      "Review path: scope and claim-honesty review, fhval validation, internal testing"
+    ],
+    "metrics": {
+      "toe_scope": "optional_backend_representation_layer",
+      "core_promotion": false
+    }
+  }
+}

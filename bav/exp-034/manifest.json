@@ -15,5 +15,27 @@
   "finding": "Accepted legacy-replay anchor passed the final stage gate, while current-regeneration remained a separate diagnostic HOLD. Cross-cycle accuracy delta stayed 0.0: non-degradation, not repair.",
   "source": "EXP-034-public/exp034_stage_gate_report.public.json + artifacts",
   "provenance_note": "Stage-gate report is the final sanitized public PASS artifact; benchmark and cross-parity files are public ledger copies with SHA256 anchored to the published files.",
-  "disclaimer": "Methodology / governance / reproducibility only. No efficacy or causal claim."
+  "disclaimer": "Methodology / governance / reproducibility only. No efficacy or causal claim.",
+  "api_summary": {
+    "title": "Cross-cycle non-degradation check",
+    "verdict": "PASS",
+    "verdict_label": "Pass (accepted anchor)",
+    "date": "2026-04-19",
+    "brief": "Accuracy delta = 0.000 across pipeline generations; non-degradation confirmed.",
+    "summary": "Legacy-replay anchor passed the final stage gate. Cross-cycle balanced accuracy held at 1.0; governance surfaces became more measurable without regression. Current-regeneration path held as a separate diagnostic HOLD, not blended into the verdict.",
+    "findings": [
+      "Balanced accuracy = 1.0 across 6 payloads (3 PASS, 3 BLOCK correctly classified)",
+      "Cross-cycle accuracy delta = 0.000: non-degradation, not repair",
+      "SR9 (cross-domain consistency) = 1.000 — above the 0.70 pipeline guard",
+      "DI2 (reasoning deviation) = 0.127 — within the 0.30 pipeline guard"
+    ],
+    "metrics": {
+      "sr9": 1.0,
+      "di2": 0.1270,
+      "p_e2e": 0.6072,
+      "balanced_accuracy": 1.0,
+      "pass_recall": 1.0,
+      "block_recall": 1.0
+    }
+  }
 }

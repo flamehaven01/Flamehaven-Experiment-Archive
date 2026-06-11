@@ -41,3 +41,6 @@ jobs:
 
       - name: HTML structural tag balance
         run: python scripts/check_html_balance.py
+
+      - name: API drift check
+        run: python scripts/build_api.py --check

@@ -1,0 +1,26 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "toe-test-0053",
+  "lane": "EQA",
+  "title": "Logos namespace boundary \u2014 runtime import and execution check",
+  "verdict": "DEGRADED",
+  "verdict_label": "Degraded",
+  "date": "2026-05-24",
+  "summary": "Runtime integration audit. The active Python environment resolves the logos namespace to a different package, causing direct Flamehaven-LOGOS import and pipeline smoke tests to time out at 20 seconds. Pipeline contract tests and export validation passed. LOGOS remains generator-only.",
+  "key_metrics": {
+    "contract_tests": "PASS",
+    "import_status": "TIMEOUT",
+    "smoke_status": "TIMEOUT",
+    "timeout_budget_s": 20
+  },
+  "findings": [
+    "Pipeline contract tests: PASS",
+    "Direct import and pipeline smoke execution: TIMEOUT (20s budget exceeded)",
+    "Namespace collision: logos resolves to a different package in the active environment",
+    "Safe boundary preserved: LOGOS remains generator-only; no verifier/promotion boundary breached"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0053",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0053/analysis_results.json"
+  }
+}

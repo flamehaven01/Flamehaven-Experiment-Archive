@@ -1,0 +1,32 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-005",
+  "lane": "BAV",
+  "title": "Upadacitinib topical formulation null screen",
+  "verdict": "NULL",
+  "verdict_label": "Truthful null",
+  "date": "2025-12",
+  "summary": "Three lipid-based carriers for Upadacitinib each scored SR9 far below the 0.80 honesty gate and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
+  "key_metrics": {
+    "sr9_mean": 0.254,
+    "sr9_threshold": 0.8,
+    "samples_rejected": 3,
+    "samples_total": 3
+  },
+  "findings": [
+    "SLN: SR9 = 0.278 \u2014 rejected (below 0.80 honesty gate)",
+    "NLC: SR9 = 0.227 \u2014 rejected (below 0.80 honesty gate)",
+    "Liposomal Gel: SR9 = 0.258 \u2014 rejected (below 0.80 honesty gate)",
+    "All 3 carriers rejected in under 2 hours; pipeline correctly declined to claim efficacy"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-005",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-005/manifest.json"
+  },
+  "external_anchors": [
+    {
+      "label": "Blog: How Failing in 2 Hours Saved 8 Months",
+      "url": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/"
+    }
+  ]
+}

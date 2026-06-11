@@ -1,0 +1,25 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "toe-test-0054",
+  "lane": "EQA",
+  "title": "Governance gate \u2014 pipeline constraint verification",
+  "verdict": "BLOCK",
+  "verdict_label": "Block",
+  "date": "2026-05",
+  "summary": "Pre-scope-review intake governance audit. LOGOS completed the intake call but produced zero candidate results. Pipeline contract score = 0.625; dangerous pass risk = 1.0 on the evidence-to-LOGOS connection surface. Scope review remains mandatory; registry advancement blocked.",
+  "key_metrics": {
+    "contract_score": 0.625,
+    "dangerous_pass_risk": 1.0,
+    "gate": "BLOCK"
+  },
+  "findings": [
+    "Pipeline contract score = 0.625; overall check = FAIL",
+    "Dangerous false-pass risk = 1.0 on the evidence-to-LOGOS connection surface",
+    "Gate recommendation = BLOCK; registry promotion blocked",
+    "Governance layer correctly inhibited advancement despite zero candidates"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0054",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0054/logos_toe_contract_inspection.json"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-031",
+  "lane": "BAV",
+  "title": "Out-of-distribution protein target \u2014 3-arm observer study",
+  "verdict": "HOLD",
+  "verdict_label": "Keep observer",
+  "date": "2026-02-09",
+  "summary": "All three arms failed convergence under out-of-distribution stress. Multi-model disagreement correctly flagged the target as outside model distribution. Observer-only decision was safety-aligned: disagreement kept visible rather than resolved by majority vote.",
+  "key_metrics": {
+    "drift_mean": 0.1864,
+    "plddt_mean": 52.17,
+    "arms_unverified": 3,
+    "arms_total": 3
+  },
+  "findings": [
+    "All 3 arms: trinity_failed_convergence \u2014 drift detected across all models",
+    "Promotion decision = KEEP_OBSERVER; minimum 50 samples required for promotion",
+    "Arm C: pLDDT mean = 76.52 (partially structured); Arms A and B: pLDDT = 40.0 (low confidence)",
+    "AlphaFold 2 and AlphaFold 3 outputs show low-confidence structural predictions"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-031",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-031/arm-a/hybrid_result.json"
+  }
+}

@@ -39,5 +39,31 @@
   "note": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/",
   "source": "RExSyn Upadacitinib forensic repo (workspace paths sanitized for public release)",
   "provenance_note": "Public ledger files are path-sanitized derivatives of the original NNSL outputs; SHA-256 values below are anchored to the published sanitized files, not the pre-sanitization source copies. Live-fetched, no hardcoding (DI-BSC-001).",
-  "disclaimer": "Pipeline reliability + honesty heuristics only. NOT clinical efficacy."
+  "disclaimer": "Pipeline reliability + honesty heuristics only. NOT clinical efficacy.",
+  "api_summary": {
+    "title": "Upadacitinib topical formulation null screen",
+    "verdict": "NULL",
+    "verdict_label": "Truthful null",
+    "date": "2025-12",
+    "brief": "SR9 gate rejected all 3 lipid carriers (SLN, NLC, Liposomal Gel); confirmed negative in under 2 hours.",
+    "summary": "Three lipid-based carriers for Upadacitinib each scored SR9 far below the 0.80 honesty gate and were all correctly rejected. Early pipeline run with manual operator context. The honest public reading is a confirmed negative: the gate worked correctly.",
+    "findings": [
+      "SLN: SR9 = 0.278 — rejected (below 0.80 honesty gate)",
+      "NLC: SR9 = 0.227 — rejected (below 0.80 honesty gate)",
+      "Liposomal Gel: SR9 = 0.258 — rejected (below 0.80 honesty gate)",
+      "All 3 carriers rejected in under 2 hours; pipeline correctly declined to claim efficacy"
+    ],
+    "metrics": {
+      "sr9_mean": 0.254,
+      "sr9_threshold": 0.80,
+      "samples_rejected": 3,
+      "samples_total": 3
+    },
+    "external_anchors": [
+      {
+        "label": "Blog: How Failing in 2 Hours Saved 8 Months",
+        "url": "https://flamehaven.space/writing/how-failing-in-2-hours-saved-8-months-of-drug-rd-engineering-a-truthful-null-with-upadacitinib/"
+      }
+    ]
+  }
 }

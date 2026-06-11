@@ -35,5 +35,25 @@
       "External experimental validation of the toy model",
       "Non-zero Kirkwood-Dirac negativity or Transfer Tensor memory depth (both evaluated to 0.0 in the test artifacts)"
     ]
+  },
+  "api_summary": {
+    "title": "QSOT Compiler — quantum-state-over-time compilation",
+    "verdict": "DEGRADED",
+    "verdict_label": "Degraded pass",
+    "date": "2025-12-23",
+    "brief": "Multiphase checks pass with scope caveats; classified as a verification artifact with limitations.",
+    "summary": "All 4 verification checks pass (trace preservation, linearity, boost parameter, cryptographic hash chain). Verdict deliberately limited to model-output consistency only: no external physical validity claimed, no execution beyond the declared scope.",
+    "findings": [
+      "4/4 checks passed: trace preservation, linearity axiom, boost parameter, hash chain",
+      "Verdict limited to model-output consistency only — no external physical validity claimed",
+      "Average coherence = 0.702; final coherence = 0.444 (acceptable within stated bounds)",
+      "Classified as a verification artifact with scope limitations, not a full physics reproduction"
+    ],
+    "metrics": {
+      "checks_total": 4,
+      "checks_passed": 4,
+      "coherence_mean": 0.702,
+      "coherence_final": 0.444
+    }
   }
 }

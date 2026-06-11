@@ -14,7 +14,28 @@
       "final_score": 48,
       "formal_tier": "T1 Quarantine",
       "score_cap": 69,
-      "coverage_rate": 0.219
+      "coverage_rate": 0.219,
+      "api_summary": {
+        "title": "BSC scan: yorkeccak/bio",
+        "verdict": "T1",
+        "verdict_label": "High Risk — T1 Quarantine",
+        "date": "2026-05-31",
+        "brief": "Score 48/100 (cap 69); no clinical-use disclaimers, unsafe transitive dependency patterns.",
+        "summary": "Static zero-execution compliance scan. No clinical-use disclaimers present; unsafe transitive dependency patterns detected; incomplete data provenance documentation. Score capped at 69 due to clinical-adjacent classification without an explicit boundary statement.",
+        "findings": [
+          "Final score: 48 / 100 (cap 69 for clinical-adjacent without explicit boundary)",
+          "No explicit clinical-use disclaimers found",
+          "Unsafe transitive dependency patterns detected",
+          "Incomplete data provenance documentation",
+          "Static scan coverage: 21.9% of in-scope AIRI risks"
+        ],
+        "metrics": {
+          "final_score": 48,
+          "score_cap": 69,
+          "coverage_rate": 0.219,
+          "clinical_adjacent": true
+        }
+      }
     },
     {
       "id": "bioclaw",
@@ -27,7 +48,28 @@
       "formal_tier": "T2 Caution",
       "score_cap": 69,
       "coverage_rate": 0.062,
-      "weights_status": "uncalibrated_initial_priors_pending_benchmark_calibration"
+      "weights_status": "uncalibrated_initial_priors_pending_benchmark_calibration",
+      "api_summary": {
+        "title": "BSC scan: Runchuan-BU/BioClaw",
+        "verdict": "T2",
+        "verdict_label": "Caution — T2",
+        "date": "2026-05-21",
+        "brief": "Score 60/100; partial compliance, data provenance partially documented, exception handling gaps.",
+        "summary": "Static zero-execution compliance scan. Partial compliance with data provenance partially documented and exception handling gaps identified. Weights are uncalibrated initial priors pending benchmark calibration. Usable with acknowledged limitations and active monitoring.",
+        "findings": [
+          "Final score: 60 / 100 (cap 69 for clinical-adjacent without explicit boundary)",
+          "Partial compliance: data provenance partially documented",
+          "Exception handling gaps identified",
+          "Static scan coverage: 6.2% of in-scope AIRI risks (narrow scope)",
+          "Weights status: uncalibrated initial priors — results advisory only"
+        ],
+        "metrics": {
+          "final_score": 60,
+          "score_cap": 69,
+          "coverage_rate": 0.062,
+          "clinical_adjacent": true
+        }
+      }
     }
   ],
   "provenance_note": "Verbatim STEM-BIO-AI scanner outputs; workspace paths sanitized (DI-SAN-001). The file_hashes_sha256 inside each report hash the SCANNED external repo's files; the sha256 here anchors the published ledger result file itself.",

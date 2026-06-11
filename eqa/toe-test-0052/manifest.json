@@ -1,0 +1,24 @@
+{
+  "schema_id": "flamehaven_eqa_manifest.v1",
+  "experiment_id": "toe-test-0052",
+  "api_summary": {
+    "title": "GTE pedagogy — general-theory-of-everything claim",
+    "verdict": "REJECTED",
+    "verdict_label": "Gate rejected",
+    "date": "2026-01",
+    "brief": "Claim scope exceeds what the mathematical construction supports; pedagogy claim lacks reproducible evidence.",
+    "summary": "Framework-sensitive review artifact. The PDE unification idea is mathematically coherent within a bounded domain (incompressible Newtonian flow), but the universal pedagogical foundation claim overreaches the encoded evidence. Gate REJECTED. Composite score Omega = 0.697.",
+    "findings": [
+      "Omega (composite score) = 0.697; SR9 = 0.549; DI2 drift = 0.548",
+      "Gate = REJECTED: claim scope exceeds mathematical construction",
+      "Math valid but bounded: coherent inside encoded domain only (incompressible Newtonian flow)",
+      "Universal pedagogical foundation claim exceeds mathematical scope reviewed — no independent educational evidence"
+    ],
+    "metrics": {
+      "omega": 0.697,
+      "sr9": 0.549,
+      "di2": 0.548,
+      "gate": "REJECTED"
+    }
+  }
+}

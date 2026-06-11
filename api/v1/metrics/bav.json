@@ -1,0 +1,73 @@
+{
+  "schema": "flamehaven_api_v1_bav_metrics",
+  "generated_at_utc": "2026-06-11T06:10:21.463517+00:00",
+  "note": "SR9 >= 0.70 pipeline guard, >= 0.80 honesty gate. DI2 <= 0.30 pipeline guard, <= 0.20 honesty gate. p_e2e = capture x transfer x model x clinical.",
+  "experiments": [
+    {
+      "id": "bav-exp-034",
+      "title": "Cross-cycle non-degradation check",
+      "verdict": "PASS",
+      "date": "2026-04-19",
+      "sr9": 1.0,
+      "di2": 0.127,
+      "p_e2e": 0.6072,
+      "balanced_accuracy": 1.0,
+      "pass_recall": 1.0,
+      "block_recall": 1.0
+    },
+    {
+      "id": "bav-exp-033",
+      "title": "Repro2 parity test against baseline",
+      "verdict": "FAIL",
+      "date": "2026-03-08",
+      "sr9": 0.9531,
+      "di2": 0.1637,
+      "p_e2e": 0.5627,
+      "balanced_accuracy": 0.5,
+      "pass_recall": 0.0,
+      "block_recall": 1.0
+    },
+    {
+      "id": "bav-exp-032",
+      "title": "PASS/BLOCK classification parity",
+      "verdict": "PASS",
+      "date": "2026-04-16",
+      "balanced_accuracy": 1.0,
+      "dangerous_pass_rate": 0.0,
+      "pass_recall": 1.0,
+      "block_recall": 1.0
+    },
+    {
+      "id": "bav-exp-031",
+      "title": "Out-of-distribution protein target \u2014 3-arm observer study",
+      "verdict": "HOLD",
+      "date": "2026-02-09",
+      "drift_mean": 0.1864,
+      "plddt_mean": 52.17,
+      "arms_unverified": 3,
+      "arms_total": 3
+    },
+    {
+      "id": "bav-exp-028",
+      "title": "Honesty calibration under cross-domain query",
+      "verdict": "ABSTAIN",
+      "date": "2026-02-05",
+      "sr9_auc": 1.0,
+      "overall_auc": 1.0,
+      "brier_after": 0.0056,
+      "ece_after": 0.075,
+      "sr9_honesty_gate": 0.8,
+      "sr9_gate_passed": false
+    },
+    {
+      "id": "bav-exp-005",
+      "title": "Upadacitinib topical formulation null screen",
+      "verdict": "NULL",
+      "date": "2025-12",
+      "sr9_mean": 0.254,
+      "sr9_threshold": 0.8,
+      "samples_rejected": 3,
+      "samples_total": 3
+    }
+  ]
+}

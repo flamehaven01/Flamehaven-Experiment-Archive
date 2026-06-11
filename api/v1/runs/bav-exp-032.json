@@ -1,0 +1,26 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-032",
+  "lane": "BAV",
+  "title": "PASS/BLOCK classification parity",
+  "verdict": "PASS",
+  "verdict_label": "Go (legacy replay anchor)",
+  "date": "2026-04-16",
+  "summary": "Correct PASS/BLOCK discrimination across all 6 arm payloads. Balanced accuracy = 1.0, zero dangerous false-pass. Legacy replay is the accepted parity anchor; current-regeneration path held as separate diagnostic.",
+  "key_metrics": {
+    "balanced_accuracy": 1.0,
+    "dangerous_pass_rate": 0.0,
+    "pass_recall": 1.0,
+    "block_recall": 1.0
+  },
+  "findings": [
+    "Balanced accuracy = 1.0; dangerous pass rate = 0.0 across all 6 arms",
+    "Go/no-go verdict = GO for the legacy-replay anchor path",
+    "Current-regeneration path excluded from parity verdict (diagnostic HOLD)",
+    "Governance layer correctly escalated all payloads; contract checks passed"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-032",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-032/pass-001-arm-a/payload.json"
+  }
+}

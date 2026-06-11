@@ -1,0 +1,28 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-033",
+  "lane": "BAV",
+  "title": "Repro2 parity test against baseline",
+  "verdict": "FAIL",
+  "verdict_label": "Fail",
+  "date": "2026-03-08",
+  "summary": "EXP-032 baseline parity was perfect, but EXP-033 current repro2 collapsed PASS-eligible controls to BLOCK (tp_pass = 0, balanced_accuracy = 0.5) via a threshold gate. Zero dangerous false-pass was preserved, but promotion parity failed.",
+  "key_metrics": {
+    "sr9": 0.9531,
+    "di2": 0.1637,
+    "p_e2e": 0.5627,
+    "balanced_accuracy": 0.5,
+    "pass_recall": 0.0,
+    "block_recall": 1.0
+  },
+  "findings": [
+    "Baseline (EXP-032) balanced accuracy = 1.0; current (EXP-033 repro2) balanced accuracy = 0.5",
+    "Pass recall collapsed from 1.00 to 0.00 in the repro2 run",
+    "No dangerous false-pass: governance boundary held",
+    "Failure surface localised to end-to-end reliability threshold gate (R5_e2e_floor)"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-033",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-033/governance_multiaxis.json"
+  }
+}

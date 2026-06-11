@@ -1,0 +1,26 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "toe-test-0057",
+  "lane": "EQA",
+  "title": "QSOT Compiler \u2014 quantum-state-over-time compilation",
+  "verdict": "DEGRADED",
+  "verdict_label": "Degraded pass",
+  "date": "2025-12-23",
+  "summary": "All 4 verification checks pass (trace preservation, linearity, boost parameter, cryptographic hash chain). Verdict deliberately limited to model-output consistency only: no external physical validity claimed, no execution beyond the declared scope.",
+  "key_metrics": {
+    "checks_total": 4,
+    "checks_passed": 4,
+    "coherence_mean": 0.702,
+    "coherence_final": 0.444
+  },
+  "findings": [
+    "4/4 checks passed: trace preservation, linearity axiom, boost parameter, hash chain",
+    "Verdict limited to model-output consistency only \u2014 no external physical validity claimed",
+    "Average coherence = 0.702; final coherence = 0.444 (acceptable within stated bounds)",
+    "Classified as a verification artifact with scope limitations, not a full physics reproduction"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0057",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0057/verification_result.json"
+  }
+}

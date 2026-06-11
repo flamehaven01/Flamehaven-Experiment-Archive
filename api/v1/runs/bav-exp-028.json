@@ -1,0 +1,28 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-028",
+  "lane": "BAV",
+  "title": "Honesty calibration under cross-domain query",
+  "verdict": "ABSTAIN",
+  "verdict_label": "Honest abstain",
+  "date": "2026-02-05",
+  "summary": "Calibration metrics are statistically excellent on a pilot of n=2 (SR9 AUC = 1.0, Brier = 0.006 after isotonic calibration). However cross-domain consistency (SR9) fails the 0.80 honesty gate. The deployment gate fell back to Youden J = 0. System correctly declined to claim generalisation.",
+  "key_metrics": {
+    "sr9_auc": 1.0,
+    "overall_auc": 1.0,
+    "brier_after": 0.0056,
+    "ece_after": 0.075,
+    "sr9_honesty_gate": 0.8,
+    "sr9_gate_passed": false
+  },
+  "findings": [
+    "SR9 AUC = 1.0 and overall AUC = 1.0 on 6-sample pilot \u2014 perfect discrimination",
+    "Brier score improved from 0.204 to 0.006 after isotonic PAV calibration",
+    "SR9 honesty gate (>= 0.80) not satisfied \u2014 cross-domain generalisation claim rejected",
+    "Deployment gate fell back to quantile-target strategy; Youden J = 0"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-028",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-028/post_overlay_report.json"
+  }
+}

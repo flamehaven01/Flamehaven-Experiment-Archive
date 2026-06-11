@@ -12,5 +12,27 @@
   "finding": "Baseline EXP-032 control parity was perfect, but EXP-033 current repro2 collapsed PASS-eligible controls to BLOCK (tp_pass = 0, balanced_accuracy = 0.5) via R5_e2e_floor. Zero dangerous false-pass was preserved, but promotion parity failed.",
   "source": "exp033_cmp_v32_vs_v33_multiaxis.json (baseline=EXP032_BASELINE_V5L, current=EXP033_CURRENT_REPRO2)",
   "provenance_note": "Public payload is a sanitized copy of the actual EXP-033 compare artifact (paths sanitized). Live-fetched, no hardcoding (DI-BSC-001).",
-  "disclaimer": "Pipeline reliability + governance only. NOT clinical efficacy."
+  "disclaimer": "Pipeline reliability + governance only. NOT clinical efficacy.",
+  "api_summary": {
+    "title": "Repro2 parity test against baseline",
+    "verdict": "FAIL",
+    "verdict_label": "Fail",
+    "date": "2026-03-08",
+    "brief": "Pass recall collapsed from 1.00 to 0.00; PASS-eligible controls routed to BLOCK.",
+    "summary": "EXP-032 baseline parity was perfect, but EXP-033 current repro2 collapsed PASS-eligible controls to BLOCK (tp_pass = 0, balanced_accuracy = 0.5) via a threshold gate. Zero dangerous false-pass was preserved, but promotion parity failed.",
+    "findings": [
+      "Baseline (EXP-032) balanced accuracy = 1.0; current (EXP-033 repro2) balanced accuracy = 0.5",
+      "Pass recall collapsed from 1.00 to 0.00 in the repro2 run",
+      "No dangerous false-pass: governance boundary held",
+      "Failure surface localised to end-to-end reliability threshold gate (R5_e2e_floor)"
+    ],
+    "metrics": {
+      "sr9": 0.9531,
+      "di2": 0.1637,
+      "p_e2e": 0.5627,
+      "balanced_accuracy": 0.5,
+      "pass_recall": 0.0,
+      "block_recall": 1.0
+    }
+  }
 }

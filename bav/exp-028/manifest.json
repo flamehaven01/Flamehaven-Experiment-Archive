@@ -16,5 +16,27 @@
   },
   "source": "EXP_028_POST_OVERLAY_REPORT.json",
   "provenance_note": "Verbatim experiment report (DI-EQA-002). Live-fetched, no hardcoding (DI-BSC-001).",
-  "disclaimer": "Pipeline calibration + honesty heuristics only. NOT clinical efficacy."
+  "disclaimer": "Pipeline calibration + honesty heuristics only. NOT clinical efficacy.",
+  "api_summary": {
+    "title": "Honesty calibration under cross-domain query",
+    "verdict": "ABSTAIN",
+    "verdict_label": "Honest abstain",
+    "date": "2026-02-05",
+    "brief": "AUC = 1.0, Brier = 0.006 on pilot n=2; cross-domain consistency fails, system correctly declined to generalise.",
+    "summary": "Calibration metrics are statistically excellent on a pilot of n=2 (SR9 AUC = 1.0, Brier = 0.006 after isotonic calibration). However cross-domain consistency (SR9) fails the 0.80 honesty gate. The deployment gate fell back to Youden J = 0. System correctly declined to claim generalisation.",
+    "findings": [
+      "SR9 AUC = 1.0 and overall AUC = 1.0 on 6-sample pilot — perfect discrimination",
+      "Brier score improved from 0.204 to 0.006 after isotonic PAV calibration",
+      "SR9 honesty gate (>= 0.80) not satisfied — cross-domain generalisation claim rejected",
+      "Deployment gate fell back to quantile-target strategy; Youden J = 0"
+    ],
+    "metrics": {
+      "sr9_auc": 1.0,
+      "overall_auc": 1.0,
+      "brier_after": 0.0056,
+      "ece_after": 0.075,
+      "sr9_honesty_gate": 0.80,
+      "sr9_gate_passed": false
+    }
+  }
 }

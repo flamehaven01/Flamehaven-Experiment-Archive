@@ -68,5 +68,25 @@
   "go_no_go": "./bav/exp-032/go_no_go.json",
   "source": "parity_20260416_batch_reports_wrapper",
   "provenance_note": "Payloads, benchmark, and go/no-go outputs are copied verbatim from the certified legacy-replay batch (DI-EQA-002). Public SHA256 anchors cover the six arm payloads plus benchmark and go/no-go files. Card values are live-fetched, never hardcoded (DI-BSC-001).",
-  "disclaimer": "Pipeline reliability heuristics only. NOT clinical efficacy."
+  "disclaimer": "Pipeline reliability heuristics only. NOT clinical efficacy.",
+  "api_summary": {
+    "title": "PASS/BLOCK classification parity",
+    "verdict": "PASS",
+    "verdict_label": "Go (legacy replay anchor)",
+    "date": "2026-04-16",
+    "brief": "Correct discrimination on 2 labeled classes, 6 arm payloads; legacy replay anchor certified.",
+    "summary": "Correct PASS/BLOCK discrimination across all 6 arm payloads. Balanced accuracy = 1.0, zero dangerous false-pass. Legacy replay is the accepted parity anchor; current-regeneration path held as separate diagnostic.",
+    "findings": [
+      "Balanced accuracy = 1.0; dangerous pass rate = 0.0 across all 6 arms",
+      "Go/no-go verdict = GO for the legacy-replay anchor path",
+      "Current-regeneration path excluded from parity verdict (diagnostic HOLD)",
+      "Governance layer correctly escalated all payloads; contract checks passed"
+    ],
+    "metrics": {
+      "balanced_accuracy": 1.0,
+      "dangerous_pass_rate": 0.0,
+      "pass_recall": 1.0,
+      "block_recall": 1.0
+    }
+  }
 }

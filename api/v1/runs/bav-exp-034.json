@@ -1,0 +1,28 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bav-exp-034",
+  "lane": "BAV",
+  "title": "Cross-cycle non-degradation check",
+  "verdict": "PASS",
+  "verdict_label": "Pass (accepted anchor)",
+  "date": "2026-04-19",
+  "summary": "Legacy-replay anchor passed the final stage gate. Cross-cycle balanced accuracy held at 1.0; governance surfaces became more measurable without regression. Current-regeneration path held as a separate diagnostic HOLD, not blended into the verdict.",
+  "key_metrics": {
+    "sr9": 1.0,
+    "di2": 0.127,
+    "p_e2e": 0.6072,
+    "balanced_accuracy": 1.0,
+    "pass_recall": 1.0,
+    "block_recall": 1.0
+  },
+  "findings": [
+    "Balanced accuracy = 1.0 across 6 payloads (3 PASS, 3 BLOCK correctly classified)",
+    "Cross-cycle accuracy delta = 0.000: non-degradation, not repair",
+    "SR9 (cross-domain consistency) = 1.000 \u2014 above the 0.70 pipeline guard",
+    "DI2 (reasoning deviation) = 0.127 \u2014 within the 0.30 pipeline guard"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bav-exp-034",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bav/exp-034/cross_parity_multiaxis.json"
+  }
+}

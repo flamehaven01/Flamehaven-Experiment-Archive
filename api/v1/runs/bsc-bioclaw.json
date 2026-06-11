@@ -1,0 +1,28 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bsc-bioclaw",
+  "lane": "BSC",
+  "title": "BSC scan: Runchuan-BU/BioClaw",
+  "verdict": "T2",
+  "verdict_label": "Caution \u2014 T2",
+  "date": "2026-05-21",
+  "summary": "Static zero-execution compliance scan. Partial compliance with data provenance partially documented and exception handling gaps identified. Weights are uncalibrated initial priors pending benchmark calibration. Usable with acknowledged limitations and active monitoring.",
+  "key_metrics": {
+    "final_score": 60,
+    "score_cap": 69,
+    "coverage_rate": 0.062,
+    "clinical_adjacent": true
+  },
+  "findings": [
+    "Final score: 60 / 100 (cap 69 for clinical-adjacent without explicit boundary)",
+    "Partial compliance: data provenance partially documented",
+    "Exception handling gaps identified",
+    "Static scan coverage: 6.2% of in-scope AIRI risks (narrow scope)",
+    "Weights status: uncalibrated initial priors \u2014 results advisory only"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bsc-bioclaw",
+    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json"
+  },
+  "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim."
+}

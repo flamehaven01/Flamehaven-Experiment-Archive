@@ -1,0 +1,28 @@
+{
+  "schema_id": "flamehaven_eqa_manifest.v1",
+  "experiment_id": "toe-test-0056",
+  "api_summary": {
+    "title": "OpenAI Erdos conjecture eq. 2.2 — unit-distance lattice disproof",
+    "verdict": "PASS",
+    "verdict_label": "Pass",
+    "date": "2026-05-25",
+    "brief": "Correctly reproduced; independently archived with Zenodo DOI.",
+    "summary": "Full reproduction of the OpenAI Erdos unit-distance graph conjecture equation 2.2, including Sawin refinement and pigeonhole lower bound. All 21 checks passed. Independently archived on Zenodo.",
+    "findings": [
+      "21/21 checks passed including Gaussian 7x7 grid (84 pairs), Eisenstein lattice, and Sawin rigorous lower bound 6.24e-38",
+      "Proof delta formula positive for reasonable parameters",
+      "Phase 3: 101 splits in L/T compositum; Golod-Shafarevich admissible",
+      "Pytest passed; source SHA-256 manifest included; independently archived on Zenodo"
+    ],
+    "metrics": {
+      "checks_total": 21,
+      "checks_passed": 21
+    },
+    "external_anchors": [
+      {
+        "label": "Zenodo DOI: 10.5281/zenodo.15487327",
+        "url": "https://doi.org/10.5281/zenodo.15487327"
+      }
+    ]
+  }
+}
