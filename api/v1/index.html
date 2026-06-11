@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flamehaven Verification Ledger — API v1</title>
+<style>
+  :root { --bg: #0f172a; --surface: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; --pass: #10b981; --code-bg: #0f172a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 14px; line-height: 1.6; padding: 48px 24px; max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 36px; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 28px 0 12px; }
+  .endpoint { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
+  .ep-line { display: flex; align-items: baseline; gap: 10px; }
+  .method { color: var(--pass); font-weight: 700; font-size: 12px; min-width: 36px; }
+  .ep-url { color: var(--accent); text-decoration: none; word-break: break-all; }
+  .ep-url:hover { text-decoration: underline; }
+  .ep-desc { color: var(--muted); font-size: 13px; }
+  .note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 4px; padding: 12px 16px; margin-top: 28px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  a { color: var(--accent); }
+  .badge { font-size: 11px; background: #0c4a6e; color: #7dd3fc; padding: 2px 7px; border-radius: 999px; vertical-align: middle; margin-left: 6px; }
+</style>
+</head>
+<body>
+<h1>Flamehaven Verification Ledger <span class="badge">API v1</span></h1>
+<p class="sub">Static read-only JSON API &mdash; served via GitHub Pages &mdash; no backend.</p>
+
+<h2>Endpoints</h2>
+
+<div class="endpoint">
+  <div class="ep-line">
+    <span class="method">GET</span>
+    <a class="ep-url" href="runs.json">api/v1/runs.json</a>
+  </div>
+  <span class="ep-desc">Index of all verification runs across EQA / BAV / BSC lanes (id, verdict, brief, detail_url)</span>
+</div>
+
+<div class="endpoint">
+  <div class="ep-line">
+    <span class="method">GET</span>
+    <span class="ep-url">api/v1/runs/{id}.json</span>
+  </div>
+  <span class="ep-desc">Per-run detail &mdash; summary, key_metrics, findings, evidence links. Example:</span>
+  <a class="ep-url" style="font-size:12px;padding-left:46px" href="runs/bav-exp-034.json">runs/bav-exp-034.json</a>
+</div>
+
+<div class="endpoint">
+  <div class="ep-line">
+    <span class="method">GET</span>
+    <a class="ep-url" href="metrics/bav.json">api/v1/metrics/bav.json</a>
+  </div>
+  <span class="ep-desc">Aggregated BAV pipeline metrics table (SR9, DI2, p_e2e, balanced_accuracy per experiment)</span>
+</div>
+
+<div class="endpoint">
+  <div class="ep-line">
+    <span class="method">GET</span>
+    <a class="ep-url" href="schema.json">api/v1/schema.json</a>
+  </div>
+  <span class="ep-desc">Vocabulary &mdash; lane descriptions, 11 verdict codes, 6 metric definitions</span>
+</div>
+
+<div class="note">
+  All files are pre-generated from each experiment&rsquo;s <code>manifest.json</code> &mdash; no live computation.
+  View the full ledger at <a href="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/">flamehaven01.github.io/Flamehaven-Verification-Ledger</a>
+  or the source on <a href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger">GitHub</a>.
+  <br><br>
+  License: data CC BY-NC 4.0 &nbsp;&middot;&nbsp; code MIT
+</div>
+</body>
+</html>
