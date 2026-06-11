@@ -4,7 +4,7 @@
   "project": {
     "name": "flamehaven-verification-ledger",
     "full_name": "Flamehaven Verification Ledger",
-    "version": "1.6.0",
+    "version": "1.21.0",
     "status": "active",
     "primary_language": "Multi-Environment",
     "repo_path": ".",
@@ -282,6 +282,26 @@
       }
     },
     {
+      "id": "DI-API-001",
+      "label": "manifest-driven-api-contract",
+      "severity": "critical",
+      "statement": "The public API is generated exclusively from each experiment's manifest.json `api_summary` block. build_api.py must contain zero per-experiment extraction logic. The data layer is inverted: payloads conform to the API spec, not the reverse. A new experiment requires only: (1) register in js/*-registry.js, (2) write manifest.json with api_summary, (3) run build_api.py. No script changes permitted. api_summary canonical fields: title, verdict, verdict_label, date, brief, summary, findings[], metrics{}.",
+      "binding": {
+        "origin_episode": "v1.20.0 (2026-06-11): heterogeneous payload formats across 14 experiments would have required per-experiment extractors (fragile, growing). Inverted: api_summary contract in each manifest; build_api.py stayed at ~160 lines for all 14 experiments and will not grow with new experiments.",
+        "enforced_by": "scripts/build_api.py (no per-experiment functions); CI API drift check"
+      }
+    },
+    {
+      "id": "DI-API-002",
+      "label": "api-drift-ci-gate",
+      "severity": "high",
+      "statement": "The committed api/v1/ files must always match the output of `python scripts/build_api.py`. The CI `API drift check` step runs `build_api.py --check` and fails the build if any file differs or is missing. Manifests must be updated before committing changes; api/v1/ is never edited directly.",
+      "binding": {
+        "origin_episode": "v1.20.0 (2026-06-11): added --check mode to build_api.py and wired it into .github/workflows/ci.yml to prevent silent drift between manifest api_summary blocks and committed API files.",
+        "enforced_by": ".github/workflows/ci.yml (API drift check step); scripts/build_api.py --check"
+      }
+    },
+    {
       "id": "DI-OPS-003",
       "label": "single-source-of-truth-no-inlined-fallback",
       "severity": "high",
@@ -295,9 +315,9 @@
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "VERIFICATION-LEDGER-MICA-001",
-    "update_count": 9,
-    "last_updated": "2026-05-31",
-    "session_count": 9,
+    "update_count": 11,
+    "last_updated": "2026-06-11",
+    "session_count": 11,
     "bootstrap_note": "Master Verification Ledger MICA Package initialized at repository root to govern EQA, Biomolecular AI Validation, and Bioscience Compliance lanes."
   }
 }

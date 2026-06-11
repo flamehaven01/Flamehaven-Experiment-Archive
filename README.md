@@ -56,6 +56,11 @@ flamehaven-verification-ledger/
 ├── index.html                           # Main Verification Ledger Portal
 ├── eqa.html                             # EQA-Dedicated Dashboard Portal
 ├── index.md                             # Markdown Archive Directory
+├── api/v1/                              # Static read-only API (served via GitHub Pages)
+│   ├── runs.json                        # 14-entry run index (all 3 lanes)
+│   ├── schema.json                      # Vocabulary: lanes, verdict codes, metric definitions
+│   ├── metrics/bav.json                 # BAV aggregated metrics table
+│   └── runs/{id}.json                   # Per-experiment detail (14 files)
 ├── eqa/                                 # Equation-to-Artifact Run Artifacts
 │   ├── toe-test-0057/                   # QSOT Compiler — Multiphase Verification (DEGRADED_PASS)
 │   ├── toe-test-0055/                   # AEFSO — Optional Backend Layer (SPAR: ACCEPT WITH BOUNDS)
@@ -67,6 +72,11 @@ flamehaven-verification-ledger/
 ├── stem-bio-ai/                         # Bioscience Compliance Audits
 │   ├── yorkeccak-bio/2026-05-15/        # yorkeccak/bio — T1 Quarantine · Score 48
 │   └── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60
+├── scripts/
+│   ├── build_api.py                     # Generates api/v1/ from manifest api_summary blocks
+│   └── api_schema_static.json           # Vocabulary source for schema.json
+├── tests/
+│   └── test_api.py                      # API integration test suite (54 checks; run: python tests/test_api.py --live)
 ├── css/                                 # Styling System
 ├── js/                                  # Interaction Logic (portal.js, chart-engine.js)
 ├── memory/                              # MICA Memory Package
@@ -76,6 +86,31 @@ flamehaven-verification-ledger/
 │   └── pr_action_plan_v3.html           # Agent Review Dashboard (PR Action Plan v3)
 └── README.md                            # Repository Documentation
 ```
+
+---
+
+## 🔌 Public API (v1)
+
+A static, read-only JSON API is served from GitHub Pages. No backend — all files are pre-generated from each experiment's `manifest.json`.
+
+| Endpoint | Description |
+|---|---|
+| [`GET /api/v1/runs.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs.json) | Index of all 14 verification runs across EQA / BAV / BSC |
+| `GET /api/v1/runs/{id}.json` | Per-run detail: verdict, key metrics, findings, evidence links |
+| [`GET /api/v1/metrics/bav.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/metrics/bav.json) | Aggregated BAV metrics table (SR9, DI2, p_e2e, balanced_accuracy) |
+| [`GET /api/v1/schema.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/schema.json) | Vocabulary: lane descriptions, 11 verdict codes, 6 metric definitions |
+
+**Architecture:** payloads conform to the API spec — not the reverse. Each experiment's `manifest.json` carries a standardised `api_summary` block; `scripts/build_api.py` reads those blocks and writes `api/v1/`. Adding a new experiment requires no script changes:
+
+```
+1. Register in js/*-registry.js
+2. Add manifest.json with api_summary block
+3. python scripts/build_api.py
+```
+
+A CI gate (`API drift check`) fails if `api/v1/` is out of sync with manifests.
+
+**Integration tests:** `python tests/test_api.py --live` runs 54 checks (local file validation + live HTTP). Last result: 54/54 PASSED.
 
 ---
 

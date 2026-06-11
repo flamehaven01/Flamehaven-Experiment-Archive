@@ -4,6 +4,17 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.21.0] - 2026-06-11
+
+Documentation, MICA, and playbook updated to reflect the v1.20.0 API architecture.
+
+- **README**: new "🔌 Public API (v1)" section — endpoint table, `api_summary` architecture description, 3-step new-experiment protocol, CI drift gate note, integration test status. Repository structure tree updated to include `api/v1/`, `scripts/`, `tests/`.
+- **Playbook** (`memory/verification-ledger-playbook.md`): new §6 "Public API (v1) Architecture" — inverted data layer principle, `api_summary` canonical schema, new-experiment protocol, CI gate rule, integration test usage.
+- **MICA** (`memory/verification-ledger.mica.archive.json`): two new design invariants — `DI-API-001` (manifest-driven API contract; no per-experiment extractor) and `DI-API-002` (CI drift gate; committed `api/v1/` must always match `build_api.py` output).
+- **`tests/test_api.py`**: integration test suite committed to repo (`tests/`); `api-test/` results output gitignored.
+
+---
+
 ## [1.20.0] - 2026-06-11
 
 Static read-only API v1 — manifest-driven, zero per-experiment code.

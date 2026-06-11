@@ -275,6 +275,102 @@ Any future visualization, dynamic sandbox, 3D consensus coordinate display, or t
 
 ---
 
+## 6. Public API (v1) Architecture
+
+The ledger exposes a static, read-only JSON API served via GitHub Pages. All files in `api/v1/` are pre-generated; there is no backend.
+
+### 6.0 Inverted Data Layer (DI-API-001)
+
+**Rule:** the API spec is the source of truth. Payloads conform to the spec — never the reverse.
+
+Every experiment's `manifest.json` carries an `api_summary` block. The generator `scripts/build_api.py` reads those blocks only — it contains zero per-experiment extraction logic. The script does not grow as new experiments are added.
+
+### 6.1 `api_summary` Canonical Schema
+
+Required in every `manifest.json`:
+
+```json
+"api_summary": {
+  "title":         "Short experiment title",
+  "verdict":       "PASS | FAIL | HOLD | BLOCK | DEGRADED | ACCEPT | ABSTAIN | REJECTED | NULL | T1 | T2",
+  "verdict_label": "Human-readable label",
+  "date":          "YYYY-MM-DD",
+  "brief":         "One-sentence summary (shown in runs.json index)",
+  "summary":       "2-3 sentence narrative (shown in detail file)",
+  "findings":      ["Finding 1", "Finding 2"],
+  "metrics": {
+    "sr9": 0.953,
+    "di2": 0.164,
+    "p_e2e": 0.563,
+    "balanced_accuracy": 1.0
+  },
+  "external_anchors": [
+    { "label": "Zenodo DOI", "url": "https://doi.org/..." }
+  ]
+}
+```
+
+`external_anchors` is optional. `metrics{}` keys are free-form — include what is meaningful for the experiment's lane.
+
+**Manifest locations by lane:**
+
+| Lane | Manifest path |
+|---|---|
+| EQA | `eqa/toe-test-XXXX/manifest.json` |
+| BAV | `bav/exp-XXX/manifest.json` |
+| BSC | `stem-bio-ai/manifest.json` → `reports[].api_summary` |
+
+### 6.2 New Experiment Protocol (3 steps)
+
+```
+1. Register in js/eqa-registry.js  or  js/bav-registry.js
+   — add one { id: "...", jsonPath: "...", ... } entry
+
+2. Create manifest.json in the experiment directory
+   — include api_summary block (§6.1)
+
+3. python scripts/build_api.py
+   — regenerates api/v1/ files; commit the result
+
+No changes to build_api.py required. Ever.
+```
+
+### 6.3 Endpoints
+
+| Endpoint | Description |
+|---|---|
+| `GET /api/v1/runs.json` | All-lane run index; count, id, lane, verdict, brief, detail_url |
+| `GET /api/v1/runs/{id}.json` | Full detail: summary, key_metrics, findings, evidence_links |
+| `GET /api/v1/metrics/bav.json` | BAV metrics table (SR9, DI2, p_e2e, balanced_accuracy per experiment) |
+| `GET /api/v1/schema.json` | Vocabulary: 3 lane descriptions, 11 verdict codes, 6 metric definitions |
+
+Base URL: `https://flamehaven01.github.io/Flamehaven-Verification-Ledger`
+
+### 6.4 CI Drift Gate (DI-API-002)
+
+`.github/workflows/ci.yml` runs `python scripts/build_api.py --check` on every push and PR. If committed `api/v1/` files differ from what `build_api.py` would generate from current manifests, the build **fails**.
+
+**Rule:** never edit `api/v1/` files directly. Always edit `manifest.json` → run `build_api.py` → commit both.
+
+### 6.5 Integration Test
+
+`tests/test_api.py` — 54 checks in two phases:
+
+| Phase | Checks | Coverage |
+|---|---|---|
+| 1 (local) | 41 | File existence, JSON validity, schema structure, verdict spot-checks, external_anchors, detail_url cross-ref, required fields on all 14 detail files |
+| 2 (live HTTP) | 13 | GitHub Pages HTTP 200/404, valid JSON parse for 6 endpoint samples |
+
+```
+python tests/test_api.py           # local only (fast, no network)
+python tests/test_api.py --live    # local + HTTP (requires deployed GitHub Pages)
+python tests/test_api.py --save    # writes tests/results.json (gitignored)
+```
+
+When adding a new experiment, add its ID to `EXPECTED_IDS` in `test_api.py` and add a verdict spot-check to `checks[]` in `phase_local()`.
+
+---
+
 ## 5. OPSEC, PII & Credibility (P0, CI-enforced)
 
 Every published file MUST pass the MICA-governed sanitizer (`sanitizer/`, governed by `sanitizer/sanitizer.mica.archive.json`, DI-SAN-001..007) before publish. A CI gate (`.github/workflows/opsec-sanitize.yml`) runs it on every push / PR and fails the build on any leak.
