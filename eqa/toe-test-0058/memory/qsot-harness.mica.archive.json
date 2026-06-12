@@ -1,0 +1,54 @@
+{
+  "mica_spec": "0.2.6",
+  "mica_schema_version": "0.2.6",
+  "project": {
+    "name": "qsot-harness-verification",
+    "full_name": "QSOT-Harness v2.1.0 Verification (Honest Reconstruction)",
+    "version": "2.1.0",
+    "status": "active",
+    "primary_language": "Python",
+    "repo_path": "eqa/toe-test-0058",
+    "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.0, the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
+  },
+  "scope": {
+    "include": ["src/", "tests/", "paper/", "README.md", "pyproject.toml"],
+    "exclude": ["__pycache__/", "*.pyc", ".git/", "docs/stage_a_masterplan.md"]
+  },
+  "design_invariants": [
+    {
+      "id": "DI-001",
+      "label": "machine-readable-claim-boundary",
+      "statement": "Every result must serialize a fixed claim boundary (no external physical validity, no new-law claim, model-output consistency only) and an evidence class for every major observation.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-058: Stage A made claim_boundary, the 7-class evidence taxonomy, audit/runtime backend surfacing, calibration manifest, and synthetic-vs-model separation machine-readable."
+      }
+    },
+    {
+      "id": "DI-002",
+      "label": "advisory-metric-positioning",
+      "statement": "All computed values are strictly advisory heuristics under a phenomenological channel-map ansatz. Gate and verdict labels are policy-derived classifications, not physical observables. No external physical claims or quantum-gravity derivations are made.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-058: Honest reconstruction of the v1.2.3 slop artifact; provenance locked to ADVISORY."
+      }
+    },
+    {
+      "id": "DI-003",
+      "label": "negative-results-surfaced",
+      "statement": "Non-failure degradations must be surfaced, not hidden: KD optimizer non-convergence -> DEGRADED_PASS; the model trajectory is Markovian by construction (nm=0); the optional governance backend may be absent (SKIPPED).",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-058: DEGRADED_PASS verdict reported in the abstract and result artifact with both documented causes."
+      }
+    }
+  ],
+  "operation_meta": {
+    "mica_schema_version": "0.2.6",
+    "archive_id": "QSOT-HARNESS-MICA-001",
+    "update_count": 1,
+    "last_updated": "2026-06-12",
+    "session_count": 1,
+    "bootstrap_note": "MICA package created for the v2.1.0 honest-reconstruction ledger entry (supersedes toe-test-0057)."
+  }
+}

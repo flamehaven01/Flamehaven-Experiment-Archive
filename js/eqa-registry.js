@@ -3,6 +3,14 @@
 
 const EQA_REGISTRY = [
   {
+    id: 'toe-test-0058',
+    inspectorTitle: 'EQA · TOE-TEST-0058 QSOT-HARNESS v2.1.0',
+    jsonPath: './eqa/toe-test-0058/verification_result.json',
+    reportPaths: ['./eqa/toe-test-0058/analysis_report.md'],
+    rawTabLabel: '📄 Verification Note',
+    sidebar: { dot: '#eab308', label: 'eqa-test-0058', sub: 'qsot-harness', cardId: 'eqa-card-0058' },
+  },
+  {
     id: 'toe-test-0057',
     inspectorTitle: 'EQA · TOE-TEST-0057 QSOT COMPILER',
     jsonPath: './eqa/toe-test-0057/verification_result.json',

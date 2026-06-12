@@ -19,7 +19,7 @@ const laneDefinitions = {
     key: 'toe',
     title: 'EQA',
     status: 'active',
-    summary: 'Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0057 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, and 0057 = QSOT Compiler.',
+    summary: 'Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0058 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, and 0058 = QSOT-Harness v2.1.0 honest reconstruction.',
   },
   rexsyn: {
     key: 'rexsyn',
@@ -279,7 +279,7 @@ function scanEqaRecords() {
   });
 
   // 2. Dynamically scan toe-test-0055, toe-test-0056, and toe-test-0057
-  const targetDirs = ['toe-test-0055', 'toe-test-0056', 'toe-test-0057'];
+  const targetDirs = ['toe-test-0055', 'toe-test-0056', 'toe-test-0057', 'toe-test-0058'];
   for (const dirName of targetDirs) {
     const reportDir = path.join(eqaRoot, dirName);
     if (!fs.existsSync(reportDir)) continue;
@@ -297,13 +297,13 @@ function scanEqaRecords() {
     const analysisText = readTextIfExists(analysisPath);
 
     // Custom overrides for specific runs
-    let id = dirName === 'toe-test-0055' ? 'toe-test-0055-aefso' : (dirName === 'toe-test-0056' ? 'toe-test-0056-openai-erdos-eq22' : 'toe-test-0057-qsot-compiler');
+    let id = dirName === 'toe-test-0055' ? 'toe-test-0055-aefso' : (dirName === 'toe-test-0056' ? 'toe-test-0056-openai-erdos-eq22' : (dirName === 'toe-test-0057' ? 'toe-test-0057-qsot-compiler' : 'toe-test-0058-qsot-harness'));
     let title = `EQA: ${dirName.toUpperCase()} — ${manifestJson.title || ''}`;
-    let auditDate = dirName === 'toe-test-0055' ? '2026-04-16' : (dirName === 'toe-test-0056' ? '2026-05-27' : '2025-12-23');
+    let auditDate = dirName === 'toe-test-0055' ? '2026-04-16' : (dirName === 'toe-test-0056' ? '2026-05-27' : (dirName === 'toe-test-0057' ? '2025-12-23' : '2026-06-12'));
     let summary = firstNonEmptyLine(analysisText) || manifestJson.working_hypothesis || '';
-    let useScope = dirName === 'toe-test-0055' ? 'Optional backend layer only; not eligible for core promotion.' : (dirName === 'toe-test-0056' ? 'Fully published. Citable via Zenodo DOI.' : 'Research reference and numerical consistency check only.');
-    let gate = dirName === 'toe-test-0055' ? 'OPTIONAL_LAYER' : (dirName === 'toe-test-0056' ? 'PASS' : 'PASS');
-    let sparVerdict = dirName === 'toe-test-0055' ? 'ACCEPT WITH BOUNDS' : (dirName === 'toe-test-0056' ? 'ACCEPT' : 'PASS');
+    let useScope = dirName === 'toe-test-0055' ? 'Optional backend layer only; not eligible for core promotion.' : (dirName === 'toe-test-0056' ? 'Fully published. Citable via Zenodo DOI.' : (dirName === 'toe-test-0057' ? 'Research reference and numerical consistency check only.' : 'Fully published honest reconstruction (supersedes 0057). Citable via Zenodo DOI.'));
+    let gate = dirName === 'toe-test-0055' ? 'OPTIONAL_LAYER' : (dirName === 'toe-test-0056' ? 'PASS' : (dirName === 'toe-test-0057' ? 'PASS' : 'DEGRADED_PASS'));
+    let sparVerdict = dirName === 'toe-test-0055' ? 'ACCEPT WITH BOUNDS' : (dirName === 'toe-test-0056' ? 'ACCEPT' : (dirName === 'toe-test-0057' ? 'PASS' : 'DEGRADED PASS'));
 
     const urls = {};
     if (dirName === 'toe-test-0055') {

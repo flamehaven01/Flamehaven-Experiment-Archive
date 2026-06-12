@@ -1,8 +1,18 @@
 {
   "schema": "flamehaven_api_v1_runs_index",
-  "generated_at_utc": "2026-06-11T14:09:28.575727+00:00",
-  "count": 14,
+  "generated_at_utc": "2026-06-12T10:42:52.918067+00:00",
+  "count": 15,
   "runs": [
+    {
+      "id": "toe-test-0058",
+      "lane": "EQA",
+      "title": "QSOT-Harness \u2014 bounded epistemically-labeled verification harness",
+      "verdict": "DEGRADED_PASS",
+      "verdict_label": "Degraded pass",
+      "date": "2026-06-12",
+      "brief": "Documents how the 0057 slop artifact was diagnosed and remediated, defect by defect, into a bounded honest harness; published and Zenodo-archived. Model-consistency only.",
+      "detail_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/toe-test-0058.json"
+    },
     {
       "id": "toe-test-0057",
       "lane": "EQA",

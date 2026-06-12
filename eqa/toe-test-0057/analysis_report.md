@@ -4,6 +4,9 @@
 **Canonical run id**: `toe-test-0057`  
 **Legacy alias**: `qsot-compiler`  
 **Zenodo Record**: [10.5281/zenodo.18035432](https://zenodo.org/records/18035432)
+**Superseded by**: [`toe-test-0058`](../toe-test-0058/analysis_report.md) — QSOT-Harness v2.1.0, the honest reconstruction (DOI [10.5281/zenodo.20656476](https://doi.org/10.5281/zenodo.20656476))
+
+> The correction takes precedence: read `0057` as the slop audit, and `0058` as the published honest rebuild.
 
 ---
 
