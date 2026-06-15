@@ -28,6 +28,7 @@ const EQA_CARD_TAXONOMY = {
   'eqa-card-0055': { kind: 'non-run', class: 'research-artifact' },
   'eqa-card-0056': { kind: 'verification-run', class: 'verification-run' },
   'eqa-card-0057': { kind: 'verification-run', class: 'verification-run' },
+  'eqa-card-0058': { kind: 'verification-run', class: 'verification-run' },
   'eqa-card-archive': { kind: 'verification-run', class: 'verification-run', badgeLabel: 'Historical Records', badgeColor: '#9ca3af', badgeBorder: 'rgba(156,163,175,0.2)' },
 };
 
@@ -275,6 +276,14 @@ function handleHashNavigation(hash) {
     openReportViewer('bioclaw', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf', 'Runchuan-BU/BioClaw', 'Bioscience Compliance · 2026-05-21');
   } else if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
+  } else if (hash === 'toe-test-0058' || hash === 'qsot-harness') {
+    activeColl = 'toe';
+    applyFilters();
+    setTimeout(() => {
+      const card = document.getElementById('eqa-card-0058');
+      if (card) card.scrollIntoView({ behavior: 'smooth' });
+      openJsonInspector('toe-test-0058');
+    }, 150);
   } else if (hash === 'toe-test-0057' || hash === 'qsot-compiler') {
     activeColl = 'toe';
     applyFilters();

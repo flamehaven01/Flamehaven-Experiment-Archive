@@ -448,6 +448,55 @@ window.onerror = function(msg, url, line, col, error) {
     <!-- Vertical Stack for EQA Cards -->
     <div class="eq-ledger-list" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
       
+      <!-- EQA-TEST-0058 (QSOT-Harness v2.1.1, hardening r1) -->
+      <article class="eq-card" id="eqa-card-0058" data-kind="verification-run" data-class="verification-run" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 2px 8px; border-radius: var(--r-xs);">EQA-TEST-0058</span>
+            <span style="font-size: 12px; color: var(--t4);">2026-06-15</span>
+          </div>
+          <span class="tier-chip tb-t2" style="margin: 0; padding: 2px 10px; font-size: 10px; text-transform: uppercase;">
+            <span class="tier-dot" style="background:#10b981"></span>
+            <span class="tier-chip-label">Verification Run</span>
+          </span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--ts); margin: 0 0 10px 0;">
+          QSOT-Harness v2.1.1 (hardening r1): Bounded, Epistemically-Labeled Verification Harness
+        </h3>
+        <p style="font-size: 13.5px; color: var(--t3); line-height: 1.6; margin: 0 0 20px 0; max-width: 800px;">
+          The honest reconstruction of the v1.2.3 slop artifact (EQA-TEST-0057). An 8-phase, 50-check pipeline maps spacetime-curvature norms to single-qubit decoherence channels as a phenomenological ansatz, and serializes a fixed claim boundary, a per-observation evidence class, and a calibration manifest. Revision r1 reports the Kirkwood-Dirac value from the optimizer best objective and surfaces threshold, policy-reason, toy-curvature, and coverage provenance.
+          <strong style="color:var(--ts); display: block; margin-top: 6px;">Result: DEGRADED_PASS (48 / 0 / 1 / 1). The KD flat-baseline optimization does not converge within budget and the optional governance backend is absent; both are surfaced, not hidden. Verified for model-output consistency only, not external physical validity.</strong>
+        </p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+          <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0058'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a78bfa; background: rgba(167, 139, 250, 0.05); border: 1px solid rgba(167, 139, 250, 0.2); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;" onmouseover="this.style.background='rgba(167, 139, 250, 0.12)'" onmouseout="this.style.background='rgba(167, 139, 250, 0.05)'">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/>
+            </svg>
+            [JSON]
+          </button>
+          <button class="eq-slot-btn" onclick="openJsonInspector('toe-test-0058', 'report'); return false;" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="8" height="8" rx="1"/>
+              <path d="M5 5h2M5 7h2" stroke-linecap="round"/>
+            </svg>
+            [Report]
+          </button>
+          <a class="eq-slot-btn" href="https://github.com/Flamehaven-Labs/QSOT-Harness" target="_blank" rel="noopener" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/>
+            </svg>
+            [Repo]
+          </a>
+          <a class="eq-slot-btn" href="https://doi.org/10.5281/zenodo.20665824" target="_blank" rel="noopener" style="cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--t3); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--r-md); transition: all 0.15s;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/>
+            </svg>
+            [Paper]
+          </a>
+        </div>
+      </article>
+
       <!-- CARD 0: EQA-TEST-0057 (QSOT Compiler v1.2.3) -->
       <article class="eq-card" id="eqa-card-0057" data-kind="verification-run" data-class="verification-run" style="display: flex; flex-direction: column; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 24px; transition: border-color 0.2s, transform 0.2s; position: relative;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
