@@ -1,6 +1,6 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-12T09:55:04.266Z",
+  "generatedAt": "2026-06-15T11:26:43.361Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
   "reportsActive": 15,
@@ -17,7 +17,7 @@
       "key": "toe",
       "title": "EQA",
       "status": "active",
-      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0058 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, and 0058 = QSOT-Harness v2.1.0 honest reconstruction.",
+      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0058 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, and 0058 = QSOT-Harness v2.1.1 (hardening r1) honest reconstruction.",
       "recordCount": 7,
       "latestAuditDate": "2026-06-12"
     },
@@ -91,13 +91,13 @@
       "id": "toe-test-0058-qsot-harness",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0058 — QSOT-Harness v2.1.0 — Bounded, Epistemically-Labeled Verification Harness (Honest Reconstruction)",
+      "title": "EQA: TOE-TEST-0058 — QSOT-Harness current worktree refresh — bounded, epistemically-labeled verification harness (honest reconstruction)",
       "targetSlug": "toe-test-0058",
       "auditDate": "2026-06-12",
       "gate": "DEGRADED_PASS",
       "spar": null,
       "sparVerdict": "DEGRADED PASS",
-      "summary": "`0058` is a `Verified` reproduction record for **QSOT-Harness v2.1.0**, the honest reconstruction of the QSOT (Quantum State Over Time) Compiler. Its predecessor, recorded at `0057`, was classified as a *High-Formality, Fake Physics Slop Artifact*: standard quantum-channel evolution dressed in ungrounded general-relativity nomenclature, with Kirkwood-Dirac negativity and Transfer-Tensor non-Markovianity evaluating to exactly `0.0`.",
+      "summary": "`0058` is not, primarily, \"another clean reproduction.\" Its purpose is to be a **reproducible, auditable record of how each defect diagnosed in `0057` was remediated and evolved into a bounded, honest harness.** In this refreshed copy (revision **r1**, committed source `c0f6c6a`), it also records the R0-R2 source/schema hardening: the KD reported value is now the optimizer **best objective** (not a last-step snapshot), deprecated KD booleans are removed, and threshold / policy-reason / toy-curvature / coverage provenance are surfaced. Phase 4 state preparation and Phase 5 memory-proxy sensitivity remain config-driven.",
       "useScope": "Fully published honest reconstruction (supersedes 0057). Citable via Zenodo DOI.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0058",
       "urls": {

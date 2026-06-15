@@ -3,16 +3,27 @@
   "mica_schema_version": "0.2.6",
   "project": {
     "name": "qsot-harness-verification",
-    "full_name": "QSOT-Harness v2.1.0 Verification (Honest Reconstruction)",
-    "version": "2.1.0",
+    "full_name": "QSOT-Harness v2.1.1 Verification (Honest Reconstruction)",
+    "version": "2.1.1",
     "status": "active",
     "primary_language": "Python",
     "repo_path": "eqa/toe-test-0058",
-    "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.0, the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
+    "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.1, the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
   },
   "scope": {
-    "include": ["src/", "tests/", "paper/", "README.md", "pyproject.toml"],
-    "exclude": ["__pycache__/", "*.pyc", ".git/", "docs/stage_a_masterplan.md"]
+    "include": [
+      "src/",
+      "tests/",
+      "paper/",
+      "README.md",
+      "pyproject.toml"
+    ],
+    "exclude": [
+      "__pycache__/",
+      "*.pyc",
+      ".git/",
+      "docs/stage_a_masterplan.md"
+    ]
   },
   "design_invariants": [
     {
@@ -41,14 +52,23 @@
       "binding": {
         "origin_episode": "EXP-058: DEGRADED_PASS verdict reported in the abstract and result artifact with both documented causes."
       }
+    },
+    {
+      "id": "DI-004",
+      "label": "no-hidden-hardcoding-or-stubbed-core-results",
+      "statement": "Core mathematical results must be config-driven, named-constant-driven, or directly derived from executed state/channel evolution. Any value governing a headline result must surface its provenance in the source artifact and be re-checkable by the ledger; unlabeled stubs and hidden local hardcodings are disallowed.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-058 refresh: Phase 4 state-preparation depth moved under config.steps; Phase 5 memory-proxy channel sensitivity moved under config.sensitivity."
+      }
     }
   ],
   "operation_meta": {
     "mica_schema_version": "0.2.6",
     "archive_id": "QSOT-HARNESS-MICA-001",
-    "update_count": 1,
-    "last_updated": "2026-06-12",
-    "session_count": 1,
-    "bootstrap_note": "MICA package created for the v2.1.0 honest-reconstruction ledger entry (supersedes toe-test-0057)."
+    "update_count": 2,
+    "last_updated": "2026-06-15",
+    "session_count": 2,
+    "bootstrap_note": "MICA package created for toe-test-0058; refreshed after v2.1.1 for config-driven Phase 4/5, then revision r1 (committed source c0f6c6a) for the R0-R2 source/schema hardening (KD best-objective reporting, deprecated-field removal, threshold/policy/toy-curvature/coverage provenance)."
   }
 }

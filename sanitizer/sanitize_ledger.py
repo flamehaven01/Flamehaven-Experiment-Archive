@@ -69,11 +69,15 @@ _SLOP_MARK_RE = re.compile(
 # Fabrication marker: any published content tagged "[synthetic]" is mock/placeholder
 # data and must not ship in a credibility-bearing ledger. Detect-only on all files.
 _SYNTHETIC_RE = re.compile(r"\[synthetic[^\]]*\]", re.IGNORECASE)
+# Schema hygiene: deprecated KD field names that over-signal curvature/contextuality
+# (replaced by raw_kd_negative_in_optimized_basis). Detect-only on data files.
+_DEPRECATED_KD_RE = re.compile(r"\"(?:contextuality_proxy|is_negative)\"\s*:")
 
 DEFAULT_CONFIG = {
     "detectors": {"abs_path_collapse": "fix", "hangul_redact": "fix",
                   "ipv4_address": "detect", "email_address": "detect",
                   "secret_token": "detect", "synthetic_marker": "detect",
+                  "deprecated_kd_field": "detect",
                   "promotional_language": "detect", "jargon_language": "detect"},
     "markers": ["Sanctum", "STRUCTURA", "Users/dream", "Users\\dream"],
     "ignore_dirs": [".git", ".claude", "node_modules", "__pycache__", "sanitizer"],
@@ -290,6 +294,7 @@ _DETECT["email_address"] = _detect("email_address", _EMAIL_RE)
 _DETECT["secret_token"] = _detect("secret_token", _SECRET_RE)
 _DETECT["credibility_slop"] = _detect("credibility_slop", _SLOP_MARK_RE)
 _DETECT["synthetic_marker"] = _detect("synthetic_marker", _SYNTHETIC_RE)
+_DETECT["deprecated_kd_field"] = _detect("deprecated_kd_field", _DEPRECATED_KD_RE)
 
 
 def load_config(base: Path) -> dict:

@@ -1,7 +1,7 @@
 {
   "schema_id": "compliance.qsot_v2.experiment_result.v2",
   "experiment_id": "qgb-test-0057",
-  "generated_at": "2026-06-12T04:50:29.334295+00:00",
+  "generated_at": "2026-06-15T06:57:25.654253+00:00",
   "verdict": "DEGRADED_PASS",
   "claim_boundary": {
     "external_physical_validity_claimed": false,
@@ -42,11 +42,14 @@
           "background purity decay",
           "entropy growth",
           "p_curvature",
+          "phase5 memory-proxy channel strength",
           "phase2_curvature_noise checks"
         ],
         "realized_in": [
           "ads_boost_info.alpha",
-          "schwarz_rest_info.alpha"
+          "schwarz_rest_info.alpha",
+          "memory_kernel.channel_sensitivity",
+          "memory_kernel_model_trajectory.channel_sensitivity"
         ]
       },
       "boost_beta": {
@@ -66,16 +69,18 @@
       "evolution_steps": {
         "value": 3,
         "source": "config (experiment.yaml: steps)",
-        "role": "number of channel applications per background evolution (phase1/phase2)",
+        "role": "number of channel applications per background evolution (phase1/phase2) and de Sitter KD state preparation depth",
         "governs": [
-          "purity / entropy trajectories"
+          "purity / entropy trajectories",
+          "KD target-state preparation depth"
         ],
         "realized_in": [
           "flat_rest_purities",
           "schwarz_purity",
           "desitter_purity",
           "ads_purity",
-          "eguchi_purity"
+          "eguchi_purity",
+          "kd_desitter.state_prep_steps"
         ]
       }
     },
@@ -102,19 +107,20 @@
           "memory_kernel_model_trajectory"
         ],
         "realized_in": [
-          "memory_kernel.threshold_used"
+          "memory_kernel.threshold_epsilon_base",
+          "memory_kernel_model_trajectory.threshold_epsilon_base"
         ]
       },
       "ttm_alpha": {
         "value": 0.5,
         "source": "hardcoded (memory_kernel._ALPHA_DEFAULT)",
-        "role": "curvature scaling of the TTM threshold",
+        "role": "curvature scaling of the TTM threshold (engaged only when ricci_norm != 0)",
         "governs": [
           "dynamic_ttm_threshold"
         ],
         "realized_in": [
-          "memory_kernel.threshold_used",
-          "memory_kernel_model_trajectory.threshold_used"
+          "memory_kernel.threshold_alpha",
+          "memory_kernel_model_trajectory.threshold_alpha"
         ]
       },
       "accessibility_markov_penalty_cap": {
@@ -151,6 +157,47 @@
           "schwarz_rest_info.g00"
         ],
         "caveat": "magic constant (H4): the physical r/M interpretation is not documented in code"
+      }
+    },
+    "curvature_provenance": {
+      "note": "How each background's Riemann data was constructed. 'toy_placeholder_constants' = hand-set entries; 'copied_from_ricci_proxy' = riemann_matrix is a copy of the Ricci matrix (no independent Riemann tensor); 'exact_zero_minkowski' = genuine flat-space zero. Toy/proxy curvature is not a derived spacetime tensor.",
+      "by_background": {
+        "flat": {
+          "riemann_source": "exact_zero_minkowski",
+          "riemann_is_toy": false,
+          "ricci_norm": 0.0,
+          "riemann_norm": 0.0
+        },
+        "schwarzschild": {
+          "riemann_source": "toy_placeholder_constants",
+          "riemann_is_toy": true,
+          "ricci_norm": 0.0,
+          "riemann_norm": 0.001414
+        },
+        "de_sitter": {
+          "riemann_source": "copied_from_ricci_proxy",
+          "riemann_is_toy": true,
+          "ricci_norm": 1.581139,
+          "riemann_norm": 1.581139
+        },
+        "ads5": {
+          "riemann_source": "copied_from_ricci_proxy",
+          "riemann_is_toy": true,
+          "ricci_norm": 1.264911,
+          "riemann_norm": 1.264911
+        },
+        "eguchi_hanson": {
+          "riemann_source": "toy_placeholder_constants",
+          "riemann_is_toy": true,
+          "ricci_norm": 0.0,
+          "riemann_norm": 0.002828
+        },
+        "godel_universe": {
+          "riemann_source": "copied_from_ricci_proxy",
+          "riemann_is_toy": true,
+          "ricci_norm": 0.948683,
+          "riemann_norm": 0.948683
+        }
       }
     }
   },
@@ -328,10 +375,10 @@
       1.0
     ],
     "flat_rest_entropies": [
-      -0.0,
-      -0.0,
-      -0.0,
-      -0.0
+      0.0,
+      0.0,
+      0.0,
+      0.0
     ],
     "flat_verify": {
       "paper_title": "[bg:flat]",
@@ -339,6 +386,8 @@
       "sr9": 1.0,
       "di2": 0.0,
       "gate": "PASS",
+      "policy_reason_code": "all_required_checks_passed",
+      "failed_checks": [],
       "verdict": {
         "risk": "green",
         "decree": "approve",
@@ -359,10 +408,13 @@
         "pde_status": "skip",
         "ricci_norm": 0.0,
         "riemann_norm": 0.0,
+        "riemann_source": "exact_zero_minkowski",
+        "riemann_is_toy": false,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": true,
         "dimension_check": true,
         "gs_anomaly_flag": false,
+        "gs_anomaly_reason": null,
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 0.0,
@@ -394,6 +446,10 @@
       "sr9": 0.2,
       "di2": 0.8,
       "gate": "FAIL",
+      "policy_reason_code": "nonzero_beta_residual",
+      "failed_checks": [
+        "nonzero_beta_residual"
+      ],
       "verdict": {
         "risk": "red",
         "decree": "reject_and_log",
@@ -414,10 +470,13 @@
         "pde_status": "skip",
         "ricci_norm": 1.5811388300841898,
         "riemann_norm": 1.5811388300841898,
+        "riemann_source": "copied_from_ricci_proxy",
+        "riemann_is_toy": true,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": false,
         "dimension_check": true,
         "gs_anomaly_flag": false,
+        "gs_anomaly_reason": null,
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 0.0,
@@ -435,6 +494,11 @@
       "sr9": 0.0,
       "di2": 1.0,
       "gate": "FAIL",
+      "policy_reason_code": "ctc_failure",
+      "failed_checks": [
+        "closed_timelike_curves",
+        "nonzero_beta_residual"
+      ],
       "verdict": {
         "risk": "red",
         "decree": "reject_and_log",
@@ -455,10 +519,13 @@
         "pde_status": "skip",
         "ricci_norm": 0.9486832980505138,
         "riemann_norm": 0.9486832980505138,
+        "riemann_source": "copied_from_ricci_proxy",
+        "riemann_is_toy": true,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": false,
         "dimension_check": true,
         "gs_anomaly_flag": false,
+        "gs_anomaly_reason": null,
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 0.0,
@@ -476,6 +543,10 @@
       "sr9": 0.1,
       "di2": 0.9,
       "gate": "FAIL",
+      "policy_reason_code": "anomaly_failure",
+      "failed_checks": [
+        "gravitational_anomaly"
+      ],
       "verdict": {
         "risk": "red",
         "decree": "reject_and_log",
@@ -496,10 +567,13 @@
         "pde_status": "skip",
         "ricci_norm": 0.0,
         "riemann_norm": 0.00282842712474619,
+        "riemann_source": "toy_placeholder_constants",
+        "riemann_is_toy": true,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": false,
         "dimension_check": true,
         "gs_anomaly_flag": true,
+        "gs_anomaly_reason": "topological_anomaly_proxy",
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 2.0,
@@ -517,6 +591,8 @@
       "sr9": 1.0,
       "di2": 0.0,
       "gate": "PASS",
+      "policy_reason_code": "all_required_checks_passed",
+      "failed_checks": [],
       "verdict": {
         "risk": "green",
         "decree": "approve",
@@ -537,10 +613,13 @@
         "pde_status": "skip",
         "ricci_norm": 0.0,
         "riemann_norm": 0.001414213562373095,
+        "riemann_source": "toy_placeholder_constants",
+        "riemann_is_toy": true,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": true,
         "dimension_check": true,
         "gs_anomaly_flag": false,
+        "gs_anomaly_reason": null,
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 0.0,
@@ -558,6 +637,8 @@
       "sr9": 1.0,
       "di2": 0.0,
       "gate": "PASS",
+      "policy_reason_code": "all_required_checks_passed",
+      "failed_checks": [],
       "verdict": {
         "risk": "green",
         "decree": "approve",
@@ -578,10 +659,13 @@
         "pde_status": "skip",
         "ricci_norm": 1.264911064067352,
         "riemann_norm": 1.264911064067352,
+        "riemann_source": "copied_from_ricci_proxy",
+        "riemann_is_toy": true,
         "eft_m_kk_gev": null,
         "brst_proxy_ok": true,
         "dimension_check": true,
         "gs_anomaly_flag": false,
+        "gs_anomaly_reason": null,
         "c_total": 0.0,
         "c_moduli": 0.0,
         "gs_p1_R": 0.0,
@@ -617,12 +701,14 @@
     },
     "kd_flat": {
       "kd_value": -0.1234429932877238,
-      "is_negative": true,
-      "contextuality_proxy": true,
+      "raw_kd_negative_in_optimized_basis": true,
       "convergence": {
         "converged": false,
         "final_step": 50,
-        "total_steps": 50
+        "total_steps": 50,
+        "best_step": 50,
+        "best_value": -0.1234429932877238,
+        "last_value": -0.1234429932877238
       },
       "angles": {
         "basis_a": {
@@ -634,35 +720,39 @@
           "phi": 5.934443362633807
         }
       },
-      "target_state_index": "rho_0"
+      "target_state_index": "rho_0",
+      "state_prep_steps": 0
     },
     "kd_desitter": {
-      "kd_value": -0.011973396998374426,
-      "is_negative": true,
-      "contextuality_proxy": true,
+      "kd_value": -0.00047340700984841463,
+      "raw_kd_negative_in_optimized_basis": true,
       "convergence": {
-        "converged": false,
-        "final_step": 50,
-        "total_steps": 50
+        "converged": true,
+        "final_step": 42,
+        "total_steps": 50,
+        "best_step": 22,
+        "best_value": -0.00047340700984841463,
+        "last_value": 0.0005826995746786258
       },
       "angles": {
         "basis_a": {
-          "theta": 3.469867482883571,
-          "phi": 5.812715976644555
+          "theta": 3.223877073549007,
+          "phi": 5.884478828619402
         },
         "basis_b": {
-          "theta": 0.7162079449414319,
-          "phi": 5.963919193338355
+          "theta": 0.1630096633565286,
+          "phi": 5.892156341363508
         }
       },
-      "target_state_index": "rho_0"
+      "target_state_index": "rho_0",
+      "state_prep_steps": 3
     },
     "kd_delta": {
-      "value": 0.11146959628934938,
+      "value": 0.1229695862778754,
       "kd_flat": -0.1234429932877238,
-      "kd_desitter": -0.011973396998374426,
+      "kd_desitter": -0.00047340700984841463,
       "flat_converged": false,
-      "desitter_converged": false,
+      "desitter_converged": true,
       "interpretation": "Relative KD signal (de Sitter minus flat) under the implemented model. Not a standalone proof of curvature-induced contextuality; optimizer convergence status is reported separately."
     },
     "dqe_note": "Optional differentiable governance engine (flame_torch) not installed.",
@@ -673,14 +763,20 @@
       "evidence_class": "optional_engine_check"
     },
     "memory_kernel": {
-      "nm_measure": 0.0014132140336108878,
+      "nm_measure": 0.0001414113567086428,
       "depth": 1,
       "profile": [
         0.0,
-        0.0014132140336108878
+        0.0001414113567086428
       ],
       "threshold_used": 1e-06,
+      "threshold_formula": "epsilon_eff = epsilon_base * exp(-alpha * |ricci_norm|)",
+      "threshold_epsilon_base": 1e-06,
+      "threshold_alpha": 0.5,
+      "threshold_ricci_norm": 0.0,
+      "threshold_curvature_engaged": false,
       "source": "synthetic_injected_backflow",
+      "channel_sensitivity": 0.1,
       "interpretation": "Detector self-test: an artificial coherence backflow is injected to confirm the TTM registers nm > 0. Validates the detector only; not evidence that the model exhibits non-Markovian physics."
     },
     "memory_kernel_model_trajectory": {
@@ -691,7 +787,13 @@
         0.0
       ],
       "threshold_used": 1e-06,
+      "threshold_formula": "epsilon_eff = epsilon_base * exp(-alpha * |ricci_norm|)",
+      "threshold_epsilon_base": 1e-06,
+      "threshold_alpha": 0.5,
+      "threshold_ricci_norm": 0.0,
+      "threshold_curvature_engaged": false,
       "source": "model_generated_trajectory",
+      "channel_sensitivity": 0.1,
       "interpretation": "The phenomenological channel map is Markovian by construction; the model's own trajectory exhibits no non-Markovian backflow (nm ~ 0)."
     },
     "accessibility_scores": {
@@ -781,6 +883,8 @@
         "claim_drift_normalized": 0.02,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.5625,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       },
@@ -794,6 +898,8 @@
         "claim_drift_normalized": 0.17,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.5,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       },
@@ -807,6 +913,8 @@
         "claim_drift_normalized": 0.02,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.5,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       },
@@ -820,6 +928,8 @@
         "claim_drift_normalized": 0.17,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.4375,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       },
@@ -833,6 +943,8 @@
         "claim_drift_normalized": 0.02,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.375,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       },
@@ -846,6 +958,8 @@
         "claim_drift_normalized": 0.17,
         "claim_drift_scale": "percentage",
         "coverage_rate": 0.375,
+        "coverage_rate_source": "external",
+        "coverage_rate_semantics": "Fraction reported by the external audit backend (spar_framework); see that backend for its precise definition of coverage.",
         "evidence_class": "external_review_signal",
         "backend_mode": "external"
       }

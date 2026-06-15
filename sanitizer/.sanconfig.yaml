@@ -12,6 +12,7 @@ detectors:
   secret_token: detect        # API keys / bearer tokens / long hex secrets
   credibility_slop: detect    # residual pseudo-science symbol markers (runs on all files)
   synthetic_marker: detect    # fabrication tag "[synthetic]" / mock data (runs on all files)
+  deprecated_kd_field: detect # deprecated KD JSON keys (is_negative/contextuality_proxy) in data files
   promotional_language: detect  # superlatives / self-promotion in public surface (scope-gated)
   jargon_language: detect       # unexplained internal codes / abbreviations (scope-gated)
 

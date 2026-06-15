@@ -4,7 +4,7 @@
 const EQA_REGISTRY = [
   {
     id: 'toe-test-0058',
-    inspectorTitle: 'EQA · TOE-TEST-0058 QSOT-HARNESS v2.1.0',
+    inspectorTitle: 'EQA · TOE-TEST-0058 QSOT-HARNESS v2.1.1 r1',
     jsonPath: './eqa/toe-test-0058/verification_result.json',
     reportPaths: ['./eqa/toe-test-0058/analysis_report.md'],
     rawTabLabel: '📄 Verification Note',
