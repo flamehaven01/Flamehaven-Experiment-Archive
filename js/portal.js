@@ -205,8 +205,12 @@ function copyFooterLink() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  cards = Array.from(document.querySelectorAll('.report-card'));
   renderEqaCards();
+  renderBscCards();
+  renderBscSidebar();
+  renderExtraItems();
+  renderExtraSidebar();
+  cards = Array.from(document.querySelectorAll('.report-card'));
   hydrateLedgerVersion();
   // Generate EQA sidebar entries from registry (replaces hardcoded HTML)
   if (typeof EQA_REGISTRY !== 'undefined') {
@@ -315,14 +319,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── DEEP LINK ROUTING ────────────────────────────────────────────────────────
 function handleHashNavigation(hash) {
-  // BSC / extra reports (non-EQA, stay hardcoded)
-  if (hash === 'yorkeccak-bio' || hash === 'yorkeccak-bio-20260515') {
-    openReportViewer('yorkeccak-bio', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.html', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.md', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf', 'yorkeccak/bio', 'Bioscience Compliance · 2026-05-18');
-    return;
-  } else if (hash === 'bioclaw' || hash === 'bioclaw-20260521') {
-    openReportViewer('bioclaw', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf', 'Runchuan-BU/BioClaw', 'Bioscience Compliance · 2026-05-21');
-    return;
-  } else if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
+  // BSC reports — driven by BSC_REGISTRY (id + deepLinks)
+  if (typeof BSC_REGISTRY !== 'undefined') {
+    for (var bi = 0; bi < BSC_REGISTRY.length; bi++) {
+      var bcfg = BSC_REGISTRY[bi];
+      if (bcfg.id === hash || (bcfg.deepLinks || []).indexOf(hash) !== -1) {
+        openReportViewer(bcfg.id, bcfg.report, bcfg.reportMd, bcfg.reportJson, bcfg.reportPdf, bcfg.viewerTitle, bcfg.viewerEyebrow);
+        return;
+      }
+    }
+  }
+
+  // Extra / Methodology deep links
+  if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
     return;
   }
