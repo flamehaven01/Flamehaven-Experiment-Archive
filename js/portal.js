@@ -21,38 +21,82 @@ const EQA_CLASS_META = {
   'research-artifact': { label: 'Research Artifact', color: '#a78bfa', border: 'rgba(167,139,250,0.2)' },
 };
 
-const EQA_CARD_TAXONOMY = {
-  'eqa-card-0052': { kind: 'non-run', class: 'review-artifact' },
-  'eqa-card-0053': { kind: 'non-run', class: 'runtime-audit' },
-  'eqa-card-0054': { kind: 'non-run', class: 'governance-audit' },
-  'eqa-card-0055': { kind: 'non-run', class: 'research-artifact' },
-  'eqa-card-0056': { kind: 'verification-run', class: 'verification-run' },
-  'eqa-card-0057': { kind: 'verification-run', class: 'verification-run' },
-  'eqa-card-0058': { kind: 'verification-run', class: 'verification-run' },
-  'eqa-card-archive': { kind: 'verification-run', class: 'verification-run', badgeLabel: 'Historical Records', badgeColor: '#9ca3af', badgeBorder: 'rgba(156,163,175,0.2)' },
-};
+// ── EQA CARD RENDERER ────────────────────────────────────────────────────────
+// Generates <article> card DOM from EQA_REGISTRY entries into #eqa-cards-container.
+// Adding a new experiment = edit eqa-registry.js only; index.html never needs touching.
+function renderEqaCards() {
+  var container = document.getElementById('eqa-cards-container');
+  if (!container || typeof EQA_REGISTRY === 'undefined') return;
 
-function hydrateEqaCardTaxonomy() {
-  Object.entries(EQA_CARD_TAXONOMY).forEach(([id, meta]) => {
-    const card = document.getElementById(id);
-    if (!card) return;
-    card.dataset.kind = meta.kind;
-    card.dataset.class = meta.class;
-    card.dataset.status = meta.kind; // legacy fallback for any older selectors
+  var BADGE_COLOR = { 'verification-run': '#10b981', 'non-run': '#3b82f6' };
+  var BADGE_BG    = { 'verification-run': 'rgba(16,185,129,0.1)', 'non-run': 'rgba(59,130,246,0.1)' };
+  var BADGE_BD    = { 'verification-run': 'rgba(16,185,129,0.2)', 'non-run': 'rgba(59,130,246,0.2)' };
 
-    const chip = card.querySelector('.tier-chip');
-    if (!chip) return;
-    const classMeta = EQA_CLASS_META[meta.class] || EQA_CLASS_META['verification-run'];
-    const label = meta.badgeLabel || classMeta.label;
-    const color = meta.badgeColor || classMeta.color;
-    const border = meta.badgeBorder || classMeta.border;
-    chip.style.color = color;
-    chip.style.borderColor = border;
-    const dot = chip.querySelector('.tier-dot');
-    if (dot) dot.style.background = color;
-    const labelNode = chip.querySelector('.tier-chip-label');
-    if (labelNode) labelNode.textContent = label;
-    else chip.innerHTML = `${dot ? dot.outerHTML : ''}${label}`;
+  var I_JSON   = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h10M1 9h7" stroke-linecap="round"/></svg>';
+  var I_REPORT = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="8" height="8" rx="1"/><path d="M5 5h2M5 7h2" stroke-linecap="round"/></svg>';
+  var I_REPO   = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round"/></svg>';
+  var I_PAPER  = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 1h8a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1zM4 4h4M4 7h4" stroke-linecap="round"/></svg>';
+
+  var S_DIM  = 'color:var(--t3);background:rgba(255,255,255,0.03);border:1px solid var(--border);';
+  var S_OFF  = 'color:var(--t5);background:transparent;border:1px solid rgba(255,255,255,0.05);cursor:not-allowed;opacity:0.4;pointer-events:none;';
+  var S_BTN  = 'display:flex;align-items:center;gap:8px;font-family:\'JetBrains Mono\',monospace;font-size:12px;padding:8px 16px;border-radius:var(--r-md);transition:all 0.15s;text-decoration:none;';
+
+  EQA_REGISTRY.forEach(function(cfg) {
+    var c = cfg.card;
+    if (!c) return;
+
+    var cardId    = 'eqa-card-' + cfg.id.replace('toe-test-', '');
+    var cm        = EQA_CLASS_META[cfg.class] || EQA_CLASS_META['verification-run'];
+    var bc        = BADGE_COLOR[cfg.kind] || '#3b82f6';
+    var badgeNum  = cfg.id.replace('toe-test-', '').toUpperCase();
+
+    function activeBtn(tag, href, onclick, icon, label, extraStyle) {
+      var s = S_BTN + (extraStyle || S_DIM);
+      if (tag === 'button') {
+        return '<button class="eq-slot-btn" onclick="' + onclick + '" style="cursor:pointer;' + s + '">' + icon + label + '</button>';
+      }
+      return '<a class="eq-slot-btn" href="' + href + '" target="_blank" rel="noopener" style="' + s + '">' + icon + label + '</a>';
+    }
+    function disabledBtn(icon, label) {
+      return '<span class="eq-slot-btn disabled" style="' + S_BTN + S_OFF + '">' + icon + label + '</span>';
+    }
+
+    var jsonBtn = activeBtn('button', null,
+      'openJsonInspector(\'' + cfg.id + '\'); return false;',
+      I_JSON, '[JSON]',
+      'color:#a78bfa;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.2);'
+    );
+
+    var reportBtn = c.reportUrl
+      ? activeBtn('a', c.reportUrl, null, I_REPORT, '[Report]')
+      : activeBtn('button', null, 'openJsonInspector(\'' + cfg.id + '\',\'report\'); return false;', I_REPORT, '[Report]');
+
+    var repoBtn  = c.repoUrl  ? activeBtn('a', c.repoUrl,  null, I_REPO,  '[Repo]')  : disabledBtn(I_REPO,  '[Repo]');
+    var paperBtn = c.paperUrl ? activeBtn('a', c.paperUrl, null, I_PAPER, c.paperLabel || '[Paper]') : disabledBtn(I_PAPER, '[Paper]');
+
+    var resultLine = c.result
+      ? '<strong style="color:var(--ts);display:block;margin-top:6px;">' + c.result + '</strong>'
+      : '';
+
+    var html = '<article class="eq-card" id="' + cardId + '" data-kind="' + cfg.kind + '" data-class="' + cfg.class + '" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:border-color 0.2s,transform 0.2s;position:relative;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">'
+      +   '<div style="display:flex;align-items:center;gap:10px;">'
+      +     '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:600;color:' + bc + ';background:' + BADGE_BG[cfg.kind] + ';border:1px solid ' + BADGE_BD[cfg.kind] + ';padding:2px 8px;border-radius:var(--r-xs);">EQA-TEST-' + badgeNum + '</span>'
+      +     '<span style="font-size:12px;color:var(--t4);">' + c.date + '</span>'
+      +   '</div>'
+      +   '<span class="tier-chip" style="margin:0;padding:2px 10px;font-size:10px;text-transform:uppercase;color:' + cm.color + ';border:1px solid ' + cm.border + ';">'
+      +     '<span class="tier-dot" style="background:' + cm.color + '"></span>'
+      +     '<span class="tier-chip-label">' + cm.label + '</span>'
+      +   '</span>'
+      + '</div>'
+      + '<h3 style="font-size:18px;font-weight:600;color:var(--ts);margin:0 0 10px 0;">' + c.title + '</h3>'
+      + '<p style="font-size:13.5px;color:var(--t3);line-height:1.6;margin:0 0 20px 0;max-width:800px;">' + c.desc + ' ' + resultLine + '</p>'
+      + '<div style="display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:20px;">'
+      +   jsonBtn + reportBtn + repoBtn + paperBtn
+      + '</div>'
+      + '</article>';
+
+    container.insertAdjacentHTML('beforeend', html);
   });
 }
 
@@ -162,7 +206,7 @@ function copyFooterLink() {
 
 document.addEventListener('DOMContentLoaded', () => {
   cards = Array.from(document.querySelectorAll('.report-card'));
-  hydrateEqaCardTaxonomy();
+  renderEqaCards();
   hydrateLedgerVersion();
   // Generate EQA sidebar entries from registry (replaces hardcoded HTML)
   if (typeof EQA_REGISTRY !== 'undefined') {
@@ -270,68 +314,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── DEEP LINK ROUTING ────────────────────────────────────────────────────────
 function handleHashNavigation(hash) {
+  // BSC / extra reports (non-EQA, stay hardcoded)
   if (hash === 'yorkeccak-bio' || hash === 'yorkeccak-bio-20260515') {
     openReportViewer('yorkeccak-bio', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.html', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.md', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json', './stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf', 'yorkeccak/bio', 'Bioscience Compliance · 2026-05-18');
+    return;
   } else if (hash === 'bioclaw' || hash === 'bioclaw-20260521') {
     openReportViewer('bioclaw', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json', './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf', 'Runchuan-BU/BioClaw', 'Bioscience Compliance · 2026-05-21');
+    return;
   } else if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
-  } else if (hash === 'toe-test-0058' || hash === 'qsot-harness') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0058');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0058');
-    }, 150);
-  } else if (hash === 'toe-test-0057' || hash === 'qsot-compiler') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0057');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0057');
-    }, 150);
-  } else if (hash === 'toe-test-0055' || hash === 'toe-test-0056-legacy-aefso' || hash === 'toe-test-aefso' || hash === 'aefso') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0055');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0055');
-    }, 150);
-  } else if (hash === 'toe-test-0056' || hash === 'openai-erdos-eq22') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0056');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0056');
-    }, 150);
-  } else if (hash === 'toe-test-0054') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0054');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0054');
-    }, 150);
-  } else if (hash === 'toe-test-0053') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0053');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0053');
-    }, 150);
-  } else if (hash === 'toe-test-0052') {
-    activeColl = 'toe';
-    applyFilters();
-    setTimeout(() => {
-      const card = document.getElementById('eqa-card-0052');
-      if (card) card.scrollIntoView({ behavior: 'smooth' });
-      openJsonInspector('toe-test-0052');
-    }, 150);
+    return;
+  }
+
+  // EQA entries — driven by EQA_REGISTRY (id + deepLinks)
+  if (typeof EQA_REGISTRY !== 'undefined') {
+    var match = null;
+    for (var i = 0; i < EQA_REGISTRY.length; i++) {
+      var cfg = EQA_REGISTRY[i];
+      var aliases = cfg.deepLinks || [];
+      if (cfg.id === hash || aliases.indexOf(hash) !== -1) { match = cfg; break; }
+    }
+    if (match) {
+      activeColl = 'toe';
+      applyFilters();
+      var matchId = match.id;
+      setTimeout(function() {
+        var card = document.getElementById('eqa-card-' + matchId.replace('toe-test-', ''));
+        if (card) card.scrollIntoView({ behavior: 'smooth' });
+        openJsonInspector(matchId);
+      }, 150);
+    }
   }
 }
 
