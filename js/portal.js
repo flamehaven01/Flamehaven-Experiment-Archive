@@ -222,7 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
           highlightFile(this);
           activeColl = 'toe';
           if (typeof applyFilters === 'function') applyFilters();
-          const card = document.getElementById(cfg.sidebar.cardId);
+          const cardId = 'eqa-card-' + cfg.id.replace('toe-test-', '');
+          const card = document.getElementById(cardId);
           if (card) card.scrollIntoView({ behavior: 'smooth' });
         };
         d.innerHTML = '<span class="sb-file-dot" style="background:' + cfg.sidebar.dot + '"></span>'
