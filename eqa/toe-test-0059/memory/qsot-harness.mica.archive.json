@@ -3,12 +3,12 @@
   "mica_schema_version": "0.2.6",
   "project": {
     "name": "qsot-harness-verification",
-    "full_name": "QSOT-Harness v2.1.1 Verification (Honest Reconstruction)",
-    "version": "2.1.1",
+    "full_name": "QSOT-Harness v2.1.2 (r1) Verification (Honest Reconstruction)",
+    "version": "2.1.2",
     "status": "active",
     "primary_language": "Python",
     "repo_path": "eqa/toe-test-0059",
-    "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.1, the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
+    "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.2 (the r1 hardening release), the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
   },
   "scope": {
     "include": [

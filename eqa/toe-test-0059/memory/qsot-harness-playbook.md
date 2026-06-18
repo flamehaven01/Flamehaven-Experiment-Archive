@@ -1,6 +1,6 @@
-# MICA Playbook: QSOT-Harness v2.1.1 Verification
+# MICA Playbook: QSOT-Harness v2.1.2 (r1) Verification
 
-This playbook governs the reference run and claim-governance record for QSOT-Harness v2.1.1 (the honest reconstruction of the v1.2.3 slop artifact recorded at toe-test-0057).
+This playbook governs the reference run and claim-governance record for QSOT-Harness v2.1.2 (the r1 hardening release; honest reconstruction of the v1.2.3 slop artifact recorded at toe-test-0057).
 
 ## 1. Operating Rules & Governance
 * **Claim Boundaries**: All computed metrics carry `ADVISORY` provenance. The harness never asserts external physical validity, quantum-gravity validation, or a new physical law. Gate and verdict labels are policy-derived classifications, not physical observables.
@@ -30,5 +30,5 @@ This playbook governs the reference run and claim-governance record for QSOT-Har
    - audit `backend_mode` is `external` or `mock` depending on whether `spar_framework` is installed
 
 ## 3. Notes
-* Current revision: `r1` (R0-R2 hardening) at committed source `c0f6c6a` (branch `hardening/p0-p2-remediation`, base `106a08c`); public release baseline: `v2.1.1`; DOI `10.5281/zenodo.20665824`.
-* This refreshed 0059 copy is revision `r1`, a committed pre-public hardening of the v2.1.1 baseline. Re-runs are content-stable except for the `generated_at` timestamp and the audit backend mode; the refreshed frozen artifact `verification_result.json` (canonical LF SHA-256 `1498610f...`, superseding `69c97c92...`) anchors the current ledger copy. The `paper/evidence/` frozen copy is synced separately (R4).
+* Current revision: `r1` (R0-R2 hardening) at committed source `c0f6c6a` (branch `hardening/p0-p2-remediation`, base `106a08c`); published as public release `v2.1.2`; DOI `10.5281/zenodo.20665824`.
+* This 0059 copy is revision `r1`, the R0-R2 hardening of the v2.1.1 baseline, released publicly as v2.1.2 (the frozen `result.json` hash `1498610f` matches the v2.1.2 frozen evidence). Re-runs are content-stable except for the `generated_at` timestamp and the audit backend mode; the refreshed frozen artifact `verification_result.json` (canonical LF SHA-256 `1498610f...`, superseding `69c97c92...`) anchors the current ledger copy. The `paper/evidence/` frozen copy is synced separately (R4).

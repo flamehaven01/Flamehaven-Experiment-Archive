@@ -21,14 +21,14 @@
   "verdict": "DEGRADED_PASS",
   "provenance_class": "ADVISORY",
   "ui_status": "Verified",
-  "classification_note": "QSOT-Harness v2.1.1 is the honest reconstruction of the QSOT Compiler v1.2.3 slop artifact audited in toe-test-0057. Where 0057 wrapped a flat single-qubit amplitude-damping toy in ungrounded general-relativity nomenclature (with KD negativity and TTM non-Markovianity evaluating to exactly 0.0), 0059 makes the model's epistemic status machine-readable: a fixed claim boundary, a per-observation evidence class, environment-dependent backend surfacing, a calibration manifest, and a strict separation of detector self-tests from model-generated signals. The run is verified for model-output consistency only.",
+  "classification_note": "QSOT-Harness v2.1.2 (the r1 hardening release) is the honest reconstruction of the QSOT Compiler v1.2.3 slop artifact audited in toe-test-0057. Where 0057 wrapped a flat single-qubit amplitude-damping toy in ungrounded general-relativity nomenclature (with KD negativity and TTM non-Markovianity evaluating to exactly 0.0), 0059 makes the model's epistemic status machine-readable: a fixed claim boundary, a per-observation evidence class, environment-dependent backend surfacing, a calibration manifest, and a strict separation of detector self-tests from model-generated signals. The run is verified for model-output consistency only.",
   "reproduction_receipt": {
     "run_id": "toe-test-0059",
     "run_type": "reproduction",
     "source_repo": "Flamehaven-Labs/QSOT-Harness",
     "source_git_sha": "c0f6c6a15b486482978bb5e48b8e538594b0c200",
     "source_branch": "hardening/p0-p2-remediation",
-    "release_tag": "v2.1.1",
+    "release_tag": "v2.1.2",
     "run_engine_commit": "c0f6c6a15b486482978bb5e48b8e538594b0c200",
     "reference_run_matches_release_commit": false,
     "engine_entrypoint": "run_experiment.py -> qsot_v2.core.runner.ExperimentRunner",
@@ -43,27 +43,27 @@
     "output_hash_note": "SHA-256 over canonical LF bytes of reports/result.json committed at source_git_sha c0f6c6a (git show c0f6c6a:reports/result.json). The paper/evidence frozen copy is synced separately (R4).",
     "generated_at_utc": "2026-06-15T06:57:25Z",
     "doi": "10.5281/zenodo.20665824",
-    "provenance_note": "This refreshed 0059 reference run was produced at committed source c0f6c6a (branch hardening/p0-p2-remediation), the R0-R2 hardening of base 106a08c. The reported KD numbers changed from the previous 0059 copy because R0.1 corrected the KD reported value to the optimizer best objective; all other R0-R2 changes are schema/provenance/presentation hardening. The public DOI and release still point to the nearest published baseline (v2.1.1); this entry records the pre-public source-hardening refresh. See ledger_revision for the revision record.",
+    "provenance_note": "This 0059 reference run was produced at committed source c0f6c6a (branch hardening/p0-p2-remediation), the R0-R2 hardening of base 106a08c. The reported KD numbers changed from the previous 0059 copy because R0.1 corrected the KD reported value to the optimizer best objective; all other R0-R2 changes are schema/provenance/presentation hardening. This r1 hardening was subsequently published as the v2.1.2 release (DOI 10.5281/zenodo.20665824); the run commit (c0f6c6a) differs from the v2.1.2 tag commit (a55ac95), so reference_run_matches_release_commit stays false, but the frozen result.json hash (1498610f) matches the v2.1.2 frozen evidence. See ledger_revision for the revision record.",
     "canonicalization_note": "Re-runs are content-stable except for the generated_at timestamp and the audit backend_mode (external vs mock); this refreshed LF artifact is the current canonical 0059 copy.",
     "source_worktree_dirty": false
   },
   "ledger_revision": {
-    "run_type": "pre_public_hardening_refresh",
+    "run_type": "source_hardening_r1_released_v2_1_2",
     "revision": "r1",
     "supersedes": {
       "previous_output_hash_sha256": "69c97c927041789ec6992412a17735bbd84019a872d26e3e7acfab062910d084",
       "new_output_hash_sha256": "1498610f66d7b4b5781949c66515ac2b470dda6cfb3b3ea88117667d6dc38a6d",
       "previous_run_type": "reproduction"
     },
-    "provenance_note": "0059 is a pre-public, project-bound canonical ledger slot. It is refreshed in place rather than minted as 0059, because a new run ID would incorrectly signal a separate repo/project. Revision r1 records the R0-R2 source/schema hardening. Numerical change occurred in R0.1 only: the KD reported value was corrected to the optimizer best objective. All other R0-R2 changes are schema/provenance/presentation hardening. See supersedes hashes for the artifact transition.",
+    "provenance_note": "0059 is a project-bound canonical ledger slot (pre-public at the time of the r1 in-place revision; the r1 hardening has since been released publicly as v2.1.2). It was refreshed in place rather than minted as a new run ID, because a new run ID would incorrectly signal a separate repo/project. Revision r1 records the R0-R2 source/schema hardening. Numerical change occurred in R0.1 only: the KD reported value was corrected to the optimizer best objective. All other R0-R2 changes are schema/provenance/presentation hardening. See supersedes hashes for the artifact transition.",
     "previous_ledger_summary": "Phase 4/5 config-driven refresh on base 106a08c (working-tree, output_hash 69c97c92)."
   },
   "external_links": {
     "repository": "https://github.com/Flamehaven-Labs/QSOT-Harness",
-    "paper_dir": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper",
-    "paper_main_tex": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.1/paper/main.tex",
-    "frozen_evidence_provenance": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.1/paper/evidence/PROVENANCE.md",
-    "release": "https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.1",
+    "paper_dir": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.2/paper",
+    "paper_main_tex": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.2/paper/main.tex",
+    "frozen_evidence_provenance": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.2/paper/evidence/PROVENANCE.md",
+    "release": "https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.2",
     "doi": "https://doi.org/10.5281/zenodo.20665824",
     "zenodo_record": "https://zenodo.org/records/20665824",
     "ci_runs": {

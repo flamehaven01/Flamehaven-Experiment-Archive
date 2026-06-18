@@ -19,7 +19,7 @@ const laneDefinitions = {
     key: 'toe',
     title: 'EQA',
     status: 'active',
-    summary: 'Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0059 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, 0058 = QSOT2 mathematical-consistency verifier, and 0059 = QSOT-Harness v2.1.1 (hardening r1) honest reconstruction (renumbered from 0058 in the 3-line QSOT split).',
+    summary: 'Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0059 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, 0058 = QSOT2 mathematical-consistency verifier, and 0059 = QSOT-Harness v2.1.2 (r1 hardening release) honest reconstruction (renumbered from 0058 in the 3-line QSOT split).',
   },
   rexsyn: {
     key: 'rexsyn',

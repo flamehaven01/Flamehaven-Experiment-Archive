@@ -1,6 +1,6 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-17T14:49:04.471Z",
+  "generatedAt": "2026-06-18T04:09:23.216Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
   "reportsActive": 16,
@@ -17,7 +17,7 @@
       "key": "toe",
       "title": "EQA",
       "status": "active",
-      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0059 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, 0058 = QSOT2 mathematical-consistency verifier, and 0059 = QSOT-Harness v2.1.1 (hardening r1) honest reconstruction (renumbered from 0058 in the 3-line QSOT split).",
+      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0059 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, 0058 = QSOT2 mathematical-consistency verifier, and 0059 = QSOT-Harness v2.1.2 (r1 hardening release) honest reconstruction (renumbered from 0058 in the 3-line QSOT split).",
       "recordCount": 8,
       "latestAuditDate": "2026-06-17"
     },
@@ -111,7 +111,7 @@
       "id": "toe-test-0059-qsot-harness",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0059 — QSOT-Harness current worktree refresh — bounded, epistemically-labeled verification harness (honest reconstruction)",
+      "title": "EQA: TOE-TEST-0059 — QSOT-Harness v2.1.2 (r1 hardening) — bounded, epistemically-labeled verification harness (honest reconstruction)",
       "targetSlug": "toe-test-0059",
       "auditDate": "2026-06-15",
       "gate": "DEGRADED_PASS",

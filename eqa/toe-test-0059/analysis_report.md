@@ -1,13 +1,13 @@
 # TOE-TEST-0059 Verification Note
 
-**Target**: `QSOT-Harness v2.1.1 (+ hardening r1) — Bounded, Epistemically-Labeled Verification Harness (Honest Reconstruction)`
+**Target**: `QSOT-Harness v2.1.2 (r1 hardening release) — Bounded, Epistemically-Labeled Verification Harness (Honest Reconstruction)`
 **Canonical run id**: `toe-test-0059`
 **Supersedes**: `toe-test-0057` (QSOT Compiler v1.2.3 — High-Formality, Fake Physics Slop Artifact)
 **Legacy alias**: `qsot-harness`
 **Repository**: [Flamehaven-Labs/QSOT-Harness](https://github.com/Flamehaven-Labs/QSOT-Harness)
-**Paper**: [public manuscript baseline @ v2.1.1](https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper) (`paper/main.tex`)
+**Paper**: [public manuscript @ v2.1.2](https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.2/paper) (`paper/main.tex`)
 **Zenodo Record**: [10.5281/zenodo.20665824](https://doi.org/10.5281/zenodo.20665824)
-**Release**: [public baseline v2.1.1](https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.1)
+**Release**: [public release v2.1.2 (r1 hardening)](https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.2)
 
 ---
 
@@ -68,4 +68,4 @@ Mechanically gated by `scripts/check_eqa_invariants.py` (R3.1) and the sanitizer
 
 Read `0059` as a **remediation record**: its deliverable is the auditable transformation of `0057`'s slop into a bounded, epistemically-labeled honest harness. `Verified` (canonical artifact + reproduction receipt + source SHA + DOI), `ADVISORY` provenance, model-consistency only. The correction takes precedence: `0057` is the slop audit, `0059` is the published honest rebuild.
 
-For the current refreshed copy, the public `v2.1.1` release and DOI remain the nearest published baseline, while this ledger entry records **revision r1** — the R0-R2 source/schema hardening committed at `c0f6c6a` (not yet in a public release).
+This ledger entry records **revision r1** — the R0-R2 source/schema hardening committed at `c0f6c6a` — which was **published as the `v2.1.2` release** (DOI `10.5281/zenodo.20665824`). The run commit (`c0f6c6a`) differs from the v2.1.2 tag commit (`a55ac95`), but the frozen `result.json` hash (`1498610f`) matches the v2.1.2 frozen evidence, so the v2.1.2 release and this ledger copy are the same artifact.
