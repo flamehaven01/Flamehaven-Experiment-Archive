@@ -4,9 +4,9 @@
 **Canonical run id**: `toe-test-0057`  
 **Legacy alias**: `qsot-compiler`  
 **Zenodo Record**: [10.5281/zenodo.18035432](https://zenodo.org/records/18035432)
-**Superseded by**: [`toe-test-0058`](../toe-test-0058/analysis_report.md) — QSOT-Harness v2.1.1, the honest reconstruction (DOI [10.5281/zenodo.20665824](https://doi.org/10.5281/zenodo.20665824))
+**Superseded by**: [`toe-test-0058`](../toe-test-0058/analysis_report.md) — QSOT2, the re-scoped mathematical-consistency verifier; and [`toe-test-0059`](../toe-test-0059/analysis_report.md) — QSOT-Harness v2.1.1, the published honest reconstruction (DOI [10.5281/zenodo.20665824](https://doi.org/10.5281/zenodo.20665824), renumbered from 0058 in the 3-line QSOT split)
 
-> The correction takes precedence: read `0057` as the slop audit, and `0058` as the published honest rebuild.
+> The correction takes precedence: read `0057` as the slop audit, `0058` as the re-scoped math verifier, and `0059` as the published honest rebuild.
 
 ---
 

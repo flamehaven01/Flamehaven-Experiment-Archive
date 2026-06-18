@@ -10,8 +10,8 @@
   ],
   "working_hypothesis": "The QSOT Compiler v1.2.3 is an AI-Native academic-looking package wrapping a conceptually ungrounded single-qubit toy ansatz with high-formality physics nomenclature to mimic general relativistic quantum gravity.",
   "canonical_run_id": "toe-test-0057",
-  "superseded_by": "toe-test-0058",
-  "superseded_by_note": "Honest reconstruction published as QSOT-Harness v2.1.1 (toe-test-0058, DOI 10.5281/zenodo.20665824). Per the EQA reconstruction standard, the correction takes precedence in the public interpretation layer.",
+  "superseded_by": ["toe-test-0058", "toe-test-0059"],
+  "superseded_by_note": "Re-scoped into the 3-line QSOT split: the mathematical-consistency successor is QSOT2 (toe-test-0058); the governance-rich published honest reconstruction is QSOT-Harness v2.1.1 (toe-test-0059, DOI 10.5281/zenodo.20665824, renumbered verbatim from 0058). Per the EQA reconstruction standard, the correction takes precedence in the public interpretation layer.",
   "legacy_aliases": [
     "qsot-compiler-v1-2-3",
     "qsot-compiler"

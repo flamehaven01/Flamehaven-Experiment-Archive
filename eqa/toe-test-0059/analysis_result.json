@@ -1,0 +1,156 @@
+{
+  "schema_id": "flamehaven_toe_test_qsot_harness.v1",
+  "canonical_run_id": "toe-test-0059",
+  "supersedes": "toe-test-0057",
+  "legacy_aliases": [
+    "qsot-harness",
+    "qsot-compiler-v2"
+  ],
+  "run_type": "reproduction",
+  "secondary_tags": [
+    "publication",
+    "doi_archived",
+    "honest_reconstruction",
+    "claim_governance"
+  ],
+  "artifact_class": "bounded_epistemically_labeled_verification_harness",
+  "review_path": "honest_reconstruction_publication_and_reference_run",
+  "primary_purpose": "Document, as a reproducible and auditable record, how each defect diagnosed in the 0057 slop artifact was remediated and evolved into a bounded, epistemically-labeled honest harness -- the verifiable slop-to-honest delta (see slop_remediation_map), with the reference run as supporting evidence rather than the headline.",
+  "generated_at": "2026-06-15T06:57:25Z",
+  "test_root": "Flamehaven-Labs/QSOT-Harness",
+  "verdict": "DEGRADED_PASS",
+  "provenance_class": "ADVISORY",
+  "ui_status": "Verified",
+  "classification_note": "QSOT-Harness v2.1.1 is the honest reconstruction of the QSOT Compiler v1.2.3 slop artifact audited in toe-test-0057. Where 0057 wrapped a flat single-qubit amplitude-damping toy in ungrounded general-relativity nomenclature (with KD negativity and TTM non-Markovianity evaluating to exactly 0.0), 0059 makes the model's epistemic status machine-readable: a fixed claim boundary, a per-observation evidence class, environment-dependent backend surfacing, a calibration manifest, and a strict separation of detector self-tests from model-generated signals. The run is verified for model-output consistency only.",
+  "reproduction_receipt": {
+    "run_id": "toe-test-0059",
+    "run_type": "reproduction",
+    "source_repo": "Flamehaven-Labs/QSOT-Harness",
+    "source_git_sha": "c0f6c6a15b486482978bb5e48b8e538594b0c200",
+    "source_branch": "hardening/p0-p2-remediation",
+    "release_tag": "v2.1.1",
+    "run_engine_commit": "c0f6c6a15b486482978bb5e48b8e538594b0c200",
+    "reference_run_matches_release_commit": false,
+    "engine_entrypoint": "run_experiment.py -> qsot_v2.core.runner.ExperimentRunner",
+    "preset": "configs/experiment.yaml (backgrounds: flat, schwarzschild, de_sitter, ads5, eguchi_hanson, godel_universe)",
+    "params": {
+      "sensitivity": 0.1,
+      "boost_beta": 0.5
+    },
+    "command": "python run_experiment.py --config configs/experiment.yaml --out reports",
+    "output_artifact": "verification_result.json",
+    "output_hash_sha256": "1498610f66d7b4b5781949c66515ac2b470dda6cfb3b3ea88117667d6dc38a6d",
+    "output_hash_note": "SHA-256 over canonical LF bytes of reports/result.json committed at source_git_sha c0f6c6a (git show c0f6c6a:reports/result.json). The paper/evidence frozen copy is synced separately (R4).",
+    "generated_at_utc": "2026-06-15T06:57:25Z",
+    "doi": "10.5281/zenodo.20665824",
+    "provenance_note": "This refreshed 0059 reference run was produced at committed source c0f6c6a (branch hardening/p0-p2-remediation), the R0-R2 hardening of base 106a08c. The reported KD numbers changed from the previous 0059 copy because R0.1 corrected the KD reported value to the optimizer best objective; all other R0-R2 changes are schema/provenance/presentation hardening. The public DOI and release still point to the nearest published baseline (v2.1.1); this entry records the pre-public source-hardening refresh. See ledger_revision for the revision record.",
+    "canonicalization_note": "Re-runs are content-stable except for the generated_at timestamp and the audit backend_mode (external vs mock); this refreshed LF artifact is the current canonical 0059 copy.",
+    "source_worktree_dirty": false
+  },
+  "ledger_revision": {
+    "run_type": "pre_public_hardening_refresh",
+    "revision": "r1",
+    "supersedes": {
+      "previous_output_hash_sha256": "69c97c927041789ec6992412a17735bbd84019a872d26e3e7acfab062910d084",
+      "new_output_hash_sha256": "1498610f66d7b4b5781949c66515ac2b470dda6cfb3b3ea88117667d6dc38a6d",
+      "previous_run_type": "reproduction"
+    },
+    "provenance_note": "0059 is a pre-public, project-bound canonical ledger slot. It is refreshed in place rather than minted as 0059, because a new run ID would incorrectly signal a separate repo/project. Revision r1 records the R0-R2 source/schema hardening. Numerical change occurred in R0.1 only: the KD reported value was corrected to the optimizer best objective. All other R0-R2 changes are schema/provenance/presentation hardening. See supersedes hashes for the artifact transition.",
+    "previous_ledger_summary": "Phase 4/5 config-driven refresh on base 106a08c (working-tree, output_hash 69c97c92)."
+  },
+  "external_links": {
+    "repository": "https://github.com/Flamehaven-Labs/QSOT-Harness",
+    "paper_dir": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper",
+    "paper_main_tex": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.1/paper/main.tex",
+    "frozen_evidence_provenance": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.1/paper/evidence/PROVENANCE.md",
+    "release": "https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.1",
+    "doi": "https://doi.org/10.5281/zenodo.20665824",
+    "zenodo_record": "https://zenodo.org/records/20665824",
+    "ci_runs": {
+      "ci_cd_pipeline": "https://github.com/Flamehaven-Labs/QSOT-Harness/actions/runs/27396901055",
+      "governance_gate": "https://github.com/Flamehaven-Labs/QSOT-Harness/actions/runs/27396901070",
+      "paper_latex_pdf": "https://github.com/Flamehaven-Labs/QSOT-Harness/actions/runs/27396901081"
+    },
+    "paper_pdf_artifact_note": "The compiled PDF is an ephemeral GitHub Actions artifact from the Paper workflow run above; the stable references are the manuscript source (paper/) and the Zenodo archive."
+  },
+  "test_evidence": {
+    "command": "python -m pytest --cov=qsot_v2 --cov-report=term-missing",
+    "passed": 64,
+    "coverage_percent": 94.82,
+    "coverage_gate": "--cov-fail-under=90",
+    "ci_workflows": [
+      "CI/CD Pipeline (tests/lint/format + Rust sidecar)",
+      "Governance Gate (claim-integrity)",
+      "Paper (LaTeX -> PDF)"
+    ]
+  },
+  "checks_summary": {
+    "total": 50,
+    "pass": 48,
+    "fail": 0,
+    "skipped": 1,
+    "degraded_pass": 1
+  },
+  "observations": {
+    "kd_flat": -0.1234,
+    "kd_desitter": -0.0005,
+    "kd_delta": 0.123,
+    "kd_optimizer_converged": false,
+    "memory_kernel_selftest_nm": 0.0001414113567086428,
+    "memory_kernel_model_trajectory_nm": 0.0,
+    "audit_backend_mode": "external",
+    "audit_dependency_declared": true,
+    "dqe_covenant_validated": "SKIPPED"
+  },
+  "reconstruction_contrast": {
+    "v1_0057_slop": [
+      "Kirkwood-Dirac negativity and TTM non-Markovianity evaluated to exactly 0.0 (null placeholders)",
+      "Curved-spacetime metrics described in the LaTeX papers were absent from the execution code",
+      "High-prestige physics nomenclature wrapped a standard flat single-qubit amplitude-damping toy"
+    ],
+    "v2_0059_honest": [
+      "KD reported flat-relative (kd_delta = +0.1230) from the optimizer best objective, explicitly not a contextuality proof; overall KD status remains DEGRADED_PASS because the flat-baseline optimization does not converge within budget",
+      "TTM-inspired proxy split into a synthetic detector self-test (nm = 1.41e-4 at alpha = 0.1) and the model trajectory (nm = 0, Markovian by construction)",
+      "Machine-readable claim_boundary + 7-class evidence taxonomy + calibration manifest; gate / verdict labeled as policy-derived classifications",
+      "Fabricated citation (LeeFullwood2025, PRL 134:100401) removed and replaced with the real Pikovski et al. 2015 reference, cited inspiration-only"
+    ]
+  },
+  "slop_remediation_map": [
+    {
+      "slop_element_0057": "Curved-spacetime metrics named in the LaTeX papers were absent from the execution code.",
+      "remediation_0059": "Curvature now drives the channel map in code (p = 1 - exp(-alpha * ||Riemann||_F)) across six backgrounds, explicitly labeled a phenomenological ansatz.",
+      "evidence": "verification_result.json: observations.{schwarz,desitter,ads,eguchi}_purity/entropy; calibration.free_parameters.sensitivity_alpha (governs + realized_in)"
+    },
+    {
+      "slop_element_0057": "Kirkwood-Dirac negativity and TTM non-Markovianity evaluated to exactly 0.0 (null placeholders).",
+      "remediation_0059": "KD reported flat-relative (kd_delta = +0.1230) as a comparative proxy from the optimizer best objective, explicitly not a contextuality proof; TTM-inspired proxy split into a synthetic self-test (nm = 1.41e-4 at alpha = 0.1) and the model trajectory (nm = 0, Markovian by construction).",
+      "evidence": "verification_result.json: observations.kd_delta, observations.memory_kernel (source=synthetic_injected_backflow), observations.memory_kernel_model_trajectory (source=model_generated_trajectory)"
+    },
+    {
+      "slop_element_0057": "Time dilation (gamma) modeled as an arbitrary Kraus parameter deformation with no physical derivation.",
+      "remediation_0059": "Still phenomenological, but disclosed: the free/hand-set parameters and magic constants (e.g. Schwarzschild g00) are listed in a calibration manifest with what they govern, and the claim boundary disclaims first-principles status.",
+      "evidence": "verification_result.json: claim_boundary, calibration.notable_magic_constants.schwarzschild_g00 (H4 caveat), calibration.free_parameters.boost_beta"
+    },
+    {
+      "slop_element_0057": "Jargon-heavy text dressed a standard single-qubit simulation as curved-space quantum gravity.",
+      "remediation_0059": "Every major observation carries an evidence class; gate/verdict labels are marked policy-derived classifications (not physical observables); environment-dependent backends are surfaced.",
+      "evidence": "verification_result.json: evidence_classes (7-class taxonomy), audit_context.scientific_audit (backend_mode), checks (policy_derived gate labels)"
+    }
+  ],
+  "new_slop_pattern_caught": {
+    "pattern": "fabricated_citation_with_self_referential_title",
+    "description": "A placeholder reference (LeeFullwood2025) carried specific Physical Review Letters coordinates (vol 134, p.100401, 2025) while the prose called it a 'conceptual placeholder', and its title contained the project's own internal acronym expansion ('Quantum Geometry Bridge'). Specific bibliographic coordinates on a self-described placeholder, plus a title echoing the project's own jargon, are strong fabrication signals.",
+    "detection": "Independent web verification found no such paper; the real adjacent work is by James Fullwood (different title/journal).",
+    "remediation": "Removed and replaced with the verified Pikovski et al. 2015, Nature Physics 11:668-672 (DOI 10.1038/nphys3366), cited inspiration-only with an explicit non-derivation disclaimer.",
+    "reusable_lesson": "Treat specific journal/volume/page coordinates attached to a 'placeholder' or 'inspiration' reference as a fabrication red flag; verify externally before publication."
+  },
+  "limitations": [
+    "model_consistency_only:no_external_physical_validity",
+    "phenomenological_ansatz:not_first_principles",
+    "kd_flat_baseline_optimizer_non_converged_within_50_step_budget",
+    "audit_backend_environment_dependent:external_vs_mock",
+    "post_release_hardening_refresh:committed_at_c0f6c6a_not_in_a_public_release_yet",
+    "open_gap:godel_ctc_status_DETECTED_with_zero_discriminant (flag-based, not numeric evidence)"
+  ],
+  "errata": []
+}

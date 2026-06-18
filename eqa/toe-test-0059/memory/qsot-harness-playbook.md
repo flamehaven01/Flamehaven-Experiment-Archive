@@ -31,4 +31,4 @@ This playbook governs the reference run and claim-governance record for QSOT-Har
 
 ## 3. Notes
 * Current revision: `r1` (R0-R2 hardening) at committed source `c0f6c6a` (branch `hardening/p0-p2-remediation`, base `106a08c`); public release baseline: `v2.1.1`; DOI `10.5281/zenodo.20665824`.
-* This refreshed 0058 copy is revision `r1`, a committed pre-public hardening of the v2.1.1 baseline. Re-runs are content-stable except for the `generated_at` timestamp and the audit backend mode; the refreshed frozen artifact `verification_result.json` (canonical LF SHA-256 `1498610f...`, superseding `69c97c92...`) anchors the current ledger copy. The `paper/evidence/` frozen copy is synced separately (R4).
+* This refreshed 0059 copy is revision `r1`, a committed pre-public hardening of the v2.1.1 baseline. Re-runs are content-stable except for the `generated_at` timestamp and the audit backend mode; the refreshed frozen artifact `verification_result.json` (canonical LF SHA-256 `1498610f...`, superseding `69c97c92...`) anchors the current ledger copy. The `paper/evidence/` frozen copy is synced separately (R4).

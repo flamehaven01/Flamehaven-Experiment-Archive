@@ -1,0 +1,106 @@
+{
+  "schema_id": "flamehaven_eqa_manifest.v1",
+  "experiment_id": "QSOT_HARNESS_V2_1_1_REFRESHED",
+  "title": "QSOT-Harness current worktree refresh \u2014 bounded, epistemically-labeled verification harness (honest reconstruction)",
+  "status": "honest_reconstruction_pre_public_hardening_refresh",
+  "location": "eqa/toe-test-0059",
+  "main_repo": "Flamehaven-Labs/QSOT-Harness",
+  "supersedes": "toe-test-0057",
+  "canonical_run_id": "toe-test-0059",
+  "internal_experiment_id": "qgb-test-0057",
+  "legacy_aliases": [
+    "qsot-harness",
+    "qsot-compiler-v2"
+  ],
+  "artifact_class": "bounded_epistemically_labeled_verification_harness",
+  "review_path": "honest_reconstruction_publication_and_reference_run",
+  "primary_purpose": "Document, as a reproducible and auditable record, how each defect diagnosed in the 0057 slop artifact was remediated and evolved into a bounded, epistemically-labeled honest harness -- i.e. the verifiable slop-to-honest delta, defect by defect with evidence, not merely a clean re-run. See slop_remediation_map in analysis_result.json.",
+  "working_hypothesis": "QSOT-Harness current worktree refresh is a bounded, epistemically-labeled verification harness whose outputs declare evidence class and claim boundary. This 0059 ledger entry tracks the post-v2.1.1 source-hardening refresh; it is verified for model-output consistency only, not external physical validity.",
+  "validation_stack": [
+    "8-phase pipeline / 50 checks (temporal-state axioms, flat/curved baselines, relativistic boosts, flat-relative Kirkwood-Dirac, TTM non-Markovianity, Rust turbovec sidecar, scientific audit)",
+    "Claim-integrity governance gate (CI: workspace-leak + overclaim scan over code, docs, and manuscript)",
+    "LaTeX manuscript with SHA-256-anchored frozen evidence (paper/evidence/)"
+  ],
+  "external_anchors": [
+    {
+      "label": "Repository: Flamehaven-Labs/QSOT-Harness",
+      "url": "https://github.com/Flamehaven-Labs/QSOT-Harness"
+    },
+    {
+      "label": "Public manuscript baseline @ v2.1.1",
+      "url": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper"
+    },
+    {
+      "label": "Zenodo DOI: 10.5281/zenodo.20665824",
+      "url": "https://doi.org/10.5281/zenodo.20665824"
+    },
+    {
+      "label": "Public release v2.1.1 baseline",
+      "url": "https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.1"
+    }
+  ],
+  "links": {
+    "repository": "https://github.com/Flamehaven-Labs/QSOT-Harness",
+    "paper_dir": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper",
+    "paper_main_tex": "https://github.com/Flamehaven-Labs/QSOT-Harness/blob/v2.1.1/paper/main.tex",
+    "release": "https://github.com/Flamehaven-Labs/QSOT-Harness/releases/tag/v2.1.1",
+    "doi": "https://doi.org/10.5281/zenodo.20665824"
+  },
+  "expected_outputs": [
+    "verification_result.json",
+    "analysis_result.json",
+    "analysis_report.md"
+  ],
+  "screen_summary": {
+    "verdict": "DEGRADED_PASS",
+    "research_scope": "phenomenological_channel_map_model_consistency",
+    "what_was_verified": [
+      "50 checks across 8 phases; 48 PASS / 0 FAIL / 1 SKIPPED / 1 DEGRADED_PASS (deterministic engine output)",
+      "Phase 0 temporal-state axioms (linearity, CPTP completeness, trace preservation, conditionability, density validity) hold within machine epsilon",
+      "Flat-relative Kirkwood-Dirac signal kd_delta = +0.1230 (de Sitter minus flat), reported as a comparative proxy from the optimizer best objective; the overall KD check remains DEGRADED_PASS because the flat-baseline optimization does not converge",
+      "TTM-inspired detector self-test registers nm = 1.41e-4 at alpha = 0.1; the model trajectory is Markovian by construction (nm = 0)"
+    ],
+    "not_claimed": [
+      "Any external physical validity or validation of quantum gravity",
+      "First-principles derivation of the Riemann-norm-to-channel mapping (it is a phenomenological ansatz)",
+      "External experimental validation of the model",
+      "That gate / verdict labels are physical observables (they are policy-derived classifications)",
+      "Convergence of the KD optimizer within the fixed 50-step budget (surfaced honestly as DEGRADED_PASS)"
+    ]
+  },
+  "api_summary": {
+    "title": "QSOT-Harness \u2014 bounded epistemically-labeled verification harness",
+    "verdict": "DEGRADED_PASS",
+    "verdict_label": "Degraded pass",
+    "date": "2026-06-15",
+    "brief": "Documents how the 0057 slop artifact was remediated, then hardened (revision r1, R0-R2): KD reported from the optimizer best objective, deprecated KD booleans removed, and TTM-threshold / policy-reason / toy-curvature / coverage provenance surfaced; model-consistency only.",
+    "summary": "The honest reconstruction of QSOT (Quantum State Over Time), refreshed after v2.1.1 to make Phase 4 state preparation and Phase 5 memory-proxy sensitivity config-driven. Runs an 8-phase, 50-check pipeline over six spacetime backgrounds and emits a machine-readable result with a fixed claim boundary, a 7-class evidence taxonomy, environment-dependent backend surfacing, a calibration manifest, and a strict separation of detector self-tests from model-generated signals. The DEGRADED_PASS verdict is honest: the flat-baseline KD optimization does not converge within its fixed budget, and the optional governance backend is absent.",
+    "findings": [
+      "48/50 checks passed, 1 skipped (optional DQE backend absent), 1 degraded (overall KD non-convergence) \u2014 surfaced, not hidden",
+      "Verdict limited to model-output consistency only \u2014 no external physical validity claimed",
+      "Raw Kirkwood-Dirac negativity is generic (present even in flat baseline); only the flat-relative delta is reported, explicitly not a contextuality proof, and current value is +0.1230",
+      "Non-Markovianity pass is a synthetic detector self-test; at alpha = 0.1 the self-test yields nm = 1.41e-4 while the model trajectory remains Markovian by construction (nm = 0)",
+      "Supersedes 0057: fabricated citation removed and replaced with a real reference; published with Zenodo DOI"
+    ],
+    "metrics": {
+      "checks_total": 50,
+      "checks_passed": 48,
+      "checks_skipped": 1,
+      "checks_degraded": 1
+    },
+    "external_anchors": [
+      {
+        "label": "Repository: Flamehaven-Labs/QSOT-Harness",
+        "url": "https://github.com/Flamehaven-Labs/QSOT-Harness"
+      },
+      {
+        "label": "Public manuscript baseline @ v2.1.1",
+        "url": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper"
+      },
+      {
+        "label": "Zenodo DOI: 10.5281/zenodo.20665824",
+        "url": "https://doi.org/10.5281/zenodo.20665824"
+      }
+    ]
+  }
+}

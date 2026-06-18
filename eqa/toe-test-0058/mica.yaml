@@ -1,15 +1,15 @@
 mica_spec: "0.2.6"
-name: qsot-harness-verification
+name: qsot2-math-verification
 mode: memory_injection
-description: "MICA Package for the QSOT-Harness current worktree refresh on top of v2.1.1 (honest reconstruction; supersedes toe-test-0057)."
+description: "MICA Package for QSOT2 v0.1.0.dev0, the re-scoped mathematical-consistency verifier of the QSOT program (supersedes toe-test-0057; math line of the 3-line split, sibling of toe-test-0059)."
 
 layers:
   - name: archive
-    path: memory/qsot-harness.mica.archive.json
+    path: memory/qsot2.mica.archive.json
     format: json
     loading_hint: always
   - name: playbook
-    path: memory/qsot-harness-playbook.md
+    path: memory/qsot2-playbook.md
     format: markdown
     loading_hint: always
 

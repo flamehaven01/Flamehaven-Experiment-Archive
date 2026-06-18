@@ -1,0 +1,74 @@
+{
+  "mica_spec": "0.2.6",
+  "mica_schema_version": "0.2.6",
+  "project": {
+    "name": "qsot2-math-verification",
+    "full_name": "QSOT2 v0.1.0.dev0 Mathematical-Consistency Verification",
+    "version": "0.1.0.dev0",
+    "status": "active",
+    "primary_language": "Python",
+    "repo_path": "eqa/toe-test-0058",
+    "canonical_statement": "Reference run and claim-governance record for QSOT2, the re-scoped mathematical-consistency verifier of the QSOT program and the honest math-line successor of the v1.2.3 slop artifact (toe-test-0057): a bounded, claim-labeled phenomenological verifier, verified for model-output consistency only. Math line of the 3-line split; sibling of toe-test-0059 (QSOT-Harness combined)."
+  },
+  "scope": {
+    "include": [
+      "src/qsot2/model/",
+      "src/qsot2/core/",
+      "tests/",
+      "README.md",
+      "pyproject.toml"
+    ],
+    "exclude": [
+      "__pycache__/",
+      "*.pyc",
+      ".git/",
+      "experimental/"
+    ]
+  },
+  "design_invariants": [
+    {
+      "id": "DI-001",
+      "label": "lean-machine-readable-claim-boundary",
+      "statement": "Every result must serialize the lean 4-field claim boundary (external_physical_validation_provided=false, first_principles_derivation_provided=false, mathematical_consistency_scope_only=true, phenomenological_model=true) under schema qsot2.math_consistency.experiment_result.v1.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-058: 3-line split; QSOT2 carries the math core with a lean schema, governance moved out."
+      }
+    },
+    {
+      "id": "DI-002",
+      "label": "advisory-metric-positioning",
+      "statement": "All computed values are strictly advisory heuristics under a phenomenological channel-map ansatz. Gate and verdict labels are policy-derived classifications, not physical observables. No external physical claims or quantum-gravity derivations are made.",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-058: honest math-line successor of the v1.2.3 slop artifact; provenance locked to ADVISORY."
+      }
+    },
+    {
+      "id": "DI-003",
+      "label": "negative-results-surfaced",
+      "statement": "Non-failure degradations must be surfaced, not hidden: KD optimizer non-convergence -> DEGRADED_PASS; the model trajectory is Markovian by construction (nm=0).",
+      "severity": "high",
+      "binding": {
+        "origin_episode": "EXP-058: DEGRADED_PASS verdict reported in the result artifact with its documented cause."
+      }
+    },
+    {
+      "id": "DI-004",
+      "label": "model-package-governance-import-boundary",
+      "statement": "The model package (src/qsot2/model/) must not import governance. Governance (phase6) is moved to experimental/ and excluded from the verdict path; reusable governance primitives live in flamehaven-sci-governance.",
+      "severity": "critical",
+      "binding": {
+        "origin_episode": "EXP-058: clean migration from QSOT V2 with separated git history; phase6 demoted to experimental, governance extracted."
+      }
+    }
+  ],
+  "operation_meta": {
+    "mica_schema_version": "0.2.6",
+    "archive_id": "QSOT2-MICA-001",
+    "update_count": 1,
+    "last_updated": "2026-06-17",
+    "session_count": 1,
+    "bootstrap_note": "MICA package created for toe-test-0058 as the QSOT2 math-verification line of the 3-line QSOT split; supersedes toe-test-0057; sibling of toe-test-0059. Source 9e1d845, lean schema, artifact hash efca2228."
+  }
+}

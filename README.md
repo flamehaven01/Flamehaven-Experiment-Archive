@@ -30,7 +30,7 @@ The summary file is intentionally narrow. It exists only to route users into the
 ### 1. Equation-to-Artifact (EQA) Verification
 - **Focus**: Translating high-stakes mathematical and physical proofs (such as discrete geometry conjectures) into runnable, CI-tested software artifacts.
 - **Methodology**: Evaluated under rigorous, multi-precision computational verification checks, SPAR scoring, and SIDRCE Omega gate thresholds (GREEN ≥ 0.85 · AMBER [0.75, 0.85) · RED < 0.75).
-- **Scope**: Active EQA ledger spanning records TOE-TEST-0001~0058. Includes the QSOT-Harness v2.1.0 honest reconstruction (0058, Zenodo-archived, supersedes 0057), QSOT Compiler v1.2.3 slop audit (0057), optional backend layer experiment (0055/AEFSO), published Zenodo-archived executable reproduction (0056), gate-rejected hypothesis (0052), governance gate verification (0054), namespace integrity scan (0053), and the reconstructed 0001–0051 archive. That archive is classified by provenance into **7 verification runs (0001–0007)** and **44 non-run artifacts (0008–0051)** — governance / integration / bio-quantum sidecar / `meta_verify` infrastructure, which are excluded from the verification-run count. Real Flamehaven-TOE reports, imported **append-only** (paths sanitized) with per-record point-of-use reconstruction notes (errata / parser-sensitivity / ground-truth-sensitivity), surfaced through the Ledger Inspector. Engine outputs are deterministic and locally reproducible (verified by re-running the engine); the inspector shows imported reports, it does not re-verify them. See [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).
+- **Scope**: Active EQA ledger spanning records TOE-TEST-0001~0059. Includes the QSOT2 mathematical-consistency verifier (0058, the re-scoped math line, supersedes 0057), the QSOT-Harness v2.1.1 honest reconstruction (0059, Zenodo-archived, renumbered verbatim from 0058 in the 3-line QSOT split, supersedes 0057), QSOT Compiler v1.2.3 slop audit (0057), optional backend layer experiment (0055/AEFSO), published Zenodo-archived executable reproduction (0056), gate-rejected hypothesis (0052), governance gate verification (0054), namespace integrity scan (0053), and the reconstructed 0001–0051 archive. That archive is classified by provenance into **7 verification runs (0001–0007)** and **44 non-run artifacts (0008–0051)** — governance / integration / bio-quantum sidecar / `meta_verify` infrastructure, which are excluded from the verification-run count. Real Flamehaven-TOE reports, imported **append-only** (paths sanitized) with per-record point-of-use reconstruction notes (errata / parser-sensitivity / ground-truth-sensitivity), surfaced through the Ledger Inspector. Engine outputs are deterministic and locally reproducible (verified by re-running the engine); the inspector shows imported reports, it does not re-verify them. See [`memory/eqa-reconstruction-standard.md`](./memory/eqa-reconstruction-standard.md).
 - **Portal**: [`eqa.html`](./eqa.html) — dedicated EQA verification dashboard.
 
 ### 2. Bioscience Repository Compliance Scanner
@@ -57,11 +57,13 @@ flamehaven-verification-ledger/
 ├── eqa.html                             # EQA-Dedicated Dashboard Portal
 ├── index.md                             # Markdown Archive Directory
 ├── api/v1/                              # Static read-only API (served via GitHub Pages)
-│   ├── runs.json                        # 14-entry run index (all 3 lanes)
+│   ├── runs.json                        # 16-entry run index (all 3 lanes)
 │   ├── schema.json                      # Vocabulary: lanes, verdict codes, metric definitions
 │   ├── metrics/bav.json                 # BAV aggregated metrics table
-│   └── runs/{id}.json                   # Per-experiment detail (14 files)
+│   └── runs/{id}.json                   # Per-experiment detail (16 files)
 ├── eqa/                                 # Equation-to-Artifact Run Artifacts
+│   ├── toe-test-0059/                   # QSOT-Harness v2.1.1 r1 — Honest Reconstruction (DEGRADED_PASS · renumbered from 0058)
+│   ├── toe-test-0058/                   # QSOT2 — Mathematical-Consistency Verifier (DEGRADED_PASS · supersedes 0057)
 │   ├── toe-test-0057/                   # QSOT Compiler — Multiphase Verification (DEGRADED_PASS)
 │   ├── toe-test-0055/                   # AEFSO — Optional Backend Layer (SPAR: ACCEPT WITH BOUNDS)
 │   ├── toe-test-0056/                   # Erdős Eq.(2.2) Reproduction (Zenodo published)
@@ -121,6 +123,10 @@ To interactively browse this repository, run the local dev server and open the p
 2. Open `http://localhost:8080` in your browser.
 
 ### 🔢 EQA — Equation-to-Artifact Runs
+- **[EQA · 0059] QSOT-Harness v2.1.1 (hardening r1)** `DEGRADED_PASS · Honest Reconstruction`
+  - [EQA Portal](./eqa.html#toe-test-0059) | [Zenodo DOI](https://doi.org/10.5281/zenodo.20665824) · renumbered verbatim from 0058 in the 3-line QSOT split
+- **[EQA · 0058] QSOT2 — Mathematical-Consistency Verifier** `DEGRADED_PASS · Re-scoped Math Line`
+  - [EQA Portal](./eqa.html#toe-test-0058) | [QSOT2-Compiler](https://github.com/Flamehaven-Labs/QSOT2-Compiler) · supersedes 0057, model-output consistency only
 - **[EQA · 0057] QSOT Compiler (Quantum State Over Time)** `DEGRADED_PASS · Slop Artifact`
   - [EQA Portal](./eqa.html#toe-test-0057) · multiphase verification note
 - **[EQA · 0055] AEFSO — Optional Backend Representation Layer** `OPTIONAL LAYER · SPAR: ACCEPT WITH BOUNDS`

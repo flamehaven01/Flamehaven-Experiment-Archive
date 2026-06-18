@@ -1,9 +1,9 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-15T11:26:43.361Z",
+  "generatedAt": "2026-06-17T14:49:04.471Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
-  "reportsActive": 15,
+  "reportsActive": 16,
   "lanes": [
     {
       "key": "stem-bio-ai",
@@ -17,9 +17,9 @@
       "key": "toe",
       "title": "EQA",
       "status": "active",
-      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0058 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, and 0058 = QSOT-Harness v2.1.1 (hardening r1) honest reconstruction.",
-      "recordCount": 7,
-      "latestAuditDate": "2026-06-12"
+      "summary": "Equation-to-Artifact verification lane: deterministic reproduction of mathematical and governance research artifacts as runnable, inspectable records. Active named runs TOE-TEST-0052~0059 plus the 0001~0051 historical archive. Canonical live numbering is 0055 = AEFSO, 0056 = OpenAI Erdős reproduction, 0057 = QSOT Compiler v1.2.3 slop audit, 0058 = QSOT2 mathematical-consistency verifier, and 0059 = QSOT-Harness v2.1.1 (hardening r1) honest reconstruction (renumbered from 0058 in the 3-line QSOT split).",
+      "recordCount": 8,
+      "latestAuditDate": "2026-06-17"
     },
     {
       "key": "rexsyn",
@@ -88,23 +88,43 @@
       }
     },
     {
-      "id": "toe-test-0058-qsot-harness",
+      "id": "toe-test-0058-qsot2",
       "laneKey": "toe",
       "laneTitle": "EQA",
-      "title": "EQA: TOE-TEST-0058 — QSOT-Harness current worktree refresh — bounded, epistemically-labeled verification harness (honest reconstruction)",
+      "title": "EQA: TOE-TEST-0058 — QSOT2 -- mathematical-consistency verifier (re-scoped honest successor of the 0057 slop)",
       "targetSlug": "toe-test-0058",
-      "auditDate": "2026-06-12",
+      "auditDate": "2026-06-17",
       "gate": "DEGRADED_PASS",
       "spar": null,
       "sparVerdict": "DEGRADED PASS",
-      "summary": "`0058` is not, primarily, \"another clean reproduction.\" Its purpose is to be a **reproducible, auditable record of how each defect diagnosed in `0057` was remediated and evolved into a bounded, honest harness.** In this refreshed copy (revision **r1**, committed source `c0f6c6a`), it also records the R0-R2 source/schema hardening: the KD reported value is now the optimizer **best objective** (not a last-step snapshot), deprecated KD booleans are removed, and threshold / policy-reason / toy-curvature / coverage provenance are surfaced. Phase 4 state preparation and Phase 5 memory-proxy sensitivity remain config-driven.",
-      "useScope": "Fully published honest reconstruction (supersedes 0057). Citable via Zenodo DOI.",
+      "summary": "`0058` is the **mathematical-verification line** of the QSOT program and the direct, honest successor of the `0057` slop. Its purpose is to document, defect by defect, **how the errors diagnosed in `0057` were corrected in QSOT2, which quantities thereby became measurable and internally consistent, and what those results do — and do not — mean.**",
+      "useScope": "Mathematical-consistency verification line (supersedes 0057); sibling of 0059. Verified for model-output consistency only.",
       "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0058",
       "urls": {
         "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0058/manifest.json",
         "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0058/verification_result.json",
         "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0058/analysis_result.json",
         "report": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0058/analysis_report.md"
+      }
+    },
+    {
+      "id": "toe-test-0059-qsot-harness",
+      "laneKey": "toe",
+      "laneTitle": "EQA",
+      "title": "EQA: TOE-TEST-0059 — QSOT-Harness current worktree refresh — bounded, epistemically-labeled verification harness (honest reconstruction)",
+      "targetSlug": "toe-test-0059",
+      "auditDate": "2026-06-15",
+      "gate": "DEGRADED_PASS",
+      "spar": null,
+      "sparVerdict": "DEGRADED PASS",
+      "summary": "`0059` is not, primarily, \"another clean reproduction.\" Its purpose is to be a **reproducible, auditable record of how each defect diagnosed in `0057` was remediated and evolved into a bounded, honest harness.** In this refreshed copy (revision **r1**, committed source `c0f6c6a`), it also records the R0-R2 source/schema hardening: the KD reported value is now the optimizer **best objective** (not a last-step snapshot), deprecated KD booleans are removed, and threshold / policy-reason / toy-curvature / coverage provenance are surfaced. Phase 4 state preparation and Phase 5 memory-proxy sensitivity remain config-driven.",
+      "useScope": "Fully published honest reconstruction (renumbered from 0058 in the 3-line split). Citable via Zenodo DOI.",
+      "portalUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0059",
+      "urls": {
+        "manifest": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0059/manifest.json",
+        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0059/verification_result.json",
+        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0059/analysis_result.json",
+        "report": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0059/analysis_report.md"
       }
     },
     {

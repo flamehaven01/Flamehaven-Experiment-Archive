@@ -7,7 +7,7 @@
     "version": "2.1.1",
     "status": "active",
     "primary_language": "Python",
-    "repo_path": "eqa/toe-test-0058",
+    "repo_path": "eqa/toe-test-0059",
     "canonical_statement": "Reference run and claim-governance record for QSOT-Harness v2.1.1, the honest reconstruction of the v1.2.3 slop artifact (toe-test-0057): a bounded, epistemically-labeled phenomenological verification harness, verified for model-output consistency only."
   },
   "scope": {
@@ -69,6 +69,6 @@
     "update_count": 2,
     "last_updated": "2026-06-15",
     "session_count": 2,
-    "bootstrap_note": "MICA package created for toe-test-0058; refreshed after v2.1.1 for config-driven Phase 4/5, then revision r1 (committed source c0f6c6a) for the R0-R2 source/schema hardening (KD best-objective reporting, deprecated-field removal, threshold/policy/toy-curvature/coverage provenance)."
+    "bootstrap_note": "MICA package created for toe-test-0059; refreshed after v2.1.1 for config-driven Phase 4/5, then revision r1 (committed source c0f6c6a) for the R0-R2 source/schema hardening (KD best-objective reporting, deprecated-field removal, threshold/policy/toy-curvature/coverage provenance)."
   }
 }

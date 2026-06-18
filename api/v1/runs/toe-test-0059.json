@@ -1,0 +1,41 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "toe-test-0059",
+  "lane": "EQA",
+  "title": "QSOT-Harness \u2014 bounded epistemically-labeled verification harness",
+  "verdict": "DEGRADED_PASS",
+  "verdict_label": "Degraded pass",
+  "date": "2026-06-15",
+  "summary": "The honest reconstruction of QSOT (Quantum State Over Time), refreshed after v2.1.1 to make Phase 4 state preparation and Phase 5 memory-proxy sensitivity config-driven. Runs an 8-phase, 50-check pipeline over six spacetime backgrounds and emits a machine-readable result with a fixed claim boundary, a 7-class evidence taxonomy, environment-dependent backend surfacing, a calibration manifest, and a strict separation of detector self-tests from model-generated signals. The DEGRADED_PASS verdict is honest: the flat-baseline KD optimization does not converge within its fixed budget, and the optional governance backend is absent.",
+  "key_metrics": {
+    "checks_total": 50,
+    "checks_passed": 48,
+    "checks_skipped": 1,
+    "checks_degraded": 1
+  },
+  "findings": [
+    "48/50 checks passed, 1 skipped (optional DQE backend absent), 1 degraded (overall KD non-convergence) \u2014 surfaced, not hidden",
+    "Verdict limited to model-output consistency only \u2014 no external physical validity claimed",
+    "Raw Kirkwood-Dirac negativity is generic (present even in flat baseline); only the flat-relative delta is reported, explicitly not a contextuality proof, and current value is +0.1230",
+    "Non-Markovianity pass is a synthetic detector self-test; at alpha = 0.1 the self-test yields nm = 1.41e-4 while the model trajectory remains Markovian by construction (nm = 0)",
+    "Supersedes 0057: fabricated citation removed and replaced with a real reference; published with Zenodo DOI"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0059",
+    "payload_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa/toe-test-0059/verification_result.json"
+  },
+  "external_anchors": [
+    {
+      "label": "Repository: Flamehaven-Labs/QSOT-Harness",
+      "url": "https://github.com/Flamehaven-Labs/QSOT-Harness"
+    },
+    {
+      "label": "Public manuscript baseline @ v2.1.1",
+      "url": "https://github.com/Flamehaven-Labs/QSOT-Harness/tree/v2.1.1/paper"
+    },
+    {
+      "label": "Zenodo DOI: 10.5281/zenodo.20665824",
+      "url": "https://doi.org/10.5281/zenodo.20665824"
+    }
+  ]
+}
