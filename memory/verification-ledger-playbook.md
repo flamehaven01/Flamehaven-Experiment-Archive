@@ -320,16 +320,25 @@ Required in every `manifest.json`:
 | BAV | `bav/exp-XXX/manifest.json` |
 | BSC | `stem-bio-ai/manifest.json` → `reports[].api_summary` |
 
-### 6.2 New Experiment Protocol (3 steps)
+### 6.2 New Experiment Protocol (4 steps)
 
 ```
 1. Register in js/eqa-registry.js  or  js/bav-registry.js
    — add one { id: "...", jsonPath: "...", ... } entry
 
-2. Create manifest.json in the experiment directory
+2. Register an inspector renderer in js/eqa-renderers.js (EQA_RENDERERS[id])
+   — at minimum { insights: fn(data, esc), charts: fn(data) }.
+   — integrity/analysis may be null (generic manifest + checks fallback applies).
+   — REQUIRED: the Inspector opens on the Insights tab, which reads
+     EQA_RENDERERS[id].insights. With no entry, insightHtml = '' and the record
+     shows an EMPTY SHELL on JSON click (the toe-test-0058/0059 regression, fixed
+     2026-06-19 in 69f22c5). For a markdown Verification Note in the Raw tab, also
+     add the id to the reportText branch in portal-inspector.js (renderInspectorData).
+
+3. Create manifest.json in the experiment directory
    — include api_summary block (§6.1)
 
-3. python scripts/build_api.py
+4. python scripts/build_api.py
    — regenerates api/v1/ files; commit the result
 
 No changes to build_api.py required. Ever.
