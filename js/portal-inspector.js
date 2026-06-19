@@ -627,7 +627,7 @@ function renderInspectorData(runId, data, reportText = '') {
         });
       };
     }
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057')) {
+  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -636,9 +636,7 @@ function renderInspectorData(runId, data, reportText = '') {
       ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
       : runId === 'toe-test-0055'
       ? '📄 AEFSO Research Dossier (TOE-TEST-0055)'
-      : runId === 'toe-test-0056'
-      ? '📄 Verification Note (TOE-TEST-0056)'
-      : '📄 Verification Note (TOE-TEST-0057)';
+      : '📄 Verification Note (' + runId.toUpperCase() + ')';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ts); font-weight:600;">${reportTitle}</span>

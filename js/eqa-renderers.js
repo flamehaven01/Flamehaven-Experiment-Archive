@@ -659,7 +659,123 @@ function eqaAnalysis0053(container, data, esc) {
 // ─── DISPATCH MAP ─────────────────────────────────────────────────────────────
 // integrity: null = use portal.js default (Cryptographic File Manifest + generic checks)
 
+// --- QSOT 3-line split: shared curvature/checks charts for 0058 (qsot2) + 0059 (harness) ---
+function eqaChartsCurvature(data) {
+  const checks = data.checks || {}, vals = Object.values(checks);
+  const pass = vals.filter(v => v === 'PASS' || v === true).length;
+  const degraded = vals.filter(v => v === 'DEGRADED_PASS').length;
+  const skip = vals.filter(v => v === 'SKIPPED').length;
+  const fail = vals.length - pass - degraded - skip;
+  const obs = data.observations || {};
+  return [
+    donutChart('Verification Check Results',
+      [{ label: 'Pass', value: pass, color: '#10b981' },
+       ...(degraded > 0 ? [{ label: 'Degraded', value: degraded, color: '#eab308' }] : []),
+       ...(skip > 0 ? [{ label: 'Skipped', value: skip, color: '#6b7280' }] : []),
+       ...(fail > 0 ? [{ label: 'Fail', value: fail, color: '#ef4444' }] : [])],
+      { centerText: String(pass), centerSub: 'of ' + vals.length + ' passed' }),
+    barChart('Phase 2 \xb7 Curvature-Induced Purity',
+      [{ label: 'Schwarzschild', value: obs.schwarz_purity ?? 0.99943, color: '#10b981' },
+       { label: 'de Sitter', value: obs.desitter_purity ?? 0.63607, color: '#ef4444' },
+       { label: 'AdS5', value: obs.ads_purity ?? 0.67764, color: '#3b82f6' },
+       { label: 'Eguchi-Hanson', value: obs.eguchi_purity ?? 0.99887, color: '#8b5cf6' }],
+      { maxValue: 1, unit: '', caption: 'Single-qubit purity decays from 1.0 by background curvature norm (phenomenological ansatz p = 1 - exp(-alpha*||Riemann||_F)).' }),
+  ];
+}
+
+function eqaInsights0058(data, esc) {
+  const obs = data.observations || {}, sm = data.summary || {};
+  const cptpDev = obs.cptp_completeness_max_deviation != null ? obs.cptp_completeness_max_deviation : 1.5700924586837752e-16;
+  const traceDev = obs.trace_preservation_max_deviation != null ? obs.trace_preservation_max_deviation : 4.440892098500626e-16;
+  const dsPurity = obs.desitter_purity != null ? obs.desitter_purity : 0.6360680891448688;
+  const schPurity = obs.schwarz_purity != null ? obs.schwarz_purity : 0.9994346211351026;
+  const kdDelta = (obs.kd_delta && obs.kd_delta.value != null) ? obs.kd_delta.value : 0.1229695862778754;
+  const nmSelf = (obs.memory_kernel && obs.memory_kernel.nm_measure != null) ? obs.memory_kernel.nm_measure : 0.0001414113567086428;
+  const nmModel = (obs.memory_kernel_model_trajectory && obs.memory_kernel_model_trajectory.nm_measure != null) ? obs.memory_kernel_model_trajectory.nm_measure : 0;
+  const verdict = esc(data.verdict || 'DEGRADED_PASS');
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Overall Verdict</div>
+        <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${verdict}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${sm.pass ?? 34} / ${sm.total ?? 35} pass \xb7 ${sm.degraded_pass ?? 1} degraded</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Temporal-Axiom Precision</div>
+        <div style="font-size:20px;font-weight:600;color:#10b981;margin-top:4px;">&lt; 5e-16</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">CPTP ${cptpDev.toExponential(2)} \xb7 trace ${traceDev.toExponential(2)}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Curvature-Induced Purity</div>
+        <div style="font-size:20px;font-weight:600;color:#f97316;margin-top:4px;">${dsPurity.toFixed(5)}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">de Sitter \xb7 Schwarzschild ${schPurity.toFixed(5)}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">KD Delta \xb7 Non-Markovianity</div>
+        <div style="font-size:20px;font-weight:600;color:var(--ts);margin-top:4px;">+${kdDelta.toFixed(4)}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">NM self-test ${nmSelf.toExponential(2)} \xb7 model ${nmModel}</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);border-radius:var(--r-md);padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#10b981;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;">
+        <span>&#x2713; Model-Consistency Verification (honest successor of 0057)</span>
+      </div>
+      <p style="font-size:12.5px;color:var(--t3);margin:0;line-height:1.6;">
+        QSOT2 is the math-verification line of the QSOT program. Where 0057 emitted null placeholders (KD = 0, nm = 0), QSOT2 computes bounded, reproducible quantities under an explicit phenomenological ansatz <code>p = 1 - exp(-alpha*||Riemann||_F)</code> and labels exactly what each one is. This run verifies <strong>model-internal mathematical consistency only</strong> &mdash; no external physical validity and no first-principles claim. The single degraded check is the flat-baseline Kirkwood-Dirac optimizer non-convergence, surfaced rather than hidden. Governance-rich sibling line: <strong>toe-test-0059</strong>.
+      </p>
+    </div>
+  `;
+}
+
+function eqaInsights0059(data, esc) {
+  const obs = data.observations || {}, sm = data.summary || {};
+  const cptpDev = obs.cptp_completeness_max_deviation != null ? obs.cptp_completeness_max_deviation : 1.5700924586837752e-16;
+  const dsPurity = obs.desitter_purity != null ? obs.desitter_purity : 0.6360680891448688;
+  const schPurity = obs.schwarz_purity != null ? obs.schwarz_purity : 0.9994346211351026;
+  const kdDelta = (obs.kd_delta && obs.kd_delta.value != null) ? obs.kd_delta.value : 0.1229695862778754;
+  const evClasses = (data.evidence_classes && typeof data.evidence_classes === 'object') ? Object.keys(data.evidence_classes).length : 0;
+  const verdict = esc(data.verdict || 'DEGRADED_PASS');
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Overall Verdict</div>
+        <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${verdict}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${sm.pass ?? 48} / ${sm.total ?? 50} pass \xb7 ${sm.degraded_pass ?? 1} degraded \xb7 ${sm.skipped ?? 1} skipped</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Temporal-Axiom Precision</div>
+        <div style="font-size:20px;font-weight:600;color:#10b981;margin-top:4px;">&lt; 5e-16</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">CPTP ${cptpDev.toExponential(2)} (machine epsilon)</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Curvature-Induced Purity</div>
+        <div style="font-size:20px;font-weight:600;color:#f97316;margin-top:4px;">${dsPurity.toFixed(5)}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">de Sitter \xb7 Schwarzschild ${schPurity.toFixed(5)}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Governance Surface</div>
+        <div style="font-size:20px;font-weight:600;color:var(--ts);margin-top:4px;">${evClasses} evidence classes</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">KD delta +${kdDelta.toFixed(4)} \xb7 model-output consistency only</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.18);border-radius:var(--r-md);padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#eab308;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;">
+        <span>&#x1F6E1; Governance-Rich Combined Snapshot (v2.1.2, hardening r1)</span>
+      </div>
+      <p style="font-size:12.5px;color:var(--t3);margin:0;line-height:1.6;">
+        QSOT-Harness is the published combined snapshot of the QSOT line: the same phenomenological ansatz as 0058, wrapped in an 8-phase, 50-check pipeline that serializes a fixed claim boundary, a per-observation evidence class, and a calibration manifest. The two non-pass checks are surfaced, not hidden: the flat-baseline Kirkwood-Dirac optimizer does not converge (degraded) and the optional governance backend is absent (skipped). Verified for <strong>model-output consistency only</strong>, not external physical validity. DOI <a href="https://doi.org/10.5281/zenodo.20665824" target="_blank" rel="noopener" style="color:#a78bfa;">10.5281/zenodo.20665824</a>. Math-only sibling line: <strong>toe-test-0058</strong>.
+      </p>
+    </div>
+  `;
+}
+
 const EQA_RENDERERS = {
+  'toe-test-0059': {
+    insights: eqaInsights0059, integrity: null, analysis: null, charts: eqaChartsCurvature,
+  },
+  'toe-test-0058': {
+    insights: eqaInsights0058, integrity: null, analysis: null, charts: eqaChartsCurvature,
+  },
   'toe-test-0057': {
     insights: eqaInsights0057, integrity: null, analysis: eqaAnalysis0057,
     charts: function(data) {
