@@ -274,10 +274,24 @@ def detect_jargon(text: str, cfg: dict, ext: str = "", relpath: str = ""):
     if not terms:
         return text, []
     allow = [re.compile(a) for a in cfg.get("jargon_allowlist", _JARGON_ALLOW_DEFAULT)]
-    rx = re.compile(r"(?i)\b(" + "|".join(re.escape(t) for t in terms) + r")\b")
     visible = _visible_text(text, ext)
+    # Page-level definition: a term is exempt across the whole page when it carries
+    # an inline expansion somewhere on it -- "TERM (...)", "(... TERM)", or
+    # "TERM ADVISORY/DERIVED" (a glossary label). This implements playbook section 5
+    # ("acronyms are kept but must carry a definition / glossary") at file
+    # granularity, so a term defined once does not re-flag on every bare reuse.
+    defined = set()
+    for t in terms:
+        te = re.escape(t)
+        if (re.search(r"(?i)\b" + te + r"\b\s*\(", visible)
+                or re.search(r"(?i)\(\s*" + te + r"\b", visible)
+                or re.search(r"(?i)\b" + te + r"\b\s+(advisory|derived)\b", visible)):
+            defined.add(t.lower())
+    rx = re.compile(r"(?i)\b(" + "|".join(re.escape(t) for t in terms) + r")\b")
     found = []
     for m in rx.finditer(visible):
+        if m.group(0).lower() in defined:
+            continue
         s, e = max(0, m.start() - 24), m.end() + 24
         ctx = visible[s:e]
         if any(a.search(ctx) for a in allow):

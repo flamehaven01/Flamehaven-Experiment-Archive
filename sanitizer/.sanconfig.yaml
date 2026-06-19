@@ -52,11 +52,19 @@ jargon_terms:
   - lawbinder    # internal governance constraint component
   - toe          # Theorem/Observation/Equation lane abbreviation (internal)
 
-jargon_allowlist:          # regex — checked in +/-24 char context around the match
-  - '(?i)\(sr9\)'          # "cross-domain consistency (SR9)" — already expanded
-  - '(?i)\(di2\)'          # "reasoning deviation (DI2)" — already expanded
-  - '(?i)\(p[_-]?e2e\)'   # "(p_e2e)" or "(pe2e)" — already expanded
-  - '(?i)toe-test'         # toe-test-XXXX experiment identifiers (code context)
+jargon_allowlist:          # regex — checked in +/-24 char context around the match.
+  # Page-level definition (a term carrying an inline expansion anywhere on the page)
+  # is handled in detect_jargon per playbook section 5. These anchors cover the
+  # remaining legitimate uses that are NOT a full page definition: list groupings,
+  # short inline expansions, and component-name pairings. They are deliberately
+  # specific (no bare "pipeline"/"reasoning"), so unexplained bare jargon still flags.
+  - '(?i)\(\s*(sr9|di2|p[_-]?e2e)\b'           # parenthetical "(SR9)" / "(SR9, DI2, ..."
+  - '(?i)[,/]\s*(sr9|di2|p[_-]?e2e)\b'         # list member "SR9, DI2, p_e2e"
+  - '(?i)(sr9|di2|p[_-]?e2e)\s*[,)]'           # trailing list member "..., DI2)"
+  - '(?i)di2 reasoning|sr9 cross-domain|p[_-]?e2e\s*='   # inline metric expansions
+  - '(?i)\+\s*nnsl|nnsl resonance|nnsl\s*/|rexsyn-nexus'  # NNSL / RExSyn component pairing
+  - '(?i)governance|fail-closed|escalat|inhibit|\bcritic'  # LawBinder context
+  - '(?i)toe-test|toe core|toe contract|toe legacy|toe-spar|paper-to-toe|flamehaven-toe|foundational'  # TOE
 
 # Credibility slop: grandiose / pseudo-scientific authority phrases.
 # These terms trigger the credibility_slop detector (detect-only, all files).
