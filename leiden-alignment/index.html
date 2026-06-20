@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>&#x1F525; Flamehaven &mdash; Leiden Declaration Alignment</title>
+<meta name="description" content="Flamehaven Labs' evidence-based alignment with the Leiden Declaration on Artificial Intelligence and Mathematics (June 2026). Every claim is backed by a public verification record.">
+<link rel="canonical" href="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/leiden-alignment/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flamehaven — Leiden Declaration Alignment">
+<meta property="og:description" content="Evidence-based alignment with the Leiden Declaration on AI and Mathematics. Every claim backed by a public verification record.">
+<meta property="og:url" content="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/leiden-alignment/">
+<meta property="og:site_name" content="Flamehaven Verification Ledger">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F525;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #000000;
+  --s1:      #09090b;
+  --s2:      #18181b;
+  --s3:      #27272a;
+  --s4:      #3f3f46;
+  --border:  #27272a;
+  --border-h:#3f3f46;
+  --tp:      #ffffff;
+  --ts:      #d4d4d8;
+  --t3:      #a1a1aa;
+  --t4:      #71717a;
+  --accent:  #f97316;
+  --green:   #10b981;
+  --green-bg:rgba(16,185,129,.08);
+  --green-bd:rgba(16,185,129,.2);
+  --blue:    #3b82f6;
+  --blue-bg: rgba(59,130,246,.08);
+  --blue-bd: rgba(59,130,246,.2);
+  --amber:   #eab308;
+  --amber-bg:rgba(234,179,8,.08);
+  --r-sm: .375rem;
+  --r-md: .75rem;
+  --r-lg: 1rem;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ts);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+code, .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--tp); text-decoration: underline; }
+
+/* ── LAYOUT ── */
+.page { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+/* ── BACK NAV ── */
+.back-nav {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; color: var(--t3); margin-bottom: 32px;
+  padding: 6px 0; transition: color .15s; text-decoration: none;
+}
+.back-nav:hover { color: var(--tp); text-decoration: none; }
+.back-nav svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── HEADER ── */
+.eyebrow {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--green); margin-bottom: 10px;
+}
+.title {
+  font-size: 28px; font-weight: 700; color: var(--tp);
+  letter-spacing: -.02em; line-height: 1.2; margin-bottom: 12px;
+}
+.subtitle { font-size: 14px; color: var(--t3); line-height: 1.7; margin-bottom: 24px; }
+
+/* ── ENDORSEMENT BANNER ── */
+.endorse-banner {
+  background: var(--green-bg); border: 1px solid var(--green-bd);
+  border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: 40px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.endorse-icon { flex-shrink: 0; color: var(--green); margin-top: 2px; }
+.endorse-text { flex: 1; }
+.endorse-text strong { color: var(--tp); display: block; margin-bottom: 4px; font-size: 14px; }
+.endorse-text p { font-size: 13px; color: var(--t3); margin: 0 0 10px; }
+.endorse-cta {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; color: var(--green);
+  border: 1px solid var(--green-bd); border-radius: var(--r-sm);
+  padding: 5px 12px; text-decoration: none; transition: all .15s;
+}
+.endorse-cta:hover { background: var(--green-bg); color: var(--green); text-decoration: none; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--t4); margin: 36px 0 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ── DECLARATION CARD ── */
+.decl-card {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 20px 22px; margin-bottom: 12px;
+}
+.decl-card p { font-size: 13px; color: var(--t3); line-height: 1.7; }
+.decl-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.decl-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 600; padding: 2px 8px; border-radius: 999px;
+  background: var(--blue-bg); border: 1px solid var(--blue-bd); color: var(--blue);
+}
+.decl-badge.green { background: var(--green-bg); border-color: var(--green-bd); color: var(--green); }
+.decl-badge.amber { background: var(--amber-bg); border-color: rgba(234,179,8,.2); color: var(--amber); }
+.decl-title { font-size: 14.5px; font-weight: 600; color: var(--tp); }
+
+/* ── ALIGNMENT TABLE ── */
+.align-row {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  margin-bottom: 10px; overflow: hidden;
+  transition: border-color .15s;
+}
+.align-row:hover { border-color: var(--border-h); }
+.align-header {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  align-items: start; gap: 12px; padding: 14px 16px;
+  background: var(--s1); cursor: default;
+}
+.align-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 600; color: var(--t4); padding-top: 2px;
+}
+.align-rec { font-size: 13px; font-weight: 500; color: var(--ts); }
+.align-rec .rec-scope {
+  display: block; font-size: 10px; font-weight: 400;
+  color: var(--t4); font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px;
+}
+.status-chip {
+  font-size: 10px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+  flex-shrink: 0;
+}
+.status-implemented { background: var(--green-bg); border: 1px solid var(--green-bd); color: var(--green); }
+.status-partial     { background: var(--amber-bg); border: 1px solid rgba(234,179,8,.2); color: var(--amber); }
+
+.align-evidence {
+  padding: 0 16px 14px 56px; border-top: 1px solid var(--border);
+  background: rgba(0,0,0,.3);
+}
+.align-evidence p { font-size: 12.5px; color: var(--t3); line-height: 1.7; padding-top: 12px; }
+.evidence-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.ev-link {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--t4); border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 3px 8px; text-decoration: none; transition: all .15s;
+}
+.ev-link:hover { color: var(--blue); border-color: var(--blue-bd); text-decoration: none; }
+
+/* ── NOTICE ── */
+.notice {
+  background: var(--s1); border: 1px solid var(--border);
+  border-left: 3px solid var(--border-h); border-radius: var(--r-md);
+  padding: 14px 18px; margin-top: 32px; font-size: 13px;
+  color: var(--t3); line-height: 1.7;
+}
+.notice strong { color: var(--ts); font-weight: 500; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 48px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px; font-size: 12px; color: var(--t4);
+}
+.footer a { color: var(--t4); }
+.footer a:hover { color: var(--ts); text-decoration: none; }
+.footer-links { display: flex; gap: 16px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Back navigation -->
+  <a class="back-nav" href="../">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Verification Ledger
+  </a>
+
+  <!-- Header -->
+  <div class="eyebrow">Standards &amp; Governance</div>
+  <h1 class="title">Leiden Declaration Alignment</h1>
+  <p class="subtitle">
+    Flamehaven Labs' evidence-based alignment with the <strong style="color:var(--ts);">Leiden Declaration on Artificial Intelligence and Mathematics</strong> (June 2026).
+    Every claim on this page is backed by a public, reproducible verification record — not a pledge.
+  </p>
+
+  <!-- Endorsement banner -->
+  <div class="endorse-banner">
+    <div class="endorse-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+    </div>
+    <div class="endorse-text">
+      <strong>Flamehaven Labs endorses the Leiden Declaration (June 2026)</strong>
+      <p>Drafted by mathematicians, computer scientists, and social scientists from 10 countries, the Declaration calls for transparency, attribution, rigor, and human accountability in AI-assisted mathematics. Flamehaven's Verification Ledger was built to these standards — before the Declaration was published.</p>
+      <a class="endorse-cta" href="https://leidendeclaration.ai" target="_blank" rel="noopener">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Sign the Declaration at leidendeclaration.ai
+      </a>
+    </div>
+  </div>
+
+  <!-- The Declaration -->
+  <div class="section-label">About the Declaration</div>
+  <div class="decl-card">
+    <div class="decl-meta">
+      <span class="decl-badge green">June 2026</span>
+      <span class="decl-badge">16 co-authors &middot; 10 countries</span>
+      <span class="decl-badge">Lorentz Center, Leiden University</span>
+    </div>
+    <div class="decl-title" style="margin-bottom:10px;">Leiden Declaration on Artificial Intelligence and Mathematics</div>
+    <p>
+      The Declaration identifies five core values of mathematical research — proof-based certainty, attributable authorship, transparent verifiability, shared evaluation standards, and disciplinary autonomy — and documents how current AI deployments threaten each one. It calls on individual mathematicians, institutions, funders, and AI companies to act.
+    </p>
+    <div class="evidence-links" style="margin-top:12px;">
+      <a class="ev-link" href="https://zenodo.org/records/20302944" target="_blank" rel="noopener">DOI 10.5281/zenodo.20302944</a>
+      <a class="ev-link" href="https://leidendeclaration.ai" target="_blank" rel="noopener">leidendeclaration.ai</a>
+    </div>
+  </div>
+
+  <!-- Alignment Evidence -->
+  <div class="section-label">Evidence-Based Alignment</div>
+  <p style="font-size:13px;color:var(--t3);margin-bottom:20px;line-height:1.7;">
+    Below we map each Declaration recommendation to a concrete Flamehaven artifact or practice. "Implemented" means the practice exists and is verifiable from public records today.
+  </p>
+
+  <!-- Individual Rec 01 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">01</div>
+      <div class="align-rec">
+        <span class="rec-scope">Individual mathematicians</span>
+        Disclose tool use
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>Every EQA verification record explicitly classifies AI tool involvement. The highest-profile example: <strong style="color:var(--ts);">EQA-TEST-0057</strong> is formally labeled a <em>"High-Formality, Fake Physics Slop Artifact"</em> — the AI-generated codebase passed execution checks but rested on physically ungrounded assumptions. This classification is not buried in a footnote; it is the primary verdict surfaced on the card and in the Inspector.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="../#toe-test-0057">EQA-TEST-0057 Record</a>
+        <a class="ev-link" href="../eqa/toe-test-0057/verification_result.json">verification_result.json</a>
+        <a class="ev-link" href="https://zenodo.org/records/18035432" target="_blank" rel="noopener">Zenodo DOI</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Rec 03 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">03</div>
+      <div class="align-rec">
+        <span class="rec-scope">Individual mathematicians</span>
+        Adhere to principles of open science
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>All verification results are published under <strong style="color:var(--ts);">CC BY-NC 4.0</strong>. Every experiment with an external artifact carries a <strong style="color:var(--ts);">Zenodo DOI</strong> for citable, archival reference. The bioscience compliance scanner (<strong style="color:var(--ts);">STEM-BIO-AI</strong>) is fully open-source under the MIT license — reproduce any BSC audit with <code>pip install stem-ai; stem scan --level 3</code>.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="https://doi.org/10.5281/zenodo.20483364" target="_blank" rel="noopener">Ledger DOI</a>
+        <a class="ev-link" href="https://github.com/flamehaven01/STEM-BIO-AI" target="_blank" rel="noopener">STEM-BIO-AI (MIT)</a>
+        <a class="ev-link" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Rec 04 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">04</div>
+      <div class="align-rec">
+        <span class="rec-scope">Individual mathematicians</span>
+        Retain responsibility for correctness
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>Flamehaven does not conflate execution success with physical validity. <strong style="color:var(--ts);">EQA-TEST-0058</strong> reports <strong style="color:var(--ts);">DEGRADED_PASS (48 / 0 / 1 / 1)</strong> — surfacing two specific failures rather than issuing a clean PASS. The result record states: <em>"Verified for model-output consistency only, not external physical validity."</em> Responsibility for the correctness boundary is explicitly retained by the human reviewer, not delegated to the pipeline.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="../#toe-test-0058">EQA-TEST-0058 Record</a>
+        <a class="ev-link" href="https://doi.org/10.5281/zenodo.20665824" target="_blank" rel="noopener">Zenodo DOI</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Rec 05 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">05</div>
+      <div class="align-rec">
+        <span class="rec-scope">Individual mathematicians</span>
+        Affirm the humanity of authorship
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>All experiment records attribute authorship to the human reviewer (Flamehaven Labs, ORCID <code>0009-0009-2641-4280</code>). No AI system is listed as author or credited with verdicts. The governance pipeline (LOGOS → LawBinder → SPAR) acts as a structured constraint layer; human sign-off is required before any result is published to the ledger.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="https://orcid.org/0009-0009-2641-4280" target="_blank" rel="noopener">ORCID</a>
+        <a class="ev-link" href="../api/v1/schema.json">schema.json</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Rec 06 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">06</div>
+      <div class="align-rec">
+        <span class="rec-scope">Individual mathematicians</span>
+        Put effort into proper attribution
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>Every EQA record cites the source paper (title, authors, DOI), the specific artifact version under test (repository commit or Zenodo release), and the verification harness version. The OpenAI Erd&#337;s Conjecture record (<strong style="color:var(--ts);">EQA-TEST-0056</strong>) names the original proof authors and prior human work, not just the AI model, as the decisive intellectual contribution.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="../#toe-test-0056">EQA-TEST-0056 Record</a>
+        <a class="ev-link" href="https://zenodo.org/records/20383217" target="_blank" rel="noopener">Zenodo DOI</a>
+        <a class="ev-link" href="../api/v1/runs.json">api/v1/runs.json</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Org Rec 03 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">03</div>
+      <div class="align-rec">
+        <span class="rec-scope">Mathematical organizations</span>
+        Maintain standards of rigor
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>Flamehaven's governance pipeline enforces hard boundaries. The <strong style="color:var(--ts);">LawBinder</strong> gate issues <strong style="color:var(--ts);">INHIBIT</strong> when a candidate lacks a concrete algebraic model (EQA-TEST-0054: contract score 0.625, dangerous-pass risk 1.0). No result proceeds to SPAR review without passing the intake gate. This is documented in the public record, not an internal checklist.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="../#toe-test-0054">EQA-TEST-0054 Record</a>
+        <a class="ev-link" href="../eqa/toe-test-0054/logos_toe_contract_inspection.json">logos_toe_contract.json</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Org Rec 05 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">05</div>
+      <div class="align-rec">
+        <span class="rec-scope">Mathematical organizations</span>
+        Insist on appropriate publication outlets
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>Flamehaven does not announce results through press releases. Every published result on this ledger has a Zenodo DOI or a citable peer-reviewed paper as its anchor. The verification record is the publication — not a blog post summary of a private run.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="https://doi.org/10.5281/zenodo.15487327" target="_blank" rel="noopener">BSC Zenodo DOI</a>
+        <a class="ev-link" href="https://doi.org/10.5281/zenodo.20483364" target="_blank" rel="noopener">Ledger Zenodo DOI</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Org Rec 06 -->
+  <div class="align-row">
+    <div class="align-header">
+      <div class="align-num">06</div>
+      <div class="align-rec">
+        <span class="rec-scope">Mathematical organizations</span>
+        Support public research infrastructure
+      </div>
+      <span class="status-chip status-implemented">IMPLEMENTED</span>
+    </div>
+    <div class="align-evidence">
+      <p>The <strong style="color:var(--ts);">STEM-BIO-AI</strong> bioscience compliance scanner is fully open-source (MIT license) and self-contained — no cloud API, no proprietary dependency. Any researcher can reproduce any BSC audit in this ledger from the committed repository state. The ledger itself is a static GitHub Pages site: zero vendor lock-in, zero runtime cost.</p>
+      <div class="evidence-links">
+        <a class="ev-link" href="https://github.com/flamehaven01/STEM-BIO-AI" target="_blank" rel="noopener">STEM-BIO-AI (MIT)</a>
+        <a class="ev-link" href="https://github.com/flamehaven01/Flamehaven-Verification-Ledger" target="_blank" rel="noopener">Ledger Repo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice -->
+  <div class="notice">
+    <strong>Scope of this alignment statement.</strong>
+    This page covers recommendations where Flamehaven has concrete, public evidence. Recommendations addressed to commercial AI companies (e.g., training data consent, military application restraint) are outside Flamehaven's operational scope but are acknowledged as critical. We encourage AI developers whose tools Flamehaven uses to also sign the Declaration.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Data CC BY-NC 4.0 &nbsp;&middot;&nbsp; Code MIT</span>
+    <div class="footer-links">
+      <a href="../">Verification Ledger</a>
+      <a href="https://zenodo.org/records/20302944" target="_blank" rel="noopener">Leiden DOI</a>
+      <a href="https://leidendeclaration.ai" target="_blank" rel="noopener">leidendeclaration.ai</a>
+      <a href="https://flamehaven.space/" target="_blank" rel="noopener">flamehaven.space</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

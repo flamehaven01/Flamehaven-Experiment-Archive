@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flamehaven01.github.io/Flamehaven-Verification-Ledger/sitemap.xml

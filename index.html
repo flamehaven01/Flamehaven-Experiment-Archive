@@ -12,7 +12,22 @@ window.onerror = function(msg, url, line, col, error) {
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flamehaven — Verification Ledger</title>
-<meta name="description" content="Public ledger of static safety audits, mathematical physics verification runs, and biomedical AI pipeline verification logs from Flamehaven Labs.">
+<meta name="description" content="Public, reproducible ledger of AI-safety audits, mathematical physics verification runs (EQA), biomolecular AI pipeline governance (BAV), and bioscience repository compliance audits (BSC) by Flamehaven Labs. Every result is deterministic, locally executed, and fully inspectable.">
+<meta name="keywords" content="AI verification, AI safety, reproducibility, physics verification, bioscience compliance, biomolecular AI, Flamehaven, EQA, BAV, BSC, Leiden Declaration">
+<meta name="author" content="Flamehaven Labs">
+<link rel="canonical" href="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Flamehaven — Verification Ledger">
+<meta property="og:description" content="Public, reproducible ledger of AI-safety audits, physics verification runs, and bioscience compliance audits. Every result is deterministic, locally executed, and fully inspectable.">
+<meta property="og:url" content="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/">
+<meta property="og:site_name" content="Flamehaven Verification Ledger">
+<meta property="og:image" content="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/logo.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flamehaven — Verification Ledger">
+<meta name="twitter:description" content="Public, reproducible ledger of AI-safety audits, physics verification runs, and bioscience compliance audits.">
+<meta name="twitter:image" content="https://flamehaven01.github.io/Flamehaven-Verification-Ledger/logo.png">
 <!-- Machine-readable provenance (schema.org Dataset) for indexing / citation -->
 <script type="application/ld+json">
 {
@@ -20,13 +35,13 @@ window.onerror = function(msg, url, line, col, error) {
   "@type": "Dataset",
   "name": "Flamehaven Verification Ledger",
   "description": "Public, transparent, reproducible ledger of AI-safety audits, mathematical and physical verification runs (EQA), biomolecular AI pipeline-governance validations (BAV), and bioscience repository compliance audits (BSC). Internal metrics (SR9, DI2, Omega) are labelled advisory and not externally validated; verification weight rests on external anchors (public MIT repositories, DOIs, and standard third-party metrics such as AlphaFold pLDDT/PAE).",
-  "url": "https://flamehaven.space/",
-  "sameAs": "https://github.com/flamehaven01/Flamehaven-Verification-Ledger",
+  "url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
+  "sameAs": ["https://github.com/flamehaven01/Flamehaven-Verification-Ledger", "https://flamehaven.space/"],
   "identifier": "https://doi.org/10.5281/zenodo.20483364",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "isAccessibleForFree": true,
   "creator": { "@type": "Organization", "name": "Flamehaven Labs", "@id": "https://orcid.org/0009-0009-2641-4280" },
-  "keywords": ["AI safety", "reproducibility", "verification", "AlphaFold", "bioscience compliance"],
+  "keywords": ["AI safety", "reproducibility", "verification", "AlphaFold", "bioscience compliance", "Leiden Declaration"],
   "citation": "https://doi.org/10.5281/zenodo.15487327"
 }
 </script>
@@ -50,6 +65,12 @@ window.onerror = function(msg, url, line, col, error) {
     <span class="nav-sub">Verification Ledger</span>
   </a>
   <div class="nav-right">
+    <a href="./leiden-alignment/" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#10b981;">
+        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+      Standards
+    </a>
     <a href="./api/v1/" class="nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--t4c);">
         <polyline points="16 18 22 12 16 6"/>
@@ -1257,6 +1278,7 @@ window.onerror = function(msg, url, line, col, error) {
       <div class="footer-col">
         <div class="footer-col-title">Standards &amp; Frameworks</div>
         <ul class="footer-links">
+          <li><a href="./leiden-alignment/" style="color:#10b981;font-weight:500;">Leiden Declaration — AI &amp; Mathematics</a></li>
           <li><a href="https://airisk.mit.edu/" target="_blank" rel="noopener">MIT AIRI Risk Mapping</a></li>
           <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act Alignment</a></li>
           <li><a href="https://github.com/flamehaven01/SPAR-Framework" target="_blank" rel="noopener">SPAR Peer Review Protocol</a></li>
