@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="g" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="40%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer flame body -->
+  <path fill="url(#g)" d="
+    M16,2
+    C16,2 9,9 9,16
+    C7,14 7,10 9,7
+    C5,11 4,16 4,20
+    C4,26.1 9.4,30 16,30
+    C22.6,30 28,26.1 28,20
+    C28,14 24,9 22,6
+    C22,10 21,13 19,16
+    C19,9 16,2 16,2Z
+  "/>
+  <!-- Inner glow -->
+  <path fill="#fde68a" opacity="0.55" d="
+    M16,14
+    C14.5,16.5 13,18.5 13,21
+    C13,23.5 14.3,25 16,25
+    C17.7,25 19,23.5 19,21
+    C19,18.5 17.5,16.5 16,14Z
+  "/>
+</svg>
