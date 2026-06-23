@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flamehaven Verification Ledger &mdash; API v1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -219,6 +220,12 @@ a:hover { color: var(--tp); text-decoration: underline; }
 <body>
 <div class="page">
 
+  <!-- Back navigation -->
+  <a class="back-nav" href="../../" style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--t4);text-decoration:none;margin-bottom:28px;padding:5px 10px 5px 6px;border:1px solid var(--border);border-radius:var(--r-sm);transition:all .15s;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Verification Ledger
+  </a>
+
   <!-- Header -->
   <div class="header">
     <div class="logo-row">
@@ -229,7 +236,7 @@ a:hover { color: var(--tp); text-decoration: underline; }
     </div>
     <h1 class="title">
       Public API
-      <span class="badge">v1</span>
+      <span class="badge">v1.0.1</span>
     </h1>
     <p class="subtitle">
       Static read-only JSON
@@ -278,7 +285,7 @@ a:hover { color: var(--tp); text-decoration: underline; }
       <span class="pill">cross_domain_consistency</span>
       <span class="pill">calibration_brier_score</span>
       <span class="pill">balanced_accuracy</span>
-      <span class="pill">p_e2e</span>
+      <span class="pill">end_to_end_reliability</span>
     </div>
   </div>
 
@@ -287,7 +294,7 @@ a:hover { color: var(--tp); text-decoration: underline; }
       <span class="method">GET</span>
       <span class="ep-path"><a href="schema.json">api/v1/schema.json</a></span>
     </div>
-    <div class="ep-desc">Vocabulary &mdash; 3 lane definitions, 11 verdict codes, 6 metric definitions with provenance labels.</div>
+    <div class="ep-desc">Vocabulary &mdash; 3 lane definitions, 12 verdict codes, 6 metric definitions with provenance labels.</div>
   </div>
 
   <!-- Notice -->
