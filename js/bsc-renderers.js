@@ -68,9 +68,11 @@ function renderBscCards() {
           var openBtn = c.slot
             ? '<span class="dl-btn primary dl-btn-slot">' + ic + 'Report Pending</span>'
             : '<a class="dl-btn primary" href="#" onclick="openReportViewer(' + viewerArgs + '); return false;">' + ic + 'Open Report</a>';
-          var inspectBtn = '<button class="dl-btn" onclick="openJsonInspector(\'' + c.id + '\'); return false;"'
-            + ' style="cursor:pointer;color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.05);font-weight:500;">'
-            + icSearch + 'Inspect</button>';
+          var inspectBtn = c.slot
+            ? '<span class="dl-btn dl-btn-slot" style="color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.05);">' + icSearch + 'Inspect</span>'
+            : '<button class="dl-btn" onclick="openJsonInspector(\'' + c.id + '\'); return false;"'
+              + ' style="cursor:pointer;color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.05);font-weight:500;">'
+              + icSearch + 'Inspect</button>';
           var articleBtn = c.articleUrl
             ? '<a class="dl-btn" href="' + c.articleUrl + '" target="_blank" rel="noopener">' + icArt + 'Read Article</a>'
             : '<span class="dl-btn dl-btn-slot">' + icArt + 'Article Pending</span>';
