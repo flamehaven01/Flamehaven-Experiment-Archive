@@ -77,6 +77,7 @@
       "target_remote": "https://github.com/doctolib-lab/doctobert",
       "target_commit": "90a8bbe",
       "file": "./stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json",
+      "sha256": "84dfd686e475c860b7de291a2447d9ac04d8960ff9b1af24b17ab6212f229275",
       "final_score": 32,
       "formal_tier": "T0 Rejected",
       "score_cap": 69,

@@ -1079,6 +1079,7 @@ function _bscTierLabel(score) {
 }
 function _bscTierColor(tier) {
   if (!tier) return '#ef4444';
+  if (tier.startsWith('T0')) return '#ef4444';
   if (tier.startsWith('T1')) return '#f97316';
   if (tier.startsWith('T2')) return '#eab308';
   return '#10b981';

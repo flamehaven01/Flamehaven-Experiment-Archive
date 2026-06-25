@@ -1,6 +1,6 @@
 {
   "schema": "flamehaven_api_v1_bav_metrics",
-  "generated_at_utc": "2026-06-25T15:25:01.243060+00:00",
+  "generated_at_utc": "2026-06-25T16:31:41.187195+00:00",
   "note": "SR9 >= 0.70 pipeline guard, >= 0.80 honesty gate. DI2 <= 0.30 pipeline guard, <= 0.20 honesty gate. p_e2e = capture x transfer x model x clinical.",
   "experiments": [
     {

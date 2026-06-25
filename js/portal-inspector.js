@@ -71,6 +71,8 @@ async function openJsonInspector(runId, type = 'json') {
     jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
     jsonPath = './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json';
+  } else if (runId === 'doctobert') {
+    jsonPath = './stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json';
   } else if (BAV_MAP.has(runId)) {
     jsonPath = BAV_MAP.get(runId).jsonPath;
   } else if (runId.startsWith('bav-arch-')) {
@@ -345,7 +347,7 @@ function renderInspectorData(runId, data, reportText = '') {
     if (runId === 'toe-test-0056') {
       setTimeout(function() { const b = document.getElementById('btn-prec-64'); if (b) steerPrecision(64, b); }, 50);
     }
-  } else if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
+  } else if (runId === 'yorkeccak-bio' || runId === 'bioclaw' || runId === 'doctobert') {
     const scoreVal = data.score ? data.score.final_score : 0;
     const tierVal = data.score ? data.score.formal_tier : '';
     const scoreColor = _bscTierColor(tierVal);
@@ -511,7 +513,7 @@ function renderInspectorData(runId, data, reportText = '') {
     let checks = data.checks || {};
     
     // Bridge BRC code_integrity checks to checks tab!
-    if (runId === 'yorkeccak-bio' || runId === 'bioclaw') {
+    if (runId === 'yorkeccak-bio' || runId === 'bioclaw' || runId === 'doctobert') {
       checks = {};
       if (data.code_integrity) {
         Object.keys(data.code_integrity).forEach(k => {

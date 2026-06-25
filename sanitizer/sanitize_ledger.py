@@ -41,7 +41,12 @@ _UNC_RE = re.compile(r"\\\\(?:(?!\\\")[^\"`<&\r\n])+")
 _POSIX_RE = re.compile(r"/(?:[A-Za-z0-9._\-]+/)+[A-Za-z0-9._\-]*")
 # Strict octets (no leading zeros) to avoid matching SVG/coordinate number runs.
 _OCTET = r"(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)"
-_IPV4_RE = re.compile(r"\b" + _OCTET + r"(?:\." + _OCTET + r"){3}\b")
+# (?<![=.\d]) excludes dotted-quads that are software version pins (e.g.
+# `nvidia-cublas-cu12==12.8.4.1`, `zstd==1.5.7.3`) or sub-runs of a longer
+# dotted version. A version specifier always puts '=' (== >= <= ~= !=) or a
+# digit/dot immediately before the quad; a leaked IP is written standalone
+# ("192.168.1.50"), in a URL, or after ':'/space -- none of which trip the guard.
+_IPV4_RE = re.compile(r"(?<![=.\d])\b" + _OCTET + r"(?:\." + _OCTET + r"){3}\b")
 # detect-mode rules run only on data files (paths below), not HTML/JS/MD where
 # SVG coordinates and code produce false positives.
 DATA_EXTS = {"json", "txt", "yaml", "yml", "cff"}

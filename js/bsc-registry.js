@@ -95,7 +95,6 @@ const BSC_REGISTRY = [
     tierClass: 'tb-t0',
     tierDotVar: 'var(--t0)',
     tierDotBdVar: 'var(--t0-bd)',
-    slot: true,
     stages: [
       { key: 'S1',  val: 60, color: '#3b82f6' },
       { key: 'S2R', val: 40, color: '#eab308' },
