@@ -30,6 +30,14 @@ Public directory of all system evaluation logs, mathematical physics verificatio
 - [Structured JSON Report](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json)
 - [PDF Output](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf)
 
+#### 3. [doctolib-lab/doctobert](https://github.com/doctolib-lab/doctobert) — Audit Date: 2026-06-24 *(PENDING — files not yet uploaded)*
+- **Verdict**: `T0 Rejected` (Score: `32/100`, cap 69, CA-INDIRECT)
+- **Focus**: Clinical-adjacent French medical LM pretraining pipeline — governance, reproducibility, licensing posture.
+- **Key findings**: Stage 3 = 0/80 (all rubric items zero); no LICENSE file; confirmed `p2_short_floor` reproducibility bug; 3 active `# tmp` markers on pipeline functions.
+- **Diagnostic engines**: STEM-BIO-AI v1.8.4 + AI-SLOP-DETECTOR + E2E Suite | Commit: `90a8bbe`
+- [Active Artifact Folder](./stem-bio-ai/doctobert/2026-06-24/) *(coming soon)*
+- [Final Report v2 (MD)](./stem-bio-ai/doctobert/2026-06-24/doctobert_FINAL_REPORT_v2.md) *(coming soon)*
+
 ---
 
 ## 🛠️ Review Methodology & Frameworks
