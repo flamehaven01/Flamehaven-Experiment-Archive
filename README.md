@@ -36,7 +36,7 @@ The summary file is intentionally narrow. It exists only to route users into the
 ### 2. Bioscience Repository Compliance Scanner
 - **Focus**: Local, zero-execution repository safety and compliance audits for advanced bioscience systems.
 - **Methodology**: Maps observables (README intent, dependency safety, exception handling, data-provenance, clinical disclaimers) directly to structured evidence-readiness tiers (T0 Quarantine to T3 Clear), mapped to the **MIT AI Risk Repository (AIRI)**. Interactive Compliance Steering Sandbox applies Standard Prior / EU AI Act Art. 12 / MIT AI Risk Cap policy rules against live report JSON — no hardcoded scores.
-- **Scope**: 2 active reports · Avg Score 54/100 · 1 T1 Quarantine · 1 T2 Caution. Each report links to a companion flamehaven.space article.
+- **Scope**: 3 active reports · Avg Score 46.7/100 · 1 T0 Rejected · 1 T1 Quarantine · 1 T2 Caution. Each report links to a companion flamehaven.space article.
 
 ### 3. Biomolecular AI Validation (BAV)
 - **Focus**: Validating whether an entire biomedical AI **pipeline** (RExSyn reasoning + NNSL resonance + LawBinder governance) deserves trust — not just whether one model looks confident. Model disagreement is treated as signal.
@@ -73,7 +73,8 @@ flamehaven-verification-ledger/
 │   └── archive/                         # TOE-TEST-0001~0051 (7 verification runs + 44 non-run artifacts; real reports + manifest)
 ├── stem-bio-ai/                         # Bioscience Compliance Audits
 │   ├── yorkeccak-bio/2026-05-15/        # yorkeccak/bio — T1 Quarantine · Score 48
-│   └── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60
+│   ├── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60
+│   └── doctobert/2026-06-24/            # doctolib-lab/doctobert — T0 Rejected · Score 32
 ├── scripts/
 │   ├── build_api.py                     # Generates api/v1/ from manifest api_summary blocks
 │   └── api_schema_static.json           # Vocabulary source for schema.json
@@ -97,7 +98,7 @@ A static, read-only JSON API is served from GitHub Pages. No backend — all fil
 
 | Endpoint | Description |
 |---|---|
-| [`GET /api/v1/runs.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs.json) | Index of all 14 verification runs across EQA / BAV / BSC |
+| [`GET /api/v1/runs.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs.json) | Index of all 17 verification runs across EQA / BAV / BSC |
 | `GET /api/v1/runs/{id}.json` | Per-run detail: verdict, key metrics, findings, evidence links |
 | [`GET /api/v1/metrics/bav.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/metrics/bav.json) | Aggregated BAV metrics table (SR9, DI2, p_e2e, balanced_accuracy) |
 | [`GET /api/v1/schema.json`](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/schema.json) | Vocabulary: lane descriptions, 11 verdict codes, 6 metric definitions |
@@ -145,6 +146,8 @@ To interactively browse this repository, run the local dev server and open the p
   - [Interactive Report](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.html) | [Analyst Write-up](./stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md) | [Markdown](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md)
 - **[BSC] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
   - [Interactive Report](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html) | [Markdown](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md)
+- **[BSC] doctolib-lab/doctobert (T0 Rejected · Score 32)**
+  - [Diagnostic Report (flamehaven.space)](https://flamehaven.space/writing/doctobert-codebase-diagnostic-report/) | [Newsletter](https://flamehaven.space/writing/we-read-a-french-health-tech-giants-open-source-ai-pipeline-next-to-its-paper-they-dont-quite-agree/)
 
 ### 📐 Methodology & Frameworks
 - **[Methodology] Agent Review Dashboard (PR Action Plan v3)**

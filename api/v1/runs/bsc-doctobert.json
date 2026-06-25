@@ -1,0 +1,43 @@
+{
+  "schema": "flamehaven_api_v1_run_detail",
+  "id": "bsc-doctobert",
+  "lane": "BSC",
+  "title": "BSC scan: doctolib-lab/doctobert",
+  "verdict": "T0",
+  "verdict_label": "Critical \u2014 T0 Rejected",
+  "date": "2026-06-24",
+  "summary": "Clinical-adjacent French medical LLM pretraining pipeline (arXiv:2606.22079, Doctolib Lab, 2026-06-20) audited under the BSC framework. T0 Rejected (32/100, cap 69) driven by Stage 3 = 0/80 on all six rubric items: no CI/CD, no CHANGELOG, no data-provenance manifest, no bias/limitations language in the repository, no LICENSE file. A confirmed reproducibility bug (p2_short_floor dual default: 256 vs. 128) and three active # tmp markers on reproducibility-critical pipeline functions are the most actionable immediate findings. Pipeline interface design (Pydantic schemas, JSON extraction, 13/13 E2E P3 pass) and zero AST parse errors are substantive structural strengths.",
+  "key_metrics": {
+    "final_score": 32,
+    "score_cap": 69,
+    "clinical_adjacent": true,
+    "e2e_pass_rate": 0.69,
+    "stage_1": 60,
+    "stage_2r": 40,
+    "stage_3": 0
+  },
+  "findings": [
+    "Stage 3 = 0/80 across all 6 rubric items: no CI/CD, no CHANGELOG, no data-provenance manifest, no bias/limits language, no LICENSE",
+    "No LICENSE file \u2014 code all-rights-reserved under Berne Convention (no open-source reuse permitted)",
+    "Confirmed reproducibility bug: p2_short_floor dual default (256 in docs vs. 128 in code)",
+    "Three active # tmp markers on reproducibility-critical pipeline functions",
+    "SLOP critical_deficit: avg score 52.7 across flagged functions",
+    "E2E pass rate: 69.0% (29/42); P3 pipeline interface 13/13 PASS",
+    "Score formula: 0.4*S1(60) + 0.2*S2R(40) + 0.4*S3(0) = 32; cap 69 (CA-INDIRECT)"
+  ],
+  "evidence_links": {
+    "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bsc-doctobert",
+    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json"
+  },
+  "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim.",
+  "external_anchors": [
+    {
+      "label": "Diagnostic Report (flamehaven.space)",
+      "url": "https://flamehaven.space/writing/doctobert-codebase-diagnostic-report/"
+    },
+    {
+      "label": "Newsletter \u2014 AI pipeline vs. paper analysis",
+      "url": "https://flamehaven.space/writing/we-read-a-french-health-tech-giants-open-source-ai-pipeline-next-to-its-paper-they-dont-quite-agree/"
+    }
+  ]
+}

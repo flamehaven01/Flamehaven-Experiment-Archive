@@ -18,20 +18,22 @@
     }
   },
   "verdicts": [
-    {"code": "PASS",     "label": "Pass",             "meaning": "All checks passed; reproduction or classification succeeded within stated bounds."},
-    {"code": "DEGRADED", "label": "Degraded pass",    "meaning": "Partial pass: some checks passed but with scope caveats or boundary limitations."},
-    {"code": "ACCEPT",   "label": "Accept with bounds","meaning": "Research-viable as a supporting construct within explicitly stated bounds; not suitable for core promotion."},
-    {"code": "BLOCK",    "label": "Block",             "meaning": "Hard constraint violation triggered; dangerous false-pass risk identified. Advancement blocked."},
-    {"code": "REJECTED", "label": "Gate rejected",    "meaning": "Claim scope exceeds what the mathematical or technical construction supports."},
-    {"code": "FAIL",     "label": "Fail",              "meaning": "Pipeline failure surface identified; PASS-eligible controls routed incorrectly."},
-    {"code": "HOLD",     "label": "Keep observer",    "meaning": "All arms unverified; multi-model disagreement kept visible as signal rather than resolved by majority vote."},
-    {"code": "ABSTAIN",  "label": "Honest abstain",   "meaning": "Calibration metrics are statistically sound on pilot data, but cross-domain consistency fails; system correctly declined to claim generalisation."},
-    {"code": "NULL",     "label": "Truthful null",    "meaning": "Gate rejected all candidates quickly and correctly. Value is in what was NOT built: confirmed negative rather than a failure to find a positive."},
-    {"code": "T1",       "label": "High Risk",        "meaning": "Significant deficiencies. Use only with explicit mitigations and documented limitations. (BSC lane)"},
-    {"code": "T2",       "label": "Caution",          "meaning": "Partial compliance. Usable with acknowledged limitations and active monitoring. (BSC lane)"}
+    {"code": "PASS",         "label": "Pass",                "meaning": "All checks passed; reproduction or classification succeeded within stated bounds."},
+    {"code": "DEGRADED",     "label": "Degraded pass",       "meaning": "Partial pass: some checks passed but with scope caveats or boundary limitations."},
+    {"code": "DEGRADED_PASS","label": "Degraded pass",       "meaning": "Scope-limited pass: selected checks passed but verification is bounded to mathematical or model-consistency only. Does not constitute full multi-layer verification."},
+    {"code": "ACCEPT",       "label": "Accept with bounds",  "meaning": "Research-viable as a supporting construct within explicitly stated bounds; not suitable for core promotion."},
+    {"code": "BLOCK",        "label": "Block",               "meaning": "Hard constraint violation triggered; dangerous false-pass risk identified. Advancement blocked."},
+    {"code": "REJECTED",     "label": "Gate rejected",       "meaning": "Claim scope exceeds what the mathematical or technical construction supports."},
+    {"code": "FAIL",         "label": "Fail",                "meaning": "Pipeline failure surface identified; PASS-eligible controls routed incorrectly."},
+    {"code": "HOLD",         "label": "Keep observer",       "meaning": "All arms unverified; multi-model disagreement kept visible as signal rather than resolved by majority vote."},
+    {"code": "ABSTAIN",      "label": "Honest abstain",      "meaning": "Calibration metrics are statistically sound on pilot data, but cross-domain consistency fails; system correctly declined to claim generalisation."},
+    {"code": "NULL",         "label": "Truthful null",       "meaning": "Gate rejected all candidates quickly and correctly. Value is in what was NOT built: confirmed negative rather than a failure to find a positive."},
+    {"code": "T0",           "label": "Critical — T0 Rejected","meaning": "Critical deficiency. Stage 3 (Code/Bio Responsibility) scored 0/80. Governance, reproducibility, and licensing gaps make this repository unsuitable for clinical-adjacent or production use without immediate remediation. (BSC lane)"},
+    {"code": "T1",           "label": "High Risk",           "meaning": "Significant deficiencies. Use only with explicit mitigations and documented limitations. (BSC lane)"},
+    {"code": "T2",           "label": "Caution",             "meaning": "Partial compliance. Usable with acknowledged limitations and active monitoring. (BSC lane)"}
   ],
   "metrics": {
-    "sr9": {
+    "cross_domain_consistency": {
       "name": "Cross-domain consistency (SR9)",
       "description": "Can the pipeline reasoning transfer across domains it was not explicitly trained on?",
       "pipeline_guard": 0.70,
@@ -40,7 +42,7 @@
       "provenance": "advisory_internal",
       "not_externally_validated": true
     },
-    "di2": {
+    "reasoning_deviation": {
       "name": "Reasoning deviation (DI2)",
       "description": "How far does the model internal logic drift from its stated claims?",
       "pipeline_guard": 0.30,
@@ -49,7 +51,7 @@
       "provenance": "advisory_internal",
       "not_externally_validated": true
     },
-    "p_e2e": {
+    "end_to_end_reliability": {
       "name": "End-to-end reliability (p_e2e)",
       "description": "Probability that a true positive survives the full pipeline: input capture x signal transfer x model correct x clinical decision correct.",
       "direction": "higher_is_better",

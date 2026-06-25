@@ -4,6 +4,32 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [1.23.0] - 2026-06-25
+
+BSC #3 doctobert activated — full audit card live, API pipeline rebuilt, schema source synced.
+
+### BSC Lane
+- **doctobert card live**: Removed `slot: true` from `js/bsc-registry.js`. Card title is now a viewer link; Report/PDF/MD/JSON/Article buttons active. Newsletter and Article buttons wired to flamehaven.space.
+  - Article: [Diagnostic Report](https://flamehaven.space/writing/doctobert-codebase-diagnostic-report/)
+  - Newsletter: [AI pipeline vs. paper analysis](https://flamehaven.space/writing/we-read-a-french-health-tech-giants-open-source-ai-pipeline-next-to-its-paper-they-dont-quite-agree/)
+- **`stem-bio-ai/manifest.json`**: Added doctobert entry with full `api_summary` block — `T0 Rejected` verdict, 7 findings, stage breakdown metrics, two `external_anchors`.
+
+### API v1 Pipeline
+- **`scripts/build_api.py`**: BSC detail writer now outputs `external_anchors` when present in `api_summary` (was omitted for BSC; EQA/BAV already handled correctly).
+- **`scripts/api_schema_static.json`**: Synced with `api/v1/schema.json` — added `T0` and `DEGRADED_PASS` verdicts; renamed metric keys `sr9`→`cross_domain_consistency`, `di2`→`reasoning_deviation`, `p_e2e`→`end_to_end_reliability`. Previous v1.0.1 patch had edited the generated file directly, leaving the source out of sync.
+- **Regenerated `api/v1/`**: All 20 files rebuilt via `build_api.py`; `--check` passes cleanly.
+  - New: `api/v1/runs/bsc-doctobert.json` (detail endpoint with `external_anchors`)
+  - Updated: `api/v1/runs.json` (count 17, slot field removed), `api/v1/schema.json` (13 verdicts, renamed metric keys)
+
+### Cache
+- **Script version bumped** `?v=1.22.0` → `?v=1.23.0` across all 12 script tags in `index.html`.
+
+### Docs / Playbook
+- **`memory/verification-ledger-playbook.md`**: New §3.0 BSC Registry-Driven Card Pattern — documents slot mechanism, newsletter button, version bump rule; verdict list updated to 13; metric key names synced; BSC metrics endpoint updated.
+- **`index.md`**: Added doctobert #3 entry (T0 Rejected, PENDING note removed from slot era).
+
+---
+
 ## [1.21.1] - 2026-06-11
 
 - **Restricted EQA-TEST-0057 to v1.2.3**: Removed all V2/V2.1 references, checks, and metrics from the record, metadata, and playbooks.

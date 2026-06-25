@@ -144,7 +144,7 @@ def build_all(out_dir):
         })
 
         rep_path = report.get("file", "").lstrip("./")
-        _write(out_dir / "runs" / f"{rid}.json", {
+        bsc_detail = {
             "schema": "flamehaven_api_v1_run_detail",
             "id": rid, "lane": "BSC",
             "title": api["title"], "verdict": api["verdict"],
@@ -157,7 +157,10 @@ def build_all(out_dir):
                 "report_json": f"{BASE_URL}/{rep_path}" if rep_path else "",
             },
             "disclaimer": bsc_man.get("disclaimer", ""),
-        })
+        }
+        if api.get("external_anchors"):
+            bsc_detail["external_anchors"] = api["external_anchors"]
+        _write(out_dir / "runs" / f"{rid}.json", bsc_detail)
 
     _write(out_dir / "runs.json", {
         "schema": "flamehaven_api_v1_runs_index",

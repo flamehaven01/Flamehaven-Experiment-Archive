@@ -71,6 +71,48 @@
         }
       }
     }
+    ,{
+      "id": "doctobert",
+      "target": "doctolib-lab/doctobert",
+      "target_remote": "https://github.com/doctolib-lab/doctobert",
+      "target_commit": "90a8bbe",
+      "file": "./stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json",
+      "final_score": 32,
+      "formal_tier": "T0 Rejected",
+      "score_cap": 69,
+      "clinical_adjacency": "CA-INDIRECT",
+      "scanner_version": "STEM-BIO-AI v1.8.4 + AI-SLOP-DETECTOR + Custom E2E Suite",
+      "api_summary": {
+        "title": "BSC scan: doctolib-lab/doctobert",
+        "verdict": "T0",
+        "verdict_label": "Critical — T0 Rejected",
+        "date": "2026-06-24",
+        "brief": "Score 32/100 (cap 69, CA-INDIRECT). Stage 3 = 0/80 across all 6 rubric items. Confirmed reproducibility bug (p2_short_floor dual default). No LICENSE file. Three active # tmp markers on reproducibility-critical pipeline functions. SLOP critical_deficit (avg 52.7). E2E pass rate 69.0% (29/42). Diagnostic engines: STEM-BIO-AI v1.8.4 + AI-SLOP-DETECTOR + Custom E2E Suite. Commit: 90a8bbe.",
+        "summary": "Clinical-adjacent French medical LLM pretraining pipeline (arXiv:2606.22079, Doctolib Lab, 2026-06-20) audited under the BSC framework. T0 Rejected (32/100, cap 69) driven by Stage 3 = 0/80 on all six rubric items: no CI/CD, no CHANGELOG, no data-provenance manifest, no bias/limitations language in the repository, no LICENSE file. A confirmed reproducibility bug (p2_short_floor dual default: 256 vs. 128) and three active # tmp markers on reproducibility-critical pipeline functions are the most actionable immediate findings. Pipeline interface design (Pydantic schemas, JSON extraction, 13/13 E2E P3 pass) and zero AST parse errors are substantive structural strengths.",
+        "findings": [
+          "Stage 3 = 0/80 across all 6 rubric items: no CI/CD, no CHANGELOG, no data-provenance manifest, no bias/limits language, no LICENSE",
+          "No LICENSE file — code all-rights-reserved under Berne Convention (no open-source reuse permitted)",
+          "Confirmed reproducibility bug: p2_short_floor dual default (256 in docs vs. 128 in code)",
+          "Three active # tmp markers on reproducibility-critical pipeline functions",
+          "SLOP critical_deficit: avg score 52.7 across flagged functions",
+          "E2E pass rate: 69.0% (29/42); P3 pipeline interface 13/13 PASS",
+          "Score formula: 0.4*S1(60) + 0.2*S2R(40) + 0.4*S3(0) = 32; cap 69 (CA-INDIRECT)"
+        ],
+        "metrics": {
+          "final_score": 32,
+          "score_cap": 69,
+          "clinical_adjacent": true,
+          "e2e_pass_rate": 0.690,
+          "stage_1": 60,
+          "stage_2r": 40,
+          "stage_3": 0
+        },
+        "external_anchors": [
+          {"label": "Diagnostic Report (flamehaven.space)", "url": "https://flamehaven.space/writing/doctobert-codebase-diagnostic-report/"},
+          {"label": "Newsletter — AI pipeline vs. paper analysis", "url": "https://flamehaven.space/writing/we-read-a-french-health-tech-giants-open-source-ai-pipeline-next-to-its-paper-they-dont-quite-agree/"}
+        ]
+      }
+    }
   ],
   "provenance_note": "Verbatim STEM-BIO-AI scanner outputs; workspace paths sanitized (DI-SAN-001). The file_hashes_sha256 inside each report hash the SCANNED external repo's files; the sha256 here anchors the published ledger result file itself.",
   "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim."

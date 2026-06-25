@@ -1,1 +1,135 @@
-{"schema":"flamehaven_api_v1_vocabulary","lanes":{"EQA":{"name":"Computational Proof Reproduction","description":"Takes a published theorem or equation and implements it as executable, CI-tested code. Asks: does running this implementation reproduce the numerical results claimed in the paper, at the stated precision, under the stated conditions?","portal":"https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html"},"BAV":{"name":"Biomedical AI Pipeline Governance","description":"Audits the full biomedical AI pipeline from molecule input to clinical decision output. Multi-model disagreement is treated as a signal to investigate, not noise to smooth over.","portal":"https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html"},"BSC":{"name":"Bioscience Repository Compliance","description":"Static, zero-execution safety scans of public bioscience AI repositories. Maps findings to the MIT AI Risk Repository (AIRI) 4-tier evidence-readiness classification.","portal":"https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html"}},"verdicts":[{"code":"PASS","label":"Pass","meaning":"All checks passed; reproduction or classification succeeded within stated bounds."},{"code":"DEGRADED","label":"Degraded pass","meaning":"Partial pass: some checks passed but with scope caveats or boundary limitations."},{"code":"DEGRADED_PASS","label":"Degraded pass","meaning":"Scope-limited pass: selected checks passed but verification is bounded to mathematical or model-consistency only. Does not constitute full multi-layer verification."},{"code":"ACCEPT","label":"Accept with bounds","meaning":"Research-viable as a supporting construct within explicitly stated bounds; not suitable for core promotion."},{"code":"BLOCK","label":"Block","meaning":"Hard constraint violation triggered; dangerous false-pass risk identified. Advancement blocked."},{"code":"REJECTED","label":"Gate rejected","meaning":"Claim scope exceeds what the mathematical or technical construction supports."},{"code":"FAIL","label":"Fail","meaning":"Pipeline failure surface identified; PASS-eligible controls routed incorrectly."},{"code":"HOLD","label":"Keep observer","meaning":"All arms unverified; multi-model disagreement kept visible as signal rather than resolved by majority vote."},{"code":"ABSTAIN","label":"Honest abstain","meaning":"Calibration metrics are statistically sound on pilot data, but cross-domain consistency fails; system correctly declined to claim generalisation."},{"code":"NULL","label":"Truthful null","meaning":"Gate rejected all candidates quickly and correctly. Value is in what was NOT built: confirmed negative rather than a failure to find a positive."},{"code":"T0","label":"Critical — T0 Rejected","meaning":"Critical deficiency. Stage 3 (Code/Bio Responsibility) scored 0/80. Governance, reproducibility, and licensing gaps make this repository unsuitable for clinical-adjacent or production use without immediate remediation. (BSC lane)"},{"code":"T1","label":"High Risk","meaning":"Significant deficiencies. Use only with explicit mitigations and documented limitations. (BSC lane)"},{"code":"T2","label":"Caution","meaning":"Partial compliance. Usable with acknowledged limitations and active monitoring. (BSC lane)"}],"metrics":{"cross_domain_consistency":{"name":"Cross-domain consistency (SR9)","description":"Can the pipeline reasoning transfer across domains it was not explicitly trained on?","pipeline_guard":0.7,"honesty_gate":0.8,"direction":"higher_is_better","provenance":"advisory_internal","not_externally_validated":true},"reasoning_deviation":{"name":"Reasoning deviation (DI2)","description":"How far does the model internal logic drift from its stated claims?","pipeline_guard":0.3,"honesty_gate":0.2,"direction":"lower_is_better","provenance":"advisory_internal","not_externally_validated":true},"end_to_end_reliability":{"name":"End-to-end reliability (p_e2e)","description":"Probability that a true positive survives the full pipeline: input capture x signal transfer x model correct x clinical decision correct.","direction":"higher_is_better","provenance":"advisory_internal","not_externally_validated":true},"balanced_accuracy":{"name":"Balanced accuracy","description":"Mean of PASS recall and BLOCK recall. 1.0 = perfect discrimination; 0.5 = random.","direction":"higher_is_better","provenance":"standard_ml"},"brier_score":{"name":"Brier score","description":"Calibration quality: mean squared error between predicted probabilities and outcomes. 0.0 = perfect calibration.","direction":"lower_is_better","provenance":"standard_ml"},"final_score_bsc":{"name":"BSC compliance score","description":"Weighted composite: 0.4 x README intent + 0.2 x consistency + 0.4 x code safety. Risk penalty subtracted. Capped at 69 for clinical-adjacent repositories without an explicit boundary statement.","direction":"higher_is_better","provenance":"advisory_internal","not_externally_validated":true}},"disclaimer":"All entries are archival evidence records. They do not constitute certification, regulatory approval, or clinical recommendation. Internal pipeline metrics (SR9, DI2, p_e2e) are advisory Flamehaven-internal scores, not externally validated. Verification weight rests on external anchors: public MIT repositories, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT and PAE.","generated_at_utc":"2026-06-25T00:00:00.000000+00:00"}
+{
+  "schema": "flamehaven_api_v1_vocabulary",
+  "lanes": {
+    "EQA": {
+      "name": "Computational Proof Reproduction",
+      "description": "Takes a published theorem or equation and implements it as executable, CI-tested code. Asks: does running this implementation reproduce the numerical results claimed in the paper, at the stated precision, under the stated conditions?",
+      "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html"
+    },
+    "BAV": {
+      "name": "Biomedical AI Pipeline Governance",
+      "description": "Audits the full biomedical AI pipeline from molecule input to clinical decision output. Multi-model disagreement is treated as a signal to investigate, not noise to smooth over.",
+      "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html"
+    },
+    "BSC": {
+      "name": "Bioscience Repository Compliance",
+      "description": "Static, zero-execution safety scans of public bioscience AI repositories. Maps findings to the MIT AI Risk Repository (AIRI) 4-tier evidence-readiness classification.",
+      "portal": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html"
+    }
+  },
+  "verdicts": [
+    {
+      "code": "PASS",
+      "label": "Pass",
+      "meaning": "All checks passed; reproduction or classification succeeded within stated bounds."
+    },
+    {
+      "code": "DEGRADED",
+      "label": "Degraded pass",
+      "meaning": "Partial pass: some checks passed but with scope caveats or boundary limitations."
+    },
+    {
+      "code": "DEGRADED_PASS",
+      "label": "Degraded pass",
+      "meaning": "Scope-limited pass: selected checks passed but verification is bounded to mathematical or model-consistency only. Does not constitute full multi-layer verification."
+    },
+    {
+      "code": "ACCEPT",
+      "label": "Accept with bounds",
+      "meaning": "Research-viable as a supporting construct within explicitly stated bounds; not suitable for core promotion."
+    },
+    {
+      "code": "BLOCK",
+      "label": "Block",
+      "meaning": "Hard constraint violation triggered; dangerous false-pass risk identified. Advancement blocked."
+    },
+    {
+      "code": "REJECTED",
+      "label": "Gate rejected",
+      "meaning": "Claim scope exceeds what the mathematical or technical construction supports."
+    },
+    {
+      "code": "FAIL",
+      "label": "Fail",
+      "meaning": "Pipeline failure surface identified; PASS-eligible controls routed incorrectly."
+    },
+    {
+      "code": "HOLD",
+      "label": "Keep observer",
+      "meaning": "All arms unverified; multi-model disagreement kept visible as signal rather than resolved by majority vote."
+    },
+    {
+      "code": "ABSTAIN",
+      "label": "Honest abstain",
+      "meaning": "Calibration metrics are statistically sound on pilot data, but cross-domain consistency fails; system correctly declined to claim generalisation."
+    },
+    {
+      "code": "NULL",
+      "label": "Truthful null",
+      "meaning": "Gate rejected all candidates quickly and correctly. Value is in what was NOT built: confirmed negative rather than a failure to find a positive."
+    },
+    {
+      "code": "T0",
+      "label": "Critical \u2014 T0 Rejected",
+      "meaning": "Critical deficiency. Stage 3 (Code/Bio Responsibility) scored 0/80. Governance, reproducibility, and licensing gaps make this repository unsuitable for clinical-adjacent or production use without immediate remediation. (BSC lane)"
+    },
+    {
+      "code": "T1",
+      "label": "High Risk",
+      "meaning": "Significant deficiencies. Use only with explicit mitigations and documented limitations. (BSC lane)"
+    },
+    {
+      "code": "T2",
+      "label": "Caution",
+      "meaning": "Partial compliance. Usable with acknowledged limitations and active monitoring. (BSC lane)"
+    }
+  ],
+  "metrics": {
+    "cross_domain_consistency": {
+      "name": "Cross-domain consistency (SR9)",
+      "description": "Can the pipeline reasoning transfer across domains it was not explicitly trained on?",
+      "pipeline_guard": 0.7,
+      "honesty_gate": 0.8,
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
+    },
+    "reasoning_deviation": {
+      "name": "Reasoning deviation (DI2)",
+      "description": "How far does the model internal logic drift from its stated claims?",
+      "pipeline_guard": 0.3,
+      "honesty_gate": 0.2,
+      "direction": "lower_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
+    },
+    "end_to_end_reliability": {
+      "name": "End-to-end reliability (p_e2e)",
+      "description": "Probability that a true positive survives the full pipeline: input capture x signal transfer x model correct x clinical decision correct.",
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
+    },
+    "balanced_accuracy": {
+      "name": "Balanced accuracy",
+      "description": "Mean of PASS recall and BLOCK recall. 1.0 = perfect discrimination; 0.5 = random.",
+      "direction": "higher_is_better",
+      "provenance": "standard_ml"
+    },
+    "brier_score": {
+      "name": "Brier score",
+      "description": "Calibration quality: mean squared error between predicted probabilities and outcomes. 0.0 = perfect calibration.",
+      "direction": "lower_is_better",
+      "provenance": "standard_ml"
+    },
+    "final_score_bsc": {
+      "name": "BSC compliance score",
+      "description": "Weighted composite: 0.4 x README intent + 0.2 x consistency + 0.4 x code safety. Risk penalty subtracted. Capped at 69 for clinical-adjacent repositories without an explicit boundary statement.",
+      "direction": "higher_is_better",
+      "provenance": "advisory_internal",
+      "not_externally_validated": true
+    }
+  },
+  "disclaimer": "All entries are archival evidence records. They do not constitute certification, regulatory approval, or clinical recommendation. Internal pipeline metrics (SR9, DI2, p_e2e) are advisory Flamehaven-internal scores, not externally validated. Verification weight rests on external anchors: public MIT repositories, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT and PAE.",
+  "generated_at_utc": "2026-06-25T15:25:01.243060+00:00"
+}
