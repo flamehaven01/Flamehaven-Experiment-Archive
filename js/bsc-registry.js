@@ -80,7 +80,6 @@ const BSC_REGISTRY = [
     scannerTitle: 'Open-source scanner (MIT-licensed) — reproduce: pip install stem-ai; clone the target repo @ the commit recorded in the report JSON; stem scan --level 3',
     deepLinks: ['bioclaw-20260521'],
   },
-  ,
   {
     id: 'doctobert',
     dataId: 'doctobert-20260624',
