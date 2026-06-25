@@ -21,9 +21,12 @@ function renderBscCards() {
     }).join('');
     var dlIconDown = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var dlIconNews = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="2" width="10" height="9" rx="1"/><path d="M3 5h6M3 7.5h4" stroke-linecap="round"/></svg>';
-    var viewerArgs = JSON.stringify(c.id) + ',' + JSON.stringify(c.report) + ',' + JSON.stringify(c.reportMd) + ','
-      + JSON.stringify(c.reportJson) + ',' + JSON.stringify(c.reportPdf) + ','
-      + JSON.stringify(c.viewerTitle) + ',' + JSON.stringify(c.viewerEyebrow);
+    // Single-quoted JS string literals: these args are interpolated into an
+    // inline onclick="..." (double-quoted) attribute, so JSON.stringify's double
+    // quotes would terminate the attribute early ("Unexpected end of input" on
+    // click). Single quotes + apostrophe/backslash escaping keep the handler valid.
+    var sq = function(s) { return "'" + String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'"; };
+    var viewerArgs = [c.id, c.report, c.reportMd, c.reportJson, c.reportPdf, c.viewerTitle, c.viewerEyebrow].map(sq).join(',');
     var titleEl = c.slot
       ? c.title
       : '<a href="#" onclick="openReportViewer(' + viewerArgs + '); return false;">' + c.title + '</a>';
