@@ -20,17 +20,20 @@ function renderBscCards() {
         + '</div>';
     }).join('');
     var dlIconDown = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 1v6M2 5l3 3 3-3M2 9h6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var dlIconNews = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="2" width="10" height="9" rx="1"/><path d="M3 5h6M3 7.5h4" stroke-linecap="round"/></svg>';
+    var viewerArgs = JSON.stringify(c.id) + ',' + JSON.stringify(c.report) + ',' + JSON.stringify(c.reportMd) + ','
+      + JSON.stringify(c.reportJson) + ',' + JSON.stringify(c.reportPdf) + ','
+      + JSON.stringify(c.viewerTitle) + ',' + JSON.stringify(c.viewerEyebrow);
+    var titleEl = c.slot
+      ? c.title
+      : '<a href="#" onclick="openReportViewer(' + viewerArgs + '); return false;">' + c.title + '</a>';
     var html = '<article class="report-card"'
       + ' data-score="' + c.score + '" data-tier="' + c.tier + '" data-coll="stem-bio-ai"'
       + ' data-date="' + c.auditDate + '" data-title="' + c.title + '" data-id="' + c.dataId + '">'
       // header
       + '<div class="card-body" style="padding-bottom:0;">'
-      + '<div class="card-eyebrow">' + c.eyebrow + '</div>'
-      + '<div class="card-title"><a href="#" onclick="openReportViewer('
-        + JSON.stringify(c.id) + ',' + JSON.stringify(c.report) + ',' + JSON.stringify(c.reportMd) + ','
-        + JSON.stringify(c.reportJson) + ',' + JSON.stringify(c.reportPdf) + ','
-        + JSON.stringify(c.viewerTitle) + ',' + JSON.stringify(c.viewerEyebrow)
-        + '); return false;">' + c.title + '</a></div>'
+      + '<div class="card-eyebrow">' + c.eyebrow + (c.slot ? ' <span style="font-size:9px;color:var(--t0);border:1px solid var(--t0-bd);border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:middle;">PENDING</span>' : '') + '</div>'
+      + '<div class="card-title">' + titleEl + '</div>'
       + '<div class="card-date" style="margin-bottom:0;">Audit Date: ' + c.auditDate + ' \xb7 Expires: ' + c.expiryDate + '</div>'
       + '</div>'
       // score gauge
@@ -56,26 +59,33 @@ function renderBscCards() {
       + '<div class="signal-list">' + signals + '</div>'
       + '</div>'
       // downloads
-      + '<div class="card-downloads">'
-      + '<a class="dl-btn primary" href="#" onclick="openReportViewer('
-        + JSON.stringify(c.id) + ',' + JSON.stringify(c.report) + ',' + JSON.stringify(c.reportMd) + ','
-        + JSON.stringify(c.reportJson) + ',' + JSON.stringify(c.reportPdf) + ','
-        + JSON.stringify(c.viewerTitle) + ',' + JSON.stringify(c.viewerEyebrow)
-        + '); return false;"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="8" height="8" rx="1"/><path d="M3 5h4M5 3v4" stroke-linecap="round"/></svg>Open Report</a>'
-      + '<button class="dl-btn" onclick="openJsonInspector(\'' + c.id + '\'); return false;"'
-      + ' style="cursor:pointer;color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.05);font-weight:500;">'
-      + '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="5" r="3.2"/><path d="M7.5 7.5l2.8 2.8" stroke-linecap="round"/></svg>Inspect</button>'
-      + '<a class="dl-btn" href="' + c.articleUrl + '" target="_blank" rel="noopener">'
-      + '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>Read Article</a>'
-      + '<a class="dl-btn" href="https://github.com/flamehaven01/STEM-BIO-AI" target="_blank" rel="noopener" title="' + c.scannerTitle + '">'
-      + '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round" stroke-linejoin="round"/></svg>Scanner (source)</a>'
-      + '<a class="dl-btn" href="' + c.reportPdf + '" download>' + dlIconDown + 'PDF</a>'
-      + '<a class="dl-btn" href="' + c.reportMd  + '" download>' + dlIconDown + 'MD</a>'
-      + '<a class="dl-btn" href="' + c.reportJson + '" download>' + dlIconDown + 'JSON</a>'
-      + '<button class="dl-copy-btn" onclick="copyURL(\'' + c.report + '\')" title="Copy link">'
-      + '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/></svg>'
-      + '</button>'
-      + '</div>'
+      + (function() {
+          var ic = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="8" height="8" rx="1"/><path d="M3 5h4M5 3v4" stroke-linecap="round"/></svg>';
+          var icSearch = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="5" r="3.2"/><path d="M7.5 7.5l2.8 2.8" stroke-linecap="round"/></svg>';
+          var icArt = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h10M1 6h7M1 9h5" stroke-linecap="round"/></svg>';
+          var icScan = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3l3 3-3 3M6 9h4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          var icCopy = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M8 4V2a1 1 0 00-1-1H2a1 1 0 00-1 1v5a1 1 0 001 1h2"/></svg>';
+          var openBtn = c.slot
+            ? '<span class="dl-btn primary dl-btn-slot">' + ic + 'Report Pending</span>'
+            : '<a class="dl-btn primary" href="#" onclick="openReportViewer(' + viewerArgs + '); return false;">' + ic + 'Open Report</a>';
+          var inspectBtn = '<button class="dl-btn" onclick="openJsonInspector(\'' + c.id + '\'); return false;"'
+            + ' style="cursor:pointer;color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.05);font-weight:500;">'
+            + icSearch + 'Inspect</button>';
+          var articleBtn = c.articleUrl
+            ? '<a class="dl-btn" href="' + c.articleUrl + '" target="_blank" rel="noopener">' + icArt + 'Read Article</a>'
+            : '<span class="dl-btn dl-btn-slot">' + icArt + 'Article Pending</span>';
+          var newsletterBtn = (typeof c.newsletterUrl !== 'undefined')
+            ? (c.newsletterUrl
+                ? '<a class="dl-btn dl-btn-newsletter" href="' + c.newsletterUrl + '" target="_blank" rel="noopener">' + dlIconNews + 'Newsletter</a>'
+                : '<span class="dl-btn dl-btn-newsletter dl-btn-slot">' + dlIconNews + 'Newsletter</span>')
+            : '';
+          var scanBtn = '<a class="dl-btn" href="https://github.com/flamehaven01/STEM-BIO-AI" target="_blank" rel="noopener" title="' + c.scannerTitle + '">' + icScan + 'Scanner (source)</a>';
+          var pdfBtn  = c.slot ? '<span class="dl-btn dl-btn-slot">' + dlIconDown + 'PDF</span>'  : '<a class="dl-btn" href="' + c.reportPdf  + '" download>' + dlIconDown + 'PDF</a>';
+          var mdBtn   = c.slot ? '<span class="dl-btn dl-btn-slot">' + dlIconDown + 'MD</span>'   : '<a class="dl-btn" href="' + c.reportMd   + '" download>' + dlIconDown + 'MD</a>';
+          var jsonBtn = c.slot ? '<span class="dl-btn dl-btn-slot">' + dlIconDown + 'JSON</span>' : '<a class="dl-btn" href="' + c.reportJson + '" download>' + dlIconDown + 'JSON</a>';
+          var copyBtn = c.slot ? '' : '<button class="dl-copy-btn" onclick="copyURL(\'' + c.report + '\')" title="Copy link">' + icCopy + '</button>';
+          return '<div class="card-downloads">' + openBtn + inspectBtn + articleBtn + newsletterBtn + scanBtn + pdfBtn + mdBtn + jsonBtn + copyBtn + '</div>';
+        })()
       + '</article>';
     container.insertAdjacentHTML('beforeend', html);
   });
