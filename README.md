@@ -82,9 +82,14 @@ flamehaven-verification-ledger/
 │   └── test_api.py                      # API integration test suite (54 checks; run: python tests/test_api.py --live)
 ├── css/                                 # Styling System
 ├── js/                                  # Interaction Logic (portal.js, chart-engine.js)
-├── memory/                              # MICA Memory Package
-│   ├── verification-ledger.mica.archive.json
-│   └── verification-ledger-playbook.md
+├── memory/                              # MICA Memory Package (v0.2.8, per-lane playbooks)
+│   ├── verification-ledger.mica.archive.json   # design-invariant registry (domain-namespaced DIs)
+│   ├── verification-ledger-playbook.md         # slim index / router (loaded always)
+│   ├── playbook-common.md                      # cross-lane: API build, OPSEC, UI/UX SDK (on_demand)
+│   ├── playbook-eqa.md                          # EQA lane (on_demand)
+│   ├── playbook-bav.md                          # BAV lane (on_demand)
+│   ├── playbook-bsc.md                          # BSC lane (on_demand)
+│   └── playbook-mf.md                           # Methodology & Frameworks lane (on_demand)
 ├── extra/                               # Review Methodology & Frameworks
 │   └── pr_action_plan_v3.html           # Agent Review Dashboard (PR Action Plan v3)
 └── README.md                            # Repository Documentation

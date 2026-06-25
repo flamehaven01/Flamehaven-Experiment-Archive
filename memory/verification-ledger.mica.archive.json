@@ -1,6 +1,6 @@
 {
-  "mica_spec": "0.2.6",
-  "mica_schema_version": "0.2.6",
+  "mica_spec": "0.2.8",
+  "mica_schema_version": "0.2.8",
   "project": {
     "name": "flamehaven-verification-ledger",
     "full_name": "Flamehaven Verification Ledger",
