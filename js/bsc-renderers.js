@@ -99,13 +99,17 @@ function renderBscSidebar() {
     var a = document.createElement('a');
     a.className = 'sb-file';
     a.href = '#';
-    (function(cfg) {
-      a.onclick = function() {
-        openReportViewer(cfg.id, cfg.report, cfg.reportMd, cfg.reportJson, cfg.reportPdf, cfg.viewerTitle, cfg.viewerEyebrow);
-        highlightFile(this);
-        return false;
-      };
-    })(c);
+    if (c.slot) {
+      a.style.cssText = 'opacity:0.45;cursor:default;pointer-events:none;';
+    } else {
+      (function(cfg) {
+        a.onclick = function() {
+          openReportViewer(cfg.id, cfg.report, cfg.reportMd, cfg.reportJson, cfg.reportPdf, cfg.viewerTitle, cfg.viewerEyebrow);
+          highlightFile(this);
+          return false;
+        };
+      })(c);
+    }
     a.innerHTML = '<span class="sb-file-dot" style="background:' + c.tierDotVar + '"></span>'
       + '<span class="sb-file-name" title="' + c.title + '">' + c.title + '</span>'
       + '<span class="sb-file-tier" style="color:' + c.tierDotVar + ';border-color:' + c.tierDotBdVar + '">' + c.tier + '</span>';
