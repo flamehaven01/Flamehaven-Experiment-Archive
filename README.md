@@ -57,10 +57,10 @@ flamehaven-verification-ledger/
 ├── eqa.html                             # EQA-Dedicated Dashboard Portal
 ├── index.md                             # Markdown Archive Directory
 ├── api/v1/                              # Static read-only API (served via GitHub Pages)
-│   ├── runs.json                        # 16-entry run index (all 3 lanes)
+│   ├── runs.json                        # 17-entry run index (all 3 lanes)
 │   ├── schema.json                      # Vocabulary: lanes, verdict codes, metric definitions
 │   ├── metrics/bav.json                 # BAV aggregated metrics table
-│   └── runs/{id}.json                   # Per-experiment detail (16 files)
+│   └── runs/{id}.json                   # Per-experiment detail (17 files)
 ├── eqa/                                 # Equation-to-Artifact Run Artifacts
 │   ├── toe-test-0059/                   # QSOT-Harness v2.1.2 (r1) — Honest Reconstruction (DEGRADED_PASS · renumbered from 0058)
 │   ├── toe-test-0058/                   # QSOT2 — Mathematical-Consistency Verifier (DEGRADED_PASS · supersedes 0057)
@@ -71,7 +71,7 @@ flamehaven-verification-ledger/
 │   ├── toe-test-0053/                   # Namespace Integrity Scan (DEGRADED SIDECAR)
 │   ├── toe-test-0052/                   # GTE Pedagogy Hypothesis (Gate REJECTED · SPAR 73)
 │   └── archive/                         # TOE-TEST-0001~0051 (7 verification runs + 44 non-run artifacts; real reports + manifest)
-├── stem-bio-ai/                         # Bioscience Compliance Audits
+├── bsc/                         # Bioscience Compliance Audits
 │   ├── yorkeccak-bio/2026-05-15/        # yorkeccak/bio — T1 Quarantine · Score 48
 │   ├── bioclaw/2026-5-21/               # Runchuan-BU/BioClaw — T2 Caution · Score 60
 │   └── doctobert/2026-06-24/            # doctolib-lab/doctobert — T0 Rejected · Score 32
@@ -148,9 +148,9 @@ To interactively browse this repository, run the local dev server and open the p
 
 ### 🧬 Bioscience Compliance Audits
 - **[BSC] yorkeccak/bio (T1 Quarantine · Score 48)**
-  - [Interactive Report](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.html) | [Analyst Write-up](./stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md) | [Markdown](./stem-bio-ai/yorkeccak-bio/2026-05-15/report.md)
+  - [Interactive Report](./bsc/yorkeccak-bio/2026-05-15/report.html) | [Analyst Write-up](./bsc/yorkeccak-bio/2026-05-15/audit-analysis.md) | [Markdown](./bsc/yorkeccak-bio/2026-05-15/report.md)
 - **[BSC] Runchuan-BU/BioClaw (T2 Caution · Score 60)**
-  - [Interactive Report](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html) | [Markdown](./stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md)
+  - [Interactive Report](./bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html) | [Markdown](./bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md)
 - **[BSC] doctolib-lab/doctobert (T0 Rejected · Score 32)**
   - [Diagnostic Report (flamehaven.space)](https://flamehaven.space/writing/doctobert-codebase-diagnostic-report/) | [Newsletter](https://flamehaven.space/writing/we-read-a-french-health-tech-giants-open-source-ai-pipeline-next-to-its-paper-they-dont-quite-agree/)
 

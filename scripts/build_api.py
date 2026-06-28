@@ -10,7 +10,7 @@ to its manifest.json -- no changes to this script required.
 Manifest locations:
   EQA  eqa/toe-test-XXXX/manifest.json
   BAV  bav/exp-XXX/manifest.json
-  BSC  stem-bio-ai/manifest.json  (reports[].api_summary)
+  BSC  bsc/manifest.json  (reports[].api_summary)
 
 Usage:
   python scripts/build_api.py          # (re)generate api/v1/
@@ -78,7 +78,7 @@ def build_all(out_dir):
 
     eqa_reg = _parse_registry(ROOT / "js" / "eqa-registry.js")
     bav_reg = _parse_registry(ROOT / "js" / "bav-registry.js")
-    bsc_man = _load(ROOT / "stem-bio-ai" / "manifest.json")
+    bsc_man = _load(ROOT / "bsc" / "manifest.json")
     now = datetime.now(timezone.utc).isoformat()
 
     all_runs = []

@@ -131,5 +131,5 @@
     }
   },
   "disclaimer": "All entries are archival evidence records. They do not constitute certification, regulatory approval, or clinical recommendation. Internal pipeline metrics (SR9, DI2, p_e2e) are advisory Flamehaven-internal scores, not externally validated. Verification weight rests on external anchors: public MIT repositories, the Zenodo DOI, and standard third-party metrics such as AlphaFold pLDDT and PAE.",
-  "generated_at_utc": "2026-06-25T16:31:41.187195+00:00"
+  "generated_at_utc": "2026-06-28T09:52:58.779666+00:00"
 }

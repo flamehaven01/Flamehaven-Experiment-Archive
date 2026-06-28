@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting && activeColl !== 'viewer') {
-        const coll = e.target.dataset.coll || 'stem-bio-ai';
+        const coll = e.target.dataset.coll || 'bsc';
         document.querySelectorAll('.coll-pill').forEach(p => p.classList.remove('active'));
         const pill = document.querySelector(`.coll-pill[onclick*="${coll}"]`);
         if (pill) pill.classList.add('active');
@@ -417,7 +417,7 @@ function closeReport(e) {
   if (e) e.preventDefault();
   
   // Determine which collection to return to based on the current hash/state before closing
-  let targetColl = 'stem-bio-ai'; // Default to stem-bio-ai
+  let targetColl = 'bsc'; // Default to bsc
   const hash = window.location.hash.substring(1);
   if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     targetColl = 'extra';
@@ -456,7 +456,7 @@ function closeReport(e) {
   applyFilters();
   
   // Smooth scroll back to the collection section
-  const targetSec = document.getElementById(targetColl === 'extra' ? 'extras' : 'coll-stem-bio-ai');
+  const targetSec = document.getElementById(targetColl === 'extra' ? 'extras' : 'coll-bsc');
   if (targetSec) {
     targetSec.scrollIntoView({ behavior: 'smooth' });
   } else {
@@ -480,8 +480,8 @@ function toggleFolder(btn) {
   document.querySelectorAll('.sb-folder-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   
-  if (folderId === 'stem-bio-ai') {
-    filterColl('stem-bio-ai', document.querySelector('.coll-pill[onclick*="stem-bio-ai"]'));
+  if (folderId === 'bsc') {
+    filterColl('bsc', document.querySelector('.coll-pill[onclick*="bsc"]'));
   } else if (folderId === 'extra') {
     filterColl('extra', document.querySelector('.coll-pill[onclick*="extra"]'));
   } else {
@@ -506,8 +506,8 @@ window.openCollection = function(folderId) {
       }
     }
 
-    if (folderId === 'stem-bio-ai') {
-      filterColl('stem-bio-ai', null);
+    if (folderId === 'bsc') {
+      filterColl('bsc', null);
     } else if (folderId === 'extra') {
       filterColl('extra', null);
     } else {
@@ -663,7 +663,7 @@ function applyFilters() {
   const dbToe = document.getElementById('dashboard-toe');
   const dbBav = document.getElementById('dashboard-bav');
   const portalIntro = document.querySelector('.portal-intro');
-  const collStem = document.getElementById('coll-stem-bio-ai');
+  const collStem = document.getElementById('coll-bsc');
   const sectionExtras = document.getElementById('extras');
   const toolbar = document.querySelector('.toolbar');
   const resMeta = document.getElementById('result-meta');
@@ -676,12 +676,12 @@ function applyFilters() {
 
   // Toggle views dynamically
   if (portalIntro) portalIntro.style.display = (activeColl === 'all') ? '' : 'none';
-  if (collStem) collStem.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
+  if (collStem) collStem.style.display = (activeColl === 'bsc') ? '' : 'none';
   const dbExtra = document.getElementById('dashboard-extra');
   if (dbExtra) dbExtra.style.display = (activeColl === 'extra') ? 'block' : 'none';
   if (sectionExtras) sectionExtras.style.display = (activeColl === 'extra') ? '' : 'none';
-  if (toolbar) toolbar.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
-  if (resMeta) resMeta.style.display = (activeColl === 'stem-bio-ai') ? '' : 'none';
+  if (toolbar) toolbar.style.display = (activeColl === 'bsc') ? '' : 'none';
+  if (resMeta) resMeta.style.display = (activeColl === 'bsc') ? '' : 'none';
 
   // Toggle mission card (only on Home/All view)
   const missionCard = document.querySelector('.archive-mission-card');
@@ -690,15 +690,15 @@ function applyFilters() {
   // Toggle stats row and score guide (only on STEM-BIO-AI view)
   const statsRow = document.querySelector('.stats-row');
   const scoreGuide = document.querySelector('.score-guide');
-  const showStatsAndGuide = (activeColl === 'stem-bio-ai');
+  const showStatsAndGuide = (activeColl === 'bsc');
   if (statsRow) statsRow.style.display = showStatsAndGuide ? '' : 'none';
   if (scoreGuide) scoreGuide.style.display = showStatsAndGuide ? '' : 'none';
 
   // Compute BSC stats dynamically from DOM — no hardcoded counts
   if (showStatsAndGuide) {
-    const cards = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"]');
-    const t1Count = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"][data-tier="T1"]').length;
-    const t2Count = document.querySelectorAll('.report-card[data-coll="stem-bio-ai"][data-tier="T2"]').length;
+    const cards = document.querySelectorAll('.report-card[data-coll="bsc"]');
+    const t1Count = document.querySelectorAll('.report-card[data-coll="bsc"][data-tier="T1"]').length;
+    const t2Count = document.querySelectorAll('.report-card[data-coll="bsc"][data-tier="T2"]').length;
     const scores = [...cards].map(c => Number(c.dataset.score)).filter(s => !isNaN(s));
     const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : '—';
     const elTotal = document.getElementById('stat-total');
@@ -717,9 +717,9 @@ function applyFilters() {
     p.classList.toggle('active', onclickText.includes(`'${activeColl}'`));
   });
 
-  // If we are not on stem-bio-ai, hide the empty state and stop filtering reports
+  // If we are not on bsc, hide the empty state and stop filtering reports
   const emptyState = document.getElementById('empty-state');
-  if (activeColl !== 'stem-bio-ai') {
+  if (activeColl !== 'bsc') {
     if (emptyState) emptyState.style.display = 'none';
     return;
   }

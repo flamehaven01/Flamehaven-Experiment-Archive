@@ -68,11 +68,11 @@ async function openJsonInspector(runId, type = 'json') {
   if (_eqaJsonCfg) {
     jsonPath = _eqaJsonCfg.jsonPath;
   } else if (runId === 'yorkeccak-bio') {
-    jsonPath = './stem-bio-ai/yorkeccak-bio/2026-05-15/report.json';
+    jsonPath = './bsc/yorkeccak-bio/2026-05-15/report.json';
   } else if (runId === 'bioclaw') {
-    jsonPath = './stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json';
+    jsonPath = './bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json';
   } else if (runId === 'doctobert') {
-    jsonPath = './stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json';
+    jsonPath = './bsc/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json';
   } else if (BAV_MAP.has(runId)) {
     jsonPath = BAV_MAP.get(runId).jsonPath;
   } else if (runId.startsWith('bav-arch-')) {

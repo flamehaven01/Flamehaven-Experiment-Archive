@@ -75,12 +75,12 @@ Required in every `manifest.json`:
 |---|---|
 | EQA | `eqa/toe-test-XXXX/manifest.json` |
 | BAV | `bav/exp-XXX/manifest.json` |
-| BSC | `stem-bio-ai/manifest.json` → `reports[].api_summary` |
+| BSC | `bsc/manifest.json` → `reports[].api_summary` |
 
 ### New Experiment Protocol
 
 ```
-1. Register in js/eqa-registry.js or js/bav-registry.js (BSC: add to stem-bio-ai/manifest.json reports[])
+1. Register in js/eqa-registry.js or js/bav-registry.js (BSC: add to bsc/manifest.json reports[])
    — add one { id: "...", jsonPath: "...", ... } entry
 
 2. Register an inspector renderer in js/eqa-renderers.js (EQA_RENDERERS[id])

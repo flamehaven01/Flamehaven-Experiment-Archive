@@ -12,7 +12,7 @@ The ledger has three verification lanes plus a methodology section, governed by 
 |---|---|---|
 | **EQA** — math/physics proof reproduction (`eqa/toe-test-XXXX/`) | [`playbook-eqa.md`](./playbook-eqa.md) | `DI-EQA-*` |
 | **BAV** — biomedical AI pipeline governance (`bav/exp-XXX/`) | [`playbook-bav.md`](./playbook-bav.md) | `DI-BAV/BIO/REX-*` |
-| **BSC** — bioscience repo compliance scans (`stem-bio-ai/`) | [`playbook-bsc.md`](./playbook-bsc.md) | `DI-BSC-*` |
+| **BSC** — bioscience repo compliance scans (`bsc/`) | [`playbook-bsc.md`](./playbook-bsc.md) | `DI-BSC-*` |
 | **M&F** — methodology, templates, dashboards (`extra/`) | [`playbook-mf.md`](./playbook-mf.md) | `DI-SDK-*` |
 | **Any lane** — API build, OPSEC sanitizer, UI/UX SDK, archive inspector, glossary | [`playbook-common.md`](./playbook-common.md) | `DI-API/SAN/SDK-*` |
 

@@ -29,7 +29,7 @@ EXPECTED_IDS = [
     "toe-test-0054", "toe-test-0053", "toe-test-0052",
     "bav-exp-034",   "bav-exp-033",   "bav-exp-032",
     "bav-exp-031",   "bav-exp-028",   "bav-exp-005",
-    "bsc-yorkeccak-bio", "bsc-bioclaw",
+    "bsc-yorkeccak-bio", "bsc-bioclaw", "bsc-doctobert",
 ]
 EXPECTED_LANES = {"EQA", "BAV", "BSC"}
 RUN_SUMMARY_FIELDS = {"id", "lane", "title", "verdict", "verdict_label", "date", "brief", "detail_url"}
@@ -113,7 +113,7 @@ def phase_local(t):
     t.ok("runs.json:loadable")
 
     count = runs_data.get("count", 0)
-    t.check("runs.json:count=16", count == 16, ok_msg=f"count={count}", fail_msg=f"count={count}")
+    t.check("runs.json:count=17", count == 17, ok_msg=f"count={count}", fail_msg=f"count={count}")
 
     run_list = runs_data.get("runs", [])
     found_ids = {r["id"] for r in run_list}
@@ -175,6 +175,7 @@ def phase_local(t):
         ("toe-test-0054",        "verdict", "BLOCK"),
         ("bsc-yorkeccak-bio",    "verdict", "T1"),
         ("bsc-bioclaw",          "verdict", "T2"),
+        ("bsc-doctobert",        "verdict", "T0"),
     ]
     for eid, field, expected in checks:
         detail, err = load_local(f"runs/{eid}.json")
@@ -236,6 +237,7 @@ def phase_live(t):
         ("runs/bav-exp-034.json",  200),
         ("runs/toe-test-0056.json",200),
         ("runs/bsc-bioclaw.json",  200),
+        ("runs/bsc-doctobert.json",200),
         ("runs/nonexistent.json",  404),
     ]
 

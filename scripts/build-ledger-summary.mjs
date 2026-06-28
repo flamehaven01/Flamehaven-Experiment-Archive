@@ -9,8 +9,8 @@ const repoRoot = path.resolve(__dirname, '..');
 const archiveUrl = 'https://flamehaven01.github.io/Flamehaven-Verification-Ledger/';
 
 const laneDefinitions = {
-  'stem-bio-ai': {
-    key: 'stem-bio-ai',
+  'bsc': {
+    key: 'bsc',
     title: 'STEM-BIO-AI',
     status: 'active',
     summary: 'Deterministic repository evidence-surface audits for biomedical and medical-adjacent AI systems.',

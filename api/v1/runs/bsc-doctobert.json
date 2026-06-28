@@ -27,7 +27,7 @@
   ],
   "evidence_links": {
     "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bsc-doctobert",
-    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json"
+    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/doctobert/2026-06-24/doctolib-lab_doctobert_experiment_results.json"
   },
   "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim.",
   "external_anchors": [

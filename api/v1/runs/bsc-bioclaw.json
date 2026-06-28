@@ -22,7 +22,7 @@
   ],
   "evidence_links": {
     "portal_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/index.html#bsc-bioclaw",
-    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json"
+    "report_json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json"
   },
   "disclaimer": "Static, zero-execution compliance heuristics mapped to MIT AIRI. Coverage is partial and self-disclosed. NOT a certification, regulatory clearance, or clinical efficacy claim."
 }

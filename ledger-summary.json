@@ -1,12 +1,12 @@
 {
   "schemaVersion": "flamehaven-ledger-summary-v1",
-  "generatedAt": "2026-06-18T04:09:23.216Z",
+  "generatedAt": "2026-06-28T09:53:00.202Z",
   "archiveUrl": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/",
   "sourceRepo": "flamehaven-audit-reports",
   "reportsActive": 16,
   "lanes": [
     {
-      "key": "stem-bio-ai",
+      "key": "bsc",
       "title": "STEM-BIO-AI",
       "status": "active",
       "summary": "Deterministic repository evidence-surface audits for biomedical and medical-adjacent AI systems.",
@@ -38,8 +38,8 @@
   ],
   "records": [
     {
-      "id": "stem-bio-ai-bioclaw-2026-5-21",
-      "laneKey": "stem-bio-ai",
+      "id": "bsc-bioclaw-2026-5-21",
+      "laneKey": "bsc",
       "laneTitle": "STEM-BIO-AI",
       "title": "STEM-BIO-AI: Runchuan-BU/BioClaw",
       "repoName": "Runchuan-BU/BioClaw",
@@ -51,20 +51,20 @@
       "useScope": "Research reference and supervised non-clinical technical review only.",
       "sourceCommit": "faae6a2778e992b1cc6a4b1639e530a147d8b463",
       "repoUrl": "https://github.com/Runchuan-BU/BioClaw",
-      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21",
+      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21",
       "urls": {
-        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21",
-        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html",
-        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md",
-        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json",
-        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf",
-        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/audit-analysis.md",
-        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/bioclaw/2026-5-21/explain.txt"
+        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21",
+        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.html",
+        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_report.md",
+        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_experiment_results.json",
+        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/Runchuan-BU_BioClaw_detailed_7p.pdf",
+        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/audit-analysis.md",
+        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/bioclaw/2026-5-21/explain.txt"
       }
     },
     {
-      "id": "stem-bio-ai-yorkeccak-bio-2026-05-15",
-      "laneKey": "stem-bio-ai",
+      "id": "bsc-yorkeccak-bio-2026-05-15",
+      "laneKey": "bsc",
       "laneTitle": "STEM-BIO-AI",
       "title": "STEM-BIO-AI: yorkeccak/bio",
       "repoName": "yorkeccak/bio",
@@ -76,15 +76,15 @@
       "useScope": "Exploratory review only; no patient-adjacent use.",
       "sourceCommit": "100a0bf7497e62ead024df34d8c2e00ae74b8d99",
       "repoUrl": "https://github.com/yorkeccak/bio.git",
-      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15",
+      "artifactFolder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15",
       "urls": {
-        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15",
-        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.html",
-        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.md",
-        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.json",
-        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/report.pdf",
-        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/audit-analysis.md",
-        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/stem-bio-ai/yorkeccak-bio/2026-05-15/explain.txt"
+        "folder": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15",
+        "html": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/report.html",
+        "markdown": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/report.md",
+        "json": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/report.json",
+        "pdf": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/report.pdf",
+        "analysis": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/audit-analysis.md",
+        "explain": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/bsc/yorkeccak-bio/2026-05-15/explain.txt"
       }
     },
     {

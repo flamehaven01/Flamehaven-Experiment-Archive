@@ -31,7 +31,7 @@ function renderBscCards() {
       ? c.title
       : '<a href="#" onclick="openReportViewer(' + viewerArgs + '); return false;">' + c.title + '</a>';
     var html = '<article class="report-card"'
-      + ' data-score="' + c.score + '" data-tier="' + c.tier + '" data-coll="stem-bio-ai"'
+      + ' data-score="' + c.score + '" data-tier="' + c.tier + '" data-coll="bsc"'
       + ' data-date="' + c.auditDate + '" data-title="' + c.title + '" data-id="' + c.dataId + '">'
       // header
       + '<div class="card-body" style="padding-bottom:0;">'
@@ -97,7 +97,7 @@ function renderBscCards() {
 }
 
 function renderBscSidebar() {
-  var filesDiv = document.querySelector('#child-stem-bio-ai .sb-files');
+  var filesDiv = document.querySelector('#child-bsc .sb-files');
   if (!filesDiv || typeof BSC_REGISTRY === 'undefined') return;
   filesDiv.querySelectorAll('.sb-file').forEach(function(el) { el.remove(); });
   BSC_REGISTRY.forEach(function(c) {

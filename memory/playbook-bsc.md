@@ -1,6 +1,6 @@
 # Playbook — BSC Lane (Bioscience Compliance)
 
-> Lane playbook, loaded **on_demand** when working on BSC scans (`stem-bio-ai/[repo]/[date]/`).
+> Lane playbook, loaded **on_demand** when working on BSC scans (`bsc/[repo]/[date]/`).
 > Shared protocols (API build, OPSEC sanitizer, UI/UX SDK) live in [`playbook-common.md`](./playbook-common.md).
 > DI namespace: `DI-BSC-*`. Index: [`verification-ledger-playbook.md`](./verification-ledger-playbook.md).
 
@@ -11,7 +11,7 @@ Bioscience Compliance — static, zero-execution safety scans of public bioscien
 ## 3.0 Operating Rules
 
 - **Compliance Scans**: Audits must search for clinical hazard surfaces and map outcomes against standard risk repositories.
-- **Report Generation**: Scans must generate standalone HTML, Markdown, and JSON results under `stem-bio-ai/[repo]/[date]/`.
+- **Report Generation**: Scans must generate standalone HTML, Markdown, and JSON results under `bsc/[repo]/[date]/`.
 - **Portal Integration**: Every card must present circular gauge metrics, stage-by-stage rating bars, and detailed Selection & Evaluation briefs.
 
 ---
@@ -64,7 +64,7 @@ BSC cards are **not** hardcoded in `index.html`. They are auto-generated from `j
 2. Create/update YAML              STEM-BIO-AI/references/_registry_entries/<id>.yaml
 3. Run update script               python STEM-BIO-AI/tools/update_regulatory_registry.py
 4. If new requirement_id needed    update STEM-BIO-AI/stem_ai/regulatory_traceability.py
-5. Re-run BSC scanner              reports in flamehaven-audit-reports/stem-bio-ai/ auto-update
+5. Re-run BSC scanner              reports in flamehaven-audit-reports/bsc/ auto-update
 ```
 
 **Deprecation:** set `status: superseded` + `superseded_by: <new_id>` in the YAML. Never delete — old reports reference the ID. Re-run the script.
