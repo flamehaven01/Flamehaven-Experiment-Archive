@@ -4,6 +4,17 @@ All notable changes to the **Flamehaven Verification Ledger** platform will be d
 
 
 
+## [Unreleased]
+
+### EQA / TOE-TEST-0060 editorial integrity
+
+- Completed the paper-to-code newsletter draft and its pre-publication claim ledger for the Missing Link admission-contract dogfood record.
+- Added a publication handoff with canonical evidence links and bounded figure-placement guidance. The future newsletter URL and screenshots remain publication inputs; they are not substituted for the raw result or its reproduction receipt.
+- Corrected the editorial framing: 0060 is a source-pinned **ABSTAIN** characterization, not a proof about general LLM abduction, biomedical discovery, or world-model sufficiency.
+- Recorded the public January–March implementation history as public self-report only. It is not presented as an independent validation or a research-priority claim.
+
+---
+
 ## [1.23.0] - 2026-06-25
 
 BSC #3 doctobert activated — full audit card live, API pipeline rebuilt, schema source synced.

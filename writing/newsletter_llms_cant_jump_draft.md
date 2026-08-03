@@ -1,55 +1,68 @@
-# When We Tried to Operationalize the "Jump"
+# We Tried to Operationalize the “Jump.” Here Is Where the Code Broke.
 
-**Subtitle:** A position paper on abduction, a Missing Link pipeline, and the engineering cost of asking a system to be both novel and grounded.
+**Subtitle:** Zahavy’s position paper, a public Missing Link implementation lineage, and one bounded audit of novelty, grounding, and verification.
 
 **Series:** Equation to Artifact
-**Status:** Editorial draft — not yet published. Its bounded executable companion is [TOE-TEST-0060](../eqa/toe-test-0060/analysis_report.md).
+**Status:** Editorial draft — not yet published. Its bounded executable companion is [TOE-TEST-0060](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0060).
+**Estimated reading time:** 9 minutes
 
-**LinkedIn preview:** We tried to turn an abductive “jump” into a governed hypothesis pipeline. The first practical result was not a discovery: it was an empty acceptance region. That failure exposes a missing engineering layer in the current debate over LLMs, world models, and scientific invention.
+**LinkedIn preview:** A position paper says LLMs cannot make the abductive jump required for scientific invention. We had already tried to operationalize part of that problem in a Missing Link pipeline. The audit did not prove the paper right. It exposed two prior engineering obligations: admissible novelty and independent verification.
 
-**Estimated reading time:** 7 minutes
+[Tom Zahavy’s ICML 2026 position paper, *“Position: LLMs can’t jump”*](https://openreview.net/forum?id=klU4737opt) makes a useful provocation. A system can compress observations and derive consequences without introducing the premise that reorganizes the problem. The paper calls that move a *jump*: from experience to an axiom, then from the axiom to its consequences.
 
-[Tom Zahavy's ICML 2026 position paper, *"Position: LLMs can't jump"*](https://openreview.net/forum?id=klU4737opt) makes a useful provocation: a system can be excellent at compressing observations and deriving consequences without being able to introduce the premise that reorganizes the problem.
+We did not set out to test whether every LLM can or cannot make that jump. We audited an existing implementation that was meant to propose a missing explanatory link from evidence while refusing unsupported invention.
 
-The paper uses Einstein's route to general relativity to call that introduction a *jump*: from experience to an axiom, then from the axiom to its consequences.
+The result is narrower, but more useful. Before a proposed jump can be judged scientifically, an implementation has to keep three things distinct:
 
-We wanted to ask a smaller and more operational question.
+\[
+\text{candidate novelty} \neq \text{evidence support} \neq \text{intervention result}.
+\]
 
-What happens when an engineering system is asked to produce a missing explanatory link from evidence, while also being required to demonstrate that the link is not a hallucination?
+Our source snapshot did not do that cleanly. Its biomedical admission rule had no feasible region. Its characterization fixture generated twelve candidate strings, accepted none, and recorded all twelve as query restatements. The correct verdict is therefore **ABSTAIN**, not a discovery claim and not a verdict on LLM ability.
 
-We did not build a test of whether all LLMs can or cannot abduct. We ran and audited an existing LOGOS Missing Link pipeline. The result was less philosophical and more useful: before a system can be trusted to make a "jump," it needs a precise contract for the trade-off between novelty, grounding, and verification. Our first implementation did not have one.
+## A public implementation lineage—not a priority claim
 
-That is not a failure to hide. It is the practical gap the paper leaves largely unspecified.
+This experiment is not a post-hoc attempt to attach code to a fashionable paper. Earlier public Flamehaven records document a sequence of implementation notes about evidence-constrained hypothesis generation and governed acceptance:
 
-## The paper's sharp claim
+| Date | Public record | What it documented | What it does **not** establish |
+|---|---|---|---|
+| 20 Jan 2026 | [LOGOS v1.4.1](https://flamehaven.space/writing/logos-v141-building-multi-engine-ai-reasoning-you-can-actually-trust/) | AATS was described as a hypothesis-generation and sandbox-testing component within a multi-engine orchestrator. | A demonstration of autonomous scientific discovery. |
+| 23 Jan 2026 | [Refusal-First RAG](https://flamehaven.space/writing/implementing-refusal-first-rag-why-we-architected-our-ai-to-say-i-dont-know/) | Evidence atomization, span identifiers, a strict grounding gate, and the intended “high grounding + high novelty” policy in `missing_link`. | That the policy was internally coherent or capability-valid. |
+| 25 Feb 2026 | [EXP-032B](https://flamehaven.space/writing/from-fail-closed-blocking-to-reproducible-passblock-separation-exp-032b/) | A scoped, labeled control-arm study of reproducible PASS/BLOCK separation, anti-leakage checks, and replay drift. | A validation of a biomedical hypothesis or of general abduction. |
+| 4 Mar 2026 | [RExSyn Alzheimer’s walkthrough](https://flamehaven.space/writing/what-an-ai-reasoning-engine-built-for-alzheimers-metabolic-research-a-code-walkthrough/) | Literature ingestion → Missing Link inference → a pre-validation, falsifiable computational scaffold; the post explicitly labels its thresholds as engine-generated estimates. | A clinical finding, biomarker validation, or causal proof. |
+| 3 Aug 2026 | [TOE-TEST-0060](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0060) | A source-pinned characterization of the Missing Link admission contract. | A benchmark of LLM abduction, a biomedical result, or proof that a world model is necessary. |
 
-The paper organizes inference with Peirce's familiar three-way distinction. In compressed notation:
+The defensible relationship is **independent convergence followed by implementation evidence**. The earlier public posts show that the practical problem was already being attempted. They do not establish priority over Zahavy’s underlying research, and they are not independent validation of Flamehaven’s methods.
+
+What 0060 adds is a harder question: did the published design intention survive contact with the executable gate?
+
+## The paper’s sharp claim
+
+The paper uses Peirce’s three-way distinction:
 
 \[
 \begin{aligned}
 \text{Deduction:} &\quad \mathrm{Rule} + \mathrm{Case} \rightarrow \mathrm{Result}\\
 \text{Induction:} &\quad \mathrm{Case} + \mathrm{Result} \rightarrow \mathrm{Rule}\\
-\text{Abduction:} &\quad \mathrm{Rule} + \mathrm{Result} \rightarrow \mathrm{Case}\;?
+\text{Abduction:} &\quad \mathrm{Rule} + \mathrm{Result} \rightarrow \mathrm{Case}.
 \end{aligned}
 \]
 
-Zahavy's larger story is Einstein's:
+Its larger Einstein story can be written as
 
 \[
 E \xrightarrow{J} A \xrightarrow{\text{deduction}} S,
 \]
 
-where \(E\) is sensory experience, \(J\) is the non-deductive jump, \(A\) is a system of axioms, and \(S\) is the resulting formal structure and its consequences. The paper's important challenge to a pure compression account is that an apparently well-fitting theory does not necessarily expose a large supervised error signal telling an optimizer to replace its foundations.
+where \(E\) is experience, \(J\) the non-deductive jump, \(A\) an axiom system, and \(S\) its formal consequences. Zahavy argues that manipulation in physically consistent, action-controllable simulation may be the missing mechanism.
 
-That is a serious point. It is also not yet an executable criterion. The paper moves from Peirce's logical schema to *manipulative abduction*—embodied, controllable simulation—without showing how a system should decide that a proposed new rule is both sufficiently new and sufficiently warranted.
+That is a serious hypothesis. It is not yet an executable admission rule. Even if a world model proposes a candidate mechanism, a system still needs to decide whether the candidate is new, whether it is supported by evidence, and what intervention would count against it.
 
-That decision is where software becomes unforgiving.
+## The implementation goal was reasonable
 
-## We found the trade-off in twelve candidates
+The Missing Link runner takes evidence spans, extracts seeds, expands candidates, scores them, and then retains only candidates that pass novelty, plausibility, omega, and grounding gates. The relevant design intent is visible in the January post: refuse unsupported answers rather than turn a plausible continuation into a claim.
 
-LOGOS's Missing Link runner is intended to propose grounded hypotheses from evidence spans. It extracts seeds, expands them through templates such as `causal link {seed}` and `mechanism {seed}`, scores candidates, and retains only those that clear novelty, plausibility, omega, and grounding gates.
-
-Its novelty calculation is intentionally simple:
+The frozen source snapshot computes novelty as the complement of overlap:
 
 ```python
 def _estimate_novelty(self, hypothesis, evidence_spans):
@@ -57,7 +70,7 @@ def _estimate_novelty(self, hypothesis, evidence_spans):
     return max(0.0, min(1.0, 1.0 - overlap))
 ```
 
-The strict acceptance path then requires a candidate to be novel enough, high-scoring enough, and grounded enough to receive a `clean` status:
+The strict path then filters candidates on several conditions, including a `clean` grounding status:
 
 ```python
 if (omega >= min_omega
@@ -67,7 +80,9 @@ if (omega >= min_omega
     accept(candidate)
 ```
 
-These are real excerpts from the runner; the second block is condensed only to remove surrounding list-comprehension syntax. The important fact is not the coding style. It is that the same evidence-overlap family is serving two incompatible jobs: reward distance from the evidence and certify attachment to the evidence.
+This is not illustrative pseudocode. It is a compacted excerpt of the source revision recorded by TOE-TEST-0060; the executable result, source hashes, and replay command are in the [verification ledger](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0060).
+
+## Where the admission contract broke
 
 For the pinned biomedical profile, the relevant configuration was:
 
@@ -77,96 +92,81 @@ novelty_min: 0.10
 novelty_overlap_mode: max
 ```
 
-Let \(o\) be the maximum single-span Jaccard overlap. The code defines novelty as \(n = 1-o\). The two gates therefore require
+Let \(o\) be the maximum single-span overlap. The code sets \(n = 1-o\). The two admission requirements are therefore
 
 \[
-o \geq 0.92 \quad \text{and} \quad 1-o \geq 0.10,
+o \geq 0.92 \qquad \text{and} \qquad 1-o \geq 0.10,
 \]
 
-or equivalently
+which gives
 
 \[
-o \geq 0.92 \quad \text{and} \quad o \leq 0.90.
+o \geq 0.92 \qquad \text{and} \qquad o \leq 0.90.
 \]
 
 The feasible region is empty.
 
-This is a better lesson than a glossy demo. A purportedly abductive system can be prevented from accepting anything not because it lacks a mysterious creative faculty, but because the implementation has assigned one scalar two contradictory meanings.
+This is not a mystical limit on creativity. It is a configuration defect: one lexical-overlap family has been asked to reward distance from evidence and certify attachment to evidence at the same time. A genuinely new candidate can be penalized as ungrounded; a highly overlapping candidate can be penalized as insufficiently novel.
 
-We also re-ran the broader characterization probe on a textbook biomedical bridging input. It generated 12 candidates and accepted 0. The maximum observed grounding overlap was `0.1579` against a required `0.90`; observed omega was `0.444` against a required `0.80`; every candidate was classified as hallucinated; all 12 began as a restatement of the query.
+The same characterization fixture generated twelve candidates from five biomedical evidence spans and accepted zero. The recorded maximum grounding overlap was `0.15789473684210525` against a `0.90` threshold; recorded omega was `0.444` against `0.80`; all twelve candidates were query restatements. A passing pytest run means that the *before-image* remains reproducible. It does not mean that the system produced a valid missing link.
 
-This is not evidence that an LLM is *structurally incapable* of scientific discovery. It is evidence that this pipeline, at this configuration and this commit state, did not operationalize a viable admission rule for a novel mechanistic link.
+> Suggested figure placement: a two-axis admission diagram showing the empty interval \(o \geq 0.92\) and \(o \leq 0.90\). The figure should link to the `CHAR-012` record in TOE-TEST-0060, not introduce new values.
 
-That distinction is the whole point.
+## A jump also needs an independent landing
 
-## The missing step is not only embodiment. It is claim custody.
+Zahavy’s proposed world model addresses candidate generation: an agent can intervene, observe, and translate a simulated regularity into a rule. That may be important. It does not by itself answer how a system avoids verifying its own pre-encoded answer.
 
-The paper's proposed escape route is an action-controllable world model: instead of producing text about a thought experiment, an agent could intervene in a physically consistent simulation and observe the result.
-
-That may improve candidate generation. It does not remove the next problem.
-
-After an agent proposes an axiom or mechanism, what makes it admissible?
-
-In practice, an abductive system needs at least three distinct objects:
+This is why we now separate three functions:
 
 \[
 \begin{aligned}
 N(h,D) &: \text{novelty of hypothesis } h \text{ relative to evidence } D,\\
 C(h,D) &: \text{coverage or entailment support from } D,\\
-V(h,a) &: \text{result of a specified intervention or executable check } a.
+V(h,a) &: \text{result of a named intervention or executable check } a.
 \end{aligned}
 \]
 
-An admission policy can then be explicit:
+An admission policy can make those dependencies visible:
 
 \[
 \operatorname{accept}(h) = [N(h,D) \geq \tau_N] \land [C(h,D) \geq \tau_C] \land [V(h,a) \geq \tau_V].
 \]
 
-The symbols do not make the system correct. They make the obligations separable. A world model can contribute to \(V\). Evidence retrieval can contribute to \(C\). Search, simulation, or a language model can contribute to \(N\). If a single token-overlap number is asked to stand in for all three, the gate can become incoherent while still looking numerically rigorous.
+The notation does not make the system correct. It makes the burden of proof separable. Retrieval and citation support contribute to \(C\). Search, symbolic synthesis, or a simulator may contribute to \(N\). A specified intervention contributes to \(V\). None should be silently substituted for another.
 
-This is also where the paper should be more careful. Its historical case does not show that there was literally no signal before general relativity: the paper itself discusses Mercury's perihelion and the conceptual tension between mechanics and field theory. A more defensible claim is that *statistical prediction error was not enough to specify the new axiom*. That is different from saying that the discovery process had no usable constraints.
+An additional local prototype review raised an even stricter warning: a final verdict can appear to come from reasoning scores while actually being selected by a human-authored expected-outcome field and a static barrier map. That review is **not** part of TOE-TEST-0060’s public evidence pack—the prototype is uncommitted and not cleanly reproducible—so we do not report it as an experimental result here. Its value is methodological: the next artifact must demonstrate verifier independence, not merely expose a candidate or calculate auxiliary scores.
 
-Likewise, Peirce's formal abduction and embodied simulation should be treated as distinct hypotheses, not silently equated. An embodied world model may be necessary for some discoveries; this paper does not establish that it is necessary for all symbolic or language-mediated thought experiments.
+This is the operational gap the position paper leaves open. A world model may help produce the jump. It does not remove the need for an admissible novelty contract or an independent verifier.
 
-## What our code changed in the discussion
+## Why the ledger is part of the scientific work
 
-The Missing Link audit adds two practical constraints that the position paper does not fully price in.
+The executable companion keeps a boundary that prose alone cannot maintain:
 
-First, anti-hallucination is not the opposite of novelty, but it is not free. A system needs separate metrics and a visible trade-off policy. If the policy is too strict, it admits only paraphrase. If it is too loose, it rewards unsupported invention. The frontier must be measured, not declared.
+- raw `verification_result.json` stays frozen;
+- a separate derived analysis cites its SHA-256 rather than rewriting it;
+- the replay command, source revision, dirty-worktree state, and non-claims are public;
+- the ledger inspector exposes the paper-to-code mapping, integrity manifest, and verified rules separately.
 
-Second, verification outside a closed formal system is not automatically solved. In a separate cross-domain no-go experiment, the final verdict was derived from a human-authored sign-barrier map. The AATS and IRF scores were recorded, but they did not determine the reported no-go verdict. That is still a useful experiment—provided it is described as a calibration harness rather than as autonomous discovery or autonomous verification.
+This is not an attempt to replace peer review or prove a scientific theory with a dashboard. It is claim custody for the computational surface: a reader can inspect what was run, what failed, and what conclusion is deliberately withheld.
 
-The consequence is modest but important: the practical architecture is not simply
+> Suggested figure placement: a screenshot of the TOE-TEST-0060 Analysis and Verified Rules panels, with the OpenReview paper link and `ABSTAIN` boundary visible.
 
-\[
-\text{LLM} \rightarrow \text{world model} \rightarrow \text{abduction}.
-\]
+## What we can claim—and what we cannot
 
-It is closer to
+We can claim that a concrete Missing Link source snapshot contained an empty novelty/grounding admission region in its biomedical profile, and that its preserved characterization fixture accepted zero of twelve generated candidates. We can also claim that public Flamehaven writing documented earlier attempts to build evidence-constrained hypothesis and governance pipelines.
+
+We cannot claim that this proves Zahavy’s thesis about all LLMs. We cannot claim that action-controllable world models are necessary or sufficient for scientific discovery. We cannot claim that the current Missing Link implementation discovered a biomedical mechanism. And we do not turn the separate uncommitted prototype review into a public experimental result.
+
+[TOE-TEST-0060](https://flamehaven01.github.io/Flamehaven-Verification-Ledger/eqa.html#toe-test-0060) is intentionally labeled **ABSTAIN**. Its contribution is a bounded, inspectable before-image—and a sharper requirement for the after-image:
 
 \[
 \text{proposal} \rightarrow \text{separate grounding test} \rightarrow \text{specified intervention} \rightarrow \text{ledgered decision}.
 \]
 
-Each arrow needs a trace. Each score needs a definition. Each result needs a statement of what did *not* happen.
-
-## What we can claim—and what we cannot
-
-We can claim that a concrete, runnable Missing Link configuration had an empty novelty/grounding acceptance region in its biomedical profile, and that its broader characterization probe admitted zero of twelve generated candidates. The code, configuration, test, and raw measurements are preserved for review.
-
-We cannot claim that this proves Zahavy's thesis about all LLMs. We cannot claim that action-controllable world models are sufficient for abduction. We cannot claim that the current Missing Link implementation discovered a biomedical mechanism.
-
-Those negatives are not rhetorical caution. They are how an executable artifact remains useful after the surrounding model changes.
-
-[TOE-TEST-0060](../eqa/toe-test-0060/analysis_report.md) now freezes the implementation revision, test command, measured values, input hashes, non-claims, and a separate paper-to-code crosswalk. It is intentionally labeled **ABSTAIN**: the executable result is a repository-contract reproduction on a dirty source snapshot, not a released scientific result or a general claim about LLM ability.
-
 > A model can propose a jump. A verifier must show what the jump touched, what it changed, and where it failed.
-
-That is the practical standard we are trying to build.
 
 ---
 
-**Suggested LinkedIn closing:** If you build scientific agents, how do you keep novelty, evidence support, and counterfactual verification from collapsing into one opaque score?
+**Suggested LinkedIn closing:** If you build scientific agents, where do you draw the boundary between a novel proposal, evidence support, and an independently testable consequence?
 
 **Suggested tags:** #AIResearch #ScientificAI #Abduction #WorldModels #Reproducibility #AIEvaluation #MLOps

@@ -42,6 +42,8 @@ The tests are *inverted characterization contracts*: a remediation that changes 
 | Newsletter statement | Evidence | Classification | Boundary |
 |---|---|---|---|
 | The paper frames scientific invention around manipulative abduction and physical simulation. | [OpenReview abstract and TL;DR](https://openreview.net/forum?id=klU4737opt) | EXTERNAL | The paper’s position, not a conclusion of TOE-TEST-0060. |
+| Flamehaven publicly described AATS, EvidenceSpan-based Missing Link reasoning, and governed acceptance before 0060. | [20 Jan LOGOS post](https://flamehaven.space/writing/logos-v141-building-multi-engine-ai-reasoning-you-can-actually-trust/), [23 Jan Missing Link post](https://flamehaven.space/writing/implementing-refusal-first-rag-why-we-architected-our-ai-to-say-i-dont-know/) | PUBLIC SELF-REPORT | Public design history only; neither article is independent validation or a priority claim over the paper’s research. |
+| Public RExSyn posts documented a control-arm PASS/BLOCK study and a pre-validation Missing Link hypothesis scaffold. | [25 Feb EXP-032B](https://flamehaven.space/writing/from-fail-closed-blocking-to-reproducible-passblock-separation-exp-032b/), [4 Mar RExSyn walkthrough](https://flamehaven.space/writing/what-an-ai-reasoning-engine-built-for-alzheimers-metabolic-research-a-code-walkthrough/) | PUBLIC SELF-REPORT | The posts explicitly bound their scope; they do not establish a clinical or general-abduction result. |
 | Peirce-style deduction / induction / abduction framing | Paper Sections 1–4 | EXTERNAL | The paper's framework, not independently validated by this ledger. |
 | Paper shifts from formal abduction to embodied/manipulative simulation | Paper Sections 1 and 4 | ANALYTIC INTERPRETATION | Editorial critique; reasonable readers may disagree. |
 | Missing Link defines novelty as `1 - overlap` | `missing_link/runner.py`, `_estimate_novelty` | DERIVED FROM CODE | Exact source hash above. |
@@ -49,7 +51,7 @@ The tests are *inverted characterization contracts*: a remediation that changes 
 | Biomedical profile implies an empty region | `config/default.yaml` plus `tests/characterization/test_char_missing_link_accept.py` | MATHEMATICAL DERIVATION | Only when `novelty_overlap_mode=max`; \(n=1-o\), \(o\ge.92\), \(n\ge.10\). |
 | General probe generated 12 candidates, accepted 0 | `docs/characterization_baseline.json`, `CHAR-011` | RECORDED EXECUTION | Specific evidence/query/configuration; not a model-capability benchmark. |
 | Max grounding `.157894...`, threshold `.9`, omega `.444`, all 12 query restatements | `CHAR-011` | RECORDED EXECUTION | Do not generalize beyond this probe. |
-| Cross-domain no-go verdict depends on `SIGN_BARRIER_MAP` | `nogo_missing_link_experiment.py` | DERIVED FROM CODE | This is a calibration/architecture finding, not a claim that all validation is tautological. |
+| A candidate’s verifier must be independent of an expected outcome. | Local prototype static review | METHODOLOGICAL REQUIREMENT | The prototype is uncommitted and is deliberately excluded from TOE-TEST-0060 evidence; this is not an experimental finding in the newsletter. |
 
 ## Non-claims
 
@@ -68,3 +70,4 @@ Before the newsletter is published as an Equation to Artifact entry, obtain:
 4. A metric contract that separates novelty, coverage, max-single overlap, and any executable/intervention verifier.
 5. A report containing both supported observations and non-claims.
 6. A held-out or independently anchored benchmark before any capability claim.
+7. A committed, replayable verifier-independence test before publishing any result that relies on downstream validation.

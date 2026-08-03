@@ -6,7 +6,7 @@
 
 **Scope:** An executable characterization of one repository snapshot. It asks what is missing when a textual Missing Link pipeline is used to operationalize the paper's abductive “jump.” It is not a general verdict on LLM abduction, a biomedical result, or a proof of the position paper.
 
-**Editorial companion:** [When We Tried to Operationalize the “Jump”](../../writing/newsletter_llms_cant_jump_draft.md) (unpublished newsletter draft).
+**Editorial companion:** [newsletter draft source](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/blob/main/writing/newsletter_llms_cant_jump_draft.md) (unpublished). The [publication handoff](https://github.com/flamehaven01/Flamehaven-Verification-Ledger/blob/main/writing/newsletter_llms_cant_jump_publication_pack.md) records the future canonical-URL and figure gate.
 
 ## The paper-to-code question
 
