@@ -3,26 +3,32 @@
   "experiment_id": "toe-test-0060",
   "artifact_class": "executable_acceptance_contract_audit",
   "run_type": "non_run_artifact",
-  "primary_purpose": "Freeze a bounded, executable before-image of the LOGOS Missing Link admission contract and distinguish that reproduction from a claim about general LLM abduction.",
+  "primary_purpose": "Connect Zahavy's abductive-jump question to an executable Missing Link before-image: the candidate generator, admission contract, and intervention verifier must be distinguishable before any capability claim can be evaluated.",
   "claim_boundary": "Configuration-contract reproduction only. No general LLM capability, biomedical discovery, paper-thesis, or world-model sufficiency claim is made.",
   "api_summary": {
-    "title": "Missing Link admission contract — executable dogfood audit",
+    "title": "Operationalizing the abductive jump — Missing Link dogfood audit",
     "verdict": "ABSTAIN",
     "verdict_label": "Abstain",
     "date": "2026-08-03",
-    "brief": "A characterization test reproduces a 0-acceptance before-image and a biomedical threshold collision; this is a repository-contract finding, not an LLM capability verdict.",
-    "summary": "TOE-TEST-0060 executes the upstream Missing Link characterization test, hashes its paper copy and code/config inputs, and freezes the observed contract. The run reproduces 12 generated candidates, 0 accepted candidates, and a biomedical profile whose shared overlap metric yields an empty feasible region. Its verdict is ABSTAIN because the source worktree is dirty and the probe cannot establish a general claim about abduction or scientific discovery.",
+    "brief": "A paper-to-code crosswalk for Zahavy's abductive-jump question: this fixture records no independent candidate jump, an incoherent admission contract, and no intervention verifier; it is not an LLM capability verdict.",
+    "summary": "TOE-TEST-0060 links Tom Zahavy's ICML 2026 position paper to an executable Missing Link characterization. The source snapshot produces 12 query restatements and accepts 0 candidates; its biomedical profile also assigns conflicting grounding and novelty constraints to the same overlap quantity. The result is ABSTAIN: the run exposes an incomplete proposal-to-verification contract, not a proof that LLMs cannot abduct or that world models are sufficient.",
     "findings": [
-      "CHAR-011 reproduced 12 generated candidates and 0 accepted candidates under the recorded shipped configuration.",
-      "CHAR-012 reproduced an empty biomedical feasible region: max_single >= 0.92 and max_single <= 0.90.",
-      "The recorded test passing means the defect before-image was reproduced; it is not a product PASS or a model-capability result.",
-      "A future repair needs an after-image that attributes grounding, omega, and novelty changes separately."
+      "The fixture has evidence input but does not observe an independently expressed abductive candidate: all 12 candidates are query restatements.",
+      "The admission layer is incoherent in the biomedical profile: max_single >= 0.92 and max_single <= 0.90.",
+      "No action-controllable world-model or intervention verifier is exercised by this run.",
+      "A future after-image must separately measure proposal novelty, evidence support, and an explicitly named intervention result."
     ],
     "metrics": {
       "characterization_tests_passed": 2,
       "candidates_generated": 12,
       "candidates_accepted": 0,
       "biomedical_feasible_region_empty": true
-    }
+    },
+    "external_anchors": [
+      {
+        "label": "Tom Zahavy, Position: LLMs can't jump (OpenReview)",
+        "url": "https://openreview.net/forum?id=klU4737opt"
+      }
+    ]
   }
 }

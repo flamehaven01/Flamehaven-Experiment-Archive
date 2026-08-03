@@ -97,6 +97,18 @@ async function openJsonInspector(runId, type = 'json') {
     console.warn(`No jsonPath mapping for ${runId}.`);
     jsonData = { _load_error: `No data path is mapped for ${runId}.` };
   }
+
+  // Optional, derived analysis remains separate from the frozen verification JSON.
+  // Keys beginning with "_" are hidden from the Raw JSON tab.
+  if (_eqaJsonCfg && _eqaJsonCfg.analysisPath && jsonData && !jsonData._load_error) {
+    try {
+      const analysisRes = await fetch(_eqaJsonCfg.analysisPath + '?t=' + new Date().getTime());
+      if (!analysisRes.ok) throw new Error('Failed to fetch derived analysis');
+      jsonData._analysis = await analysisRes.json();
+    } catch (err) {
+      console.warn(`Could not load derived analysis for ${runId}.`, err);
+    }
+  }
   
   // Archive (BAV/EQA): the fetched file is the manifest; narrow it to one run record.
   const archPrefix = runId.startsWith('bav-arch-') ? 'bav-arch-' : (runId.startsWith('eqa-arch-') ? 'eqa-arch-' : null);
@@ -687,15 +699,15 @@ function renderAnalysisTab(container, runId, data) {
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // Source claims provenance table (EQA-specific)
   const _eqaAnRend = EQA_RENDERERS[runId];
-  if (_eqaAnRend && _eqaAnRend.analysis) {
+  const hasCustomAnalysis = Boolean(_eqaAnRend && _eqaAnRend.analysis);
+  if (hasCustomAnalysis) {
     _eqaAnRend.analysis(container, data, esc);
-
   }
   // SVG charts from registry
   const specs = getChartsForRecord(runId, data);
   if (specs.length) {
     ChartEngine.renderAll(container, specs);
-  } else {
+  } else if (!hasCustomAnalysis) {
     const empty = document.createElement('div');
     empty.style.cssText = "color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace;font-size:12px;font-style:italic;";
     empty.textContent = 'No structured analysis data available for this record.';

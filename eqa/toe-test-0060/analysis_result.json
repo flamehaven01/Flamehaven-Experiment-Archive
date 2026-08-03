@@ -1,0 +1,111 @@
+{
+  "schema_id": "flamehaven.eqa.missing_link_jump_analysis.v1",
+  "experiment_id": "toe-test-0060",
+  "analysis_type": "derived_paper_to_code_crosswalk",
+  "parent_record": {
+    "path": "verification_result.json",
+    "sha256": "2824a7fb3d1725b59f3cdf24c001a2ae59c981a3b648afb335a0b65510a11de2",
+    "immutability_rule": "This analysis is derived from, and does not modify, the frozen before-image."
+  },
+  "paper_anchor": {
+    "title": "Position: LLMs can't jump",
+    "author": "Tom Zahavy",
+    "venue": "ICML 2026 Position Paper Track",
+    "url": "https://openreview.net/forum?id=klU4737opt",
+    "paper_tldr": "Scientific invention requires manipulative abduction and physical simulation.",
+    "ledger_reading": "The paper supplies the question. TOE-TEST-0060 supplies one bounded implementation test of the missing proposal-to-verification contract; it does not test the paper's structural-incapability conclusion."
+  },
+  "paper_to_code_map": [
+    {
+      "stage": "Evidence / experience",
+      "paper_role": "The observational or sensory situation from which a new explanatory rule might be proposed.",
+      "implementation_role": "Five biomedical evidence spans and a user query.",
+      "observed": "INPUT_PRESENT",
+      "boundary": "This fixture is textual evidence, not embodied or action-controllable simulation."
+    },
+    {
+      "stage": "Abductive proposal / jump",
+      "paper_role": "A candidate explanatory principle that reorganizes the problem.",
+      "implementation_role": "Missing Link candidate expansion from seeds and query-anchored templates.",
+      "observed": "NOT_OBSERVED_AS_INDEPENDENT_HYPOTHESIS",
+      "boundary": "All 12 recorded candidates were query restatements; this does not show that all LLMs cannot generate hypotheses."
+    },
+    {
+      "stage": "Admission / grounding",
+      "paper_role": "Not specified by the position paper as a quantitative contract.",
+      "implementation_role": "Novelty, grounding, plausibility, omega, and strict-evidence gates.",
+      "observed": "CONTRACT_INCOHERENT_IN_BIOMEDICAL_PROFILE",
+      "boundary": "The biomedical profile constrains one max-overlap quantity to be both at least 0.92 and at most 0.90."
+    },
+    {
+      "stage": "Intervention / verification",
+      "paper_role": "Manipulative simulation or action-controllable world-model evidence.",
+      "implementation_role": "No intervention or executable world-model verifier is invoked by this characterization fixture.",
+      "observed": "NOT_TESTED",
+      "boundary": "No conclusion about whether world models are necessary or sufficient follows from this run."
+    }
+  ],
+  "derived_observations": {
+    "candidate_generation": {
+      "generated": 12,
+      "accepted": 0,
+      "query_restatements": 12,
+      "interpretation": "The observed candidate surface did not contain an independently expressed mechanistic bridge."
+    },
+    "admission_gates": {
+      "max_grounding_overlap": 0.15789473684210525,
+      "grounding_minimum": 0.9,
+      "observed_omega": 0.444,
+      "omega_minimum": 0.8,
+      "grounding_status": "hallucinated",
+      "interpretation": "Three rejecting filters are observed, so moving only one threshold cannot establish a repaired abductive pipeline."
+    },
+    "metric_collision": {
+      "equation": "max_single >= 0.92 AND max_single <= 0.90",
+      "feasible_region": "empty",
+      "interpretation": "One overlap family is being used both to reward distance from evidence and to certify attachment to evidence."
+    }
+  },
+  "verification_rules": [
+    {
+      "id": "characterization_before_image_reproduced",
+      "status": "PASS",
+      "evidence": "pytest reports 2 passed; the frozen contract records 12 generated and 0 accepted candidates.",
+      "scope": "repository characterization only"
+    },
+    {
+      "id": "independent_abductive_candidate_observed",
+      "status": "NOT_OBSERVED",
+      "evidence": "12 of 12 recorded candidates are query restatements.",
+      "scope": "this fixture only; not a general LLM claim"
+    },
+    {
+      "id": "biomedical_admission_region_nonempty",
+      "status": "FAIL",
+      "evidence": "max_single >= 0.92 AND max_single <= 0.90.",
+      "scope": "recorded biomedical configuration"
+    },
+    {
+      "id": "action_controllable_world_model_verifier_exercised",
+      "status": "NOT_TESTED",
+      "evidence": "No intervention or simulator is invoked by the fixture.",
+      "scope": "outside TOE-TEST-0060"
+    },
+    {
+      "id": "general_llm_cannot_jump_claim",
+      "status": "ABSTAIN",
+      "evidence": "The record is a configuration-contract probe, not a capability benchmark.",
+      "scope": "explicit non-claim"
+    }
+  ],
+  "integrity_manifest": {
+    "algorithm": "SHA-256",
+    "files": {
+      "verification_result.json": "2824a7fb3d1725b59f3cdf24c001a2ae59c981a3b648afb335a0b65510a11de2",
+      "reproduction_receipt.json": "81f2d8547ae3fb2e9c7b5cf11635856c6af2b84cbc1e65505ee77393b198171a",
+      "run_dogfood.py": "9e05f0a2b627c1c534717ddd2280edd7f3bd2b57b9c202d37ee0629c70ae5fd1",
+      "paper_text_copy": "e29b95642f42746a992be36a12f9db25b1b37caf35bc3d021c726124633e2d02"
+    },
+    "scope_note": "The manifest anchors inputs and the immutable result. The derived analysis is intentionally separate to avoid rewriting the frozen raw record."
+  }
+}

@@ -1,16 +1,16 @@
 {
   "schema": "flamehaven_api_v1_runs_index",
-  "generated_at_utc": "2026-08-03T13:40:16.446514+00:00",
+  "generated_at_utc": "2026-08-03T14:08:11.984055+00:00",
   "count": 18,
   "runs": [
     {
       "id": "toe-test-0060",
       "lane": "EQA",
-      "title": "Missing Link admission contract \u2014 executable dogfood audit",
+      "title": "Operationalizing the abductive jump \u2014 Missing Link dogfood audit",
       "verdict": "ABSTAIN",
       "verdict_label": "Abstain",
       "date": "2026-08-03",
-      "brief": "A characterization test reproduces a 0-acceptance before-image and a biomedical threshold collision; this is a repository-contract finding, not an LLM capability verdict.",
+      "brief": "A paper-to-code crosswalk for Zahavy's abductive-jump question: this fixture records no independent candidate jump, an incoherent admission contract, and no intervention verifier; it is not an LLM capability verdict.",
       "detail_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/toe-test-0060.json"
     },
     {

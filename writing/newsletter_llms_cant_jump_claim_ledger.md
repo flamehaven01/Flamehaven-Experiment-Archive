@@ -10,6 +10,7 @@ Give editorial reviewers a compact provenance record for every quantitative stat
 
 | Field | Value |
 |---|---|
+| Public paper anchor | [Tom Zahavy, “Position: LLMs can't jump” (OpenReview)](https://openreview.net/forum?id=klU4737opt) |
 | Paper input | Local text copy; identity represented by SHA-256 below |
 | Paper SHA-256 | `e29b95642f42746a992be36a12f9db25b1b37caf35bc3d021c726124633e2d02` |
 | LOGOS HEAD at re-run | `e8c1357259a6b489eb36a71b3224dcd7317c65c8` |
@@ -40,6 +41,7 @@ The tests are *inverted characterization contracts*: a remediation that changes 
 
 | Newsletter statement | Evidence | Classification | Boundary |
 |---|---|---|---|
+| The paper frames scientific invention around manipulative abduction and physical simulation. | [OpenReview abstract and TL;DR](https://openreview.net/forum?id=klU4737opt) | EXTERNAL | The paper’s position, not a conclusion of TOE-TEST-0060. |
 | Peirce-style deduction / induction / abduction framing | Paper Sections 1–4 | EXTERNAL | The paper's framework, not independently validated by this ledger. |
 | Paper shifts from formal abduction to embodied/manipulative simulation | Paper Sections 1 and 4 | ANALYTIC INTERPRETATION | Editorial critique; reasonable readers may disagree. |
 | Missing Link defines novelty as `1 - overlap` | `missing_link/runner.py`, `_estimate_novelty` | DERIVED FROM CODE | Exact source hash above. |

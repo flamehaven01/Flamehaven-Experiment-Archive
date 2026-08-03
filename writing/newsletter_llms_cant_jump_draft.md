@@ -9,7 +9,7 @@
 
 **Estimated reading time:** 7 minutes
 
-Tom Zahavy's ICML 2026 position paper, *"Position: LLMs can't jump,"* makes a useful provocation: a system can be excellent at compressing observations and deriving consequences without being able to introduce the premise that reorganizes the problem.
+[Tom Zahavy's ICML 2026 position paper, *"Position: LLMs can't jump"*](https://openreview.net/forum?id=klU4737opt) makes a useful provocation: a system can be excellent at compressing observations and deriving consequences without being able to introduce the premise that reorganizes the problem.
 
 The paper uses Einstein's route to general relativity to call that introduction a *jump*: from experience to an axiom, then from the axiom to its consequences.
 
@@ -159,7 +159,7 @@ We cannot claim that this proves Zahavy's thesis about all LLMs. We cannot claim
 
 Those negatives are not rhetorical caution. They are how an executable artifact remains useful after the surrounding model changes.
 
-[TOE-TEST-0060](../eqa/toe-test-0060/analysis_report.md) now freezes the implementation revision, test command, measured values, input hashes, and non-claims. It is intentionally labeled **ABSTAIN**: the executable result is a repository-contract reproduction on a dirty source snapshot, not a released scientific result or a general claim about LLM ability.
+[TOE-TEST-0060](../eqa/toe-test-0060/analysis_report.md) now freezes the implementation revision, test command, measured values, input hashes, non-claims, and a separate paper-to-code crosswalk. It is intentionally labeled **ABSTAIN**: the executable result is a repository-contract reproduction on a dirty source snapshot, not a released scientific result or a general claim about LLM ability.
 
 > A model can propose a jump. A verifier must show what the jump touched, what it changed, and where it failed.
 

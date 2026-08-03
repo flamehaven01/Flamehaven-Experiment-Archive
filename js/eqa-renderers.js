@@ -728,41 +728,89 @@ function eqaInsights0058(data, esc) {
 }
 
 function eqaInsights0060(data, esc) {
-  const char011 = data.observations?.char_011 ?? {};
-  const char012 = data.observations?.char_012 ?? {};
+  const analysis = data._analysis ?? {};
+  const paper = analysis.paper_anchor ?? {};
+  const obs = analysis.derived_observations ?? {};
+  const proposal = obs.candidate_generation ?? {};
+  const collision = obs.metric_collision ?? {};
+  const intervention = (analysis.paper_to_code_map ?? []).find(item => item.stage === 'Intervention / verification') ?? {};
   const check = data.executed_check ?? {};
-  const generated = Number(char011.candidates_generated ?? 0);
-  const accepted = Number(char011.candidates_accepted ?? 0);
-  const grounding = Number(char011.max_grounding_overlap ?? 0);
-  const threshold = Number(char011.required_grounding_overlap_min ?? 0);
   return `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Characterization contract</div>
-        <div style="font-size:20px;font-weight:600;color:#10b981;margin-top:4px;">${check.characterization_assertions_passed ? 'REPRODUCED' : 'NOT RECORDED'}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(check.stdout_summary || 'no test summary')}</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Paper question</div>
+        <div style="font-size:20px;font-weight:600;color:#a78bfa;margin-top:4px;">JUMP → TEST</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(paper.title || 'derived crosswalk unavailable')}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Admission outcome</div>
-        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${accepted} / ${generated}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">accepted / generated candidates</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Proposal surface</div>
+        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${Number(proposal.query_restatements ?? 0)} / ${Number(proposal.generated ?? 0)}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">query restatements / candidates</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Grounding before-image</div>
-        <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${grounding.toFixed(4)} &lt; ${threshold.toFixed(2)}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">maximum overlap / required minimum</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Admission contract</div>
+        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${esc(String(collision.feasible_region || 'unknown').toUpperCase())}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(collision.equation || 'constraint unavailable')}</div>
       </div>
       <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
-        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Biomedical feasible region</div>
-        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${esc(String(char012.feasible_region || 'unknown').toUpperCase())}</div>
-        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(char012.implied_constraint || 'constraint unavailable')}</div>
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Intervention verifier</div>
+        <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${esc(intervention.observed || 'NOT TESTED')}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">not exercised by this fixture</div>
       </div>
     </div>
     <div style="margin-top:24px;background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.18);border-radius:var(--r-md);padding:16px;">
-      <div style="color:#eab308;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;">ABSTAIN is the result, not a missing label</div>
-      <p style="font-size:12.5px;color:var(--t3);margin:8px 0 0;line-height:1.6;">The executable test confirms a repository configuration defect before-image. It does not measure general LLM abductive ability, establish a biomedical hypothesis, or prove that a world model is necessary for discovery.</p>
+      <div style="color:#eab308;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;">ABSTAIN is a scoped scientific result</div>
+      <p style="font-size:12.5px;color:var(--t3);margin:8px 0 0;line-height:1.6;">${esc(check.stdout_summary || 'The characterization contract is reproduced.')}. This run does not answer whether LLMs can jump; it locates an earlier engineering failure: candidate proposal, evidence attachment, and intervention evidence are not separately adjudicated.</p>
     </div>
   `;
+}
+
+function eqaIntegrity0060(data, esc, insIntegrity, insChecks) {
+  const analysis = data._analysis ?? {};
+  const parent = analysis.parent_record ?? {};
+  const manifest = analysis.integrity_manifest ?? {};
+  const files = manifest.files ?? {};
+  const rules = analysis.verification_rules ?? [];
+  const hashRows = Object.entries(files).map(([name, sha]) => `
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+      <span style="color:var(--ts);">${esc(name)}</span><code style="color:var(--t4);font-size:10.5px;">${esc(sha)}</code>
+    </div>`).join('') || '<div style="color:var(--t4);font-style:italic;">No derived manifest loaded.</div>';
+  insIntegrity.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:12px;gap:8px;flex-wrap:wrap;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;">Derived Integrity Manifest</span>
+      <span style="color:#10b981;font-family:'JetBrains Mono',monospace;font-size:11px;">SHA-256 · raw before-image preserved</span>
+    </div>
+    <div style="font-size:11.5px;color:var(--t4);margin-bottom:12px;line-height:1.55;">Parent <code>${esc(parent.path || 'verification_result.json')}</code>: <code>${esc(parent.sha256 || 'unavailable')}</code></div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;">${hashRows}</div>
+    <p style="font-size:11.5px;color:var(--t4);line-height:1.55;margin:14px 0 0;">${esc(manifest.scope_note || '')}</p>`;
+  const colorFor = status => status === 'PASS' ? '#10b981' : status === 'FAIL' ? '#ef4444' : status === 'ABSTAIN' ? '#a78bfa' : '#eab308';
+  const ruleRows = rules.map(rule => `
+    <div style="padding:10px 12px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--r-xs);">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;"><code style="color:var(--ts);font-size:11px;">${esc(rule.id)}</code><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${colorFor(rule.status)};">${esc(rule.status)}</span></div>
+      <div style="font-size:12px;color:var(--t3);line-height:1.5;margin-top:5px;">${esc(rule.evidence)}</div>
+      <div style="font-size:11px;color:var(--t4);margin-top:4px;">Scope: ${esc(rule.scope)}</div>
+    </div>`).join('') || '<div style="color:var(--t4);font-style:italic;">No derived verification rules loaded.</div>';
+  insChecks.innerHTML = `<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ts);font-weight:600;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px;">Verified Rules and Explicit Non-Claims</div><div style="display:flex;flex-direction:column;gap:8px;">${ruleRows}</div>`;
+}
+
+function eqaAnalysis0060(container, data, esc) {
+  const analysis = data._analysis ?? {};
+  const paper = analysis.paper_anchor ?? {};
+  const map = analysis.paper_to_code_map ?? [];
+  const obs = analysis.derived_observations ?? {};
+  const rows = map.map(item => `<tr><td style="padding:10px;vertical-align:top;color:var(--ts);font-weight:600;">${esc(item.stage)}</td><td style="padding:10px;vertical-align:top;">${esc(item.implementation_role)}</td><td style="padding:10px;vertical-align:top;color:#eab308;font-family:'JetBrains Mono',monospace;font-size:11px;">${esc(item.observed)}</td><td style="padding:10px;vertical-align:top;color:var(--t4);">${esc(item.boundary)}</td></tr>`).join('');
+  container.innerHTML = `
+    <div style="border:1px solid rgba(167,139,250,.25);background:rgba(167,139,250,.05);border-radius:var(--r-md);padding:16px;margin-bottom:16px;">
+      <div style="font-family:'JetBrains Mono',monospace;color:#a78bfa;font-size:12px;font-weight:700;text-transform:uppercase;">Paper-to-code crosswalk</div>
+      <p style="font-size:13px;color:var(--t3);line-height:1.6;margin:8px 0 0;">${esc(paper.ledger_reading || '')} <a href="${esc(paper.url || '#')}" target="_blank" rel="noopener" style="color:#a78bfa;">OpenReview paper ↗</a></p>
+    </div>
+    <div style="overflow:auto;border:1px solid var(--border);border-radius:var(--r-md);">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;color:var(--t3);line-height:1.5;"><thead><tr style="background:rgba(255,255,255,.02);text-align:left;"><th style="padding:10px;color:var(--t4);">Stage</th><th style="padding:10px;color:var(--t4);">Executable role</th><th style="padding:10px;color:var(--t4);">Observed</th><th style="padding:10px;color:var(--t4);">Claim boundary</th></tr></thead><tbody>${rows}</tbody></table>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:16px;">
+      <div style="border:1px solid var(--border);border-radius:var(--r-md);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4);text-transform:uppercase;">Observed bottleneck</div><p style="font-size:12.5px;color:var(--t3);line-height:1.55;margin:8px 0 0;">${esc(obs.candidate_generation?.interpretation || '')} ${esc(obs.metric_collision?.interpretation || '')}</p></div>
+      <div style="border:1px solid var(--border);border-radius:var(--r-md);padding:14px;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4);text-transform:uppercase;">Not established</div><p style="font-size:12.5px;color:var(--t3);line-height:1.55;margin:8px 0 0;">No action-controllable verifier was invoked. This record cannot establish general LLM inability, biomedical discovery, or world-model necessity or sufficiency.</p></div>
+    </div>`;
 }
 
 function eqaInsights0059(data, esc) {
@@ -809,7 +857,7 @@ function eqaInsights0059(data, esc) {
 
 const EQA_RENDERERS = {
   'toe-test-0060': {
-    insights: eqaInsights0060, integrity: null, analysis: null, charts: null,
+    insights: eqaInsights0060, integrity: eqaIntegrity0060, analysis: eqaAnalysis0060, charts: null,
   },
   'toe-test-0059': {
     insights: eqaInsights0059, integrity: null, analysis: null, charts: eqaChartsCurvature,
