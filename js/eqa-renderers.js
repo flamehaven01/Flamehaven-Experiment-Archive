@@ -727,6 +727,44 @@ function eqaInsights0058(data, esc) {
   `;
 }
 
+function eqaInsights0060(data, esc) {
+  const char011 = data.observations?.char_011 ?? {};
+  const char012 = data.observations?.char_012 ?? {};
+  const check = data.executed_check ?? {};
+  const generated = Number(char011.candidates_generated ?? 0);
+  const accepted = Number(char011.candidates_accepted ?? 0);
+  const grounding = Number(char011.max_grounding_overlap ?? 0);
+  const threshold = Number(char011.required_grounding_overlap_min ?? 0);
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Characterization contract</div>
+        <div style="font-size:20px;font-weight:600;color:#10b981;margin-top:4px;">${check.characterization_assertions_passed ? 'REPRODUCED' : 'NOT RECORDED'}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(check.stdout_summary || 'no test summary')}</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Admission outcome</div>
+        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${accepted} / ${generated}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">accepted / generated candidates</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Grounding before-image</div>
+        <div style="font-size:20px;font-weight:600;color:#eab308;margin-top:4px;">${grounding.toFixed(4)} &lt; ${threshold.toFixed(2)}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">maximum overlap / required minimum</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.01);border:1px solid var(--border);padding:16px;border-radius:var(--r-md);">
+        <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--t4);text-transform:uppercase;">Biomedical feasible region</div>
+        <div style="font-size:20px;font-weight:600;color:#ef4444;margin-top:4px;">${esc(String(char012.feasible_region || 'unknown').toUpperCase())}</div>
+        <div style="font-size:12px;color:var(--t4);margin-top:2px;">${esc(char012.implied_constraint || 'constraint unavailable')}</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.18);border-radius:var(--r-md);padding:16px;">
+      <div style="color:#eab308;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;">ABSTAIN is the result, not a missing label</div>
+      <p style="font-size:12.5px;color:var(--t3);margin:8px 0 0;line-height:1.6;">The executable test confirms a repository configuration defect before-image. It does not measure general LLM abductive ability, establish a biomedical hypothesis, or prove that a world model is necessary for discovery.</p>
+    </div>
+  `;
+}
+
 function eqaInsights0059(data, esc) {
   const obs = data.observations || {}, sm = data.summary || {};
   const cptpDev = obs.cptp_completeness_max_deviation != null ? obs.cptp_completeness_max_deviation : 1.5700924586837752e-16;
@@ -770,6 +808,9 @@ function eqaInsights0059(data, esc) {
 }
 
 const EQA_RENDERERS = {
+  'toe-test-0060': {
+    insights: eqaInsights0060, integrity: null, analysis: null, charts: null,
+  },
   'toe-test-0059': {
     insights: eqaInsights0059, integrity: null, analysis: null, charts: eqaChartsCurvature,
   },

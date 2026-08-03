@@ -629,7 +629,7 @@ function renderInspectorData(runId, data, reportText = '') {
         });
       };
     }
-  } else if (reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059')) {
+  } else if (reportText && (runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059')) {
     const reportTitle = runId === 'toe-test-0054'
       ? '📄 Governance Gate Report (TOE-TEST-0054)'
       : runId === 'toe-test-0053'
@@ -638,6 +638,8 @@ function renderInspectorData(runId, data, reportText = '') {
       ? '📄 Historical Analysis + 2025/2026 Replay Comparison (TOE-TEST-0052)'
       : runId === 'toe-test-0055'
       ? '📄 AEFSO Research Dossier (TOE-TEST-0055)'
+      : runId === 'toe-test-0060'
+      ? '📄 Dogfood Report (TOE-TEST-0060)'
       : '📄 Verification Note (' + runId.toUpperCase() + ')';
     insRaw.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -662,7 +664,7 @@ function renderInspectorData(runId, data, reportText = '') {
   const copyBtn = document.getElementById(copyButtonId);
   if (copyBtn) {
     copyBtn.onclick = function() {
-      const isMarkdownReport = reportText && (runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057');
+      const isMarkdownReport = reportText && (runId === 'toe-test-0060' || runId === 'toe-test-0054' || runId === 'toe-test-0053' || runId === 'toe-test-0052' || runId === 'toe-test-0055' || runId === 'toe-test-0056' || runId === 'toe-test-0057' || runId === 'toe-test-0058' || runId === 'toe-test-0059');
       const prefersJson = (runId === 'toe-test-0054' || runId === 'toe-test-0052' || runId === 'toe-test-0053');
       const copyVal = (isMarkdownReport && !prefersJson) ? reportText : rawContent;
       navigator.clipboard.writeText(copyVal).then(() => {

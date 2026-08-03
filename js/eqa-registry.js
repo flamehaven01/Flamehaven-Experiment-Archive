@@ -4,6 +4,25 @@
 
 const EQA_REGISTRY = [
   {
+    id: 'toe-test-0060',
+    kind: 'non-run',
+    class: 'runtime-audit',
+    deepLinks: ['llms-cant-jump', 'missing-link-dogfood'],
+    inspectorTitle: 'EQA · TOE-TEST-0060 MISSING LINK ADMISSION CONTRACT',
+    jsonPath: './eqa/toe-test-0060/verification_result.json',
+    reportPaths: ['./eqa/toe-test-0060/analysis_report.md', './eqa/toe-test-0060/claim_ledger.md'],
+    rawTabLabel: '📄 Dogfood Report',
+    sidebar: { dot: '#eab308', label: 'eqa-test-0060', sub: 'missing-link' },
+    card: {
+      date: '2026-08-03',
+      title: 'Missing Link Admission Contract: Executable Dogfood Audit',
+      desc: 'A bounded characterization of the LOGOS Missing Link pipeline. It preserves a reproducible before-image in which strict admission rejects all candidates and the biomedical profile constrains one overlap quantity in incompatible directions. The record is a configuration-contract audit, not a general judgment about LLM abduction.',
+      result: 'Result: ABSTAIN. The source snapshot reproduces 12 generated candidates, 0 accepted candidates, and an empty biomedical acceptance region. A passing characterization test confirms the defect before-image, not a product PASS or a scientific-discovery claim.',
+      repoUrl: null,
+      paperUrl: null,
+    },
+  },
+  {
     id: 'toe-test-0059',
     kind: 'verification-run',
     class: 'verification-run',

@@ -1,8 +1,18 @@
 {
   "schema": "flamehaven_api_v1_runs_index",
-  "generated_at_utc": "2026-06-28T09:52:58.779666+00:00",
-  "count": 17,
+  "generated_at_utc": "2026-08-03T13:40:16.446514+00:00",
+  "count": 18,
   "runs": [
+    {
+      "id": "toe-test-0060",
+      "lane": "EQA",
+      "title": "Missing Link admission contract \u2014 executable dogfood audit",
+      "verdict": "ABSTAIN",
+      "verdict_label": "Abstain",
+      "date": "2026-08-03",
+      "brief": "A characterization test reproduces a 0-acceptance before-image and a biomedical threshold collision; this is a repository-contract finding, not an LLM capability verdict.",
+      "detail_url": "https://flamehaven01.github.io/Flamehaven-Verification-Ledger/api/v1/runs/toe-test-0060.json"
+    },
     {
       "id": "toe-test-0059",
       "lane": "EQA",

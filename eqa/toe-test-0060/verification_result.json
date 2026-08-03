@@ -1,0 +1,75 @@
+{
+  "artifact_class": "executable_acceptance_contract_audit",
+  "claim_boundary": {
+    "biomedical_discovery_claimed": false,
+    "configuration_contract_reproduced": true,
+    "general_llm_abduction_capability_claimed": false,
+    "paper_thesis_proven": false,
+    "world_model_necessity_or_sufficiency_claimed": false
+  },
+  "executed_check": {
+    "assertions_passed_count": 2,
+    "characterization_assertions_passed": true,
+    "command": "python -m pytest tests/characterization/test_char_missing_link_accept.py -q",
+    "exit_code": 0,
+    "stdout_summary": "2 passed"
+  },
+  "experiment_id": "toe-test-0060",
+  "interpretation": {
+    "remediation_measurement_rule": "A repair must update the characterization contract and publish an after-image that attributes movement separately for grounding, omega, and candidate novelty.",
+    "what_the_execution_shows": "The shipped characterization contract reproduces a 0-acceptance before-image and a biomedical threshold collision under this source snapshot.",
+    "why_verdict_is_abstain": "The source worktree is not a clean public release, and this contract probe does not evaluate general LLM abductive ability or scientific discovery quality."
+  },
+  "limitations": [
+    "The paper is represented by a content hash of a local text copy, not a public archival anchor.",
+    "This record reproduces a repository configuration and test contract; it is not an independent replication.",
+    "Passing the characterization test confirms the recorded defect before-image, not an accepted hypothesis or a model capability result."
+  ],
+  "observations": {
+    "char_011": {
+      "candidates_accepted": 0,
+      "candidates_generated": 12,
+      "candidates_that_are_query_restatements": 12,
+      "evidence_span_count": 5,
+      "grounding_statuses": [
+        "hallucinated"
+      ],
+      "independent_rejecting_filters": [
+        "grounding",
+        "omega",
+        "status"
+      ],
+      "max_grounding_overlap": 0.15789473684210525,
+      "observed_omega_values": [
+        0.444
+      ],
+      "required_grounding_overlap_min": 0.9,
+      "required_logos_min_omega": 0.8
+    },
+    "char_012": {
+      "feasible_region": "empty",
+      "grounding_overlap_min": 0.92,
+      "implied_constraint": "max_single >= 0.92 AND max_single <= 0.90",
+      "novelty_min": 0.1,
+      "novelty_overlap_mode": "max"
+    }
+  },
+  "run_type": "non_run_artifact",
+  "schema_id": "flamehaven.eqa.missing_link_dogfood.v1",
+  "source_hashes": {
+    "characterization_baseline_json_sha256": "d943a0baa5fa402e1e7b401b293e3a3240b6b7b353d20363690493bb683598bd",
+    "characterization_test_sha256": "6d66542287725e6ff427934f90d93e9fd73a4f498ea954d87b945d44a556b6e3",
+    "default_config_sha256": "d95ba437d3baa5cb83ba522a7c33397666df75ef85ba06483d4ac2299bd47073",
+    "dogfood_runner_sha256": "9e05f0a2b627c1c534717ddd2280edd7f3bd2b57b9c202d37ee0629c70ae5fd1",
+    "missing_link_runner_sha256": "68182a5e71ef99c51b6c5d30371bde0d1101995b987f3df89b2fca2ed6886089",
+    "paper_text_copy_sha256": "e29b95642f42746a992be36a12f9db25b1b37caf35bc3d021c726124633e2d02"
+  },
+  "source_snapshot": {
+    "logos_dirty_path_entries": 59,
+    "logos_git_head": "e8c1357259a6b489eb36a71b3224dcd7317c65c8",
+    "logos_worktree_clean": false,
+    "source_paths_are_labels_only": true
+  },
+  "verdict": "ABSTAIN",
+  "verdict_label": "Abstain \u2014 configuration defect reproduced"
+}

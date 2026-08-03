@@ -1,0 +1,11 @@
+{
+  "experiment_id": "toe-test-0060",
+  "replay_command": "python eqa/toe-test-0060/run_dogfood.py --logos-root <logos-checkout> --paper-source <paper-text-copy>",
+  "reproducibility_status": "source-identifiable but not bit-reproducible from a clean public release",
+  "result_path": "verification_result.json",
+  "result_sha256": "2824a7fb3d1725b59f3cdf24c001a2ae59c981a3b648afb335a0b65510a11de2",
+  "schema_id": "flamehaven.eqa.reproduction_receipt.v1",
+  "source_revision": "e8c1357259a6b489eb36a71b3224dcd7317c65c8",
+  "source_worktree_clean": false,
+  "upstream_test_command": "python -m pytest tests/characterization/test_char_missing_link_accept.py -q"
+}
