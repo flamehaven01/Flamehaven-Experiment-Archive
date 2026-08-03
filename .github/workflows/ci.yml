@@ -19,9 +19,7 @@ jobs:
         with:
           node-version: "20"
       - name: JS syntax check
-        run: |
-          node --check js/portal.js
-          node --check js/chart-engine.js
+        run: find js -maxdepth 1 -type f -name '*.js' -print -exec node --check {} \;
 
       - uses: actions/setup-python@v5
         with:
@@ -42,5 +40,14 @@ jobs:
       - name: HTML structural tag balance
         run: python scripts/check_html_balance.py
 
+      - name: Portal frame contract
+        run: python scripts/check_frame_contract.py
+
       - name: API drift check
         run: python scripts/build_api.py --check
+
+      - name: API contract tests
+        run: python tests/test_api.py
+
+      - name: EQA invariants
+        run: python scripts/check_eqa_invariants.py

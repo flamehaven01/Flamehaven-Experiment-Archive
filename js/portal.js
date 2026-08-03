@@ -206,10 +206,10 @@ function copyFooterLink() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderEqaCards();
-  renderBscCards();
-  renderBscSidebar();
-  renderExtraItems();
-  renderExtraSidebar();
+  if (typeof renderBscCards === 'function') renderBscCards();
+  if (typeof renderBscSidebar === 'function') renderBscSidebar();
+  if (typeof renderExtraItems === 'function') renderExtraItems();
+  if (typeof renderExtraSidebar === 'function') renderExtraSidebar();
   cards = Array.from(document.querySelectorAll('.report-card'));
   hydrateLedgerVersion();
   // Generate EQA sidebar entries from registry (replaces hardcoded HTML)
