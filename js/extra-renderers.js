@@ -1,6 +1,14 @@
 // extra-renderers.js — Methodology & Frameworks sidebar and content renderers.
 // Reads EXTRA_REGISTRY; called by portal.js on DOMContentLoaded.
 
+function _extraSingleQuoted(value) {
+  return "'" + String(value == null ? '' : value)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\r/g, '\\r')
+    .replace(/\n/g, '\\n') + "'";
+}
+
 function renderExtraItems() {
   if (typeof EXTRA_REGISTRY === 'undefined') return;
   _renderExtraCategory('extra-templates-list', EXTRA_REGISTRY.templates, true);
@@ -18,7 +26,7 @@ function _renderExtraCategory(containerId, items, hasIcon) {
   }
   el.classList.remove('extras-empty');
   el.innerHTML = items.map(function(item) {
-    var va = item.viewerArgs.map(function(a) { return JSON.stringify(a); }).join(',');
+    var va = item.viewerArgs.map(_extraSingleQuoted).join(',');
     var iconHtml = hasIcon
       ? '<div class="extra-icon"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5">'
         + '<rect x="1" y="1" width="11" height="11" rx="1.5"/>'

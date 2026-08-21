@@ -18,6 +18,22 @@ const EXTRA_REGISTRY = {
       ],
     },
   ],
-  frameworks:    [],
+  frameworks: [
+    {
+      id: 'flamehaven-knowledge-extractor-v6-8-2',
+      name: 'Flamehaven Knowledge Extractor v6.8.2',
+      nameTitle: 'Flamehaven Knowledge Extractor v6.8.2 — AI-native provenance and contract engine specification',
+      meta: 'Provenance framework \xb7 Contract scanning \xb7 Candidate baseline \xb7 Single-pass specification',
+      tier: 'v6.8.2',
+      viewerArgs: [
+        'flamehaven-knowledge-extractor-v6-8-2',
+        './extra/flamehaven_knowledge_extractor_v6.8.2.html',
+        './extra/Flamehaven Knowledge Extractor v6.8.2.md',
+        '', '',
+        'Flamehaven Knowledge Extractor v6.8.2',
+        'Methodology & Frameworks \xb7 Provenance and contract engine \xb7 Candidate baseline',
+      ],
+    },
+  ],
   practicalCode: [],
 };

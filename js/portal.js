@@ -318,6 +318,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── DEEP LINK ROUTING ────────────────────────────────────────────────────────
+function findExtraRegistryItem(hash) {
+  if (typeof EXTRA_REGISTRY === 'undefined') return null;
+  var categories = ['templates', 'frameworks', 'practicalCode'];
+  for (var ci = 0; ci < categories.length; ci++) {
+    var items = EXTRA_REGISTRY[categories[ci]] || [];
+    for (var ii = 0; ii < items.length; ii++) {
+      var item = items[ii];
+      if (item.id === hash || (item.deepLinks || []).indexOf(hash) !== -1) return item;
+    }
+  }
+  return null;
+}
+
 function handleHashNavigation(hash) {
   // BSC reports — driven by BSC_REGISTRY (id + deepLinks)
   if (typeof BSC_REGISTRY !== 'undefined') {
@@ -330,7 +343,13 @@ function handleHashNavigation(hash) {
     }
   }
 
-  // Extra / Methodology deep links
+  // Extra / Methodology & Frameworks deep links — registry-driven.
+  var extraItem = findExtraRegistryItem(hash);
+  if (extraItem) {
+    openReportViewer.apply(null, extraItem.viewerArgs);
+    return;
+  }
+  // Backward-compatible route for the pre-registry PR Action Plan artifact.
   if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     openReportViewer('pr-action-plan', './extra/pr_action_plan_v3.html', '', '', '', 'PR Action Plan v3', 'Agent Review Dashboard');
     return;
@@ -419,7 +438,7 @@ function closeReport(e) {
   // Determine which collection to return to based on the current hash/state before closing
   let targetColl = 'bsc'; // Default to bsc
   const hash = window.location.hash.substring(1);
-  if (hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
+  if (findExtraRegistryItem(hash) || hash === 'pr-action-plan' || hash === 'pr-action-plan-v3') {
     targetColl = 'extra';
   }
   
