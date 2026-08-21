@@ -220,11 +220,27 @@ def check_optional_bootstrap(errors: list[str]) -> None:
             )
 
 
+def check_multisection_sidebar_visibility(errors: list[str]) -> None:
+    portal = (ROOT / "js" / "portal.js").read_text(encoding="utf-8")
+    singular_selector = "children.querySelector('.sb-files')"
+    plural_selector = "children.querySelectorAll('.sb-files')"
+
+    if singular_selector in portal:
+        errors.append(
+            "portal.js: folder expansion must not open only the first .sb-files list"
+        )
+    if portal.count(plural_selector) < 2:
+        errors.append(
+            "portal.js: toggleFolder and openCollection must open every .sb-files list"
+        )
+
+
 def main() -> int:
     errors: list[str] = []
     check_pages(errors)
     extract_registry_contract(errors)
     check_optional_bootstrap(errors)
+    check_multisection_sidebar_visibility(errors)
 
     if errors:
         print(f"frame contract: FAIL ({len(errors)} issue(s))")

@@ -491,9 +491,10 @@ function toggleFolder(btn) {
 
   if (children) {
     children.classList.toggle('open', isOpen);
-    // Also toggle .sb-files directly inside (flat structure — no .sb-series wrapper)
-    const filesEl = children.querySelector('.sb-files');
-    if (filesEl) filesEl.classList.toggle('open', isOpen);
+    // Toggle every category list in multi-section folders such as Extra.
+    children.querySelectorAll('.sb-files').forEach(filesEl => {
+      filesEl.classList.toggle('open', isOpen);
+    });
   }
   
   document.querySelectorAll('.sb-folder-btn').forEach(b => b.classList.remove('active'));
@@ -520,8 +521,9 @@ window.openCollection = function(folderId) {
       const children = document.getElementById(`child-${folderId}`);
       if (children) {
         children.classList.add('open');
-        const filesEl = children.querySelector('.sb-files');
-        if (filesEl) filesEl.classList.add('open');
+        children.querySelectorAll('.sb-files').forEach(filesEl => {
+          filesEl.classList.add('open');
+        });
       }
     }
 
