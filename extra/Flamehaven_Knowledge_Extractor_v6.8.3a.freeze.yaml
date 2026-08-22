@@ -1,0 +1,8 @@
+freeze_manifest:
+  spec_name: Flamehaven-Knowledge-Extractor
+  spec_version: "6.8.3a"
+  specification_state: frozen
+  canonicalization: "fh-spec-bytes-v1"
+  hash_algorithm: sha256
+  canonical_spec_sha256: "d12bbd9d5359e7c1daeea0cef973cca2ef6158d6c52607cfe7b7c7f1b4295d19"
+  canonical_spec_file: "Flamehaven_Knowledge_Extractor_v6.8.3a.md"

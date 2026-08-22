@@ -813,7 +813,7 @@ const ARTICLE_LINKS = {
   'yorkeccak-bio':          'https://flamehaven.space/writing/your-bio-repo-could-get-you-fined-here-is-why-we-check-every-single-one/',
   'bioclaw':                'https://flamehaven.space/writing/stanford-princeton-a-biorxiv-paper-so-why-did-nobody-ask-where-the-data-goes/',
   'effective-html-template':'https://flamehaven.space/writing/the-meeting-nobody-could-follow--the-format-of-ai-output-is-a-design-decision-we-made-it-wrong-for-three-years/',
-  'flamehaven-knowledge-extractor-v6-8-2':'https://flamehaven.space/writing/before-a-paper-becomes-code/',
+  'flamehaven-knowledge-extractor-v6-8-3a':'https://flamehaven.space/writing/before-a-paper-becomes-code/',
 };
 
 // ── COPY URL ──────────────────────────────────────────────────────────────────
@@ -827,7 +827,7 @@ function copyURL(path) {
 }
 
 // ── OPEN REPORT VIEWER ────────────────────────────────────────────────────────
-function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportTitle, reportEyebrow) {
+function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportTitle, reportEyebrow, yamlPath, txtPath) {
   // Clear any existing active class from sidebar explorer
   document.querySelectorAll('.sb-file').forEach(f => f.classList.remove('sb-active'));
   
@@ -898,6 +898,25 @@ function openReportViewer(reportId, htmlPath, mdPath, jsonPath, pdfPath, reportT
     }
   }
 
+  const yamlBtn = document.getElementById('btn-dl-yaml');
+  if (yamlBtn) {
+    if (yamlPath) {
+      yamlBtn.style.display = '';
+      yamlBtn.href = yamlPath.startsWith('http') ? yamlPath : base + yamlPath.replace(/^\.\//, '');
+    } else {
+      yamlBtn.style.display = 'none';
+    }
+  }
+
+  const txtBtn = document.getElementById('btn-dl-txt');
+  if (txtBtn) {
+    if (txtPath) {
+      txtBtn.style.display = '';
+      txtBtn.href = txtPath.startsWith('http') ? txtPath : base + txtPath.replace(/^\.\//, '');
+    } else {
+      txtBtn.style.display = 'none';
+    }
+  }
   const jsonBtn = document.getElementById('btn-dl-json');
   if (jsonBtn) {
     if (jsonPath) {

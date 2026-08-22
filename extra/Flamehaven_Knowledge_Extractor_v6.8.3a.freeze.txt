@@ -1,0 +1,5 @@
+FREEZE_VALID
+canonical_spec_file=Flamehaven_Knowledge_Extractor_v6.8.3a.md
+actual_sha256=d12bbd9d5359e7c1daeea0cef973cca2ef6158d6c52607cfe7b7c7f1b4295d19
+manifest_sha256=d12bbd9d5359e7c1daeea0cef973cca2ef6158d6c52607cfe7b7c7f1b4295d19
+match=true

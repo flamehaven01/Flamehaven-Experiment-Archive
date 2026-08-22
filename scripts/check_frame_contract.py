@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -235,12 +236,86 @@ def check_multisection_sidebar_visibility(errors: list[str]) -> None:
         )
 
 
+def check_knowledge_extractor_freeze(errors: list[str]) -> None:
+    extra = ROOT / "extra"
+    spec = extra / "Flamehaven_Knowledge_Extractor_v6.8.3a.md"
+    manifest = extra / "Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.yaml"
+    receipt = extra / "Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.txt"
+    reader = extra / "flamehaven_knowledge_extractor_v6.8.3a.html"
+
+    for artifact in (spec, manifest, receipt, reader):
+        if not artifact.is_file():
+            errors.append(f"Knowledge Extractor artifact missing: {artifact.name}")
+    if not all(artifact.is_file() for artifact in (spec, manifest, receipt, reader)):
+        return
+
+    raw = spec.read_bytes()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        errors.append("Knowledge Extractor spec: UTF-8 BOM is forbidden")
+    try:
+        source = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        errors.append("Knowledge Extractor spec: not valid UTF-8")
+        return
+
+    normalized = source.replace("\r\n", "\n").replace("\r", "\n")
+    trailing = [
+        line_no
+        for line_no, line in enumerate(normalized.split("\n"), 1)
+        if line.endswith((" ", "\t"))
+    ]
+    if trailing:
+        errors.append(
+            "Knowledge Extractor spec: trailing whitespace at line(s) "
+            + ", ".join(map(str, trailing[:10]))
+        )
+    canonical = normalized.rstrip("\n") + "\n"
+    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+    manifest_text = manifest.read_text(encoding="utf-8")
+    receipt_text = receipt.read_text(encoding="utf-8")
+    digest_match = re.search(
+        r'canonical_spec_sha256:\s*"([0-9a-f]{64})"', manifest_text
+    )
+    if not digest_match or digest_match.group(1) != digest:
+        errors.append("Knowledge Extractor freeze manifest digest mismatch")
+    if 'canonicalization: "fh-spec-bytes-v1"' not in manifest_text:
+        errors.append("Knowledge Extractor freeze manifest canonicalization mismatch")
+    if f"actual_sha256={digest}" not in receipt_text:
+        errors.append("Knowledge Extractor freeze receipt actual digest mismatch")
+    if f"manifest_sha256={digest}" not in receipt_text:
+        errors.append("Knowledge Extractor freeze receipt manifest digest mismatch")
+    if "match=true" not in receipt_text or "FREEZE_VALID" not in receipt_text:
+        errors.append("Knowledge Extractor freeze receipt is not valid")
+
+    registry = (ROOT / "js" / "extra-registry.js").read_text(encoding="utf-8")
+    for required in (
+        "flamehaven-knowledge-extractor-v6-8-3a",
+        "deepLinks: ['flamehaven-knowledge-extractor-v6-8-2']",
+        "./extra/Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.yaml",
+        "./extra/Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.txt",
+    ):
+        if required not in registry:
+            errors.append(f"extra-registry.js: missing {required}")
+
+    index = (ROOT / "index.html").read_text(encoding="utf-8")
+    for button_id in ("btn-dl-yaml", "btn-dl-txt"):
+        if index.count(f'id="{button_id}"') != 1:
+            errors.append(f"index.html: {button_id} must occur exactly once")
+
+    portal = (ROOT / "js" / "portal.js").read_text(encoding="utf-8")
+    for token in ("yamlPath", "txtPath", "btn-dl-yaml", "btn-dl-txt", "flamehaven-knowledge-extractor-v6-8-3a"):
+        if token not in portal:
+            errors.append(f"portal.js: missing freeze download token {token}")
+
+
 def main() -> int:
     errors: list[str] = []
     check_pages(errors)
     extract_registry_contract(errors)
     check_optional_bootstrap(errors)
     check_multisection_sidebar_visibility(errors)
+    check_knowledge_extractor_freeze(errors)
 
     if errors:
         print(f"frame contract: FAIL ({len(errors)} issue(s))")
