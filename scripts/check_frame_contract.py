@@ -288,6 +288,23 @@ def check_knowledge_extractor_freeze(errors: list[str]) -> None:
     if "match=true" not in receipt_text or "FREEZE_VALID" not in receipt_text:
         errors.append("Knowledge Extractor freeze receipt is not valid")
 
+    reader_text = reader.read_text(encoding="utf-8")
+    for required in (
+        'role="tablist"',
+        'id="tab-specification"',
+        'id="tab-manifest"',
+        'id="tab-receipt"',
+        'id="panel-specification"',
+        'id="panel-manifest"',
+        'id="panel-receipt"',
+        "./Flamehaven_Knowledge_Extractor_v6.8.3a.md",
+        "./Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.yaml",
+        "./Flamehaven_Knowledge_Extractor_v6.8.3a.freeze.txt",
+        "It is not an experiment result, proof of runtime compliance, or independent external verification.",
+    ):
+        if required not in reader_text:
+            errors.append(f"Knowledge Extractor reader: missing {required}")
+
     registry = (ROOT / "js" / "extra-registry.js").read_text(encoding="utf-8")
     for required in (
         "flamehaven-knowledge-extractor-v6-8-3a",
